@@ -7,6 +7,7 @@ from content2 import POSTS as P2
 from content3 import POSTS as P3
 from content4 import POSTS as P4
 from content5 import POSTS as P5
+from content6 import POSTS as P6
 
 SITE = "https://hukukihaberler.com"
 NAME = "Hukuki Haberler"
@@ -15,7 +16,7 @@ OUT = os.path.join(os.path.dirname(__file__), "site")
 TARGET = "https://yagmurtahtasiz.com"   # bağlamsal link hedefi (makale başına en fazla 1-2)
 PER_PAGE = 10
 
-POSTS = P1 + P2 + P3 + P4 + P5
+POSTS = P1 + P2 + P3 + P4 + P5 + P6
 
 # ---------------------------------------------------------------- kategoriler (eski yapı)
 CATS = {
@@ -188,6 +189,22 @@ footer .bot{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-siz
 .rows .meta{display:flex;gap:10px;align-items:center;margin-bottom:4px}
 .hero-img{margin:0 0 20px}.hero-img figcaption{font:12px/1.4 var(--sans);color:var(--mute);margin-top:6px}.hero-img figcaption a{color:var(--mute)}.hero-img img{width:100%;height:auto;border-radius:4px;display:block}
 .related .card .pic{margin-bottom:4px}
+.kaynak{font:13px/1.6 var(--sans);color:var(--mute);border-top:1px solid var(--line);padding-top:10px;margin:0 0 18px}.kaynak b{color:var(--ink);margin-right:4px}.kaynak a{color:var(--acc)}
+.pmeta .tur{background:var(--acc);color:#fff;padding:0 6px;border-radius:2px;font-weight:700}
+.ozet{border:1px solid var(--line);border-top:3px solid var(--acc);padding:12px 18px 6px;margin:0 0 20px;font:15px/1.55 var(--sans)}.ozet b{display:block;text-transform:uppercase;font-size:13px;letter-spacing:.04em;color:var(--acc);margin-bottom:6px}.ozet ul{margin:0;padding-left:18px}.ozet li{margin-bottom:6px}
+.okuma{margin:18px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);padding:10px 0;font-family:var(--sans)}.okuma span{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--acc);margin-bottom:8px}.okuma a{display:flex;gap:12px;align-items:center;color:var(--ink);text-decoration:none}.okuma img{width:160px;height:84px;object-fit:cover;flex:none;border-radius:3px}.okuma b{font-size:17px;line-height:1.35}.okuma a:hover b{color:var(--acc)}
+@media(max-width:560px){.okuma img{width:110px;height:58px}.okuma b{font-size:15px}}
+.tablo{width:100%;border-collapse:collapse;margin:16px 0 22px;font:14px/1.45 var(--sans)}.tablo caption{text-align:left;font-weight:700;padding-bottom:6px}.tablo th,.tablo td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.tablo thead th{background:var(--acc);color:#fff}
+@media(max-width:560px){.tablo{font-size:12.5px}}
+.liste li{margin-bottom:8px}
+.ornek{background:#fff8e6;border-left:4px solid var(--gold);padding:12px 16px;margin:6px 0 20px;border-radius:0 4px 4px 0;font:15px/1.6 var(--sans)}
+@media(prefers-color-scheme:dark){.ornek{background:#2a2414}}
+.ornek b{display:block;font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:6px}.ornek p{margin:0 0 6px}
+.anket{border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:4px;padding:14px 18px;margin:8px 0 20px;font:15px/1.5 var(--sans)}
+.anket h2{font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px;color:var(--acc)}.anket .q{font:700 17px/1.4 var(--serif);margin:0 0 10px}
+.anket label{display:block;padding:6px 0;cursor:pointer}.anket button{margin-top:8px;background:var(--acc);color:#fff;border:0;padding:8px 18px;border-radius:3px;font:600 14px var(--sans);cursor:pointer}
+.anket .r{position:relative;padding:6px 8px;margin:4px 0;background:var(--soft);border-radius:3px;overflow:hidden;display:flex;justify-content:space-between}.anket .r i{position:absolute;left:0;top:0;bottom:0;background:rgba(155,28,28,.15)}.anket .r span,.anket .r b{position:relative}
+.anket small,.anket .an{display:block;color:var(--mute);font-size:12px;margin-top:6px}
 .arch{columns:3;column-gap:24px;font:15px/1.9 var(--sans)}@media(max-width:700px){.arch{columns:2}}
 .arch ul{list-style:none;margin:0 0 12px;padding:0;break-inside:avoid}.arch b{display:block;font-size:13px;text-transform:uppercase;color:var(--mute)}
 """
@@ -235,7 +252,7 @@ def sidebar():
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
           "logo": {"@type": "ImageObject", "url": SITE + "/favicon.svg"}, "foundingDate": "2010",
-          "sameAs": [], "publishingPrinciples": SITE + "/kunye/", "correctionsPolicy": SITE + "/kunye/"}
+          "sameAs": [], "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme"}
 
 def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None):
     nav = "".join(f'<li><a href="{u}"{" class=on" if u == url else ""}>{t}</a></li>' for u, t in MENU)
@@ -293,7 +310,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <div class="fcols">
 <div><span class="logo">Hukuki Haberler</span><p style="margin:0;max-width:420px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, Adalet Bakanlığı duyuruları, barolar ve hukuk fakültelerinden haberler.</p></div>
 <div><h4>Bölümler</h4><ul><li><a href="/haber-kategorisi/manset/">Manşet</a></li><li><a href="/haber-kategorisi/yargi/">Yargı</a></li><li><a href="/haber-kategorisi/yargi/yargitay/">Yargıtay</a></li><li><a href="/haber-kategorisi/yargi/anayasa-mahkemesi/">Anayasa Mahkemesi</a></li><li><a href="/haber-kategorisi/yargi/danistay/">Danıştay</a></li><li><a href="/haber-kategorisi/basindan/">Basından</a></li></ul></div>
-<div><h4>Site</h4><ul><li><a href="/hakkinda/">Hakkında</a></li><li><a href="/kunye/">Künye</a></li><li><a href="/iletisim/">İletişim</a></li><li><a href="/gizlilik-politikasi/">Gizlilik</a></li><li><a href="/arsiv/">Arşiv</a></li><li><a href="/sitemap.xml">Site haritası</a></li></ul></div>
+<div><h4>Site</h4><ul><li><a href="/hakkinda/">Hakkında</a></li><li><a href="/kunye/">Künye</a></li><li><a href="/yayin-ilkeleri/">Yayın İlkeleri</a></li><li><a href="/iletisim/">İletişim</a></li><li><a href="/gizlilik-politikasi/">Gizlilik</a></li><li><a href="/arsiv/">Arşiv</a></li><li><a href="/sitemap.xml">Site haritası</a></li></ul></div>
 </div>
 <div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz. Haber metinleri, yayımlandıkları tarihteki mevzuat ve gelişmelere dayanır.</div>
 </div></footer>
@@ -360,6 +377,136 @@ REDIRECTS = []
 # anasayfa + /page/N
 listing(NAME, "Hukuk, yargı, baro ve mevzuat haberleri. Yargıtay, Danıştay ve Anayasa Mahkemesi kararları, Adalet Bakanlığı duyuruları ve hukuk gündeminden seçmeler.", "/", POSTS)
 
+# ---------------------------------------------------------------- iç bağlantı, örnek kutusu, anket
+INTERNAL = [
+ ("Sermaye Piyasası Kurulu'nun", "fon-skandalinda-hangi-suclar-var-usulsuz-kazanc-saglayani-hangi-ceza-bekliyor"),
+ ("ceza soruşturmalarında", "fon-skandalinda-hangi-suclar-var-usulsuz-kazanc-saglayani-hangi-ceza-bekliyor"),  # (metindeki ifade, hedef slug) — yalnızca hedef haber kaynak haberden eski/aynı tarihliyse bağlanır
+ ("12. Yargı Paketi", "12-yargi-paketi-resmi-gazetede-belirsiz-alacak-davasi-kaldirildi"),
+ ("7589 sayılı Kanun", "12-yargi-paketi-resmi-gazetede-belirsiz-alacak-davasi-kaldirildi"),
+ ("belirsiz alacak davası", "12-yargi-paketi-resmi-gazetede-belirsiz-alacak-davasi-kaldirildi"),
+ ("13. Yargı Paketi", "13-yargi-paketi-ekimde-mecliste-suresiz-nafaka-ve-bosanma-davalari"),
+ ("\"süresiz olarak\" ibaresini iptal", "aym-suresiz-nafaka-kararinin-gerekcesi-resmi-gazetede-yayimlandi"),
+ ("süresiz nafaka", "aym-suresiz-nafaka-kararinin-gerekcesi-resmi-gazetede-yayimlandi"),
+ ("Türk Kızılay Kanun Teklifi", "turk-kizilay-kanun-teklifi-genel-kurulun-ilk-gundem-maddesi"),
+ ("yatırım fonlarındaki tasfiye", "fon-tasfiyesi-kanun-teklifi-mecliste-yatirimciya-1-milyon-lira"),
+ ("e-Devlet üzerinden kimlik doğrulaması", "sosyal-medyada-15-yas-siniri-yonetmeligi-resmi-gazetede"),
+ ("Mesafeli Sözleşmeler Yönetmeliği", "danistay-mesafeli-sozlesmeler-yonetmeligindeki-uc-hukmu-iptal-etti"),
+ ("aydınlatılmış onam", "yargitay-aydinlatilmis-onam-ispat-yuku-hekim-ve-hastanede"),
+ ("rücu davası", "yargitay-erken-dogan-bebekte-lazarus-fenomeni-hekime-kusur-yuklenemez"),
+ ("işe iade davası", "alti-ay-kidemi-dolmadan-isten-cikarilan-bankaci-aymden-gerekceli-karar-hakki-ihlali"),
+ ("pasaport tedbiri", "pasaportu-iptal-edilen-kamu-gorevlisi-doktora-yapamadi-aymden-ihlal-karari"),
+ ("ısrarlı takip", "yargitay-uyarilmasina-ragmen-bir-gunde-45-mesaj-atan-sanik-cezalandirildi"),
+ ("Gezi Parkı davası", "aymden-tayfun-kahramana-ikinci-ihlal-karari-yeniden-yargilama"),
+ ("Akkuyu", "nukleere-hukuk-dar-geliyor"),
+ ("175. maddesindeki", "aym-suresiz-nafaka-kararinin-gerekcesi-resmi-gazetede-yayimlandi"),
+ ("175. maddesinin", "aym-suresiz-nafaka-kararinin-gerekcesi-resmi-gazetede-yayimlandi"),
+ ("Kızılay Kanun Teklifi", "turk-kizilay-kanun-teklifi-genel-kurulun-ilk-gundem-maddesi"),
+ ("Meclis araştırması", "fon-tasfiyesi-kanun-teklifi-mecliste-yatirimciya-1-milyon-lira"),
+ ("hükmün açıklanmasının geri bırakılması", "12-yargi-paketi-resmi-gazetede-belirsiz-alacak-davasi-kaldirildi"),
+ ("Hükmün açıklanmasının geri bırakılması", "12-yargi-paketi-resmi-gazetede-belirsiz-alacak-davasi-kaldirildi"),
+ ("sosyal medya kullanıcılarının", "sosyal-medyada-15-yas-siniri-yonetmeligi-resmi-gazetede"),
+ ("cayma hakkı", "danistay-mesafeli-sozlesmeler-yonetmeligindeki-uc-hukmu-iptal-etti"),
+ ("Adli Tıp Kurumu", "yargitay-erken-dogan-bebekte-lazarus-fenomeni-hekime-kusur-yuklenemez"),
+ ("tıben öngörülemeyen", "yargitay-erken-dogan-bebekte-lazarus-fenomeni-hekime-kusur-yuklenemez"),
+ ("bireysel başvuru", "pasaportu-iptal-edilen-kamu-gorevlisi-doktora-yapamadi-aymden-ihlal-karari"),
+ ("Anayasa'nın 153. maddesi", "aymden-tayfun-kahramana-ikinci-ihlal-karari-yeniden-yargilama"),
+ ("haklı nedenle", "yargitay-calisma-sartlari-agirlastirilan-banka-calisanina-kidem-tazminati"),
+ ("Siyasi Partiler Kanunu", "aym-26-siyasi-partinin-hesaplarini-kabul-etmedi-suc-duyurusu"),
+ ("Van Valiliği", "aym-van-valiliginin-eylem-yasaklarinda-toplanti-hurriyeti-ihlali"),
+ ("toplantı ve gösteri", "aym-van-valiliginin-eylem-yasaklarinda-toplanti-hurriyeti-ihlali"),
+ ("ayıplı mal", "yargitay-boya-kusurlu-sifir-otomobil-ayipsiz-misliyle-degistirilecek"),
+ ("e-duruşma", "12-yargi-paketinin-kalan-hukumleri-31-ekimde-yururlukte-e-durusma-vesayet"),
+ ("adli tatil", "yargida-toplu-izin-yarin-basliyor"),
+ ("kayyum", "kayyum-nedir-saadet-partisini-simdi-kim-yonetecek"),
+ ("Booking", "dijital-konaklama-platformlarina-izin-zorunlulugu-kanun-teklifi"),
+ ("kapalı alanlarda tütün", "hastane-bahcesi-ve-okul-cevresinde-sigara-yasagi-geliyor"),
+]
+BY_SLUG = {p["slug"]: p for p in POSTS}
+def autolink(p, limit=3):
+    body, n, used = p["body"], 0, set()
+    for phrase, slug in INTERNAL:
+        if n >= limit: break
+        q = BY_SLUG.get(slug)
+        if not q or q is p or slug in used: continue
+        if q["date"] > p["date"] and p["date"].year < 2026: continue   # eski arşiv yeni haberlere bağlanmaz
+        if q["url"] in body: continue
+        # yalnızca <p> içindeki, mevcut bir <a> içinde olmayan ilk geçiş
+        for m in re.finditer(re.escape(phrase), body):
+            pre = body[:m.start()]
+            if pre.rfind("<a ") > pre.rfind("</a>"): continue
+            if pre.rfind("<h2") > pre.rfind("</h2>"): continue
+            body = body[:m.start()] + f'<a href="{q["url"]}">{m.group(0)}</a>' + body[m.end():]
+            n += 1; used.add(slug); break
+    return body
+
+def ozet_html(p):
+    o = p.get("ozet")
+    if not o: return ""
+    return '<aside class="ozet"><b>Öne çıkanlar</b><ul>' + "".join(f"<li>{e(x)}</li>" for x in o) + "</ul></aside>\n"
+
+def related_scored(p, n=2, skip=()):
+    if p["date"].year >= 2026: pool = [q for q in POSTS if q["date"].year >= 2026]
+    else: pool = [q for q in POSTS if q["date"] <= p["date"]]
+    tg, ct = set(p["tagslugs"]), set(p["catkeys"]) - {"manset"}
+    sc = []
+    for q in pool:
+        if q is p or q["slug"] in skip: continue
+        s_ = 3 * len(tg & set(q["tagslugs"])) + len(ct & set(q["catkeys"])) - abs((p["date"] - q["date"]).days) / 400
+        sc.append((s_, q["slug"], q))
+    sc.sort(key=lambda x: (-x[0], x[1]))
+    return [q for _, _, q in sc[:n]]
+
+def okumadan_html(q):
+    return (f'<aside class="okuma"><span>Okumadan geçme</span><a href="{q["url"]}">'
+            f'<img src="{q["img"]}" alt="" width="160" height="84" loading="lazy">'
+            f'<b>{e(q["title"])}</b></a></aside>\n')
+
+def with_okumadan(p, body):
+    """2. paragraftan sonra ve (varsa) son ara başlıktan önce 'Okumadan geçme' kutusu"""
+    linked = set(re.findall(r'href="/([^"#?]+)"', body))
+    rel = [q for q in related_scored(p, 4) if q["slug"] not in linked][:2]
+    if not rel: return body
+    ends = [m.end() for m in re.finditer(r"</p>", body)]
+    if len(ends) < 3: return body
+    out = body[:ends[1]] + "\n" + okumadan_html(rel[0]) + body[ends[1]:]
+    if len(rel) > 1:
+        h2s = [m.start() for m in re.finditer(r"<h2", out)]
+        if len(h2s) >= 3:
+            i = h2s[-1]
+            out = out[:i] + okumadan_html(rel[1]) + out[i:]
+    return out
+
+def kaynak_html(p):
+    k = p.get("kaynaklar")
+    if not k: return ""
+    items = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(t)}</a>' for t, u in k)
+    return f'<p class="kaynak"><b>Kaynak:</b> {items}</p>'
+
+def ornek_html(p):
+    o = p.get("ornek")
+    if not o: return ""
+    items = "".join(f"<p>{x}</p>" for x in o)
+    return f'<aside class="ornek" aria-label="Örnek"><b>Örnekle açıklayalım</b>{items}</aside>'
+
+def anket_html(p):
+    a = p.get("anket")
+    if not a: return ""
+    opts = "".join(f'<label><input type="radio" name="o" value="{i}"> <span>{e(t)}</span></label>' for i, t in enumerate(a["secenekler"]))
+    return f"""<section class="anket" data-id="{p['slug']}" data-n="{len(a['secenekler'])}"><h2>Okur anketi</h2><p class="q">{e(a['soru'])}</p>
+<form>{opts}<button type="submit">Oy ver</button></form><div class="sonuc" hidden></div><p class="an">Anket bilimsel değildir; okur eğilimini gösterir. Kişisel veri toplanmaz.</p></section>"""
+
+ANKET_JS = """<script>
+document.querySelectorAll('.anket').forEach(function(box){
+ var id=box.dataset.id,n=+box.dataset.n,form=box.querySelector('form'),res=box.querySelector('.sonuc');
+ var labels=[].map.call(box.querySelectorAll('label span'),function(s){return s.textContent});
+ function show(c){var t=c.reduce(function(a,b){return a+b},0)||1;res.innerHTML=labels.map(function(l,i){var pc=Math.round(c[i]*100/t);return '<div class=r><span>'+l+'</span><b>%'+pc+'</b><i style="width:'+pc+'%"></i></div>'}).join('')+'<small>'+(t===1&&!c.some(Boolean)?0:t)+' oy</small>';res.hidden=false;form.hidden=true}
+ var voted=null;try{voted=localStorage.getItem('anket:'+id)}catch(e){}
+ if(voted){fetch('/api/anket?id='+id).then(function(r){return r.json()}).then(function(j){show(j.c||new Array(n).fill(0))}).catch(function(){})}
+ form.addEventListener('submit',function(ev){ev.preventDefault();var v=form.querySelector('input:checked');if(!v)return;
+  fetch('/api/anket',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:id,o:+v.value,n:n})}).then(function(r){return r.json()}).then(function(j){try{localStorage.setItem('anket:'+id,'1')}catch(e){}show(j.c)}).catch(function(){res.textContent='Oy kaydedilemedi, lütfen daha sonra deneyin.';res.hidden=false})});
+});
+</script>"""
+
 # yazılar
 def related(p):
     cands = [q for q in POSTS if q is not p and (set(q["catkeys"]) & set(p["catkeys"]) or set(q["tagslugs"]) & set(p["tagslugs"]))]
@@ -377,12 +524,13 @@ for idx, p in enumerate(POSTS):
          (f'<a class="r" href="{newer["url"]}"><small>Sonraki haber</small>{e(newer["title"])}</a>' if newer else "<span></span>") + "</nav>"
     full = SITE + p["url"]
     share = f'<div class="share"><a href="https://twitter.com/intent/tweet?url={urllib.parse.quote(full)}&text={urllib.parse.quote(p["title"])}" rel="noopener nofollow" target="_blank">X\'te paylaş</a><a href="https://www.facebook.com/sharer/sharer.php?u={urllib.parse.quote(full)}" rel="noopener nofollow" target="_blank">Facebook</a><a href="https://wa.me/?text={urllib.parse.quote(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">WhatsApp</a><a href="mailto:?subject={urllib.parse.quote(p["title"])}&body={urllib.parse.quote(full)}">E-posta</a></div>'
-    ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": p["title"], "description": p["desc"],
-          "datePublished": p["date"].isoformat(), "dateModified": p["date"].isoformat(),
+    tur = p.get("tur", "Haber")
+    ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
+          "datePublished": p["date"].isoformat(), "dateModified": p.get("updated") or p["date"].isoformat(),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
           "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 800, "height": 420},
-          "author": {"@type": "Organization", "name": NAME, "url": SITE + "/kunye/"},
+          "author": {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"},
           "publisher": {"@type": "Organization", "name": NAME, "url": SITE, "logo": {"@type": "ImageObject", "url": SITE + "/favicon.svg"}}}
     k0 = topcat(p)
     crumbs = [("/", "Anasayfa")] + ([(f"/haber-kategorisi/{CATS[k0][1]}/", CATS[CATS[k0][1]][0])] if CATS[k0][1] else []) + [(f"/haber-kategorisi/{k0}/", CATS[k0][0]), (p["url"], p["title"])]
@@ -390,13 +538,14 @@ for idx, p in enumerate(POSTS):
     main = f"""<article class="post"><div class="crumb">{crumb}</div>
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
-<div class="pmeta"><span><time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></span><span>{cats_html}</span><span>{rtime(p)} dk okuma</span><span>Hukuki Haberler</span></div>
+<div class="pmeta"><span><time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></span><span>{cats_html}</span><span>{rtime(p)} dk okuma</span><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span>{('<span>Güncellendi: ' + e(p["updated"]) + '</span>') if p.get("updated") else ""}</div>
 <figure class="hero-img"><img src="{p['img']}" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high">{credit_html(p)}</figure>
-<div class="body">{p['body']}</div>
+{ozet_html(p)}<div class="body">{with_okumadan(p, autolink(p))}</div>
+{ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
 {share}
-<div class="note">Bu haber {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir.</div>
-{pn}{rel_html}</article>"""
+<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
+{pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=ld, ogtype="article", crumbs=crumbs, img=p["img"]))
 
 # kategoriler
@@ -471,7 +620,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
 <h2>Yazı işleri</h2>
-<p>Site, hukuk fakültesi mezunu gönüllü bir yazı işleri ekibi tarafından hazırlanır. Yazılarda imza yerine "Hukuki Haberler" künyesi kullanılır; bir haberin hazırlanmasına katkı veren kişiler haberin sonunda belirtilebilir. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
+<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri için <a href="/iletisim/">iletişim sayfasındaki</a> yol izlenir.</p>
 <h2>Telif</h2>
@@ -480,6 +629,24 @@ write("/kunye/", page("Künye", "Hukuki Haberler künye: yayın ilkeleri, yazı 
       f'<article class="post"><h1>Künye</h1><div class="body">{KUNYE}</div></article>'))
 write("/gizlilik-politikasi/", page("Gizlilik Politikası", "Hukuki Haberler gizlilik politikası: çerez kullanılmaz, kişisel veri toplanmaz.", "/gizlilik-politikasi/",
       f'<article class="post"><h1>Gizlilik Politikası</h1><div class="body">{GIZ}</div></article>', noindex=True))
+
+YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini hukukçu olmayan okurun da anlayabileceği açıklıkta, kaynağı gösterilmiş ve tarihli biçimde aktarmaktır.</p>
+<h2>Kapsam ve hedef kitle</h2>
+<p>Yüksek mahkeme kararları, mevzuat değişiklikleri, Resmî Gazete, TBMM'deki kanun teklifleri, adli süreçler ve gündemdeki olayların hukuki boyutu. Hedef kitlemiz hukukçular kadar, haklarını öğrenmek isteyen her okurdur.</p>
+<h2>İçerik türleri</h2>
+<p>Her yazının başında türü belirtilir. <b>Haber:</b> bir karar, düzenleme veya gelişmenin doğrulanmış bilgilerle aktarılması. <b>Analiz:</b> gündemdeki bir olayın mevzuat ve içtihat üzerinden açıklanması; analizlerde editoryal değerlendirme yer alır ve bu kısımlar olgulardan ayrı yazılır. Sitede sponsorlu içerik ve görüş yazısı yayımlanmamaktadır; yayımlanırsa açıkça etiketlenir.</p>
+<h2>Kaynak ve doğrulama</h2>
+<p>Mümkün olan her durumda birincil kaynağa dayanırız: mevzuat metni, Resmî Gazete, mahkeme kararı, kamu kurumu açıklaması. İkincil kaynak (basın kuruluşu, ajans) kullanıldığında haberin altında bağlantısıyla belirtilir. İddia iddia olarak; soruşturma, kovuşturma, mahkûmiyet ve kesinleşme kavramları birbirinden ayrılarak yazılır. Soruşturma aşamasındaki kişiler için masumiyet karinesi esastır. Çocukların ve hassas durumdaki kişilerin kimlikleri yayımlanmaz.</p>
+<h2 id="duzeltme">Düzeltme, güncelleme ve tekzip</h2>
+<p>Hatalı olduğu tespit edilen bilgi kaynağıyla doğrulandığında düzeltilir; ilk yayın tarihi korunur, güncelleme tarihi ve neyin değiştiği yazının içinde belirtilir. Tekzip talepleri 5187 sayılı Basın Kanunu çerçevesinde değerlendirilir. Bildirimler için <a href="/iletisim/">iletişim</a> sayfası kullanılabilir.</p>
+<h2>Yapay zekâ kullanımı</h2>
+<p>Araştırma, kaynak tarama ve taslak hazırlığında yapay zekâ araçlarından yararlanılabilir. Bu araçlarla hazırlanan her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
+<h2>Reklam, sponsorluk ve bağımsızlık</h2>
+<p>Sitede şu an reklam ve sponsorlu içerik bulunmamaktadır. İleride reklam alınması hâlinde reklam alanları haber metninden görsel olarak ayrılacak ve "Reklam" ibaresi taşıyacaktır. Hiçbir kurum veya kişi, ödeme karşılığında bir haberin içeriğini belirleyemez. Yazılarda hukuki bilgiye kaynak olarak bağlantı verilen dış sitelerle ilişkiler bu sayfada açıklanır.</p>
+<h2>Görseller</h2>
+<p>Görseller lisansı uygun kaynaklardan (ör. Wikimedia Commons) alınır; fotoğrafçı, kaynak ve lisans görselin altında bağlantısıyla belirtilir. Yapay zekâ ile üretilmiş fotoğraf kullanılmaz.</p>"""
+write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkeleri: kaynak ve doğrulama, düzeltme politikası, yapay zekâ kullanımı, reklam ve bağımsızlık.", "/yayin-ilkeleri/",
+      f'<article class="post"><h1>Yayın İlkeleri</h1><div class="body">{YAYIN}</div></article>'))
 
 # 404
 write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı.", "/404.html",
@@ -496,13 +663,19 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "yearly", "0.3") for s in tag_posts] + \
-       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/iletisim/", "yearly", "0.2")]
+       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/iletisim/", "yearly", "0.2")]
 lm = {p["url"]: p["date"].isoformat() for p in POSTS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls) + "</urlset>\n"
 with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f: f.write(sm)
+# Google News sitemap: yalnızca son 2 günde yayımlananlar
+_lim = datetime.date.today() - datetime.timedelta(days=2)
+nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">\n' + "".join(
+    f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news></url>\n"
+    for p in POSTS if p["date"] >= _lim) + "</urlset>\n"
+with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
-    f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\n")
+    f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/news-sitemap.xml\n")
 with open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8") as f:
     f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="#8a2b2b"/><text x="32" y="44" font-family="Georgia,serif" font-size="36" font-weight="700" text-anchor="middle" fill="#fff">H</text></svg>')
 
@@ -510,7 +683,7 @@ with open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8") as f:
 REDIRECTS += [("/search/*", "/"), ("/wp-login.php", "/"), ("/wp-admin/*", "/"), ("/xmlrpc.php", "/"),
               ("/cep-telefonu-faturasina-ust-limit-geliyor.html/cep-telefonu", "/cep-telefonu-faturasina-ust-limit-geliyor"),
               ("/turkcell-superlig-bugun-basliyor.html", "/super-toto-ligi-bugun-basliyor"),
-              ("/ese-eve-don-cagrisi-15-tl.html", "/ese-‘eve-don’-cagrisi-15-tl"), ("/osd.xml", "/"), ("/news-sitemap.xml", "/sitemap.xml"),
+              ("/ese-eve-don-cagrisi-15-tl.html", "/ese-‘eve-don’-cagrisi-15-tl"), ("/osd.xml", "/"),
               ("/haber-hukuk/:tag", "/haber-etiketi/:tag/")]   # dikkat: /haber-etiketi/* gibi joker kurallar gerçek sayfaları da yönlendirir
 # arşivde olup artık karşılığı olmayan etiket adresleri → anasayfa (statik, :tag kuralından önce gelsin)
 try:
@@ -530,6 +703,8 @@ for a, b in REDIRECTS:
     if a in seen or a == b.rstrip("/"): continue
     seen.add(a); lines.append(f"{enc(a)} {enc(b)} 301")
 with open(os.path.join(OUT, "_redirects"), "w", encoding="utf-8") as f: f.write("\n".join(lines) + "\n")
+with open(os.path.join(OUT, "_routes.json"), "w", encoding="utf-8") as f:
+    f.write('{"version":1,"include":["/api/*"],"exclude":[]}')
 with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
     f.write("/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: SAMEORIGIN\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n")
 

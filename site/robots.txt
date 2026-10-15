@@ -3,3 +3,4 @@ Allow: /
 Disallow: /search/
 Disallow: /wp-admin/
 Sitemap: https://hukukihaberler.com/sitemap.xml
+Sitemap: https://hukukihaberler.com/news-sitemap.xml

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Güncel haberler (2026-)
 POSTS = [
-{"slug": "pasaportu-iptal-edilen-kamu-gorevlisi-doktora-yapamadi-aymden-ihlal-karari", "date": "2026-10-14",
+{"slug": "pasaportu-iptal-edilen-kamu-gorevlisi-doktora-yapamadi-aymden-ihlal-karari", "kaynaklar": [["Cumhuriyet", "https://www.cumhuriyet.com.tr/turkiye/pasaportu-iptal-edildi-doktora-yapamadi-aym-den-hak-ihlali-karari-2546221"]], "date": "2026-10-14",
  "title": "Pasaportu İptal Edilen Kamu Görevlisi Doktora Yapamadı: AYM'den İhlal Kararı",
  "cats": ["Anayasa Mahkemesi", "Manşet"], "tags": ["Anayasa Mahkemesi", "pasaport iptali", "eğitim hakkı", "özel hayata saygı", "bireysel başvuru", "kamu görevlisi"],
  "body": """<p class="lead">Anayasa Mahkemesi Genel Kurulu, hakkındaki disiplin ve ceza soruşturmaları gerekçe gösterilerek pasaportu iptal edilen ve bu yüzden yurt dışında kazandığı doktora programına başlayamayan kamu görevlisinin başvurusunda, hem özel hayata saygı hakkının hem de eğitim hakkının ihlal edildiğine karar verdi.</p>
@@ -14,7 +14,7 @@ POSTS = [
 <h2>Uygulamaya etkisi</h2>
 <p>Kamu görevlileri hakkında yürütülen soruşturmalarda pasaport tedbiri, özellikle 2016 sonrasında yaygın biçimde uygulandı. Hukukçular, kararın yurt dışında eğitim, tedavi veya iş amacıyla seyahat etmesi engellenen kişilerin derdest davalarında doğrudan dayanak oluşturacağını; idarenin pasaport iptali kararlarında ölçülülük denetimini daha sıkı yapmak zorunda kalacağını belirtiyor. Gerekçeli kararın Resmî Gazete'de yayımlanmasıyla birlikte benzer başvurular için emsal niteliği netleşecek.</p>"""},
 
-{"slug": "alti-ay-kidemi-dolmadan-isten-cikarilan-bankaci-aymden-gerekceli-karar-hakki-ihlali", "date": "2026-10-15",
+{"slug": "alti-ay-kidemi-dolmadan-isten-cikarilan-bankaci-aymden-gerekceli-karar-hakki-ihlali", "kaynaklar": [["Karar", "https://www.karar.com/guncel-haberler/6-ay-kidem-dolmadan-ise-iade-davasi-acilir-mi-performans-dusuklugu-2078223"]], "date": "2026-10-15",
  "title": "Altı Ay Kıdemi Dolmadan İşten Çıkarılan Bankacı: AYM'den Gerekçeli Karar Hakkı İhlali",
  "cats": ["Anayasa Mahkemesi", "Manşet"], "tags": ["işe iade davası", "iş güvencesi", "altı ay kıdem", "performans düşüklüğü", "gerekçeli karar hakkı", "Anayasa Mahkemesi", "Bölge Adliye Mahkemesi"],
  "body": """<p class="lead">Bir bankada yatırım uzmanı olarak çalışırken "performans yetersizliği" gerekçesiyle işten çıkarılan çalışanın işe iade davasında Anayasa Mahkemesi, altı aylık kıdem hesabını yeterli gerekçe göstermeden tersine çeviren Bölge Adliye Mahkemesi kararının adil yargılanma hakkını ihlal ettiğine hükmetti.</p>
