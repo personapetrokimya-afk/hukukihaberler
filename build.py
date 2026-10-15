@@ -104,191 +104,8 @@ for p in POSTS:
     assert p["words"] >= 180, f"{p['slug']}: {p['words']} kelime, kısa"
 
 # ---------------------------------------------------------------- şablon (haber teması)
-CSS = """
-:root{--ink:#14181d;--mute:#5f6973;--line:#e3e6ea;--bg:#fff;--soft:#f4f5f7;--acc:#9b1c1c;--acc2:#c62828;--gold:#b8860b;--sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--serif:Georgia,"Times New Roman",serif}
-@media(prefers-color-scheme:dark){:root{--ink:#e8eaed;--mute:#9aa3ad;--line:#2a3036;--bg:#121518;--soft:#1b1f24;--acc:#e57373;--acc2:#ef9a9a}}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
-a{color:var(--ink);text-decoration:none}a:hover{color:var(--acc)}
-.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;color:#000;padding:6px 10px;z-index:99}
-.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
-.topbar{font:12px/1.4 var(--sans);color:var(--mute);border-bottom:1px solid var(--line);padding:6px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.topbar a{color:var(--mute)}.topbar .links a{margin-left:14px}
-.mast{padding:20px 0 14px;text-align:center}
-.mast .logo{font:800 44px/1 var(--serif);letter-spacing:-1px;color:var(--ink)}
-.mast .logo span{color:var(--acc)}.mast .logo{display:inline-flex;align-items:center;gap:12px}.lmark{flex:none;border-radius:10px}
-@media(max-width:760px){.lmark{width:34px;height:34px}.mast .logo{gap:9px}}
-.mast small{display:block;margin-top:6px;color:var(--mute);font-size:13px;text-transform:uppercase;letter-spacing:.18em}
-nav.main{background:#9b1c1c;border-top:3px solid #14181d}
-nav.main ul{list-style:none;margin:0 auto;padding:0;max-width:1180px;display:flex;overflow-x:auto;scrollbar-width:none}
-nav.main ul::-webkit-scrollbar{display:none}
-nav.main a{display:block;padding:11px 13px;color:#fff;font:600 13px/1.2 var(--sans);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.14)}
-nav.main a{display:flex!important;align-items:center;gap:6px}
-@media(min-width:1181px){nav.main li.dh{display:none}nav.main a{padding:11px 12px!important;font-size:12.5px!important}}nav.main .mi{flex:none;opacity:.9}
-@media(max-width:1180px){nav.main .mi{width:18px;height:18px}nav.main a{gap:12px}}
-nav.main a:hover,nav.main a.on{background:rgba(0,0,0,.22);color:#fff}
-.mbtn{display:none}
-@media(max-width:1180px){
- .topbar{display:none}
- header{position:sticky;top:0;z-index:50;background:var(--bg);box-shadow:0 1px 0 var(--line)}
- .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 0;text-align:left}
- .mast .logo{font-size:26px!important;letter-spacing:-.5px}
- .mast small{display:none}
- .mbtn{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:0 10px;cursor:pointer}
- .mbtn span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
- .mbtn.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}.mbtn.x span:nth-child(2){opacity:0}.mbtn.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
- nav.main{display:none;border-top:0}
- nav.main.open{display:block;max-height:70vh;overflow:auto}
- nav.main ul{flex-direction:column;overflow:visible}
- nav.main a{border-right:0;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 18px;font-size:14px}
-}
-.kicker{display:inline-block;white-space:nowrap;font:700 11px/1 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:#fff;background:var(--acc);padding:4px 7px;border-radius:2px}
-.kicker.k-yargi{background:#1e3a8a}.kicker.k-siyaset{background:#374151}.kicker.k-basindan{background:#6b4f1d}.kicker.k-diger{background:#0f766e}.kicker.k-universiteler{background:#5b21b6}.kicker.k-teknoloji{background:#0e7490}.kicker.k-barolar{background:#7c2d12}.kicker.k-hukuk-burolarindan{background:#4a044e}
-time,.date{font:12px/1.4 var(--sans);color:var(--mute)}
-.cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;padding:26px 0}
-@media(max-width:900px){.cols{grid-template-columns:1fr;gap:28px}}
-.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:800 18px/1.2 var(--serif);text-transform:uppercase;letter-spacing:.02em}
-.sec-h:after{content:"";flex:1;height:3px;background:linear-gradient(90deg,var(--acc) 0 60px,var(--line) 60px)}
-.sec-h a{color:var(--ink)}
-.top{display:grid;grid-template-columns:1fr;gap:26px;margin-bottom:30px}
-@media(max-width:900px){.top{grid-template-columns:1fr}}
-.slider{position:relative;border-radius:6px;overflow:hidden;background:#000;align-self:start}
-.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
-.slides::-webkit-scrollbar{display:none}
-.slide{position:relative;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:16/9;display:block;color:#fff}
-.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.9))}
-.slide .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px 34px;z-index:1}
-.slide h2{font:800 30px/1.15 var(--serif);margin:10px 0 0;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
-.slide:hover h2{text-decoration:underline;text-decoration-thickness:2px}
-.dots{position:absolute;left:24px;bottom:12px;display:flex;gap:6px;z-index:2}
-.dots{gap:2px!important;bottom:4px!important}.dots button{width:26px;height:24px;border:0;background:none;padding:0;cursor:pointer;position:relative}.dots button:before{content:"";position:absolute;left:2px;right:2px;top:10px;height:4px;border-radius:2px;background:rgba(255,255,255,.45)}
-.dots button.on{width:38px}.dots button.on:before{background:#fff}
-.sarrow{position:absolute;top:38%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:22px;line-height:40px;cursor:pointer}
-.sarrow.p{left:10px}.sarrow.n{right:10px}
-@media(max-width:560px){.slide{aspect-ratio:4/3}.slide h2{font-size:22px}.slide .cap{padding:16px 16px 30px}.sarrow{display:none}.dots{left:16px}}
-.headlines{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}.headlines .sec-h{grid-column:1/-1}
-@media(max-width:700px){.headlines{grid-template-columns:1fr}}
-.headlines article{display:grid;grid-template-columns:84px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
-
-.headlines .pic img{width:84px;height:58px;object-fit:cover;border-radius:4px;display:block}
-.headlines h3{font:700 15px/1.3 var(--serif);margin:4px 0 2px}.headlines .kicker{font-size:10px;padding:3px 6px}
-.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;margin-bottom:30px}
-@media(max-width:760px){.hero{grid-template-columns:1fr}}
-.lead-story{border-top:4px solid var(--acc);padding-top:14px}
-.lead-story h2{font:800 32px/1.15 var(--serif);margin:10px 0 8px}
-.lead-story p{margin:0;color:var(--mute);font-size:16px}
-.side-stories{display:flex;flex-direction:column;gap:14px;border-left:1px solid var(--line);padding-left:22px}
-@media(max-width:760px){.side-stories{border-left:0;padding-left:0}}
-.side-stories article{padding-bottom:14px;border-bottom:1px solid var(--line)}.side-stories article:last-child{border:0}
-.side-stories h3{font:700 18px/1.3 var(--serif);margin:6px 0 2px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:30px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.grid{grid-template-columns:1fr}}
-.card{background:var(--soft);border-radius:4px;padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--line)}
-.card h3,.card h2{font:700 18px/1.3 var(--serif);margin:4px 0}
-.card p{margin:0;color:var(--mute);font-size:14px;line-height:1.55}
-.card .meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 8px}
-.rows article{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
-@media(max-width:560px){.rows article{grid-template-columns:1fr;gap:6px}}
-.rows .d{font:12px/1.5 var(--sans);color:var(--mute)}.rows .d b{display:block;font:800 26px/1 var(--serif);color:var(--ink)}
-.rows h2{font:700 21px/1.3 var(--serif);margin:2px 0 4px}.rows p{margin:0;color:var(--mute);font-size:15px}
-aside .box{background:var(--soft);padding:16px 18px;margin-bottom:22px;border-radius:4px;border-top:3px solid var(--acc)}
-aside h3{margin:0 0 10px;font:800 13px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em}
-aside ul{list-style:none;margin:0;padding:0;font-size:14px}aside li{padding:7px 0;border-top:1px solid var(--line)}aside li:first-child{border-top:0;padding-top:0}
-aside ol{margin:0;padding:0;list-style:none;counter-reset:n}aside ol li{counter-increment:n;display:flex;gap:12px;padding:8px 0;border-top:1px solid var(--line)}aside ol li:first-child{border-top:0;padding-top:0}
-aside ol li:before{content:counter(n);font:800 22px/1 var(--serif);color:var(--acc);min-width:22px}
-aside .cnt{float:right;color:var(--mute);font-size:12px}
-.cloud a{display:inline-block;font-size:12px;background:var(--bg);border:1px solid var(--line);padding:2px 8px;border-radius:12px;margin:0 4px 6px 0;color:var(--mute)}.cloud a:hover{border-color:var(--acc);color:var(--acc)}
-.crumb{font:12px/1.4 var(--sans);color:var(--mute);margin-bottom:12px}.crumb a{color:var(--mute)}
-.post h1{font:800 36px/1.15 var(--serif);margin:8px 0 10px;letter-spacing:-.3px}
-@media(max-width:560px){.post h1{font-size:28px}.mast .logo{font-size:32px}}
-.post .pmeta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:18px;font:13px/1.4 var(--sans);color:var(--mute)}
-.post .lead{font:italic 20px/1.5 var(--serif);color:var(--ink);margin:0 0 16px}
-.post .body{font:17px/1.75 var(--serif)}
-.post .body p{margin:0 0 1.15em}.post .body h2{font:800 22px/1.3 var(--serif);margin:1.5em 0 .5em;padding-left:12px;border-left:4px solid var(--acc)}
-.post .body a{color:var(--acc);text-decoration:underline;text-underline-offset:2px}
-.post .body blockquote{margin:1em 0;padding:4px 18px;border-left:3px solid var(--acc);color:var(--mute);font-style:italic}
-.post .body table{border-collapse:collapse;width:100%;font:15px/1.5 var(--sans);margin:1em 0}.post .body td,.post .body th{border:1px solid var(--line);padding:6px 10px;text-align:left}
-.tags{margin:22px 0 12px;font:13px/2 var(--sans)}.tags b{color:var(--mute);margin-right:6px}.tags a{display:inline-block;background:var(--soft);padding:0 10px;margin:0 6px 4px 0;border-radius:12px;color:var(--mute)}
-.share{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 20px;font:13px/1 var(--sans)}.share a{border:1px solid var(--line);padding:8px 12px;border-radius:3px;color:var(--mute)}.share a:hover{border-color:var(--acc);color:var(--acc)}
-.note{background:var(--soft);padding:12px 16px;font:13px/1.5 var(--sans);color:var(--mute);border-radius:4px;margin-top:8px}
-.related{margin-top:30px}
-.pn{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;font:14px/1.4 var(--sans)}.pn a{background:var(--soft);padding:12px 14px;border-radius:4px;display:block}.pn small{display:block;color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.pn .r{text-align:right}
-@media(max-width:560px){.pn{grid-template-columns:1fr}}
-.pager{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font:14px/1.4 var(--sans)}.pager a{border:1px solid var(--line);padding:8px 14px;border-radius:3px}
-h1.sec{font:800 30px/1.2 var(--serif);margin:0 0 4px}.sec-desc{color:var(--mute);margin:0 0 18px;font-size:15px}
-footer{background:var(--ink);color:#c9ced4;margin-top:20px;padding:34px 0 26px;font:13px/1.7 var(--sans)}
-@media(prefers-color-scheme:dark){footer{background:#0b0d10}}
-footer a{color:#e8eaed}footer .fcols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px;margin-bottom:22px}
-@media(max-width:700px){footer .fcols{grid-template-columns:1fr}}
-footer h4{margin:0 0 8px;font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.1em;color:#fff}
-footer ul{list-style:none;margin:0;padding:0}footer .logo{font:800 26px/1 var(--serif);color:#fff;display:inline-block;margin-bottom:8px}
-footer .bot{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-size:12px;color:#9aa3ad}
-.pic{display:block;overflow:hidden;border-radius:3px;background:var(--soft)}.pic img{display:block;width:100%;height:auto;aspect-ratio:800/420;object-fit:cover;transition:transform .3s}.pic:hover img{transform:scale(1.03)}
-.card{padding:0 0 16px}.card .pic{border-radius:4px 4px 0 0;margin-bottom:4px}.card .meta,.card h3,.card h2,.card p{padding:0 14px}
-.lead-story .pic{margin-bottom:12px}
-.side-stories article{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:start}.side-stories .pic{margin:0}
-.rows article{grid-template-columns:220px 1fr}@media(max-width:560px){.rows article{grid-template-columns:1fr}}
-.rows .meta{display:flex;gap:10px;align-items:center;margin-bottom:4px}
-.hero-img{margin:0 0 20px}.hero-img figcaption{font:12px/1.4 var(--sans);color:var(--mute);margin-top:6px}.hero-img figcaption a{color:var(--mute)}.hero-img img{width:100%;height:auto;border-radius:4px;display:block}
-.related .card .pic{margin-bottom:4px}
-.card{background:var(--bg);border:1px solid var(--line);border-top:0;border-radius:6px;overflow:hidden;transition:box-shadow .2s,transform .2s}
-.card:hover{box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
-.card .pic{border-radius:0}
-.card h3 a,.card h2 a{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-@media(max-width:560px){.grid .card{display:grid;grid-template-columns:120px 1fr;gap:0 12px;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0}
- .grid .card .pic{grid-row:1/4;border-radius:4px}.grid .card .pic img{height:84px;aspect-ratio:auto}
- .grid .card .meta,.grid .card h3,.grid .card h2{padding:0}.grid .card h3{font-size:16px;margin:2px 0}.grid .card p{display:none}
- .grid .card:hover{transform:none;box-shadow:none}.grid{gap:0}}
-.kaynak{font:13px/1.6 var(--sans);color:var(--mute);border-top:1px solid var(--line);padding-top:10px;margin:0 0 18px}.kaynak b{color:var(--ink);margin-right:4px}.kaynak a{color:var(--acc)}
-.pmeta .tur{background:var(--acc);color:#fff;padding:0 6px;border-radius:2px;font-weight:700}
-.ozet{border:1px solid var(--line);border-top:3px solid var(--acc);padding:12px 18px 6px;margin:0 0 20px;font:15px/1.55 var(--sans)}.ozet b{display:block;text-transform:uppercase;font-size:13px;letter-spacing:.04em;color:var(--acc);margin-bottom:6px}.ozet ul{margin:0;padding-left:18px}.ozet li{margin-bottom:6px}
-.okuma{margin:18px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);padding:10px 0;font-family:var(--sans)}.okuma span{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--acc);margin-bottom:8px}.okuma a{display:flex;gap:12px;align-items:center;color:var(--ink);text-decoration:none}.okuma img{width:160px;height:84px;object-fit:cover;flex:none;border-radius:3px}.okuma b{font-size:17px;line-height:1.35}.okuma a:hover b{color:var(--acc)}
-@media(max-width:560px){.okuma img{width:110px;height:58px}.okuma b{font-size:15px}}
-.tablo{width:100%;border-collapse:collapse;margin:16px 0 22px;font:14px/1.45 var(--sans)}.tablo caption{text-align:left;font-weight:700;padding-bottom:6px}.tablo th,.tablo td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.tablo thead th{background:var(--acc);color:#fff}
-@media(max-width:560px){.tablo{font-size:12.5px}}
-.liste li{margin-bottom:8px}
-.kicker{min-height:24px;display:inline-flex!important;align-items:center}
-footer li a,aside li a,.cats a,.fcols a{display:inline-block;min-height:24px;padding:2px 0}
-@media(prefers-color-scheme:dark){.ornek b{color:#f0c36d!important}}
-.ornek{background:#fff8e6;border-left:4px solid var(--gold);padding:12px 16px;margin:6px 0 20px;border-radius:0 4px 4px 0;font:15px/1.6 var(--sans)}
-@media(prefers-color-scheme:dark){.ornek{background:#2a2414}}
-.ornek b{display:block;font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:#7a5300;margin-bottom:6px}.ornek p{margin:0 0 6px}
-.anket{border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:4px;padding:14px 18px;margin:8px 0 20px;font:15px/1.5 var(--sans)}
-.anket h2{font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px;color:var(--acc)}.anket .q{font:700 17px/1.4 var(--serif);margin:0 0 10px}
-.anket label{display:block;padding:6px 0;cursor:pointer}.anket button{margin-top:8px;background:var(--acc);color:#fff;border:0;padding:8px 18px;border-radius:3px;font:600 14px var(--sans);cursor:pointer}
-.anket .r{position:relative;padding:6px 8px;margin:4px 0;background:var(--soft);border-radius:3px;overflow:hidden;display:flex;justify-content:space-between}.anket .r i{position:absolute;left:0;top:0;bottom:0;background:rgba(155,28,28,.15)}.anket .r span,.anket .r b{position:relative}
-.anket small,.anket .an{display:block;color:var(--mute);font-size:12px;margin-top:6px}
-.arch{columns:3;column-gap:24px;font:15px/1.9 var(--sans)}@media(max-width:700px){.arch{columns:2}}
-.arch ul{list-style:none;margin:0 0 12px;padding:0;break-inside:avoid}.arch b{display:block;font-size:13px;text-transform:uppercase;color:var(--mute)}
-"""
-
-MENU_ICON = {
- "Anasayfa": '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
- "Manşet": '<path d="M12 3l2.6 5.6 6.1.7-4.5 4.1 1.2 6L12 16.4 6.6 19.4l1.2-6-4.5-4.1 6.1-.7z"/>',
- "Yargı": '<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',
- "Yargıtay": '<path d="m14 13-7.5 7.5a2.1 2.1 0 0 1-3-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/>',
- "AYM": '<path d="M3 21h18M5 21V10M9 21V10M15 21V10M19 21V10"/><path d="M12 3 3 8h18z"/>',
- "Danıştay": '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>',
- "Siyaset": '<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>',
- "Barolar": '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
- "Üniversiteler": '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
- "Teknoloji": '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
- "Basından": '<rect x="3" y="4" width="14" height="16" rx="2"/><path d="M17 8h3v10a2 2 0 0 1-2 2"/><path d="M7 8h6M7 12h6M7 16h4"/>',
- "Diğer": '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>',
- "Arşiv": '<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/>',
-}
-def micon(t):
-    p = MENU_ICON.get(t)
-    return f'<svg class="mi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{p}</svg>' if p else ""
-MENU = [("/", "Anasayfa"), ("/haber-kategorisi/manset/", "Manşet"), ("/haber-kategorisi/yargi/", "Yargı"),
-        ("/haber-kategorisi/yargi/yargitay/", "Yargıtay"), ("/haber-kategorisi/yargi/anayasa-mahkemesi/", "AYM"),
-        ("/haber-kategorisi/yargi/danistay/", "Danıştay"),
-        ("/haber-kategorisi/siyaset/", "Siyaset"), ("/haber-kategorisi/barolar/", "Barolar"),
-        ("/haber-kategorisi/universiteler/", "Üniversiteler"), ("/haber-kategorisi/teknoloji/", "Teknoloji"),
-        ("/haber-kategorisi/basindan/", "Basından"), ("/haber-kategorisi/diger/", "Diğer"), ("/arsiv/", "Arşiv")]
-GUNLER = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"]
+GUNLER = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
+from tema import CSS, ico, CATNAV, DRAWER, SITE_LINKS, JS, SEARCH_JS
 
 def topcat(p):
     k = p["catkeys"][0]
@@ -296,31 +113,28 @@ def topcat(p):
         if c != "manset": k = c; break
     return k
 def kicker(p):
-    k = topcat(p); root = CATS[k][1] or k
-    return f'<a class="kicker k-{root}" href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a>'
+    k = topcat(p)
+    return f'<a class="kicker" href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a>'
 def rtime(p): return max(1, round(p["words"] / 200))
+def kisa(d): return f"{d.day} {AYLAR[d.month-1][:3]}"
+def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
+def save_btn(p):
+    return (f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[topcat(p)][0])}" '
+            f'data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 22)}</button>')
+def meta(p, date=True, cat=False):
+    s = ""
+    if date: s += f'<span class="dt">{ico("clock", 16)}<time datetime="{p["date"].isoformat()}">{trdate(p["date"])}</time></span>'
+    s += f'<span>{"" if date else ico("clock", 16)}{rtime(p)} dk okuma</span>'
+    if cat: s += f'<span class="mc">{e(CATS[topcat(p)][0])}</span>'
+    return f'<div class="meta">{s}</div>'
 
 def sidebar():
-    latest = "".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a><br><time datetime="{p["date"].isoformat()}">{trdate(p["date"])}</time></li>' for p in POSTS[:6])
-    yargi = [p for p in POSTS if "yargi" in p["catkeys"] or any(CATS[c][1] == "yargi" for c in p["catkeys"])][:5]
-    yargi_html = "".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in yargi)
-    cats = "".join(f'<li><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span class="cnt">{cat_count[k]}</span></li>'
+    latest = "".join(f'<li><time datetime="{p["date"].isoformat()}">{kisa(p["date"])}</time><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:6])
+    cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span>{cat_count[k]}</span></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
-    tagc = {}
-    for p in POSTS:
-        for t, s_ in zip(p["tags"], p["tagslugs"]): tagc[s_] = (t, tagc.get(s_, ("", 0))[1] + 1)
-    top = sorted(tagc.items(), key=lambda x: -x[1][1])[:24]
-    cloud = "".join(f'<a href="/haber-etiketi/{s_}/">{e(t)}</a>' for s_, (t, n) in top)
-    months = {}
-    for p in POSTS: months[(p["date"].year, p["date"].month)] = months.get((p["date"].year, p["date"].month), 0) + 1
-    arch = "".join(f'<li><a href="/{y}/{m:02d}/">{AYLAR[m-1]} {y}</a><span class="cnt">{n}</span></li>'
-                   for (y, m), n in sorted(months.items(), reverse=True)[:8])
-    return f"""<aside>
-<div class="box"><h3>Son haberler</h3><ul>{latest}</ul></div>
-<div class="box"><h3>Yargı kararları</h3><ol>{yargi_html}</ol></div>
-<div class="box"><h3>Kategoriler</h3><ul>{cats}</ul></div>
-<div class="box"><h3>Konular</h3><div class="cloud">{cloud}</div></div>
-<div class="box"><h3>Arşiv</h3><ul>{arch}</ul><p style="margin:10px 0 0;font-size:13px"><a href="/arsiv/">Tüm arşiv →</a></p></div>
+    return f"""<aside aria-label="Yan sütun">
+<div class="box"><h3>Son gelişmeler</h3><ul>{latest}</ul></div>
+<div class="box"><h3>Bölümler</h3><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a><span>{len(POSTS)}</span></li></ul></div>
 </aside>"""
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
@@ -333,8 +147,13 @@ def _preload(main):
     ss = f' imagesrcset="{m.group(2)}" imagesizes="{m.group(3)}"' if m.group(2) else ""
     return f'\n<link rel="preload" as="image" href="{m.group(1)}"{ss} fetchpriority="high">'
 
-def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None):
-    nav = "".join(f'<li{" class=dh" if t in ("Basından", "Arşiv") else ""}><a href="{u}"{" class=on" if u == url else ""}>{micon(t)}<span>{t}</span></a></li>' for u, t in MENU)
+def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra=""):
+    act = active or url
+    def on(u): return act == u or (u != "/" and act.startswith(u))
+    catnav = "".join(f'<li><a href="{u}"{" class=on aria-current=page" if on(u) else ""}>{t}</a></li>' for u, t in CATNAV)
+    drawer = "".join(f'<li><a href="{u}">{ico(i, 20)}<span>{t}</span></a></li>' for u, t, i in DRAWER)
+    drawer2 = "".join(f'<li><a href="{u}"><span>{t}</span></a></li>' for u, t in SITE_LINKS)
+    ticker = "".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:3])
     lds = []
     if ld: lds.append(ld)
     if crumbs:
@@ -345,16 +164,20 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
     can = canonical or (SITE + url)
     full_title = f"{title} | {NAME}" if url != "/" else f"{NAME} | Hukuk, Yargı, Yargıtay, Danıştay ve Mevzuat Haberleri"
     today = datetime.date.today()
+    srch = lambda i: f'<form class="hsearch" action="/arama/" method="get" role="search"><label class="sr" for="{i}">Sitede ara</label>{ico("search", 20)}<input id="{i}" name="q" type="search" placeholder="Haber, karar, mevzuat veya konu ara…" autocomplete="off"></form>'
+    body = (f'<div class="hwrap"><div class="cols"><main id="icerik">{main}</main>{sidebar()}</div></div>' if side
+            else f'<main id="icerik" class="hwrap">{main}</main>')
+    bn = lambda u, t, i: f'<a href="{u}"{" class=on aria-current=page" if url == u else ""}>{ico(i, 22)}<span>{t}</span></a>'
     return f"""<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(full_title)}</title>
 <meta name="description" content="{e(desc)}">
 {robots}
 <link rel="canonical" href="{e(can)}">{_preload(main)}
-<meta name="theme-color" content="#9b1c1c">
+<meta name="theme-color" content="#2D4054">
 <meta property="og:site_name" content="{NAME}">
 <meta property="og:type" content="{ogtype}">
 <meta property="og:title" content="{e(title)}">
@@ -379,40 +202,48 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </head>
 <body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
-<header>
-<div class="wrap"><div class="topbar"><span>{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span><span class="links"><a href="/kunye/">Künye</a><a href="/arsiv/">Arşiv</a><a href="/iletisim/">İletişim</a><a href="/feed/index.xml">RSS</a></span></div>
-<div class="mast"><a class="logo" href="/" aria-label="{NAME} anasayfa">{LOGO_SVG}Hukuki <span>Haberler</span></a><small>{TAGLINE}</small><button class="mbtn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="anamenu" onclick="var n=document.getElementById('anamenu');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.classList.toggle('x',o)"><span></span><span></span><span></span></button></div></div>
-<nav class="main" id="anamenu" aria-label="Kategoriler"><ul>{nav}</ul></nav>
-</header>
-<div class="wrap"><div class="cols">
-<main id="icerik">{main}</main>
-{sidebar()}
-</div></div>
-<footer><div class="wrap">
-<div class="fcols">
-<div><span class="logo">Hukuki Haberler</span><p style="margin:0;max-width:420px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, Adalet Bakanlığı duyuruları, barolar ve hukuk fakültelerinden haberler.</p></div>
-<div><h4>Bölümler</h4><ul><li><a href="/haber-kategorisi/manset/">Manşet</a></li><li><a href="/haber-kategorisi/yargi/">Yargı</a></li><li><a href="/haber-kategorisi/yargi/yargitay/">Yargıtay</a></li><li><a href="/haber-kategorisi/yargi/anayasa-mahkemesi/">Anayasa Mahkemesi</a></li><li><a href="/haber-kategorisi/yargi/danistay/">Danıştay</a></li><li><a href="/haber-kategorisi/basindan/">Basından</a></li></ul></div>
-<div><h4>Site</h4><ul><li><a href="/hakkinda/">Hakkında</a></li><li><a href="/kunye/">Künye</a></li><li><a href="/yayin-ilkeleri/">Yayın İlkeleri</a></li><li><a href="/iletisim/">İletişim</a></li><li><a href="/gizlilik-politikasi/">Gizlilik</a></li><li><a href="/arsiv/">Arşiv</a></li><li><a href="/sitemap.xml">Site haritası</a></li></ul></div>
+<header class="site">
+<div class="hwrap htop">
+<a class="brand" href="/" aria-label="{NAME} anasayfa">{ico("scale", 44)}<span><span class="bn">Hukuki Haberler</span><span class="bt">Hukuk, yargı ve mevzuat gündemi</span></span></a>
+{srch("q")}
+<div class="hright"><a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a><small>Yeni haberler akış okuyucunuzda</small></div>
+<button type="button" class="ibtn sbtn" aria-label="Sitede ara" aria-expanded="false" aria-controls="msearch">{ico("search", 22)}</button>
+<button type="button" class="ibtn mbtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="drawer">{ico("menu", 24)}</button>
 </div>
-<div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz. Haber metinleri, yayımlandıkları tarihteki mevzuat ve gelişmelere dayanır.</div>
+<div id="msearch" class="msearch" hidden><div class="hwrap">{srch("q2")}</div></div>
+<nav class="cats" aria-label="Bölümler"><div class="hwrap"><ul>{catnav}</ul></div></nav>
+<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><ul>{ticker}</ul><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a><span class="tdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div></div>
+</header>
+<div id="drawer" class="drawer" hidden><nav class="dp" aria-label="Tüm bölümler"><div class="dh">Bölümler<button type="button" class="ibtn dclose" style="display:inline-flex" aria-label="Menüyü kapat">{ico("close", 24)}</button></div><ul>{drawer}</ul><div class="dsub">Site</div><ul>{drawer2}</ul></nav></div>
+{body}
+<footer class="site"><div class="hwrap">
+<div class="fcols">
+<div><div class="fbrand">{ico("scale", 30)}Hukuki Haberler</div><p style="margin:0;max-width:440px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, mevzuat değişiklikleri ve gündemin hukuki boyutu.</p></div>
+<div><h4>Bölümler</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}</ul></div>
+<div><h4>Site</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li></ul></div>
+</div>
+<div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz.</div>
 </div></footer>
+<nav class="bnav" aria-label="Alt menü">{bn("/", "Ana Sayfa", "home")}{bn("/kesfet/", "Keşfet", "compass")}{bn("/kaydedilenler/", "Kaydedilen", "bookmark")}<button type="button" aria-controls="drawer" aria-expanded="false">{ico("menu", 22)}<span>Menü</span></button></nav>
+{JS}{extra}
 </body>
 </html>"""
 
-def srcset(p): return f'srcset="{p["img"].replace("/gorsel/", "/gorsel/m/")} 480w, {p["img"]} 800w"'
-def pic(p, lazy=True, w=800, h=420):
-    return f'<a class="pic" href="{p["url"]}"><img src="{p["img"]}" {srcset(p)} sizes="(max-width:560px) 120px, (max-width:900px) 50vw, 300px" alt="{e(p["title"])}" width="{w}" height="{h}"{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>'
+def srcset(p): return f'srcset="{thumb(p)} 480w, {p["img"]} 800w"'
+def pic(p, lazy=True, sizes="(max-width:767px) 112px, 300px"):
+    return (f'<a class="pic" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{p["img"]}" {srcset(p)} sizes="{sizes}" alt="" width="800" height="420"'
+            f'{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>')
 def credit_html(p):
     c = p.get("credit")
     if not c: return ""
     return f'<figcaption>Fotoğraf: {e(c["artist"])} / <a href="{e(c["page"])}" rel="nofollow noopener" target="_blank">Wikimedia Commons</a>, {e(c["lic"])}</figcaption>'
-def card(p, h="h3"):
-    return f"""<article class="card">{pic(p)}<div class="meta">{kicker(p)}<time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></div>
-<{h}><a href="{p['url']}">{e(p['title'])}</a></{h}><p>{e(p['desc'])}</p></article>"""
-
-def row_item(p):
-    return f"""<article>{pic(p)}
-<div><div class="meta">{kicker(p)}<time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></div><h2><a href="{p['url']}">{e(p['title'])}</a></h2><p>{e(p['desc'])}</p></div></article>"""
+def feat_card(p):
+    return (f'<article>{pic(p, sizes="(max-width:767px) 112px, (max-width:1023px) 50vw, 420px")}<div class="ftxt">{kicker(p)}'
+            f'<h3><a href="{p["url"]}">{e(p["title"])}</a></h3><p>{e(p["desc"])}</p>{meta(p)}</div></article>')
+def row(p, h="h3"):
+    return (f'<li class="row"><div class="rt">{kicker(p)}<{h}><a href="{p["url"]}">{e(p["title"])}</a></{h}><p>{e(p["desc"])}</p>{meta(p)}</div>'
+            f'{pic(p, sizes="(max-width:767px) 112px, 160px")}</li>')
+card = feat_card
 
 def listing(title, desc, base, items, crumb="", intro="", crumbs=None):
     n = max(1, (len(items) + PER_PAGE - 1) // PER_PAGE)
@@ -421,59 +252,63 @@ def listing(title, desc, base, items, crumb="", intro="", crumbs=None):
         url = base if i == 0 else f"{base}page/{i+1}/"
         prev = (base if i == 1 else f"{base}page/{i}/") if i > 0 else None
         nxt = f"{base}page/{i+2}/" if i < n-1 else None
-        pager = '<div class="pager">' + (f'<a href="{prev}">← Daha yeni</a>' if prev else '<span></span>') + \
-                f'<span style="color:var(--mute)">Sayfa {i+1} / {n}</span>' + (f'<a href="{nxt}">Daha eski →</a>' if nxt else '<span></span>') + '</div>'
-        head = (f'<div class="crumb">{crumb}</div>' if crumb else "") + (f'<h1 class="sec">{e(title)}</h1><p class="sec-desc">{e(desc)}</p>' if base != "/" else "") + intro
+        pager = ('<nav class="pager" aria-label="Sayfalar">' + (f'<a href="{prev}">← Daha yeni</a>' if prev else '<span></span>') +
+                 f'<span>Sayfa {i+1} / {n}</span>' + (f'<a href="{nxt}">Daha eski →</a>' if nxt else '<span></span>') + '</nav>') if n > 1 else ""
         ttl = title if i == 0 else f"{title} – Sayfa {i+1}"
         if base == "/" and i == 0:
-            main = head + homepage(chunk)
-        else:
-            main = head + '<div class="rows">' + "".join(row_item(p) for p in chunk) + "</div>"
-        write(url, page(ttl, desc, url, main + pager, noindex=(i > 0), crumbs=crumbs if i == 0 else None,
-                        ld=(ORG_LD if (base == "/" and i == 0) else None)))
-
-def slider_html(items):
-    sl = "".join(f'<a class="slide" href="{p["url"]}" aria-label="{e(p["title"])}"><img src="{p["img"]}" {srcset(p)} sizes="(max-width:900px) 100vw, 800px" alt="" width="800" height="420"{" fetchpriority=high" if i == 0 else " loading=lazy"}><div class="cap">{kicker(p).replace("<a ","<span ").replace("</a>","</span>").replace(" href=\"/haber-kategorisi/"+topcat(p)+"/\"","")}<h2>{e(p["title"])}</h2></div></a>' for i, p in enumerate(items))
-    dots = "".join(f'<button type="button" aria-label="{i+1}. haber"{" class=on" if i == 0 else ""}></button>' for i in range(len(items)))
-    return f"""<div class="slider" aria-roledescription="carousel" aria-label="Manşet"><div class="slides">{sl}</div>
-<button class="sarrow p" type="button" aria-label="Önceki">‹</button><button class="sarrow n" type="button" aria-label="Sonraki">›</button><div class="dots">{dots}</div></div>
-<script>(function(){{var s=document.querySelector('.slides'),d=[].slice.call(document.querySelectorAll('.dots button')),n=d.length,i=0,t;
-function go(k){{i=(k+n)%n;s.scrollTo({{left:i*s.clientWidth,behavior:'smooth'}})}}
-s.addEventListener('scroll',function(){{var k=Math.round(s.scrollLeft/s.clientWidth);if(k!==i)i=k;d.forEach(function(b,j){{b.classList.toggle('on',j===i)}})}},{{passive:true}});
-d.forEach(function(b,j){{b.onclick=function(){{go(j);rs()}}}});
-document.querySelector('.sarrow.p').onclick=function(){{go(i-1);rs()}};document.querySelector('.sarrow.n').onclick=function(){{go(i+1);rs()}};
-function rs(){{clearInterval(t);t=setInterval(function(){{if(!document.hidden)go(i+1)}},6000)}}
-s.addEventListener('pointerdown',function(){{clearInterval(t)}});rs();}})();</script>"""
+            write(url, page(ttl, desc, url, homepage(chunk), noindex=False, ld=ORG_LD, side=False))
+            continue
+        head = (f'<div class="crumb">{crumb}</div>' if crumb else "") + f'<h1 class="sec">{e(title)}</h1><p class="sec-desc">{e(desc)}</p>' + intro
+        main = head + '<ul class="rows one">' + "".join(row(p, "h2") for p in chunk) + "</ul>" + pager
+        write(url, page(ttl, desc, url, main, noindex=(i > 0), crumbs=crumbs if i == 0 else None))
 
 def homepage(chunk):
-    photo = [p for p in POSTS[:30] if p.get("imgkind") in ("photo", "orig")]
-    slides = (photo + [p for p in POSTS if p not in photo])[:5]
-    heads = [p for p in chunk if p not in slides][:5]
-    rest = [p for p in POSTS if p not in slides and p not in heads and p["date"].year >= 2026][:9]
-    top = f"""<section class="top" aria-label="Öne çıkan haberler">{slider_html(slides)}
-<div class="headlines"><h2 class="sec-h">Son dakika</h2>{"".join(f'<article>{pic(p)}<div>{kicker(p)}<h3><a href="{p["url"]}">{e(p["title"])}</a></h3><time datetime="{p["date"].isoformat()}">{trdate(p["date"])}</time></div></article>' for p in heads)}</div></section>"""
-    grid = f'<h2 class="sec-h">Son haberler</h2><div class="grid">{"".join(card(p) for p in rest)}</div>'
-    secs = ""
-    shown = set(id(p) for p in slides + heads + rest)
-    for k, label in (("yargi", "Yargı"), ("siyaset", "Siyaset"), ("diger", "Ekonomi ve Gündem"), ("teknoloji", "Teknoloji")):
-        items = [p for p in POSTS if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and id(p) not in shown and p["date"].year >= 2026][:3]
-        if len(items) >= 2:
-            secs += f'<h2 class="sec-h"><a href="/haber-kategorisi/{k}/">{label}</a></h2><div class="grid">{"".join(card(p) for p in items)}</div>'
-    return top + grid + secs
-
-def _old_homepage(chunk):
-    lead, side, rest = chunk[0], chunk[1:4], chunk[4:]
-    hero = f"""<section class="hero" aria-label="Öne çıkan haberler">
-<article class="lead-story">{pic(lead, lazy=False)}{kicker(lead)}<h2><a href="{lead['url']}">{e(lead['title'])}</a></h2><p>{e(lead['desc'])}</p><time datetime="{lead['date'].isoformat()}">{trdate(lead['date'])}</time></article>
-<div class="side-stories">{"".join(f'<article>{pic(p)}<div>{kicker(p)}<h3><a href="{p["url"]}">{e(p["title"])}</a></h3><time datetime="{p["date"].isoformat()}">{trdate(p["date"])}</time></div></article>' for p in side)}</div>
+    cur = [p for p in POSTS if p["date"].year >= 2026]
+    photo = [p for p in cur if p.get("imgkind") in ("photo", "orig")]
+    lead = (photo or cur or POSTS)[0]
+    rest = [p for p in cur if p is not lead]
+    side, rest = rest[:3], rest[3:]
+    featp = [p for p in rest if p.get("imgkind") in ("photo", "orig")][:3]
+    if len(featp) < 3: featp = rest[:3]
+    rest = [p for p in rest if p not in featp]
+    analiz = [p for p in cur if p.get("tur") == "Analiz"][:2]
+    more = [p for p in rest if p not in analiz][:8]
+    shown = {id(p) for p in [lead] + side + featp + analiz + more}
+    sidel = "".join(f'<li><time datetime="{p["date"].isoformat()}">{kisa(p["date"])}</time><div>{kicker(p)}<a class="tt" href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in side)
+    hero = f"""<h1 class="sr">{NAME}: hukuk, yargı ve mevzuat haberleri</h1>
+<section class="hero" aria-label="Manşet">
+<div class="k">{kicker(lead)}</div>
+<h2 class="t{" lt" if len(lead["title"]) > 60 else ""}"><a href="{lead['url']}">{e(lead['title'])}</a></h2>
+<p class="d">{e(lead['desc'])}</p>
+<div class="m">{meta(lead, cat=True).replace('<div class="meta">', '<div class="meta" style="flex:1">')}{save_btn(lead)}</div>
+<figure class="img">{pic(lead, lazy=False, sizes="(max-width:767px) 100vw, (max-width:1023px) 50vw, 600px")}{credit_html(lead)}</figure>
+<div class="side"><h2>Son gelişmeler</h2><ol>{sidel}</ol><a class="all" href="/arsiv/">Tüm son gelişmeler →</a></div>
 </section>"""
-    grid = f'<h2 class="sec-h">Son haberler</h2><div class="grid">{"".join(card(p) for p in rest)}</div>'
+    feat = (f'<section class="blk"><h2 class="sec-h"><span class="dh">Öne çıkan haberler</span><span class="mh">Son Haberler</span>'
+            f'<a class="all" href="/arsiv/">Tümü</a></h2><div class="feat">{"".join(feat_card(p) for p in featp)}</div></section>')
+    gun = ""
+    if analiz:
+        a0 = analiz[0]
+        gun = f'<a class="gunluk" href="{a0["url"]}">{ico("doc", 30)}<div><b>Günün analizi</b><span>{e(a0["title"])}</span></div>{ico("chev", 22, "chev")}</a>'
+    duo = ""
+    if analiz:
+        an = "".join(f'<article class="an"><span class="ai">{ico("pen", 22)}</span><div><h3><a href="{p["url"]}">{e(p["title"])}</a></h3><p>{e(p["desc"])}</p>'
+                     f'<div class="meta"><span><b>Hukuki Haberler Editörlüğü</b></span><span>{trdate(p["date"])}</span><span>{rtime(p)} dk okuma</span></div></div></article>' for p in analiz)
+        tc = {}
+        for p in cur:
+            for t, s_ in zip(p["tags"], p["tagslugs"]): tc[s_] = (t, tc.get(s_, ("", 0))[1] + 1)
+        top = [x for x in sorted(tc.items(), key=lambda x: (-x[1][1], x[1][0])) if x[1][1] >= 2][:5]
+        topics = "".join(f'<li><a href="/haber-etiketi/{s_}/">{e(t)}</a><small>{n} haber</small></li>' for s_, (t, n) in top)
+        duo = (f'<section class="blk duo"><div><h2 class="sec-h">Analiz</h2><div class="an-list">{an}</div></div>'
+               + (f'<aside aria-label="Gündemdeki konular"><h2 class="sec-h">Gündemdeki konular</h2><ol class="topics">{topics}</ol></aside>' if topics else "") + '</section>')
+    son = f'<section class="blk"><h2 class="sec-h">Diğer haberler<a class="all" href="/arsiv/">Tümü</a></h2><ul class="rows">{"".join(row(p) for p in more)}</ul></section>' if more else ""
     secs = ""
     for k, label in (("yargi", "Yargı"), ("siyaset", "Siyaset"), ("diger", "Ekonomi ve Gündem"), ("teknoloji", "Teknoloji")):
-        items = [p for p in POSTS if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and p not in chunk][:3]
-        if items:
-            secs += f'<h2 class="sec-h"><a href="/haber-kategorisi/{k}/">{label}</a></h2><div class="grid">{"".join(card(p) for p in items)}</div>'
-    return hero + grid + secs
+        items = [p for p in cur if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and id(p) not in shown][:3]
+        if len(items) >= 2:
+            shown |= {id(p) for p in items}
+            secs += f'<section class="blk"><h2 class="sec-h">{label}<a class="all" href="/haber-kategorisi/{k}/">Tümü</a></h2><div class="feat">{"".join(feat_card(p) for p in items)}</div></section>'
+    return hero + feat + gun + duo + son + secs
 
 # ---------------------------------------------------------------- sayaçlar
 cat_count = {k: 0 for k in CATS}
@@ -573,7 +408,7 @@ def related_scored(p, n=2, skip=()):
 
 def okumadan_html(q):
     return (f'<aside class="okuma"><span>Okumadan geçme</span><a href="{q["url"]}">'
-            f'<img src="{q["img"]}" alt="" width="160" height="84" loading="lazy">'
+            f'<img src="{thumb(q)}" alt="" width="160" height="84" loading="lazy">'
             f'<b>{e(q["title"])}</b></a></aside>\n')
 
 def with_okumadan(p, body):
@@ -631,7 +466,7 @@ for idx, p in enumerate(POSTS):
     cats_html = " · ".join(f'<a href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a>' for k in p["catkeys"])
     tags_html = "".join(f'<a href="/haber-etiketi/{s}/" rel="tag">{e(t)}</a>' for t, s in zip(p["tags"], p["tagslugs"]))
     rel = related(p)
-    rel_html = (f'<section class="related"><h2 class="sec-h">İlgili haberler</h2><div class="grid">{"".join(card(q) for q in rel)}</div></section>') if rel else ""
+    rel_html = (f'<section class="related"><h2 class="sec-h">İlgili haberler</h2><ul class="rows one">{"".join(row(q) for q in rel)}</ul></section>') if rel else ""
     newer = POSTS[idx-1] if idx > 0 else None
     older = POSTS[idx+1] if idx < len(POSTS)-1 else None
     pn = '<nav class="pn" aria-label="Önceki / sonraki haber">' + \
@@ -653,15 +488,15 @@ for idx, p in enumerate(POSTS):
     main = f"""<article class="post"><div class="crumb">{crumb}</div>
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
-<div class="pmeta"><span><time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></span><span>{cats_html}</span><span>{rtime(p)} dk okuma</span><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span>{('<span>Güncellendi: ' + e(p["updated"]) + '</span>') if p.get("updated") else ""}</div>
-<figure class="hero-img"><img src="{p['img']}" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high">{credit_html(p)}</figure>
-{ozet_html(p)}<div class="body">{with_okumadan(p, autolink(p))}</div>
+<div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("cal", 16)}<time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></span>{('<span>Güncellendi: ' + e(p["updated"]) + '</span>') if p.get("updated") else ""}<span>{ico("clock", 16)}{rtime(p)} dk okuma</span>{save_btn(p)}</div>
+<figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high"></div>{credit_html(p)}</figure>
+{ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
 {share}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
-    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=ld, ogtype="article", crumbs=crumbs, img=p["img"]))
+    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=ld, ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
 
 # kategoriler
 for k, (name, parent) in CATS.items():
@@ -678,6 +513,35 @@ for k, (name, parent) in CATS.items():
         REDIRECTS.append((old, f"/haber-kategorisi/{dest}/"))
     REDIRECTS.append((f"/{k}/page/:n", f"/haber-kategorisi/{k}/page/:n/"))
     REDIRECTS.append((f"/{k}/page/:n/", f"/haber-kategorisi/{k}/page/:n/"))
+
+# analiz, mevzuat, keşfet, kaydedilenler, arama
+_an = [p for p in POSTS if p.get("tur") == "Analiz"]
+if _an: listing("Analiz", "Gündemdeki hukuki gelişmelerin mevzuat ve içtihat üzerinden açıklandığı analizler.", "/analiz/", _an, crumb='<a href="/">Anasayfa</a> › Analiz')
+_MZ = ("resmî gazete", "resmi gazete", "kanun", "yönetmelik", "tebliğ", "yargı paketi", "genelge", "kararname")
+def _mz(p):
+    h = (p["title"] + " " + " ".join(p["tags"])).replace("İ", "i").replace("I", "ı").lower()
+    return any(k in h for k in _MZ)
+_mv = [p for p in POSTS if _mz(p)]
+listing("Mevzuat", "Kanunlar, kanun teklifleri, yönetmelikler, Resmî Gazete ve yargı paketlerine ilişkin haberler.", "/mevzuat/", _mv, crumb='<a href="/">Anasayfa</a> › Mevzuat')
+_tc = {}
+for p in POSTS:
+    if p["date"].year >= 2026:
+        for t, s_ in zip(p["tags"], p["tagslugs"]): _tc[s_] = (t, _tc.get(s_, ("", 0))[1] + 1)
+_chips_c = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in [("/haber-kategorisi/manset/", "Gündem"), ("/analiz/", "Analiz"), ("/mevzuat/", "Mevzuat")]) + \
+           "".join(f'<li><a href="/haber-kategorisi/{k}/">{e(v[0])}<small>{cat_count[k]}</small></a></li>' for k, v in CATS.items() if cat_count[k] and k != "manset")
+_chips_t = "".join(f'<li><a href="/haber-etiketi/{s_}/">{e(t)}<small>{n}</small></a></li>' for s_, (t, n) in sorted(_tc.items(), key=lambda x: (-x[1][1], x[1][0]))[:30])
+write("/kesfet/", page("Keşfet", "Hukuki Haberler bölümleri, güncel konu başlıkları ve arşiv.", "/kesfet/",
+      f'<h1 class="sec">Keşfet</h1><p class="sec-desc">Bölümler, güncel konular ve arşiv.</p>'
+      f'<form class="searchbox" action="/arama/" method="get" role="search"><label class="sr" for="kq">Sitede ara</label><input id="kq" name="q" type="search" placeholder="Haber, karar, mevzuat veya konu ara…"><button type="submit">Ara</button></form>'
+      f'<h2 class="sec-h">Bölümler</h2><ul class="chips">{_chips_c}</ul><h2 class="sec-h">Güncel konular</h2><ul class="chips">{_chips_t}</ul>'
+      f'<h2 class="sec-h">Arşiv</h2><p><a href="/arsiv/" style="color:var(--gold);text-decoration:underline">2010\'dan bugüne tüm haberler →</a></p>'))
+write("/kaydedilenler/", page("Kaydedilenler", "Bu cihazda kaydettiğiniz haberler.", "/kaydedilenler/",
+      '<h1 class="sec">Kaydedilenler</h1><p class="sec-desc">Kaydettiğiniz haberler yalnızca bu cihazdaki tarayıcıda saklanır; hesap veya sunucu kaydı tutulmaz.</p><div id="kayitlar"><noscript><p class="empty">Bu özellik için tarayıcınızda JavaScript açık olmalıdır.</p></noscript></div>', noindex=True))
+with open(os.path.join(OUT, "arama.json"), "w", encoding="utf-8") as f:
+    json.dump([{"t": p["title"], "u": p["url"], "d": p["desc"], "g": " ".join(p["tags"]), "k": CATS[topcat(p)][0], "z": trdate(p["date"]), "i": thumb(p)} for p in POSTS], f, ensure_ascii=False, separators=(",", ":"))
+write("/arama/", page("Arama", "Hukuki Haberler içinde haber, karar ve mevzuat araması.", "/arama/",
+      '<h1 class="sec">Arama</h1><form id="aramaform" class="searchbox" action="/arama/" method="get" role="search"><label class="sr" for="aq">Aranacak kelime</label><input id="aq" name="q" type="search" placeholder="Haber, karar, mevzuat veya konu ara…"><button type="submit">Ara</button></form><div id="sonuc" aria-live="polite"><noscript><p class="empty">Arama için tarayıcınızda JavaScript açık olmalıdır.</p></noscript></div>',
+      noindex=True, extra=SEARCH_JS))
 
 # etiketler
 tag_posts = {}
@@ -721,14 +585,14 @@ HAKKINDA = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan 
 <h2>Sorumluluk sınırı</h2>
 <p>Sitedeki içerik genel bilgilendirme amaçlıdır; hukuki görüş, danışmanlık ya da vekâlet ilişkisi oluşturmaz. Somut bir uyuşmazlık için bir avukata başvurulmalıdır. Baroların iletişim bilgilerine <a href="https://www.barobirlik.org.tr/" rel="noopener" target="_blank">Türkiye Barolar Birliği</a> sitesinden ulaşılabilir.</p>"""
 write("/hakkinda/", page("Hakkında", "Hukuki Haberler: 2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi.", "/hakkinda/",
-      f'<article class="post"><h1>Hakkında</h1><div class="body">{HAKKINDA}</div></article>'))
+      f'<article class="post static"><h1>Hakkında</h1><div class="body">{HAKKINDA}</div></article>'))
 ILETISIM = """<p class="lead">Hukuki Haberler bağımsız bir yayın sitesidir; bireysel hukuki danışmanlık talebi kabul etmez.</p>
 <h2>Düzeltme ve güncelleme</h2>
 <p>Bir haberde eskimiş ya da hatalı bir bilgi fark ettiyseniz, haberin adresini ve doğru bilginin kaynağını belirten bir not iletebilirsiniz; doğrulanan düzeltmeler habere işlenir ve güncelleme tarihi gösterilir. Her haberin sonunda konuyla ilgili resmî kaynaklara bağlantı bulunur; güncel ve bağlayıcı bilgi için her zaman bu kaynaklar esas alınmalıdır.</p>
 <h2>Hukuki danışmanlık</h2>
 <p>Site, somut dosyalar hakkında görüş vermez. Bir uyuşmazlık için bulunduğunuz ildeki bir avukata ya da baroların adli yardım bürolarına başvurabilirsiniz. Baro iletişim bilgileri <a href="https://www.barobirlik.org.tr/" rel="noopener" target="_blank">Türkiye Barolar Birliği</a> sitesinde yer alır.</p>"""
 write("/iletisim/", page("İletişim", "Hukuki Haberler iletişim: düzeltme bildirimi, kaynaklar ve hukuki danışmanlık için başvurulabilecek yerler.", "/iletisim/",
-      f'<article class="post"><h1>İletişim</h1><div class="body">{ILETISIM}</div></article>'))
+      f'<article class="post static"><h1>İletişim</h1><div class="body">{ILETISIM}</div></article>'))
 GIZ = """<p class="lead">Bu site ziyaretçilerinden kişisel veri toplamaz.</p>
 <p>Sitede üyelik, yorum ya da form bulunmaz; reklam veya takip amaçlı çerez kullanılmaz. Ziyaret sayıları, çerez kullanmayan ve bireysel ziyaretçiyi tanımlamayan Cloudflare Web Analytics ile toplu olarak ölçülür. Barındırma altyapısı, güvenlik ve performans amacıyla IP adresi ve istek zamanı gibi teknik kayıtları kısa süreli tutabilir; bu kayıtlar kimlik tespiti için kullanılmaz. Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları) kendi gizlilik politikalarına tabidir.</p>"""
 KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan bağımsız bir hukuk haber sitesidir. Ticari bir kuruluşa, hukuk bürosuna ya da baroya bağlı değildir.</p>
@@ -741,9 +605,9 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Telif</h2>
 <p>Sitedeki metinler kaynak gösterilmek ve bağlantı verilmek şartıyla alıntılanabilir; bütün hâlinde kopyalanamaz.</p>"""
 write("/kunye/", page("Künye", "Hukuki Haberler künye: yayın ilkeleri, yazı işleri, düzeltme ve telif esasları.", "/kunye/",
-      f'<article class="post"><h1>Künye</h1><div class="body">{KUNYE}</div></article>'))
+      f'<article class="post static"><h1>Künye</h1><div class="body">{KUNYE}</div></article>'))
 write("/gizlilik-politikasi/", page("Gizlilik Politikası", "Hukuki Haberler gizlilik politikası: çerez kullanılmaz, kişisel veri toplanmaz.", "/gizlilik-politikasi/",
-      f'<article class="post"><h1>Gizlilik Politikası</h1><div class="body">{GIZ}</div></article>', noindex=True))
+      f'<article class="post static"><h1>Gizlilik Politikası</h1><div class="body">{GIZ}</div></article>', noindex=True))
 
 YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini hukukçu olmayan okurun da anlayabileceği açıklıkta, kaynağı gösterilmiş ve tarihli biçimde aktarmaktır.</p>
 <h2>Kapsam ve hedef kitle</h2>
@@ -763,11 +627,11 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <h2>Görseller</h2>
 <p>Görseller lisansı uygun kaynaklardan (ör. Wikimedia Commons) alınır; fotoğrafçı, kaynak ve lisans görselin altında bağlantısıyla belirtilir. Görsellerin sağ alt köşesinde site imzası yer alır.</p>"""
 write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkeleri: kaynak ve doğrulama, düzeltme politikası, hukuki içerik denetimi, reklam ve bağımsızlık.", "/yayin-ilkeleri/",
-      f'<article class="post"><h1>Yayın İlkeleri</h1><div class="body">{YAYIN}</div></article>'))
+      f'<article class="post static"><h1>Yayın İlkeleri</h1><div class="body">{YAYIN}</div></article>'))
 
 # 404
 write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı.", "/404.html",
-      '<article class="post"><h1>Sayfa bulunamadı</h1><div class="body"><p>Aradığınız haber taşınmış ya da adresi değişmiş olabilir. <a href="/arsiv/">Arşiv</a> sayfasından tüm haberlere ulaşabilir ya da <a href="/">anasayfaya</a> dönebilirsiniz.</p></div></article>', noindex=True))
+      '<article class="post static"><h1>Sayfa bulunamadı</h1><div class="body"><p>Aradığınız haber taşınmış ya da adresi değişmiş olabilir. <a href="/arsiv/">Arşiv</a> sayfasından tüm haberlere ulaşabilir ya da <a href="/">anasayfaya</a> dönebilirsiniz.</p></div></article>', noindex=True))
 
 # RSS
 def _rss(items, title, link):
@@ -787,7 +651,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "yearly", "0.3") for s in tag_posts] + \
-       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/iletisim/", "yearly", "0.2")]
+       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 lm = {p["url"]: p["date"].isoformat() for p in POSTS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls) + "</urlset>\n"
@@ -800,10 +664,9 @@ nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemap
 with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
     f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/news-sitemap.xml\n")
-for _f in os.listdir(os.path.join(os.path.dirname(__file__), "static")):
-    shutil.copy(os.path.join(os.path.dirname(__file__), "static", _f), os.path.join(OUT, _f))
+shutil.copytree(os.path.join(os.path.dirname(__file__), "static"), OUT, dirs_exist_ok=True)
 with open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8") as f:
-    json.dump({"name": NAME, "short_name": NAME, "start_url": "/", "display": "standalone", "background_color": "#ffffff", "theme_color": "#9b1c1c",
+    json.dump({"name": NAME, "short_name": NAME, "start_url": "/", "display": "standalone", "background_color": "#35495E", "theme_color": "#2D4054",
                "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, f, ensure_ascii=False)
 
 # yönlendirmeler (Cloudflare Pages _redirects)

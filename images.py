@@ -61,9 +61,7 @@ MAP = {
  "kayyum-nedir-saadet-partisini-simdi-kim-yonetecek": "kayyum-nedir.jpg",
 }
 
-COLORS = {"manset": (155, 28, 28), "yargi": (30, 58, 138), "siyaset": (55, 65, 81), "basindan": (107, 79, 29),
-          "diger": (15, 118, 110), "universiteler": (91, 33, 182), "teknoloji": (14, 116, 144), "barolar": (124, 45, 18),
-          "hukuk-burolarindan": (74, 4, 78)}
+COLORS = {k: (53, 73, 94) for k in ("manset","yargi","siyaset","basindan","diger","universiteler","teknoloji","barolar","hukuk-burolarindan")}
 
 def _cover(im, w, h):
     r = max(w / im.width, h / im.height)
@@ -85,7 +83,7 @@ def with_thumb(src):
     frame = Image.new("RGB", (fg.width + pad * 2, fg.height + pad * 2), (20, 20, 20))
     frame.paste(fg, (pad, pad))
     sh = Image.new("RGBA", (frame.width + 40, frame.height + 40), (0, 0, 0, 0))
-    ImageDraw.Draw(sh).rectangle((20, 24, 20 + frame.width, 24 + frame.height), fill=(0, 0, 0, 120))
+    ImageDraw.Draw(sh).rectangle((20, 24, 20 + frame.width, 24 + frame.height), fill=(29, 42, 55, 150))
     sh = sh.filter(ImageFilter.GaussianBlur(12))
     x, y = (W - frame.width) // 2, (H - frame.height) // 2
     out = bg.convert("RGBA")
@@ -103,7 +101,7 @@ def typographic(title, catkey, catname):
     d.polygon([(0, H), (W, 0), (W, H)], fill=dark)
     # büyük terazi glifi
     f_big = ImageFont.truetype(FONT_S, 230)
-    d.text((W - 300, H - 290), "⚖", font=f_big, fill=tuple(min(255, v + 40) for v in c))
+    d.text((W - 300, H - 290), "⚖", font=f_big, fill=(80, 100, 122))
     # büyük kategori adı (başlık kartta ayrıca yazıldığı için tekrar edilmez)
     f_cat = ImageFont.truetype(FONT_S, 18)
     d.text((44, 44), "HUKUKİ HABERLER", font=f_cat, fill=tuple(min(255, v + 110) for v in c))
@@ -121,7 +119,7 @@ def typographic(title, catkey, catname):
         d.text((46, y + 3), ln, font=f_t, fill=(0, 0, 0))
         d.text((44, y), ln, font=f_t, fill=(255, 255, 255))
         y += 72
-    d.rectangle((44, y + 8, 164, y + 13), fill=(255, 255, 255))
+    d.rectangle((44, y + 8, 164, y + 13), fill=(241, 210, 147))
     f_s = ImageFont.truetype(FONT_S, 18)
     d.text((44, H - 48), "hukukihaberler.com", font=f_s, fill=(255, 255, 255))
     return im
@@ -149,8 +147,8 @@ def imza(im):
     x0, y0 = x1 - tw - pad_x * 2 - 12, y1 - h
     ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(ov)
-    d.rounded_rectangle((x0, y0, x1, y1), radius=4, fill=(0, 0, 0, 120))
-    d.rectangle((x0, y0, x0 + 4, y1), fill=(155, 28, 28, 230))
+    d.rounded_rectangle((x0, y0, x1, y1), radius=4, fill=(29, 42, 55, 150))
+    d.rectangle((x0, y0, x0 + 4, y1), fill=(241, 210, 147, 235))
     d.text((x0 + pad_x + 6, y0 + 4), txt, font=f, fill=(255, 255, 255, 235))
     return Image.alpha_composite(im, ov).convert("RGB")
 

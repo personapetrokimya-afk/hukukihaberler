@@ -515,5 +515,8 @@
 <url><loc>https://hukukihaberler.com/hakkinda/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/kunye/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/yayin-ilkeleri/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/analiz/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/mevzuat/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/kesfet/</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://hukukihaberler.com/iletisim/</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
