@@ -434,7 +434,7 @@ def homepage(chunk):
     grid = f'<h2 class="sec-h">Son haberler</h2><div class="grid">{"".join(card(p) for p in rest)}</div>'
     secs = ""
     shown = set(id(p) for p in slides + heads + rest)
-    for k, label in (("yargi", "Yargı"), ("basindan", "Basından"), ("diger", "Ekonomi ve Gündem")):
+    for k, label in (("yargi", "Yargı"), ("siyaset", "Siyaset"), ("diger", "Ekonomi ve Gündem"), ("teknoloji", "Teknoloji")):
         items = [p for p in POSTS if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and id(p) not in shown and p["date"].year >= 2026][:3]
         if len(items) >= 2:
             secs += f'<h2 class="sec-h"><a href="/haber-kategorisi/{k}/">{label}</a></h2><div class="grid">{"".join(card(p) for p in items)}</div>'
@@ -448,7 +448,7 @@ def _old_homepage(chunk):
 </section>"""
     grid = f'<h2 class="sec-h">Son haberler</h2><div class="grid">{"".join(card(p) for p in rest)}</div>'
     secs = ""
-    for k, label in (("yargi", "Yargı"), ("basindan", "Basından"), ("diger", "Ekonomi ve Gündem")):
+    for k, label in (("yargi", "Yargı"), ("siyaset", "Siyaset"), ("diger", "Ekonomi ve Gündem"), ("teknoloji", "Teknoloji")):
         items = [p for p in POSTS if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and p not in chunk][:3]
         if items:
             secs += f'<h2 class="sec-h"><a href="/haber-kategorisi/{k}/">{label}</a></h2><div class="grid">{"".join(card(p) for p in items)}</div>'
