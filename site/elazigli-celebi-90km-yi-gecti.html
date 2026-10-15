@@ -41,11 +41,26 @@ a{color:var(--ink);text-decoration:none}a:hover{color:var(--acc)}
 .mast .logo{font:800 44px/1 var(--serif);letter-spacing:-1px;color:var(--ink)}
 .mast .logo span{color:var(--acc)}
 .mast small{display:block;margin-top:6px;color:var(--mute);font-size:13px;text-transform:uppercase;letter-spacing:.18em}
-nav.main{background:var(--acc);border-top:3px solid var(--ink)}
+nav.main{background:#9b1c1c;border-top:3px solid #14181d}
 nav.main ul{list-style:none;margin:0 auto;padding:0;max-width:1180px;display:flex;overflow-x:auto;scrollbar-width:none}
 nav.main ul::-webkit-scrollbar{display:none}
-nav.main a{display:block;padding:11px 16px;color:#fff;font:600 13px/1.2 var(--sans);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.14)}
+nav.main a{display:block;padding:11px 13px;color:#fff;font:600 13px/1.2 var(--sans);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.14)}
 nav.main a:hover,nav.main a.on{background:rgba(0,0,0,.22);color:#fff}
+.mbtn{display:none}
+@media(max-width:760px){
+ .topbar{display:none}
+ header{position:sticky;top:0;z-index:50;background:var(--bg);box-shadow:0 1px 0 var(--line)}
+ .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 0;text-align:left}
+ .mast .logo{font-size:26px!important;letter-spacing:-.5px}
+ .mast small{display:none}
+ .mbtn{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:0 10px;cursor:pointer}
+ .mbtn span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+ .mbtn.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}.mbtn.x span:nth-child(2){opacity:0}.mbtn.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+ nav.main{display:none;border-top:0}
+ nav.main.open{display:block;max-height:70vh;overflow:auto}
+ nav.main ul{flex-direction:column;overflow:visible}
+ nav.main a{border-right:0;border-bottom:1px solid rgba(255,255,255,.12);padding:14px 18px;font-size:14px}
+}
 .kicker{display:inline-block;white-space:nowrap;font:700 11px/1 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:#fff;background:var(--acc);padding:4px 7px;border-radius:2px}
 .kicker.k-yargi{background:#1e3a8a}.kicker.k-siyaset{background:#374151}.kicker.k-basindan{background:#6b4f1d}.kicker.k-diger{background:#0f766e}.kicker.k-universiteler{background:#5b21b6}.kicker.k-teknoloji{background:#0e7490}.kicker.k-barolar{background:#7c2d12}.kicker.k-hukuk-burolarindan{background:#4a044e}
 time,.date{font:12px/1.4 var(--sans);color:var(--mute)}
@@ -54,6 +69,29 @@ time,.date{font:12px/1.4 var(--sans);color:var(--mute)}
 .sec-h{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:800 18px/1.2 var(--serif);text-transform:uppercase;letter-spacing:.02em}
 .sec-h:after{content:"";flex:1;height:3px;background:linear-gradient(90deg,var(--acc) 0 60px,var(--line) 60px)}
 .sec-h a{color:var(--ink)}
+.top{display:grid;grid-template-columns:1fr;gap:26px;margin-bottom:30px}
+@media(max-width:900px){.top{grid-template-columns:1fr}}
+.slider{position:relative;border-radius:6px;overflow:hidden;background:#000;align-self:start}
+.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.slides::-webkit-scrollbar{display:none}
+.slide{position:relative;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:16/9;display:block;color:#fff}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.9))}
+.slide .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px 34px;z-index:1}
+.slide h2{font:800 30px/1.15 var(--serif);margin:10px 0 0;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.slide:hover h2{text-decoration:underline;text-decoration-thickness:2px}
+.dots{position:absolute;left:24px;bottom:12px;display:flex;gap:6px;z-index:2}
+.dots button{width:22px;height:4px;border:0;border-radius:2px;background:rgba(255,255,255,.45);padding:0;cursor:pointer}
+.dots button.on{background:#fff;width:34px}
+.sarrow{position:absolute;top:38%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:22px;line-height:40px;cursor:pointer}
+.sarrow.p{left:10px}.sarrow.n{right:10px}
+@media(max-width:560px){.slide{aspect-ratio:4/3}.slide h2{font-size:22px}.slide .cap{padding:16px 16px 30px}.sarrow{display:none}.dots{left:16px}}
+.headlines{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}.headlines .sec-h{grid-column:1/-1}
+@media(max-width:700px){.headlines{grid-template-columns:1fr}}
+.headlines article{display:grid;grid-template-columns:84px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+
+.headlines .pic img{width:84px;height:58px;object-fit:cover;border-radius:4px;display:block}
+.headlines h3{font:700 15px/1.3 var(--serif);margin:4px 0 2px}.headlines .kicker{font-size:10px;padding:3px 6px}
 .hero{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;margin-bottom:30px}
 @media(max-width:760px){.hero{grid-template-columns:1fr}}
 .lead-story{border-top:4px solid var(--acc);padding-top:14px}
@@ -68,7 +106,7 @@ time,.date{font:12px/1.4 var(--sans);color:var(--mute)}
 .card{background:var(--soft);border-radius:4px;padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--line)}
 .card h3,.card h2{font:700 18px/1.3 var(--serif);margin:4px 0}
 .card p{margin:0;color:var(--mute);font-size:14px;line-height:1.55}
-.card .meta{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card .meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 8px}
 .rows article{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
 @media(max-width:560px){.rows article{grid-template-columns:1fr;gap:6px}}
 .rows .d{font:12px/1.5 var(--sans);color:var(--mute)}.rows .d b{display:block;font:800 26px/1 var(--serif);color:var(--ink)}
@@ -113,6 +151,15 @@ footer .bot{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-siz
 .rows .meta{display:flex;gap:10px;align-items:center;margin-bottom:4px}
 .hero-img{margin:0 0 20px}.hero-img figcaption{font:12px/1.4 var(--sans);color:var(--mute);margin-top:6px}.hero-img figcaption a{color:var(--mute)}.hero-img img{width:100%;height:auto;border-radius:4px;display:block}
 .related .card .pic{margin-bottom:4px}
+.card{background:var(--bg);border:1px solid var(--line);border-top:0;border-radius:6px;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
+.card .pic{border-radius:0}
+.card h3 a,.card h2 a{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:560px){.grid .card{display:grid;grid-template-columns:120px 1fr;gap:0 12px;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0}
+ .grid .card .pic{grid-row:1/4;border-radius:4px}.grid .card .pic img{height:84px;aspect-ratio:auto}
+ .grid .card .meta,.grid .card h3,.grid .card h2{padding:0}.grid .card h3{font-size:16px;margin:2px 0}.grid .card p{display:none}
+ .grid .card:hover{transform:none;box-shadow:none}.grid{gap:0}}
 .kaynak{font:13px/1.6 var(--sans);color:var(--mute);border-top:1px solid var(--line);padding-top:10px;margin:0 0 18px}.kaynak b{color:var(--ink);margin-right:4px}.kaynak a{color:var(--acc)}
 .pmeta .tur{background:var(--acc);color:#fff;padding:0 6px;border-radius:2px;font-weight:700}
 .ozet{border:1px solid var(--line);border-top:3px solid var(--acc);padding:12px 18px 6px;margin:0 0 20px;font:15px/1.55 var(--sans)}.ozet b{display:block;text-transform:uppercase;font-size:13px;letter-spacing:.04em;color:var(--acc);margin-bottom:6px}.ozet ul{margin:0;padding-left:18px}.ozet li{margin-bottom:6px}
@@ -138,8 +185,8 @@ footer .bot{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-siz
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header>
 <div class="wrap"><div class="topbar"><span>15 Ekim 2026, Perşembe</span><span class="links"><a href="/kunye/">Künye</a><a href="/iletisim/">İletişim</a><a href="/feed/index.xml">RSS</a></span></div>
-<div class="mast"><a class="logo" href="/" aria-label="Hukuki Haberler anasayfa">Hukuki <span>Haberler</span></a><small>Hukuk, yargı ve mevzuat gündemi</small></div></div>
-<nav class="main" aria-label="Kategoriler"><ul><li><a href="/">Anasayfa</a></li><li><a href="/haber-kategorisi/manset/">Manşet</a></li><li><a href="/haber-kategorisi/yargi/">Yargı</a></li><li><a href="/haber-kategorisi/yargi/yargitay/">Yargıtay</a></li><li><a href="/haber-kategorisi/yargi/anayasa-mahkemesi/">AYM</a></li><li><a href="/haber-kategorisi/yargi/danistay/">Danıştay</a></li><li><a href="/haber-kategorisi/siyaset/">Siyaset</a></li><li><a href="/haber-kategorisi/barolar/">Barolar</a></li><li><a href="/haber-kategorisi/universiteler/">Üniversiteler</a></li><li><a href="/haber-kategorisi/teknoloji/">Teknoloji</a></li><li><a href="/haber-kategorisi/basindan/">Basından</a></li><li><a href="/haber-kategorisi/diger/">Diğer</a></li><li><a href="/arsiv/">Arşiv</a></li></ul></nav>
+<div class="mast"><a class="logo" href="/" aria-label="Hukuki Haberler anasayfa">Hukuki <span>Haberler</span></a><small>Hukuk, yargı ve mevzuat gündemi</small><button class="mbtn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="anamenu" onclick="var n=document.getElementById('anamenu');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.classList.toggle('x',o)"><span></span><span></span><span></span></button></div></div>
+<nav class="main" id="anamenu" aria-label="Kategoriler"><ul><li><a href="/">Anasayfa</a></li><li><a href="/haber-kategorisi/manset/">Manşet</a></li><li><a href="/haber-kategorisi/yargi/">Yargı</a></li><li><a href="/haber-kategorisi/yargi/yargitay/">Yargıtay</a></li><li><a href="/haber-kategorisi/yargi/anayasa-mahkemesi/">AYM</a></li><li><a href="/haber-kategorisi/yargi/danistay/">Danıştay</a></li><li><a href="/haber-kategorisi/siyaset/">Siyaset</a></li><li><a href="/haber-kategorisi/barolar/">Barolar</a></li><li><a href="/haber-kategorisi/universiteler/">Üniversiteler</a></li><li><a href="/haber-kategorisi/teknoloji/">Teknoloji</a></li><li><a href="/haber-kategorisi/basindan/">Basından</a></li><li><a href="/haber-kategorisi/diger/">Diğer</a></li><li><a href="/arsiv/">Arşiv</a></li></ul></nav>
 </header>
 <div class="wrap"><div class="cols">
 <main id="icerik"><article class="post"><div class="crumb"><a href="/">Anasayfa</a> › <a href="/haber-kategorisi/teknoloji/">Teknoloji</a></div>
