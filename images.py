@@ -81,8 +81,8 @@ def with_thumb(src):
     bg = ImageEnhance.Brightness(bg).enhance(0.6)
     fg = _fit(im, int(W * 0.62), int(H * 0.8))
     fg = fg.filter(ImageFilter.UnsharpMask(radius=1.2, percent=70, threshold=2))
-    pad = 8
-    frame = Image.new("RGB", (fg.width + pad * 2, fg.height + pad * 2), (255, 255, 255))
+    pad = 0
+    frame = Image.new("RGB", (fg.width + pad * 2, fg.height + pad * 2), (20, 20, 20))
     frame.paste(fg, (pad, pad))
     sh = Image.new("RGBA", (frame.width + 40, frame.height + 40), (0, 0, 0, 0))
     ImageDraw.Draw(sh).rectangle((20, 24, 20 + frame.width, 24 + frame.height), fill=(0, 0, 0, 120))
@@ -126,21 +126,42 @@ def typographic(title, catkey, catname):
     d.text((44, H - 48), "hukukihaberler.com", font=f_s, fill=(255, 255, 255))
     return im
 
+COMMONS = os.path.join(HERE, "commons")
+ALIAS = {  # aynı fotoğrafı paylaşan haberler
+ "anayasa-mahkemesi-ve-uluslararasi-anlasmalar": "nukleere-hukuk-dar-geliyor",
+ "aymden-tayfun-kahramana-ikinci-ihlal-karari-yeniden-yargilama": "aym-26-siyasi-partinin-hesaplarini-kabul-etmedi-suc-duyurusu",
+ "hizmetli-memurun-13-yillik-hukuk-mucadelesi": "hizmetli-memurun-13-yillik-hukuk-mucadelesi",
+}
+def photo(src):
+    im = Image.open(src).convert("RGB")
+    im = _cover(im, W, H)
+    return ImageEnhance.Sharpness(im).enhance(1.1)
+
 def build(posts, outdir):
-    """posts: dict list with slug/title/catkeys; returns {slug: (path, kind)}"""
+    """returns {slug: (url, kind, credit)}"""
+    import json
     os.makedirs(outdir, exist_ok=True)
+    meta = {}
+    mp = os.path.join(COMMONS, "meta.json")
+    if os.path.exists(mp): meta = json.load(open(mp, encoding="utf-8"))
     res = {}
     for p in posts:
         slug = p["slug"]; fn = f"{slug}.jpg"; dst = os.path.join(outdir, fn)
+        key = ALIAS.get(slug, slug)
+        cpath = os.path.join(COMMONS, key + ".jpg")
         src = MAP.get(slug)
+        credit = None
         if src and os.path.exists(os.path.join(ORIG, src)):
             im = with_thumb(os.path.join(ORIG, src)); kind = "orig"
+        elif os.path.exists(cpath) and key in meta:
+            im = photo(cpath); kind = "photo"; m = meta[key]
+            credit = {"artist": m.get("artist") or "Wikimedia Commons", "lic": m.get("lic", ""), "page": m.get("page", "")}
         else:
             k = p["catkeys"][0]
             for c in p["catkeys"]:
                 if c != "manset": k = c; break
             im = typographic(p["title"], k, p["catname"]); kind = "gen"
         im.save(dst, "JPEG", quality=82, optimize=True, progressive=True)
-        res[slug] = (f"/gorsel/{fn}", kind)
+        res[slug] = (f"/gorsel/{fn}", kind, credit)
     typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)
     return res

@@ -6,6 +6,7 @@ from content1 import POSTS as P1
 from content2 import POSTS as P2
 from content3 import POSTS as P3
 from content4 import POSTS as P4
+from content5 import POSTS as P5
 
 SITE = "https://hukukihaberler.com"
 NAME = "Hukuki Haberler"
@@ -14,7 +15,7 @@ OUT = os.path.join(os.path.dirname(__file__), "site")
 TARGET = "https://yagmurtahtasiz.com"   # bağlamsal link hedefi (makale başına en fazla 1-2)
 PER_PAGE = 10
 
-POSTS = P1 + P2 + P3 + P4
+POSTS = P1 + P2 + P3 + P4 + P5
 
 # ---------------------------------------------------------------- kategoriler (eski yapı)
 CATS = {
@@ -94,7 +95,7 @@ for p in POSTS: p["catname"] = CATS[p["catkeys"][0]][0] if p["catkeys"][0] != "m
 if os.path.exists(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT)
 _IMG = _images.build(POSTS, os.path.join(OUT, "gorsel"))
-for p in POSTS: p["img"], p["imgkind"] = _IMG[p["slug"]]
+for p in POSTS: p["img"], p["imgkind"], p["credit"] = _IMG[p["slug"]]
 for p in POSTS:
     links = re.findall(re.escape(TARGET), p["body"])
     assert len(links) <= 2, f"{p['slug']}: hedef siteye {len(links)} link (en fazla 2)"
@@ -185,7 +186,7 @@ footer .bot{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-siz
 .side-stories article{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:start}.side-stories .pic{margin:0}
 .rows article{grid-template-columns:220px 1fr}@media(max-width:560px){.rows article{grid-template-columns:1fr}}
 .rows .meta{display:flex;gap:10px;align-items:center;margin-bottom:4px}
-.hero-img{margin:0 0 20px}.hero-img img{width:100%;height:auto;border-radius:4px;display:block}
+.hero-img{margin:0 0 20px}.hero-img figcaption{font:12px/1.4 var(--sans);color:var(--mute);margin-top:6px}.hero-img figcaption a{color:var(--mute)}.hero-img img{width:100%;height:auto;border-radius:4px;display:block}
 .related .card .pic{margin-bottom:4px}
 .arch{columns:3;column-gap:24px;font:15px/1.9 var(--sans)}@media(max-width:700px){.arch{columns:2}}
 .arch ul{list-style:none;margin:0 0 12px;padding:0;break-inside:avoid}.arch b{display:block;font-size:13px;text-transform:uppercase;color:var(--mute)}
@@ -301,6 +302,10 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 
 def pic(p, lazy=True, w=800, h=420):
     return f'<a class="pic" href="{p["url"]}"><img src="{p["img"]}" alt="{e(p["title"])}" width="{w}" height="{h}"{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>'
+def credit_html(p):
+    c = p.get("credit")
+    if not c: return ""
+    return f'<figcaption>Fotoğraf: {e(c["artist"])} / <a href="{e(c["page"])}" rel="nofollow noopener" target="_blank">Wikimedia Commons</a>, {e(c["lic"])}</figcaption>'
 def card(p, h="h3"):
     return f"""<article class="card">{pic(p)}<div class="meta">{kicker(p)}<time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></div>
 <{h}><a href="{p['url']}">{e(p['title'])}</a></{h}><p>{e(p['desc'])}</p></article>"""
@@ -386,7 +391,7 @@ for idx, p in enumerate(POSTS):
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
 <div class="pmeta"><span><time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></span><span>{cats_html}</span><span>{rtime(p)} dk okuma</span><span>Hukuki Haberler</span></div>
-<figure class="hero-img"><img src="{p['img']}" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high"></figure>
+<figure class="hero-img"><img src="{p['img']}" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high">{credit_html(p)}</figure>
 <div class="body">{p['body']}</div>
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
 {share}
