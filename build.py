@@ -532,6 +532,9 @@ INTERNAL = [
  ("kayyum", "kayyum-nedir-saadet-partisini-simdi-kim-yonetecek"),
  ("Booking", "dijital-konaklama-platformlarina-izin-zorunlulugu-kanun-teklifi"),
  ("kapalı alanlarda tütün", "hastane-bahcesi-ve-okul-cevresinde-sigara-yasagi-geliyor"),
+ ("taksitle satış", "taksitli-alisveriste-sureleri-ticaret-bakanligi-belirleyecek-tuketici-ne-bilmeli"),
+ ("veri ihlali", "ytu-fidye-yazilimi-saldirisi-verisi-etkilenen-ogrenci-ve-personelin-haklari"),
+ ("seçimlerin yenilenmesi", "2028-secimi-icin-mart-nisan-takvimi-anayasa-hangi-yolu-gosteriyor-360-oy"),
 ]
 BY_SLUG = {p["slug"]: p for p in POSTS}
 def autolink(p, limit=3):
