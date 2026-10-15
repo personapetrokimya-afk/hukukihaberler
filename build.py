@@ -123,9 +123,12 @@ nav.main{background:#9b1c1c;border-top:3px solid #14181d}
 nav.main ul{list-style:none;margin:0 auto;padding:0;max-width:1180px;display:flex;overflow-x:auto;scrollbar-width:none}
 nav.main ul::-webkit-scrollbar{display:none}
 nav.main a{display:block;padding:11px 13px;color:#fff;font:600 13px/1.2 var(--sans);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.14)}
+nav.main a{display:flex!important;align-items:center;gap:6px}
+@media(min-width:1181px){nav.main li.dh{display:none}nav.main a{padding:11px 12px!important;font-size:12.5px!important}}nav.main .mi{flex:none;opacity:.9}
+@media(max-width:1180px){nav.main .mi{width:18px;height:18px}nav.main a{gap:12px}}
 nav.main a:hover,nav.main a.on{background:rgba(0,0,0,.22);color:#fff}
 .mbtn{display:none}
-@media(max-width:760px){
+@media(max-width:1180px){
  .topbar{display:none}
  header{position:sticky;top:0;z-index:50;background:var(--bg);box-shadow:0 1px 0 var(--line)}
  .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 0;text-align:left}
@@ -261,6 +264,24 @@ footer li a,aside li a,.cats a,.fcols a{display:inline-block;min-height:24px;pad
 .arch ul{list-style:none;margin:0 0 12px;padding:0;break-inside:avoid}.arch b{display:block;font-size:13px;text-transform:uppercase;color:var(--mute)}
 """
 
+MENU_ICON = {
+ "Anasayfa": '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+ "Manşet": '<path d="M12 3l2.6 5.6 6.1.7-4.5 4.1 1.2 6L12 16.4 6.6 19.4l1.2-6-4.5-4.1 6.1-.7z"/>',
+ "Yargı": '<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',
+ "Yargıtay": '<path d="m14 13-7.5 7.5a2.1 2.1 0 0 1-3-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/>',
+ "AYM": '<path d="M3 21h18M5 21V10M9 21V10M15 21V10M19 21V10"/><path d="M12 3 3 8h18z"/>',
+ "Danıştay": '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>',
+ "Siyaset": '<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>',
+ "Barolar": '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
+ "Üniversiteler": '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
+ "Teknoloji": '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+ "Basından": '<rect x="3" y="4" width="14" height="16" rx="2"/><path d="M17 8h3v10a2 2 0 0 1-2 2"/><path d="M7 8h6M7 12h6M7 16h4"/>',
+ "Diğer": '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>',
+ "Arşiv": '<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/>',
+}
+def micon(t):
+    p = MENU_ICON.get(t)
+    return f'<svg class="mi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{p}</svg>' if p else ""
 MENU = [("/", "Anasayfa"), ("/haber-kategorisi/manset/", "Manşet"), ("/haber-kategorisi/yargi/", "Yargı"),
         ("/haber-kategorisi/yargi/yargitay/", "Yargıtay"), ("/haber-kategorisi/yargi/anayasa-mahkemesi/", "AYM"),
         ("/haber-kategorisi/yargi/danistay/", "Danıştay"),
@@ -313,7 +334,7 @@ def _preload(main):
     return f'\n<link rel="preload" as="image" href="{m.group(1)}"{ss} fetchpriority="high">'
 
 def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None):
-    nav = "".join(f'<li><a href="{u}"{" class=on" if u == url else ""}>{t}</a></li>' for u, t in MENU)
+    nav = "".join(f'<li{" class=dh" if t in ("Basından", "Arşiv") else ""}><a href="{u}"{" class=on" if u == url else ""}>{micon(t)}<span>{t}</span></a></li>' for u, t in MENU)
     lds = []
     if ld: lds.append(ld)
     if crumbs:
@@ -359,7 +380,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header>
-<div class="wrap"><div class="topbar"><span>{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span><span class="links"><a href="/kunye/">Künye</a><a href="/iletisim/">İletişim</a><a href="/feed/index.xml">RSS</a></span></div>
+<div class="wrap"><div class="topbar"><span>{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span><span class="links"><a href="/kunye/">Künye</a><a href="/arsiv/">Arşiv</a><a href="/iletisim/">İletişim</a><a href="/feed/index.xml">RSS</a></span></div>
 <div class="mast"><a class="logo" href="/" aria-label="{NAME} anasayfa">{LOGO_SVG}Hukuki <span>Haberler</span></a><small>{TAGLINE}</small><button class="mbtn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="anamenu" onclick="var n=document.getElementById('anamenu');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.classList.toggle('x',o)"><span></span><span></span><span></span></button></div></div>
 <nav class="main" id="anamenu" aria-label="Kategoriler"><ul>{nav}</ul></nav>
 </header>
