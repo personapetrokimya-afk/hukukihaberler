@@ -767,8 +767,15 @@ write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı."
       '<article class="post"><h1>Sayfa bulunamadı</h1><div class="body"><p>Aradığınız haber taşınmış ya da adresi değişmiş olabilir. <a href="/arsiv/">Arşiv</a> sayfasından tüm haberlere ulaşabilir ya da <a href="/">anasayfaya</a> dönebilirsiniz.</p></div></article>', noindex=True))
 
 # RSS
-rss_items = "".join(f"<item><title>{e(p['title'])}</title><link>{SITE}{p['url']}</link><guid>{SITE}{p['url']}</guid><pubDate>{p['date'].strftime('%a, %d %b %Y 09:00:00 +0300')}</pubDate><description>{e(p['desc'])}</description></item>" for p in POSTS[:20])
-write("/feed/", f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>{NAME}</title><link>{SITE}/</link><description>{TAGLINE}</description><language>tr</language>{rss_items}</channel></rss>')
+def _rss(items, title, link):
+    its = "".join(f"<item><title>{e(p['title'])}</title><link>{SITE}{p['url']}</link><guid isPermaLink=\"true\">{SITE}{p['url']}</guid><pubDate>{p['date'].strftime('%a, %d %b %Y 09:00:00 +0300')}</pubDate><category>{e(p['catname'])}</category><description>{e(p['desc'])}</description><media:content url=\"{SITE}{p['img']}\" medium=\"image\" width=\"800\" height=\"420\"/><content:encoded><![CDATA[<p><img src=\"{SITE}{p['img']}\" alt=\"\"></p>{p['body']}]]></content:encoded></item>" for p in items)
+    return (f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/">'
+            f'<channel><title>{e(title)}</title><link>{SITE}{link}</link><description>{TAGLINE}</description><language>tr</language>'
+            f'<image><url>{SITE}/icon-192.png</url><title>{e(title)}</title><link>{SITE}{link}</link></image>{its}</channel></rss>')
+write("/feed/", _rss(POSTS[:20], NAME, "/"))
+for _k in ("manset", "yargi", "siyaset", "diger", "teknoloji"):
+    _it = [p for p in POSTS if _k in p["catkeys"] or any(CATS[c][1] == _k for c in p["catkeys"])][:20]
+    with open(os.path.join(OUT, "feed", f"{_k}.xml"), "w", encoding="utf-8") as f: f.write(_rss(_it, f"{NAME} - {CATS[_k][0]}", f"/haber-kategorisi/{_k}/"))
 os.rename(os.path.join(OUT, "feed", "index.html"), os.path.join(OUT, "feed", "index.xml"))
 REDIRECTS.append(("/feed/", "/feed/index.xml")); REDIRECTS.append(("/feed", "/feed/index.xml"))
 REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/comments/feed/", "/feed/index.xml"))
