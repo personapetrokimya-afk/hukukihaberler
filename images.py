@@ -137,6 +137,23 @@ def photo(src):
     im = _cover(im, W, H)
     return ImageEnhance.Sharpness(im).enhance(1.1)
 
+def imza(im):
+    """sağ alt köşeye site imzası"""
+    im = im.convert("RGBA")
+    f = ImageFont.truetype(FONT_S, 15)
+    txt = "hukukihaberler.com"
+    d0 = ImageDraw.Draw(im)
+    tw = d0.textlength(txt, font=f)
+    pad_x, h = 10, 26
+    x1, y1 = W - 12, H - 12
+    x0, y0 = x1 - tw - pad_x * 2 - 12, y1 - h
+    ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    d.rounded_rectangle((x0, y0, x1, y1), radius=4, fill=(0, 0, 0, 120))
+    d.rectangle((x0, y0, x0 + 4, y1), fill=(155, 28, 28, 230))
+    d.text((x0 + pad_x + 6, y0 + 4), txt, font=f, fill=(255, 255, 255, 235))
+    return Image.alpha_composite(im, ov).convert("RGB")
+
 def build(posts, outdir):
     """returns {slug: (url, kind, credit)}"""
     import json
@@ -161,7 +178,10 @@ def build(posts, outdir):
             for c in p["catkeys"]:
                 if c != "manset": k = c; break
             im = typographic(p["title"], k, p["catname"]); kind = "gen"
+        if kind != "gen": im = imza(im)
         im.save(dst, "JPEG", quality=82, optimize=True, progressive=True)
+        os.makedirs(os.path.join(outdir, "m"), exist_ok=True)
+        im.resize((480, 252), Image.LANCZOS).save(os.path.join(outdir, "m", fn), "JPEG", quality=78, optimize=True, progressive=True)
         res[slug] = (f"/gorsel/{fn}", kind, credit)
     typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)
     return res

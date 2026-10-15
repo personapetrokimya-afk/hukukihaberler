@@ -61,6 +61,7 @@ CAT_DESC = {
     "diger/spor": "Spor dünyasından kısa haberler.",
 }
 
+LOGO_SVG = open(os.path.join(os.path.dirname(__file__), "static", "favicon.svg"), encoding="utf-8").read().replace("<svg ", '<svg class="lmark" width="44" height="44" aria-hidden="true" focusable="false" ', 1)
 # ---------------------------------------------------------------- yardımcılar
 TR = str.maketrans("çğıöşüÇĞİÖŞÜ", "cgiosuCGIOSU")
 def slugify(s):
@@ -115,7 +116,8 @@ a{color:var(--ink);text-decoration:none}a:hover{color:var(--acc)}
 .topbar a{color:var(--mute)}.topbar .links a{margin-left:14px}
 .mast{padding:20px 0 14px;text-align:center}
 .mast .logo{font:800 44px/1 var(--serif);letter-spacing:-1px;color:var(--ink)}
-.mast .logo span{color:var(--acc)}
+.mast .logo span{color:var(--acc)}.mast .logo{display:inline-flex;align-items:center;gap:12px}.lmark{flex:none;border-radius:10px}
+@media(max-width:760px){.lmark{width:34px;height:34px}.mast .logo{gap:9px}}
 .mast small{display:block;margin-top:6px;color:var(--mute);font-size:13px;text-transform:uppercase;letter-spacing:.18em}
 nav.main{background:#9b1c1c;border-top:3px solid #14181d}
 nav.main ul{list-style:none;margin:0 auto;padding:0;max-width:1180px;display:flex;overflow-x:auto;scrollbar-width:none}
@@ -157,8 +159,8 @@ time,.date{font:12px/1.4 var(--sans);color:var(--mute)}
 .slide h2{font:800 30px/1.15 var(--serif);margin:10px 0 0;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 .slide:hover h2{text-decoration:underline;text-decoration-thickness:2px}
 .dots{position:absolute;left:24px;bottom:12px;display:flex;gap:6px;z-index:2}
-.dots button{width:22px;height:4px;border:0;border-radius:2px;background:rgba(255,255,255,.45);padding:0;cursor:pointer}
-.dots button.on{background:#fff;width:34px}
+.dots{gap:2px!important;bottom:4px!important}.dots button{width:26px;height:24px;border:0;background:none;padding:0;cursor:pointer;position:relative}.dots button:before{content:"";position:absolute;left:2px;right:2px;top:10px;height:4px;border-radius:2px;background:rgba(255,255,255,.45)}
+.dots button.on{width:38px}.dots button.on:before{background:#fff}
 .sarrow{position:absolute;top:38%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:22px;line-height:40px;cursor:pointer}
 .sarrow.p{left:10px}.sarrow.n{right:10px}
 @media(max-width:560px){.slide{aspect-ratio:4/3}.slide h2{font-size:22px}.slide .cap{padding:16px 16px 30px}.sarrow{display:none}.dots{left:16px}}
@@ -244,9 +246,12 @@ footer .bot{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-siz
 .tablo{width:100%;border-collapse:collapse;margin:16px 0 22px;font:14px/1.45 var(--sans)}.tablo caption{text-align:left;font-weight:700;padding-bottom:6px}.tablo th,.tablo td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.tablo thead th{background:var(--acc);color:#fff}
 @media(max-width:560px){.tablo{font-size:12.5px}}
 .liste li{margin-bottom:8px}
+.kicker{min-height:24px;display:inline-flex!important;align-items:center}
+footer li a,aside li a,.cats a,.fcols a{display:inline-block;min-height:24px;padding:2px 0}
+@media(prefers-color-scheme:dark){.ornek b{color:#f0c36d!important}}
 .ornek{background:#fff8e6;border-left:4px solid var(--gold);padding:12px 16px;margin:6px 0 20px;border-radius:0 4px 4px 0;font:15px/1.6 var(--sans)}
 @media(prefers-color-scheme:dark){.ornek{background:#2a2414}}
-.ornek b{display:block;font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:6px}.ornek p{margin:0 0 6px}
+.ornek b{display:block;font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:#7a5300;margin-bottom:6px}.ornek p{margin:0 0 6px}
 .anket{border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:4px;padding:14px 18px;margin:8px 0 20px;font:15px/1.5 var(--sans)}
 .anket h2{font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px;color:var(--acc)}.anket .q{font:700 17px/1.4 var(--serif);margin:0 0 10px}
 .anket label{display:block;padding:6px 0;cursor:pointer}.anket button{margin-top:8px;background:var(--acc);color:#fff;border:0;padding:8px 18px;border-radius:3px;font:600 14px var(--sans);cursor:pointer}
@@ -298,8 +303,14 @@ def sidebar():
 </aside>"""
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
-          "logo": {"@type": "ImageObject", "url": SITE + "/favicon.svg"}, "foundingDate": "2010",
+          "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}, "foundingDate": "2010",
           "sameAs": [], "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme"}
+
+def _preload(main):
+    m = re.search(r'<img src="([^"]+)"(?: srcset="([^"]+)")?(?: sizes="([^"]+)")?[^>]*fetchpriority=.?high', main)
+    if not m: return ""
+    ss = f' imagesrcset="{m.group(2)}" imagesizes="{m.group(3)}"' if m.group(2) else ""
+    return f'\n<link rel="preload" as="image" href="{m.group(1)}"{ss} fetchpriority="high">'
 
 def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None):
     nav = "".join(f'<li><a href="{u}"{" class=on" if u == url else ""}>{t}</a></li>' for u, t in MENU)
@@ -321,7 +332,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <title>{e(full_title)}</title>
 <meta name="description" content="{e(desc)}">
 {robots}
-<link rel="canonical" href="{e(can)}">
+<link rel="canonical" href="{e(can)}">{_preload(main)}
 <meta name="theme-color" content="#9b1c1c">
 <meta property="og:site_name" content="{NAME}">
 <meta property="og:type" content="{ogtype}">
@@ -338,7 +349,10 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <meta name="twitter:description" content="{e(desc)}">
 <link rel="alternate" type="application/rss+xml" title="{NAME} RSS" href="/feed/index.xml">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <style>{CSS}</style>
 {ldjson}
 </head>
@@ -346,7 +360,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header>
 <div class="wrap"><div class="topbar"><span>{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span><span class="links"><a href="/kunye/">Künye</a><a href="/iletisim/">İletişim</a><a href="/feed/index.xml">RSS</a></span></div>
-<div class="mast"><a class="logo" href="/" aria-label="{NAME} anasayfa">Hukuki <span>Haberler</span></a><small>{TAGLINE}</small><button class="mbtn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="anamenu" onclick="var n=document.getElementById('anamenu');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.classList.toggle('x',o)"><span></span><span></span><span></span></button></div></div>
+<div class="mast"><a class="logo" href="/" aria-label="{NAME} anasayfa">{LOGO_SVG}Hukuki <span>Haberler</span></a><small>{TAGLINE}</small><button class="mbtn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="anamenu" onclick="var n=document.getElementById('anamenu');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.classList.toggle('x',o)"><span></span><span></span><span></span></button></div></div>
 <nav class="main" id="anamenu" aria-label="Kategoriler"><ul>{nav}</ul></nav>
 </header>
 <div class="wrap"><div class="cols">
@@ -364,8 +378,9 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </body>
 </html>"""
 
+def srcset(p): return f'srcset="{p["img"].replace("/gorsel/", "/gorsel/m/")} 480w, {p["img"]} 800w"'
 def pic(p, lazy=True, w=800, h=420):
-    return f'<a class="pic" href="{p["url"]}"><img src="{p["img"]}" alt="{e(p["title"])}" width="{w}" height="{h}"{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>'
+    return f'<a class="pic" href="{p["url"]}"><img src="{p["img"]}" {srcset(p)} sizes="(max-width:560px) 120px, (max-width:900px) 50vw, 300px" alt="{e(p["title"])}" width="{w}" height="{h}"{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>'
 def credit_html(p):
     c = p.get("credit")
     if not c: return ""
@@ -397,7 +412,7 @@ def listing(title, desc, base, items, crumb="", intro="", crumbs=None):
                         ld=(ORG_LD if (base == "/" and i == 0) else None)))
 
 def slider_html(items):
-    sl = "".join(f'<a class="slide" href="{p["url"]}" aria-label="{e(p["title"])}"><img src="{p["img"]}" alt="" width="800" height="420"{" fetchpriority=high" if i == 0 else " loading=lazy"}><div class="cap">{kicker(p).replace("<a ","<span ").replace("</a>","</span>").replace(" href=\"/haber-kategorisi/"+topcat(p)+"/\"","")}<h2>{e(p["title"])}</h2></div></a>' for i, p in enumerate(items))
+    sl = "".join(f'<a class="slide" href="{p["url"]}" aria-label="{e(p["title"])}"><img src="{p["img"]}" {srcset(p)} sizes="(max-width:900px) 100vw, 800px" alt="" width="800" height="420"{" fetchpriority=high" if i == 0 else " loading=lazy"}><div class="cap">{kicker(p).replace("<a ","<span ").replace("</a>","</span>").replace(" href=\"/haber-kategorisi/"+topcat(p)+"/\"","")}<h2>{e(p["title"])}</h2></div></a>' for i, p in enumerate(items))
     dots = "".join(f'<button type="button" aria-label="{i+1}. haber"{" class=on" if i == 0 else ""}></button>' for i in range(len(items)))
     return f"""<div class="slider" aria-roledescription="carousel" aria-label="Manşet"><div class="slides">{sl}</div>
 <button class="sarrow p" type="button" aria-label="Önceki">‹</button><button class="sarrow n" type="button" aria-label="Sonraki">›</button><div class="dots">{dots}</div></div>
@@ -413,15 +428,15 @@ def homepage(chunk):
     photo = [p for p in POSTS[:30] if p.get("imgkind") in ("photo", "orig")]
     slides = (photo + [p for p in POSTS if p not in photo])[:5]
     heads = [p for p in chunk if p not in slides][:5]
-    rest = [p for p in POSTS if p not in slides and p not in heads][:9]
+    rest = [p for p in POSTS if p not in slides and p not in heads and p["date"].year >= 2026][:9]
     top = f"""<section class="top" aria-label="Öne çıkan haberler">{slider_html(slides)}
 <div class="headlines"><h2 class="sec-h">Son dakika</h2>{"".join(f'<article>{pic(p)}<div>{kicker(p)}<h3><a href="{p["url"]}">{e(p["title"])}</a></h3><time datetime="{p["date"].isoformat()}">{trdate(p["date"])}</time></div></article>' for p in heads)}</div></section>"""
     grid = f'<h2 class="sec-h">Son haberler</h2><div class="grid">{"".join(card(p) for p in rest)}</div>'
     secs = ""
     shown = set(id(p) for p in slides + heads + rest)
     for k, label in (("yargi", "Yargı"), ("basindan", "Basından"), ("diger", "Ekonomi ve Gündem")):
-        items = [p for p in POSTS if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and id(p) not in shown][:3]
-        if items:
+        items = [p for p in POSTS if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and id(p) not in shown and p["date"].year >= 2026][:3]
+        if len(items) >= 2:
             secs += f'<h2 class="sec-h"><a href="/haber-kategorisi/{k}/">{label}</a></h2><div class="grid">{"".join(card(p) for p in items)}</div>'
     return top + grid + secs
 
@@ -607,7 +622,7 @@ for idx, p in enumerate(POSTS):
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
           "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 800, "height": 420},
           "author": {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"},
-          "publisher": {"@type": "Organization", "name": NAME, "url": SITE, "logo": {"@type": "ImageObject", "url": SITE + "/favicon.svg"}}}
+          "publisher": {"@type": "Organization", "name": NAME, "url": SITE, "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
     k0 = topcat(p)
     crumbs = [("/", "Anasayfa")] + ([(f"/haber-kategorisi/{CATS[k0][1]}/", CATS[CATS[k0][1]][0])] if CATS[k0][1] else []) + [(f"/haber-kategorisi/{k0}/", CATS[k0][0]), (p["url"], p["title"])]
     crumb = " › ".join(f'<a href="{u}">{e(n)}</a>' for u, n in crumbs[:-1])
@@ -696,7 +711,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
 <h2>Yazı işleri</h2>
-<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
+<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi: Av. Yağmur Tahtasız. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri için <a href="/iletisim/">iletişim sayfasındaki</a> yol izlenir.</p>
 <h2>Telif</h2>
@@ -715,13 +730,15 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <p>Mümkün olan her durumda birincil kaynağa dayanırız: mevzuat metni, Resmî Gazete, mahkeme kararı, kamu kurumu açıklaması. İkincil kaynak (basın kuruluşu, ajans) kullanıldığında haberin altında bağlantısıyla belirtilir. İddia iddia olarak; soruşturma, kovuşturma, mahkûmiyet ve kesinleşme kavramları birbirinden ayrılarak yazılır. Soruşturma aşamasındaki kişiler için masumiyet karinesi esastır. Çocukların ve hassas durumdaki kişilerin kimlikleri yayımlanmaz.</p>
 <h2 id="duzeltme">Düzeltme, güncelleme ve tekzip</h2>
 <p>Hatalı olduğu tespit edilen bilgi kaynağıyla doğrulandığında düzeltilir; ilk yayın tarihi korunur, güncelleme tarihi ve neyin değiştiği yazının içinde belirtilir. Tekzip talepleri 5187 sayılı Basın Kanunu çerçevesinde değerlendirilir. Bildirimler için <a href="/iletisim/">iletişim</a> sayfası kullanılabilir.</p>
-<h2>Yapay zekâ kullanımı</h2>
-<p>Araştırma, kaynak tarama ve taslak hazırlığında yapay zekâ araçlarından yararlanılabilir. Bu araçlarla hazırlanan her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
+<h2>Doğrulama</h2>
+<p>Her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
+<h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
+<p>Sitenin hukuk danışmanlığını ve içerik denetimini Av. Yağmur Tahtasız yürütür. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
 <h2>Reklam, sponsorluk ve bağımsızlık</h2>
 <p>Sitede şu an reklam ve sponsorlu içerik bulunmamaktadır. İleride reklam alınması hâlinde reklam alanları haber metninden görsel olarak ayrılacak ve "Reklam" ibaresi taşıyacaktır. Hiçbir kurum veya kişi, ödeme karşılığında bir haberin içeriğini belirleyemez. Yazılarda hukuki bilgiye kaynak olarak bağlantı verilen dış sitelerle ilişkiler bu sayfada açıklanır.</p>
 <h2>Görseller</h2>
-<p>Görseller lisansı uygun kaynaklardan (ör. Wikimedia Commons) alınır; fotoğrafçı, kaynak ve lisans görselin altında bağlantısıyla belirtilir. Yapay zekâ ile üretilmiş fotoğraf kullanılmaz.</p>"""
-write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkeleri: kaynak ve doğrulama, düzeltme politikası, yapay zekâ kullanımı, reklam ve bağımsızlık.", "/yayin-ilkeleri/",
+<p>Görseller lisansı uygun kaynaklardan (ör. Wikimedia Commons) alınır; fotoğrafçı, kaynak ve lisans görselin altında bağlantısıyla belirtilir. Görsellerin sağ alt köşesinde site imzası yer alır.</p>"""
+write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkeleri: kaynak ve doğrulama, düzeltme politikası, hukuki içerik denetimi, reklam ve bağımsızlık.", "/yayin-ilkeleri/",
       f'<article class="post"><h1>Yayın İlkeleri</h1><div class="body">{YAYIN}</div></article>'))
 
 # 404
@@ -752,8 +769,11 @@ nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemap
 with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
     f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/news-sitemap.xml\n")
-with open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8") as f:
-    f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="#8a2b2b"/><text x="32" y="44" font-family="Georgia,serif" font-size="36" font-weight="700" text-anchor="middle" fill="#fff">H</text></svg>')
+for _f in os.listdir(os.path.join(os.path.dirname(__file__), "static")):
+    shutil.copy(os.path.join(os.path.dirname(__file__), "static", _f), os.path.join(OUT, _f))
+with open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8") as f:
+    json.dump({"name": NAME, "short_name": NAME, "start_url": "/", "display": "standalone", "background_color": "#ffffff", "theme_color": "#9b1c1c",
+               "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, f, ensure_ascii=False)
 
 # yönlendirmeler (Cloudflare Pages _redirects)
 REDIRECTS += [("/search/*", "/"), ("/wp-login.php", "/"), ("/wp-admin/*", "/"), ("/xmlrpc.php", "/"),

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Güncel haberler (Temmuz–Ekim 2026) — tarih = kaynak haberin yayın tarihi
+# Güncel haberler (Temmuz–Ekim 2026), tarih = kaynak haberin yayın tarihi
 T = "https://yagmurtahtasiz.com"
 POSTS = [
 {"slug": "yargitay-erken-dogan-bebekte-lazarus-fenomeni-hekime-kusur-yuklenemez", "kaynaklar": [["Sağlık Aktüel", "https://www.saglikaktuel.com/haber/yargitaydan-emsal-karar-lazarus-fenomeni-gerceklesen-vakada-doktora-kusur-atfed-107723.htm"]], "date": "2026-07-13",
