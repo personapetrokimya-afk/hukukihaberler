@@ -1,6 +1,59 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
+{"slug": "faili-mechul-dosyalar-yeniden-aciliyor-zamanasimi-yeni-delil-ve-ailelerin-haklari", "saat": "11:10", "date": "2026-10-16", "tur": "Analiz",
+ "title": "Faili Meçhul Dosyalar Yeniden Açılıyor: Zamanaşımı Ne Zaman Dolar, Aileler Hangi Haklara Sahip?",
+ "cats": ["Yargı"],
+ "tags": ["faili meçhul", "Akın Gürlek", "dava zamanaşımı", "TCK 66", "kovuşturmaya yer olmadığı kararı", "CMK 172", "etkili soruşturma", "Ömer Şenol"],
+ "ozet": [
+  "Adalet Bakanı Akın Gürlek 16 Ekim'de, Bakanlık bünyesindeki daire başkanlığının çalışmalarıyla 61 faili meçhul dosyada 68 öldürme olayının aydınlatıldığını açıkladı.",
+  "Açıklamada öne çıkan dosya, Eylül 2023'te İzmir Kemalpaşa'da ölen Ömer Şenol'a ait; Bakan Gürlek'in aktardığına göre 4 şüpheli tutuklandı, 9 şüpheliye adli kontrol uygulandı.",
+  "Kasten öldürmede dava zamanaşımı 25, nitelikli hâllerde 30 yıl; şüphelinin ifadesinin alınması gibi işlemler süreyi kesiyor ve süre en fazla yarısı kadar uzayabiliyor.",
+  "Takipsizlik kararı verilmiş bir dosyada dava açılabilmesi için yeni delil ve sulh ceza hâkimliği kararı gerekiyor; maktul yakınları bu süreçte dilekçeyle delil toplanmasını isteyebiliyor."
+ ],
+ "body": """<p class="lead">Adalet Bakanı Akın Gürlek, 16 Ekim 2026 sabahı yaptığı açıklama ve X hesabındaki paylaşımında, faili meçhul suçlar üzerine yürütülen çalışmalarda şimdiye kadar 61 dosyanın aydınlatıldığını duyurdu. Bakan Gürlek'e göre bu dosyalarda 68 kişi hayatını kaybetmiş, 7 kişi yaralanmıştı. Çalışmaları, Nisan ayında Bakanlık bünyesinde kurulan Faili Meçhul Suçları Araştırma Daire Başkanlığı koordine ediyor. Yıllar önce rafa kalkmış bir dosya hangi şartlarda yeniden açılabilir, zamanaşımı ne zaman dolar, maktul yakınları ne yapabilir?</p>
+<h2>Bakanlık ne açıkladı?</h2>
+<p>Bakan Gürlek'in paylaştığı bilgilere göre son aydınlatılan dosya İzmir'in Kemalpaşa ilçesinden. Ömer Şenol 19 Eylül 2023'te ormanlık bir alanda ağır yaralı bulunmuş, kaldırıldığı hastanede hayatını kaybetmişti. Dosya yeniden ele alındı, mevcut deliller ve iletişim kayıtları baştan değerlendirildi. Kemalpaşa Cumhuriyet Başsavcılığı koordinasyonunda Kemalpaşa İlçe Jandarma Komutanlığı ve JASAT ekipleri 15 Ekim 2026'da eş zamanlı operasyon düzenledi ve 9 şüpheliyi gözaltına aldı. Bakanlığın aktarımına göre şüpheli ifadeleri ve yer gösterme işleminin ardından 4 şüpheli daha dosyaya dahil edildi. Şüphelilerden 4'ü tutuklandı, 9'u hakkında adli kontrol kararı verildi.</p>
+<p>Bakan Gürlek paylaşımında "Hiçbir cinayeti unutmayacak, hiçbir faili meçhul dosyanın peşini bırakmayacağız!" dedi. Bakanlık 10 Ekim'de de Kırşehir ve Samsun'daki iki faili meçhul cinayetin aydınlatıldığını duyurmuştu. Şüpheliler hakkında henüz iddianame düzenlendiğine dair bir bilgi yok. Tutuklama bir koruma tedbiri; suçluluk ancak kesinleşmiş mahkûmiyet kararıyla sabit olur ve masumiyet karinesi bütün şüpheliler için geçerli.</p>
+<h2>Daire başkanlığı ne yapıyor?</h2>
+<p>Faili Meçhul Suçları Araştırma Daire Başkanlığı, Bakanlığın Ceza İşleri Genel Müdürlüğü bünyesinde Nisan 2026'da kuruldu. Bakanlığın 25 Nisan'da paylaştığı ilk tespite göre 81 ildeki adliyelerde yapılan taramada 75 ilde 638 soruşturma dosyası ve bu dosyalarda 693 maktul belirlenmişti. En çok dosya İzmir'de (49 dosya), ardından Sakarya (34) ve Trabzon'da (30) çıkmıştı.</p>
+<p>Birimin kendisi soruşturma yürütmüyor. Ceza soruşturmasını yürütme yetkisi Anayasa ve Ceza Muhakemesi Kanunu (CMK) gereği Cumhuriyet savcısında. Daire başkanlığı, delil yetersizliği ya da delillerin kaybolması yüzünden ilerlemeyen dosyaları sistemli biçimde gözden geçiriyor, başsavcılıklar ile kolluk birimleri arasında koordinasyon sağlıyor. Yeni bir iz bulunduğunda işlemi yine dosyanın bağlı olduğu başsavcılık yapıyor.</p>
+<h2>Zamanaşımı ne zaman dolar?</h2>
+<p>Faili meçhul dosyalarda belirleyici olan, Türk Ceza Kanunu'nun (TCK) 66. maddesindeki dava zamanaşımı. Süre, suçun kanunda öngörülen cezasının üst sınırına göre belirleniyor ve tamamlanmış suçlarda olay tarihinden işlemeye başlıyor.</p>
+<table class="tablo">
+<tr><th>Suç</th><th>Kanundaki ceza</th><th>Olağan zamanaşımı</th><th>Kesilmeyle ulaşılabilecek en uzun süre</th></tr>
+<tr><td>Kasten öldürme (TCK 81)</td><td>Müebbet hapis</td><td>25 yıl</td><td>37,5 yıl</td></tr>
+<tr><td>Nitelikli kasten öldürme (TCK 82)</td><td>Ağırlaştırılmış müebbet hapis</td><td>30 yıl</td><td>45 yıl</td></tr>
+<tr><td>Taksirle öldürme (TCK 85/1)</td><td>2 ila 6 yıl hapis</td><td>15 yıl</td><td>22,5 yıl</td></tr>
+</table>
+<p>TCK 67, süreyi kesen işlemleri sayıyor: şüphelinin savcılık önünde ifadesinin alınması veya sorguya çekilmesi, hakkında tutuklama kararı verilmesi, iddianame düzenlenmesi ve mahkûmiyet kararı. Kesilmeden sonra süre yeniden başlıyor, ancak toplam süre kanundaki sürenin en fazla yarısı kadar uzayabiliyor. Fail hiç bilinmediği için kimsenin ifadesi alınmamışsa süre kesilmiyor ve olağan sürenin sonunda dava düşüyor. Dosya nitelikli hâl taşıyorsa savcılık süreyi o ağır hâle göre hesaplıyor; olayın tasarlanarak ya da birden fazla kişiye karşı işlendiğine dair delil varsa 30 yıllık süre esas alınıyor.</p>
+<p>Uygulamada failin belirlenemediği dosyalarda savcılık "daimi arama" kararı veriyor; dosya zamanaşımı dolana kadar açık kalıyor ve kolluk, failin bulunması için çalışmayı sürdürmekle yükümlü. Yurt dışında işlenen bazı ağır suçlar ile insanlığa karşı suçlar için ise kanun zamanaşımını hiç işletmiyor.</p>
+<h2>Takipsizlik verilmiş dosya yeniden açılabilir mi?</h2>
+<p>Savcılık bazı dosyalarda şüpheli bulunduğu hâlde yeterli delil elde edemediği için kovuşturmaya yer olmadığına dair karar (takipsizlik) vermiş olabilir. CMK'nın 172. maddesine göre bu karardan sonra aynı fiil için kamu davası açılabilmesi, kovuşturmaya yeter nitelikte yeni delil elde edilmesine ve bu konuda sulh ceza hâkimliğinin karar vermesine bağlı. Yeni bir tanık beyanı, yeniden incelenen bir DNA örneği, önceden çözümlenmemiş iletişim kayıtları ya da bir şüphelinin itirafı bu kapsamda değerlendirilebilir.</p>
+<p>Aynı maddeye göre Avrupa İnsan Hakları Mahkemesi'nin, takipsizlik kararının etkili soruşturma yapılmadan verildiğini tespit eden kesinleşmiş kararı varsa ilgilinin başvurusu üzerine soruşturma yeniden açılıyor. Bu talep için kesinleşmeden itibaren üç ay süre var.</p>
+<h2>Maktul yakınları ne yapabilir?</h2>
+<ul class="liste">
+<li><b>Dilekçe vermek:</b> Maktulün yakınları suçtan zarar gören sıfatıyla dosyanın bulunduğu başsavcılığa dilekçe verip yeni bilgi sunabilir, belirli delillerin toplanmasını isteyebilir.</li>
+<li><b>Dosyayı incelemek:</b> Avukat aracılığıyla soruşturma dosyası incelenebilir. Soruşturmanın amacını tehlikeye düşürebilecekse hâkim kararıyla bu yetki kısıtlanabiliyor.</li>
+<li><b>Takipsizliğe itiraz:</b> Kararın tebliğinden itibaren 15 gün içinde sulh ceza hâkimliğine itiraz edilebilir. Süre kaçırılmışsa yeni delil yolu açık.</li>
+<li><b>Bireysel başvuru:</b> Anayasa'nın 17. maddesindeki yaşam hakkı, devlete etkili soruşturma yürütme yükümlülüğü de yüklüyor. Olağan yollar tükendikten sonra 30 gün içinde Anayasa Mahkemesi'ne başvurulabiliyor; dosyanın yıllarca gerekli araştırma yapılmadan bekletilmesi bu başvurunun konusu olabiliyor.</li>
+<li><b>Tazminat:</b> Fail belirlenip mahkûm edilirse aile destekten yoksun kalma ve manevi tazminat davası açabilir. Dosya ceza davasına dönüşünce aile katılan sıfatıyla davaya dahil olabiliyor.</li>
+</ul>
+<h2>Bundan sonra ne olacak?</h2>
+<p>Kemalpaşa dosyasında savcılık delil toplamayı tamamladığında iddianame düzenleyip düzenlemeyeceğine karar verecek. İddianame kabul edilirse yargılama ağır ceza mahkemesinde yapılacak; tutukluluk ve adli kontrol kararlarına itiraz hakkı ise sürüyor. Bakanlığın daha önce açıkladığı 638 dosyanın kaçının zamanaşımına yaklaştığına dair bir veri yayımlanmadı. Bu bilgi, hangi dosyalara öncelik verileceğini belirlemek açısından aileler için de önem taşıyor. Taksirli ölümlerde savcılığın ve idarenin sorumluluğunu <a href="/parkta-elektrik-carpmasi-sonucu-olum-kim-sorumlu-taksirle-oldurme-ve-tazminat">Balat'taki elektrik kazasına ilişkin yazımızda</a> ele almıştık.</p>""",
+ "ornek": ["Bir kişi Mart 2010'da öldürülmüş, fail bulunamamış ve savcılık daimi arama kararı vermiş olsun. Olay tek bir kişiye karşı, nitelikli hâl olmaksızın işlendiyse kasten öldürme için 25 yıllık süre Mart 2035'te doluyor. Yeni bir delille şüpheli Ekim 2026'da yakalanıp ifadesi alınırsa süre kesiliyor ve yeniden başlıyor; ancak toplam süre 37,5 yılı geçemeyeceği için en geç 2047 sonbaharına kadar kesinleşmiş bir hüküm verilmesi gerekiyor."],
+ "anket": {"soru": "Faili meçhul cinayetlerde dava zamanaşımı sizce nasıl düzenlenmeli?", "secenekler": ["Mevcut süreler yeterli", "Kasten öldürmede zamanaşımı kaldırılmalı", "Süreler uzatılmalı", "Fikrim yok"]},
+ "kaynaklar": [
+  ["Cumhuriyet – Akın Gürlek'ten 'faili meçhul' açıklaması: 61 dosyada 68 cinayet aydınlatıldı (16.10.2026)", "https://www.cumhuriyet.com.tr/turkiye/akin-gurlek-den-faili-mechul-aciklamasi-61-dosyada-68-cinayet-aydinlatildi-2547299"],
+  ["A Haber – Adalet Bakanı Akın Gürlek: 61 dosyada 68 cinayeti faili meçhul olmaktan çıkardık (16.10.2026)", "https://ahaber.com.tr/gundem/2026/10/16/adalet-bakani-akin-gurlek-61-dosyada-68-cinayeti-faili-mechul-olmaktan-cikardik"],
+  ["T.C. Adalet Bakanlığı – Haberler", "https://www.adalet.gov.tr/"],
+  ["Hürriyet – 75 ilde 638 faili meçhul dosya incelemeye alındı (25.04.2026)", "https://www.hurriyet.com.tr/gundem/75-ilde-638-faili-mechul-incelemeye-alindi-43158954"],
+  ["Euronews – Adalet Bakanlığına bağlı Faili Meçhul Suçları Araştırma Daire Başkanlığı kuruldu (23.04.2026)", "https://tr.euronews.com/2026/04/23/adalet-bakanligina-bagli-faili-mechul-suclari-arastirma-daire-baskanligi-kuruldu"],
+  ["5237 sayılı Türk Ceza Kanunu (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5237.pdf"],
+  ["5271 sayılı Ceza Muhakemesi Kanunu (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5271.pdf"],
+  ["Türkiye Cumhuriyeti Anayasası (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.2709.pdf"]
+ ]},
+
 {"slug": "aylin-kotil-ve-omer-sarigul-gozaltisi-aklama-iddiasi-milletvekili-dosyasi-neden-ankaraya", "saat": "10:33", "date": "2026-10-16", "tur": "Analiz",
  "title": "Aylin Kotil ve Ömer Sarıgül Gözaltında: Aklama İddiası Ne, Milletvekiliyle İlgili Kısım Neden Ankara'ya Gidiyor?",
  "cats": ["Yargı", "Siyaset"],
