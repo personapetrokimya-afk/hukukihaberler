@@ -1,6 +1,55 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
+{"slug": "2027-butcesi-meclise-geliyor-anayasaya-gore-surec-ve-butce-kabul-edilmezse-ne-olur", "saat": "11:16", "date": "2026-10-16", "tur": "Analiz",
+ "title": "2027 Bütçesi Meclis Yolunda: Anayasa Süreci Nasıl İşletiyor, Bütçe Zamanında Çıkmazsa Ne Olur?",
+ "cats": ["Ekonomi", "Siyaset"],
+ "tags": ["2027 bütçesi", "bütçe kanunu", "Plan ve Bütçe Komisyonu", "Anayasa 161", "geçici bütçe", "kesin hesap", "Cevdet Yılmaz", "TBMM"],
+ "ozet": [
+  "Cumhurbaşkanı Yardımcısı Cevdet Yılmaz 16 Ekim'de Külliye'deki törende 2027 bütçe teklifinin Meclis'e sunulmaya hazır olduğunu açıkladı.",
+  "Anayasa, bütçe teklifinin mali yılbaşından en az 75 gün önce, yani en geç 18 Ekim'e kadar TBMM'ye sunulmasını şart koşuyor.",
+  "Plan ve Bütçe Komisyonu görüşmeleri 21 Ekim'de başlayacak ve taslak takvime göre 27 Kasım'da bitecek; ardından Genel Kurul süreci geliyor.",
+  "Bütçe yılbaşına kadar kabul edilemezse önce geçici bütçe kanunu çıkarılıyor; o da çıkmazsa önceki yılın bütçesi yeniden değerleme oranıyla artırılarak uygulanıyor."
+ ],
+ "body": """<p class="lead">Cumhurbaşkanı Yardımcısı Cevdet Yılmaz, 16 Ekim 2026 sabahı Ankara'da Cumhurbaşkanlığı Külliyesi'nde düzenlenen bütçe bağlama töreninde "2027 yıl bütçe teklifimiz Türkiye Büyük Millet Meclisine sunulmaya hazır hâle gelmiştir" dedi. Teklifin Cumhurbaşkanı Recep Tayyip Erdoğan'ın imzasıyla bugün TBMM Başkanlığı'na sunulması bekleniyor. 2025 yılı kesin hesap kanunu teklifi de aynı süreçte Meclis'e gelecek. Önümüzdeki iki buçuk ay Meclis'in gündemini belirleyecek bu sürecin kuralları Anayasa'da yazılı.</p>
+<h2>Törende ne açıklandı?</h2>
+<p>Yılmaz'ın konuşmasında paylaştığı tahminlere göre 2027'de büyümenin yüzde 4,2, yıl sonu tüketici enflasyonunun yüzde 21, işsizlik oranının yüzde 8 olması bekleniyor. Yılmaz, 2026 yıl sonu enflasyon tahmininin yüzde 28,4 olduğunu, kentsel dönüşüm ödeneklerinin yüzde 176 artışla 276 milyar liraya çıkarıldığını da söyledi. Bütçenin toplam gider, gelir ve açık rakamları teklif metni TBMM'nin internet sitesinde yayımlandığında netleşecek.</p>
+<h2>Anayasa ne diyor?</h2>
+<p>2017 anayasa değişikliğiyle bütçe teklifini hazırlama ve sunma yetkisi Bakanlar Kurulu'ndan Cumhurbaşkanı'na geçti. Anayasa'nın 161. maddesine göre Cumhurbaşkanı merkezî yönetim bütçe kanunu teklifini mali yılbaşından en az 75 gün önce TBMM'ye sunuyor. 1 Ocak 2027'den geriye sayıldığında son gün 18 Ekim 2026'ya denk geliyor. Aynı maddeye göre bütçe kanununa bütçeyle ilgili olmayan hüküm konulamıyor. Bu kural, bütçe kanununun torba kanun gibi kullanılmasının önünde bir engel.</p>
+<p>Teklif Meclis'te önce Plan ve Bütçe Komisyonu'nda görüşülüyor. Anayasa'nın 162. maddesi komisyona 55 günlük süre tanıyor; komisyonun kabul ettiği metin Genel Kurul'da görüşülüp mali yılbaşına kadar karara bağlanmak zorunda. Genel Kurul'da milletvekilleri gideri artıran ya da geliri azaltan önerge veremiyor. Muhalefet itirazını kurum bütçeleri üzerindeki konuşmalar, soru önergeleri ve oylamada ret oyuyla ortaya koyabiliyor.</p>
+<h2>Takvim nasıl işleyecek?</h2>
+<p>14 Ekim'de basına yansıyan taslak takvime göre Yılmaz bütçeyi 21 Ekim'de Plan ve Bütçe Komisyonu'na sunacak. Komisyon bir hafta ara verecek ve 27 Ekim'de genel görüşmeye başlayacak. Kurum bütçelerinin görüşülmesi 27 Kasım'da Cumhurbaşkanlığı bütçesi ve kesin hesap teklifinin maddeleriyle tamamlanacak. Takvim taslak olduğu için tarihler değişebilir.</p>
+<table class="tablo">
+<tr><th>Tarih</th><th>Komisyon gündemi</th></tr>
+<tr><td>21 Ekim</td><td>Bütçe sunuşu (Cumhurbaşkanı Yardımcısı Cevdet Yılmaz)</td></tr>
+<tr><td>27 Ekim</td><td>Genel görüşme</td></tr>
+<tr><td>5 Kasım</td><td>Hazine ve Maliye Bakanlığı</td></tr>
+<tr><td>9 Kasım</td><td>Adalet Bakanlığı</td></tr>
+<tr><td>12 Kasım</td><td>Millî Eğitim Bakanlığı</td></tr>
+<tr><td>17 Kasım</td><td>İçişleri Bakanlığı</td></tr>
+<tr><td>27 Kasım</td><td>Cumhurbaşkanlığı ve 2025 kesin hesap teklifi maddeleri</td></tr>
+</table>
+<p>Komisyon süreci bitince bütçe Genel Kurul'a gelecek. Genel Kurul görüşmelerinin ara verilmeden sürdürülmesi planlanıyor. Bütçenin 31 Aralık'tan önce oylanması gerekiyor.</p>
+<h2>Bütçe zamanında kabul edilmezse ne olur?</h2>
+<p>Parlamenter sistemde bütçenin reddi hükümet için ağır bir siyasi sonuç doğururdu. Bugünkü sistemde Anayasa iki aşamalı bir yedek mekanizma öngörüyor. Bütçe kanunu süresinde yürürlüğe konulamazsa geçici bütçe kanunu çıkarılıyor. Geçici bütçe kanunu da çıkarılamazsa yeni bütçe kabul edilinceye kadar bir önceki yılın bütçesi, yeniden değerleme oranına göre artırılarak uygulanıyor.</p>
+<p>Bu kural devletin ödeme yapamaz hâle gelmesini önlüyor. Ancak önceki yılın bütçesiyle devam etmek, yeni yıl için planlanan kalemlerin, örneğin yeni kadroların ya da yeni yatırım projelerinin ödeneksiz kalması anlamına gelebiliyor. Meclis'te iktidarın çoğunluğu düşünüldüğünde bu senaryo uzak görünse de kural, yürütmenin bütçeyi Meclis onayı olmadan kendi başına yürürlüğe koyamayacağını gösteriyor.</p>
+<h2>Kesin hesap neden aynı anda görüşülüyor?</h2>
+<p>Kesin hesap kanunu, geçmiş yılın bütçesinin nasıl uygulandığının Meclis tarafından onaylanması. Anayasa'ya göre teklif, ilgili mali yılın bitiminden itibaren en geç altı ay içinde Meclis'e sunuluyor ve yeni yıl bütçe teklifiyle birlikte görüşülüp karara bağlanıyor. Sayıştay'ın genel uygunluk bildirimi de bu görüşmelerde dikkate alınıyor. Milletvekilleri bu aşamada 2025 harcamalarındaki sapmaları, örtülü ödenek kullanımını ve Sayıştay raporlarında yer alan bulguları gündeme getirebiliyor.</p>
+<h2>Vatandaşı ne ilgilendiriyor?</h2>
+<p>Bütçe kanunu, maaş katsayılarından vergi gelirlerine, öğretmen kadrosundan kentsel dönüşüm ödeneğine kadar pek çok kalemin çerçevesini çiziyor. Örneğin Millî Eğitim Bakanı Yusuf Tekin, bu yıl Millî Eğitim Akademisi'ne alınacak <a href="/ags-2026-ogretmen-atama-kontenjani-ne-zaman-belli-olacak-50-bin-talebi">öğretmen kontenjanının bütçe kanunu çıktıktan sonra belirleneceğini</a> açıklamıştı. Kurum bütçeleri komisyonda görüşülürken bu tür taleplerin bütçeye ne ölçüde yansıdığı da belli olacak.</p>""",
+ "ornek": ["Bütçe 31 Aralık 2026'ya kadar kabul edilemezse ve geçici bütçe kanunu da çıkarılamazsa, 2026 bütçesinde bir kalem için ayrılan 100 milyar liralık ödenek, kanunla belirlenen yeniden değerleme oranı yüzde 25 olsaydı 2027'de yeni bütçe kabul edilene kadar 125 milyar lira üzerinden kullanılabilirdi. 2027 için ilk kez öngörülen ve 2026 bütçesinde karşılığı olmayan bir proje için ise bu yolla ödenek çıkmazdı."],
+ "anket": {"soru": "Bütçe görüşmelerinde sizi en çok hangi başlık ilgilendiriyor?", "secenekler": ["Vergi ve gelirler", "Maaş ve emekli ödemeleri", "Eğitim ve sağlık harcamaları", "Faiz ve borç ödemeleri"]},
+ "kaynaklar": [
+  ["CNBC-e – Cevdet Yılmaz'dan 2027 bütçesi mesajı (16.10.2026)", "https://www.cnbce.com/haberler/cevdet-yilmazdan-2027-butcesi-mesaji-kira-artisi-istihdam-ve-ihracat-vurgusu-h39595"],
+  ["İlkses – Cumhurbaşkanı Yardımcısı Yılmaz 2027 yılı bütçesini açıkladı (16.10.2026)", "https://ilkses.com.tr/ekonomi/cumhurbaskani-yardimcisi-yilmaz-2027-yili-butcesini-acikladi-464463"],
+  ["Memurlar.net – TBMM'de 2027 yılı bütçe maratonu başlıyor: takvim belli oldu (14.10.2026)", "https://www.memurlar.net/haber/1181009/tbmm-de-2027-yili-butce-maratonu-basliyor-takvim-belli-oldu.html"],
+  ["Son Dakika – TBMM'de 2027 Bütçe Kanunu Teklifi'nin komisyon takvimi belirlendi (14.10.2026)", "https://www.sondakika.com/guncel/haber-tbmm-plan-ve-butce-komisyonunda-2027-butce-20329394/"],
+  ["Karar – Anayasa teklifinde 15 madde kabul edildi (2017 değişikliği, 161. madde metni)", "https://www.karar.com/anayasa-teklifinde-15-madde-kabul-edildi-371897"],
+  ["Türkiye Cumhuriyeti Anayasası (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.2709.pdf"],
+  ["5018 sayılı Kamu Malî Yönetimi ve Kontrol Kanunu (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5018.pdf"],
+  ["TBMM – Haberler", "https://www.tbmm.gov.tr/"]
+ ]},
+
 {"slug": "faili-mechul-dosyalar-yeniden-aciliyor-zamanasimi-yeni-delil-ve-ailelerin-haklari", "saat": "11:10", "date": "2026-10-16", "tur": "Analiz",
  "title": "Faili Meçhul Dosyalar Yeniden Açılıyor: Zamanaşımı Ne Zaman Dolar, Aileler Hangi Haklara Sahip?",
  "cats": ["Yargı"],
