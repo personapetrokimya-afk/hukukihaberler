@@ -33,3 +33,17 @@ for u in urls:
         c2,_=resolve(t)
         if c2!=200: bad.append(f"{u} -> {t} ({c2})")
 print(res); print("\n".join(bad)); print("toplam",len(urls),"kırık",len(bad))
+
+# yayın kimliği denetimi: commit'ler yalnızca site adıyla atılır
+import subprocess, sys
+def _git(*a):
+    try: return subprocess.check_output(["git", *a], text=True, stderr=subprocess.DEVNULL).strip()
+    except Exception: return ""
+_ad, _ep = _git("config", "user.name"), _git("config", "user.email")
+if (_ad, _ep) != ("Hukuki Haberler", "yayin@hukukihaberler.com"):
+    print('HATA: commit kimliği yanlış. Önce: git config user.name "Hukuki Haberler" && git config user.email "yayin@hukukihaberler.com"')
+    sys.exit(1)
+_izler = [s for s in _git("log", "-20", "--format=%an %ae %cn %ce%n%B").splitlines() if any(k in s.lower() for k in ("anthropic", "claude", "co-authored-by"))]
+if _izler:
+    print("HATA: son commit'lerde yayın kimliği dışında iz var:", _izler[:3]); sys.exit(1)
+print("kimlik tamam")
