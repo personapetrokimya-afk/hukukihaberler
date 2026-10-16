@@ -280,7 +280,7 @@ def homepage(chunk):
     analiz = [p for p in cur if p.get("tur") == "Analiz"][:2]
     more = [p for p in rest if p not in analiz][:8]
     shown = {id(p) for p in [lead] + side + featp + analiz + more}
-    sidel = "".join(f'<li><div class="tl"><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time>{mini(p)}</div><div>{kicker(p)}<a class="tt" href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in side)
+    sidel = "".join(f'<li><a class="ov" href="{p["url"]}">{f'<img src="{thumb(p)}" alt="" width="480" height="270" loading="lazy" decoding="async">' if p.get("img") else ""}<span class="ovt"><span class="ovm"><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time><span class="ovk">{e(CATS[topcat(p)][0])}</span></span><span class="ovh">{e(p["title"])}</span></span></a></li>' for p in side)
     hero = f"""<h1 class="sr">{NAME}: hukuk, yargı ve mevzuat haberleri</h1>
 <section class="hero" aria-label="Manşet">
 <div class="k">{kicker(lead)}</div>
@@ -305,7 +305,7 @@ def homepage(chunk):
             for t, s_ in zip(p["tags"], p["tagslugs"]): tc[s_] = (t, tc.get(s_, ("", 0))[1] + 1)
         top = [x for x in sorted(tc.items(), key=lambda x: (-x[1][1], x[1][0])) if x[1][1] >= 2][:5]
         topics = "".join(f'<li><a href="/haber-etiketi/{s_}/">{e(t)}</a><small>{n} haber</small></li>' for s_, (t, n) in top)
-        duo = (f'<section class="blk duo"><div><h2 class="sec-h">Analiz</h2><div class="an-list">{an}</div></div>'
+        duo = (f'<section class="blk duo tint"><div><h2 class="sec-h">Analiz</h2><div class="an-list">{an}</div></div>'
                + (f'<aside aria-label="Gündemdeki konular"><h2 class="sec-h">Gündemdeki konular</h2><ol class="topics">{topics}</ol></aside>' if topics else "") + '</section>')
     son = f'<section class="blk"><h2 class="sec-h">Diğer haberler<a class="all" href="/arsiv/">Tümü</a></h2><ul class="rows">{"".join(row(p) for p in more)}</ul></section>' if more else ""
     secs = ""
@@ -313,7 +313,7 @@ def homepage(chunk):
         items = [p for p in cur if (k in p["catkeys"] or any(CATS[c][1] == k for c in p["catkeys"])) and id(p) not in shown][:3]
         if len(items) >= 2:
             shown |= {id(p) for p in items}
-            secs += f'<section class="blk"><h2 class="sec-h">{label}<a class="all" href="/haber-kategorisi/{k}/">Tümü</a></h2><div class="feat">{"".join(feat_card(p) for p in items)}</div></section>'
+            secs += f'<section class="blk{" tint" if secs.count("<section") % 2 else ""}"><h2 class="sec-h">{label}<a class="all" href="/haber-kategorisi/{k}/">Tümü</a></h2><div class="feat">{"".join(feat_card(p) for p in items)}</div></section>'
     return hero + feat + gun + duo + son + secs
 
 # ---------------------------------------------------------------- sayaçlar
