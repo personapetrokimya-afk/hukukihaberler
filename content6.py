@@ -6,8 +6,7 @@ POSTS = [
  "cats": ["Ekonomi", "Siyaset"],
  "tags": ["2027 bütçesi", "bütçe kanunu", "Plan ve Bütçe Komisyonu", "Anayasa 161", "geçici bütçe", "kesin hesap", "Cevdet Yılmaz", "TBMM"],
  "ozet": [
-  "Cumhurbaşkanı Yardımcısı Cevdet Yılmaz 16 Ekim'de Külliye'deki törende 2027 bütçe teklifinin Meclis'e sunulmaya hazır olduğunu açıkladı.",
-  "Anayasa, bütçe teklifinin mali yılbaşından en az 75 gün önce, yani en geç 18 Ekim'e kadar TBMM'ye sunulmasını şart koşuyor.",
+  "Cevdet Yılmaz 16 Ekim'de 2027 bütçe teklifinin Meclis'e sunulmaya hazır olduğunu açıkladı; Anayasa'ya göre teklif en geç 18 Ekim'e kadar TBMM'ye sunulmalı.",
   "Plan ve Bütçe Komisyonu görüşmeleri 21 Ekim'de başlayacak ve taslak takvime göre 27 Kasım'da bitecek; ardından Genel Kurul süreci geliyor.",
   "Teklife göre 2027 giderleri 27,28 trilyon, gelirleri 23,41 trilyon lira; öngörülen açık 3,87 trilyon lira ve faiz giderleri toplam harcamanın yaklaşık yüzde 14,6'sı.",
   "Bütçe yılbaşına kadar kabul edilemezse önce geçici bütçe kanunu çıkarılıyor; o da çıkmazsa önceki yılın bütçesi yeniden değerleme oranıyla artırılarak uygulanıyor."
