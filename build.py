@@ -11,6 +11,13 @@ from content6 import POSTS as P6
 
 SITE = "https://hukukihaberler.com"
 NAME = "Hukuki Haberler"
+# Gerçek kişi yazarlar. Bir yazıya "yazar" alanı YALNIZCA o kişi yazıyı kendisi yazdıysa ya da
+# metni bizzat inceleyip onayladıysa eklenir; zamanlanmış görevler bu alanı asla doldurmaz.
+YAZARLAR = {
+    "yagmur-tahtasiz": {"ad": "Av. Yağmur Tahtasız", "kisi": "Yağmur Tahtasız", "url": "/av-yagmur-tahtasiz/",
+                        "foto": "https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg",
+                        "bio": "İzmir Barosu'na kayıtlı avukat. Anadolu Üniversitesi Hukuk Fakültesi mezunu; 2022'den bu yana aile ve boşanma hukuku ağırlıklı olarak avukatlık yapıyor. Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütüyor."},
+}
 TAGLINE = "Hukuk, yargı ve mevzuat gündemi"
 OUT = os.path.join(os.path.dirname(__file__), "site")
 TARGET = "https://yagmurtahtasiz.com"   # bağlamsal link hedefi (makale başına en fazla 1-2)
@@ -118,6 +125,18 @@ def kicker(p):
 def rtime(p): return max(1, round(p["words"] / 200))
 def kisa(d): return f"{d.day} {AYLAR[d.month-1][:3]}"
 def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
+def byline(p):
+    y = YAZARLAR.get(p.get("yazar"))
+    if not y: return '<a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a>'
+    return f'<a class="byl" href="{y["url"]}" rel="author"><img src="{y["foto"]}" alt="" width="28" height="28" loading="lazy">{e(y["ad"])}</a>'
+def yazar_kutu(p):
+    y = YAZARLAR.get(p.get("yazar"))
+    if not y: return ""
+    digr = [q for q in POSTS if q.get("yazar") == p["yazar"] and q["slug"] != p["slug"]][:5]
+    li = "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a></li>' for q in digr)
+    return (f'<aside class="ykutu" aria-label="Yazar"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="88" height="88" loading="lazy">'
+            f'<div><small>Yazar</small><a class="yad" href="{y["url"]}" rel="author">{e(y["ad"])}</a><p>{e(y["bio"])}</p>'
+            + (f'<b>Yazarın diğer yazıları</b><ul>{li}</ul>' if li else "") + f'<a class="yall" href="{y["url"]}">Tüm yazıları →</a></div></aside>')
 def mini(p):
     if not p.get("img"): return ""
     return f'<a class="mini" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{thumb(p)}" alt="" width="96" height="64" loading="lazy" decoding="async"></a>'
@@ -489,7 +508,8 @@ for idx, p in enumerate(POSTS):
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
           "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630},
-          "author": {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"},
+          "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
+                     if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "Organization", "name": NAME, "url": SITE, "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
     k0 = topcat(p)
     crumbs = [("/", "Anasayfa")] + ([(f"/haber-kategorisi/{CATS[k0][1]}/", CATS[CATS[k0][1]][0])] if CATS[k0][1] else []) + [(f"/haber-kategorisi/{k0}/", CATS[k0][0]), (p["url"], p["title"])]
@@ -497,12 +517,12 @@ for idx, p in enumerate(POSTS):
     main = f"""<article class="post"><div class="crumb">{crumb}</div>
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
-<div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
+<div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
-{share}
+{yazar_kutu(p)}{share}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=ld, ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
@@ -654,6 +674,8 @@ AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE +
                         "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
                         "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
                         "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"]}}
+_avp = [q for q in POSTS if q.get("yazar") == "yagmur-tahtasiz"]
+AV_YAZILAR = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in _avp) + "</ul>") if _avp else ""
 AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async"></figure>
 <p class="lead">Av. Yağmur Tahtasız, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütür.</p>
 <h2>Eğitim ve meslek</h2>
@@ -667,7 +689,7 @@ AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız"
 <p>Sitede yayımlanan haber ve analizlerin hukuki çerçevesine ilişkin danışmanlık verir: mevzuat ve içtihat atıflarının, suç ve yaptırım tanımlarının ve usul bilgilerinin doğruluğuna ilişkin denetim ve düzeltme süreçlerinde görüş bildirir. Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır; yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
 <h2>Çıkar ilişkisi</h2>
 <p>Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
-<h2>Bağlantılar</h2>
+{AV_YAZILAR}<h2>Bağlantılar</h2>
 <ul class="liste">
 <li><a href="https://yagmurtahtasiz.com/about.html" rel="noopener" target="_blank">yagmurtahtasiz.com</a></li>
 <li><a href="https://www.linkedin.com/in/yagmurtahtasiz" rel="noopener" target="_blank">LinkedIn</a></li>
