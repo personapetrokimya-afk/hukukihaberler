@@ -677,6 +677,8 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <p>Hatalı olduğu tespit edilen bilgi kaynağıyla doğrulandığında düzeltilir; ilk yayın tarihi korunur, güncelleme tarihi ve neyin değiştiği yazının içinde belirtilir. Tekzip talepleri 5187 sayılı Basın Kanunu çerçevesinde değerlendirilir. Bildirimler <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine gönderilebilir.</p>
 <h2>Doğrulama</h2>
 <p>Her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
+<h2 id="yontem">Çalışma yöntemi ve yazılım araçları</h2>
+<p>Gündemi izlemek, resmî kaynaklardaki yeni duyuruları tespit etmek ve haber taslaklarını hazırlamak için yazılım araçlarından yararlanırız. Anlık gelişmelere ilişkin haberler editör onayıyla yayımlanır. Bu yolla hazırlanan tüm metinler kaynak, tarafsızlık ve doğrulama ilkelerimize göre denetlenir; dayanılan kaynak geri çekildiğinde ya da bir hata tespit edildiğinde düzeltme politikamız uygulanır.</p>
 <h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
 <p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> yürütür. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
 <h2>Reklam, sponsorluk ve bağımsızlık</h2>
