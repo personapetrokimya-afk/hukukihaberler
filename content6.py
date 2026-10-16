@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
-{"slug": "halk-tv-ye-kayyim-hukuki-dayanak-cmk-133-yayin-ve-itiraz-yollari", "date": "2026-10-16", "tur": "Analiz",
+{"slug": "halk-tv-ye-kayyim-hukuki-dayanak-cmk-133-yayin-ve-itiraz-yollari", "saat": "08:31", "date": "2026-10-16", "tur": "Analiz",
  "title": "Halk TV'ye Kayyım: Hukuki Dayanak Ne, Kayyım Yayını Durdurabilir mi, İtiraz Yolları Neler?",
  "cats": ["Yargı", "Manşet"], "tags": ["Halk TV", "kayyım", "TMSF", "CMK 133", "basın özgürlüğü", "erişim engeli", "RTÜK"],
  "ozet": ["İstanbul Cumhuriyet Başsavcılığı, Halk TV Yönetim Kurulu Başkanı Cafer Mahiroğlu hakkında rüşvet, ihaleye fesat karıştırma ve aklama iddiasıyla yürüttüğü soruşturmada, Mahiroğlu'nun ortağı veya yöneticisi olduğu şirketlere sulh ceza hâkimliği kararıyla TMSF'nin kayyım atandığını 14 Ekim 2026'da açıkladı.",
@@ -39,7 +39,7 @@ POSTS = [
 <h2>Tepkiler</h2>
 <p>Yeni Parti Genel Başkanı Özgür Özel kanalı ziyaret ederek operasyonu \"diktatörlerin yapacağı iş\" olarak nitelendirdi. İstanbul Barosu, müdahalenin Anayasa'nın basın ve ifade özgürlüğünü düzenleyen maddelerini ihlal ettiğini savunarak el koyma kararının geri alınmasını istedi. Gazetecilik meslek örgütleri, yaklaşık bir yıl önce TELE1'e de TMSF'nin kayyım atandığını hatırlatarak uygulamanın tekrarlanan bir yönteme dönüştüğünü öne sürdü. Başsavcılık açıklamasında ise işlemlerin MASAK verileri, tanık beyanları ve sulh ceza hâkimliği kararına dayandığı belirtildi. <a href="/kayyum-nedir-saadet-partisini-simdi-kim-yonetecek">Kayyım kurumunun farklı alanlardaki kullanımını</a> daha önce de ele almıştık.</p>"""},
 
-{"slug": "fon-sorusturmasinda-gazetecilere-gozalti-dezenformasyon-gizlilik-ihlali-ev-hapsi", "date": "2026-10-16", "tur": "Analiz",
+{"slug": "fon-sorusturmasinda-gazetecilere-gozalti-dezenformasyon-gizlilik-ihlali-ev-hapsi", "saat": "08:31", "date": "2026-10-16", "tur": "Analiz",
  "title": "Fon Soruşturmasında Gazetecilere Gözaltı: Dezenformasyon, Gizlilik İhlali ve Ev Hapsi Ne Anlama Geliyor?",
  "cats": ["Yargı"], "tags": ["Murat Ağırel", "Bahadır Özgür", "dezenformasyon", "soruşturmanın gizliliği", "ev hapsi", "basın özgürlüğü", "fon soruşturması"],
  "ozet": ["Ev hapsindeki gazeteci Murat Ağırel, 16 Ekim 2026 sabahı evinde yapılan aramanın ardından gözaltına alındı. Gözaltının gerekçesine ilişkin resmî açıklama sabah saatlerinde henüz yapılmamıştı.",
@@ -81,7 +81,7 @@ POSTS = [
 </ul>
 <h2>Bundan sonra ne olacak?</h2>
 <p>Gözaltı süresi sonunda savcılık şüpheliyi serbest bırakabilir ya da adli kontrol veya tutuklama talebiyle sulh ceza hâkimliğine sevk edebilir. Anayasa Mahkemesi ve Avrupa İnsan Hakları Mahkemesi, gazetecilerin haberleri nedeniyle tutuklanmasında, tedbirin haberin içeriği dışında somut delillere dayanıp dayanmadığına ve ifade özgürlüğü üzerindeki caydırıcı etkisine bakıyor. Fon soruşturmasının kendisine ilişkin suç tipleri ve cezaları <a href="/fon-skandalinda-hangi-suclar-var-usulsuz-kazanc-saglayani-hangi-ceza-bekliyor">önceki yazımızda</a> yer alıyor. Gazetecilerin hiçbiri hakkında iddianame ya da mahkûmiyet kararı bulunmuyor.</p>"""},
-{"slug": "durusmadaki-savunma-sozleri-suc-olur-mu-imamoglu-sorusturmasi-tck-128", "date": "2026-10-16", "tur": "Analiz",
+{"slug": "durusmadaki-savunma-sozleri-suc-olur-mu-imamoglu-sorusturmasi-tck-128", "saat": "08:23", "date": "2026-10-16", "tur": "Analiz",
  "title": "Duruşmadaki Savunma Sözleri Suç Olur mu? İmamoğlu Hakkındaki Yeni Soruşturma ve TCK 128",
  "cats": ["Yargı", "Siyaset", "Manşet"], "tags": ["Ekrem İmamoğlu", "hakaret suçu", "savunma hakkı", "TCK 128", "Bakırköy Cumhuriyet Başsavcılığı", "İBB davası", "ifade özgürlüğü"],
  "ozet": ["Bakırköy Cumhuriyet Başsavcılığı, Ekrem İmamoğlu hakkında 15 Ekim 2026'daki duruşmada yaptığı savunmadaki sözler nedeniyle \"kamu görevlilerine görevi nedeniyle aleni hakaret\" suçundan resen soruşturma başlattı.",
@@ -114,7 +114,7 @@ POSTS = [
 <h2>Ana davaya etkisi var mı?</h2>
 <p>Yeni soruşturma ayrı bir dosya olarak yürüyecek ve İstanbul 33. Ağır Ceza Mahkemesi'ndeki yargılamanın akışını hukuken durdurmuyor. Savunma hakkı açısından ise bu tür soruşturmaların sanıklar ve avukatlar üzerinde çekinceye yol açabileceği tartışılıyor. Yargı mensuplarına yönelik sözlerin hangi noktada eleştiriden çıkıp suça dönüştüğü, bu dosyada savcılığın vereceği kararla somutlaşacak.</p>"""},
 
-{"slug": "sarj-adaptoru-ve-usb-c-kablolarina-yeni-kurallar-2028-tuketici-ve-uretici", "date": "2026-10-16", "tur": "Haber",
+{"slug": "sarj-adaptoru-ve-usb-c-kablolarina-yeni-kurallar-2028-tuketici-ve-uretici", "saat": "08:23", "date": "2026-10-16", "tur": "Haber",
  "title": "Şarj Adaptörü ve USB-C Kablolarına Yeni Kurallar: Elinizdeki Şarj Aleti Ne Olacak, Üretici Neye Uyacak?",
  "cats": ["Teknoloji"], "tags": ["USB-C", "şarj cihazı", "ortak şarj", "Sanayi ve Teknoloji Bakanlığı", "çevreye duyarlı tasarım", "elektronik atık", "tüketici hakları"],
  "ozet": ["Sanayi ve Teknoloji Bakanlığı'nın şarj cihazları ve USB-C kablolarına ilişkin tebliği 16 Ekim 2026 tarihli Resmî Gazete'de yayımlandı. Düzenleme AB'nin 2025/2052 sayılı tüzüğüyle uyumlu.",
@@ -150,7 +150,7 @@ POSTS = [
 <h2>Telefonlardaki USB-C girişiyle karıştırılmamalı</h2>
 <p>Bu tebliğ adaptör ve kablolarla ilgili. Telefon, tablet ya da kulaklık gibi cihazların kendisinde USB-C şarj girişi bulunması zorunluluğu ise telsiz ekipmanları mevzuatının konusu ve Bilgi Teknolojileri ve İletişim Kurumu'nun alanında. BTK bu konuda Telsiz Ekipmanları Yönetmeliği'nde değişiklik taslağını Şubat 2024'te kamuoyu görüşüne açmıştı. İki düzenleme birlikte okunduğunda hedef aynı: Cihaz tarafında ortak giriş, adaptör tarafında ortak çıkış ve daha az elektronik atık.</p>"""},
 
-{"slug": "kamu-ihalelerinde-vergi-ve-sgk-borcu-siniri-50-bin-liraya-cikti", "date": "2026-10-16", "tur": "Haber",
+{"slug": "kamu-ihalelerinde-vergi-ve-sgk-borcu-siniri-50-bin-liraya-cikti", "saat": "08:23", "date": "2026-10-16", "tur": "Haber",
  "title": "Kamu İhalelerinde Vergi ve SGK Borcu Sınırı 50 Bin Liraya Çıktı: Hangi İhalelerde Uygulanacak?",
  "cats": ["Ekonomi"], "tags": ["kamu ihalesi", "Kamu İhale Kurumu", "vergi borcu", "SGK prim borcu", "4734 sayılı Kanun", "KOBİ", "ihale dışı bırakma"],
  "ozet": ["Kamu İhale Kurumu'nun Kamu İhale Genel Tebliği'nde yaptığı değişiklik 16 Ekim 2026 tarihli Resmî Gazete'de yayımlandı.",
@@ -184,7 +184,7 @@ POSTS = [
 <h2>Kimleri etkiler?</h2>
 <p>Düzenlemeden en çok yararlanacak kesim, belediye ve kamu kurumlarının küçük ölçekli mal, hizmet ve yapım ihalelerine giren esnaf ve KOBİ'ler. Ayrıca ihale komisyonlarının, birkaç bin liralık gecikmiş prim ya da vergi borcu yüzünden ekonomik açıdan en avantajlı teklifi değerlendirme dışı bırakmak zorunda kaldığı durumların azalması bekleniyor.</p>"""},
 
-{"slug": "makine-emniyeti-yonetmeligi-yenilendi-yazilim-ve-siber-guvenlik-sarti-2027", "date": "2026-10-16", "tur": "Haber",
+{"slug": "makine-emniyeti-yonetmeligi-yenilendi-yazilim-ve-siber-guvenlik-sarti-2027", "saat": "08:23", "date": "2026-10-16", "tur": "Haber",
  "title": "Makine Emniyeti Yönetmeliği Yenilendi: Yazılım ve Siber Güvenlik Şartı 20 Ocak 2027'de Başlıyor",
  "cats": ["Ekonomi", "Teknoloji"], "tags": ["makine emniyeti", "CE işareti", "Sanayi ve Teknoloji Bakanlığı", "siber güvenlik", "iş sağlığı ve güvenliği", "7223 sayılı Kanun", "AB uyumu"],
  "ozet": ["Sanayi ve Teknoloji Bakanlığı'nın AB'nin 2023/1230 sayılı tüzüğüne dayanan yeni Makine Emniyeti Yönetmeliği 16 Ekim 2026 tarihli Resmî Gazete'de yayımlandı.",
@@ -218,7 +218,7 @@ POSTS = [
 <h2>Uymayan üreticiyi ne bekliyor?</h2>
 <p>Makine emniyeti bir teknik düzenleme olduğu için denetim ve yaptırımlar 7223 sayılı Ürün Güvenliği ve Teknik Düzenlemeler Kanunu'na tabi. Piyasa gözetimi ve denetimi yapan kuruluş, uygunsuz bulunan ürün için düzeltme isteyebiliyor, piyasaya arzı yasaklayabiliyor, toplatma ve imha kararı verebiliyor, ayrıca idari para cezası uygulayabiliyor. Güvensiz bir makine nedeniyle iş kazası olursa, işverenin 6331 sayılı İş Sağlığı ve Güvenliği Kanunu'ndaki sorumluluğu ayrıca gündeme geliyor; işverenin üreticiye karşı rücu hakkı ise teknik düzenlemeye aykırılığın ispatına bağlı. Bu nedenle 2027 sonrasında makine satın alacak işletmelerin, uygunluk beyanında yeni yönetmeliğe atıf yapılıp yapılmadığını kontrol etmesi yararlı olacak.</p>"""},
 
-{"slug": "kvkk-kuruluna-iki-yeni-uye-secildi-kurul-nasil-olusuyor", "date": "2026-10-16", "tur": "Haber",
+{"slug": "kvkk-kuruluna-iki-yeni-uye-secildi-kurul-nasil-olusuyor", "saat": "08:23", "date": "2026-10-16", "tur": "Haber",
  "title": "KVKK Kurulu'na İki Yeni Üye Seçildi: Kişisel Verileri Koruma Kurulu Nasıl Oluşuyor?",
  "cats": ["Teknoloji", "Siyaset"], "tags": ["KVKK", "Kişisel Verileri Koruma Kurulu", "TBMM", "6698 sayılı Kanun", "kişisel veri", "bağımsız idari otorite"],
  "ozet": ["TBMM Genel Kurulu, Kişisel Verileri Koruma Kurulu'nda boşalan iki üyeliğe Recep Keskin ile Cennet Alas Şekerbay'ı seçti. 14 Ekim 2026 tarihli ve 1513 sayılı karar 16 Ekim'de Resmî Gazete'de yayımlandı.",
@@ -356,7 +356,7 @@ POSTS = [
 <p>Euronews Türkçe'nin 18 Eylül tarihli haberinde aktarılan sandalye dağılımına göre AK Parti 280, MHP 46, HÜDA PAR 4 ve DSP 1 milletvekiline sahip; toplam 331. Bu partilerin tamamı yenileme lehine oy kullansa bile 360 eşiğine ulaşmak için en az 29 oy daha gerekiyor. Meclis'te boş sandalyeler bulunsa da Anayasa üye tamsayısını esas aldığı için eşik değişmiyor. Bu nedenle 2028 baharında bir seçim takvimi, iktidar ittifakı dışındaki partilerin bir kısmının ya da bağımsız milletvekillerinin desteğine ihtiyaç duyuyor.</p>
 <h2>Yeni anayasa için eşikler</h2>
 <p>Uçum'un sözünü ettiği yeni anayasa süreci de Anayasa değişikliklerini düzenleyen 175. maddeye göre belirli oy eşiklerine tabi. Değişiklik teklifinin en az 200 milletvekilinin imzasıyla verilmesi gerekiyor. Teklif gizli oylamada 400 veya daha fazla oyla kabul edilirse Cumhurbaşkanı onu doğrudan yayımlayabilir ya da halkoylamasına sunabilir. 360 ile 399 arasında oyla kabul edilen teklif ise Cumhurbaşkanınca Meclis'e iade edilmezse zorunlu olarak halkoylamasına gidiyor. Yani hem seçimlerin yenilenmesi hem de referanduma gidecek bir anayasa metni için belirleyici sayı aynı: 360.</p>"""},
-{"slug": "fon-skandalinda-hangi-suclar-var-usulsuz-kazanc-saglayani-hangi-ceza-bekliyor", "date": "2026-10-15", "tur": "Analiz",
+{"slug": "fon-skandalinda-hangi-suclar-var-usulsuz-kazanc-saglayani-hangi-ceza-bekliyor", "saat": "23:19", "date": "2026-10-15", "tur": "Analiz",
  "title": "Fon Skandalında Hangi Suçlar Var? Usulsüz Kazanç Sağlayanı Hangi Ceza Bekliyor",
  "cats": ["Yargı", "Manşet"], "tags": ["yatırım fonu", "piyasa dolandırıcılığı", "SPK", "nitelikli dolandırıcılık", "suç örgütü", "aklama", "yatırımcı hakları", "TMSF"],
  "ozet": ["Soruşturmanın merkezinde 6362 sayılı Sermaye Piyasası Kanunu'nun 107. maddesindeki piyasa dolandırıcılığı suçu var; ceza 3 ila 5 yıl hapis ve elde edilen menfaatten az olamayacak adli para cezası.",
@@ -412,7 +412,7 @@ POSTS = [
 <h2>Değerlendirme: Denetim de yargılanacak</h2>
 <p>Eski SPK Başkanı hakkında verilen soruşturma izni, dosyanın yalnızca fon yöneticileriyle sınırlı kalmayacağını gösteriyor. SPK yöneticileri hakkındaki görev suçlarına ilişkin soruşturmalar, Sermaye Piyasası Kanunu'nun 133. maddesi gereği bakan iznine bağlı; bu iznin verilmiş olması, denetim zafiyeti iddiasının da yargı önüne taşınacağı anlamına geliyor. Bu dosya, Türkiye'de sermaye piyasası suçlarına ilişkin içtihadı uzun süre şekillendirecek kapsamda. Ancak hangi fiilin hangi suç tipine gireceği, ancak iddianame ve yargılama sonucunda netleşecek.</p>"""},
 
-{"slug": "istanbul-selinde-zarar-goren-arac-ev-ve-isyeri-sahiplerinin-hukuki-haklari", "date": "2026-10-15", "tur": "Analiz",
+{"slug": "istanbul-selinde-zarar-goren-arac-ev-ve-isyeri-sahiplerinin-hukuki-haklari", "saat": "23:19", "date": "2026-10-15", "tur": "Analiz",
  "title": "İstanbul Selinde Zarar Gören Araç, Ev ve İş Yeri Sahipleri Ne Yapmalı? Hukuki Haklar Rehberi",
  "cats": ["Yargı", "Manşet"], "tags": ["sel", "su baskını", "kasko", "konut sigortası", "belediyenin sorumluluğu", "tam yargı davası", "İş Kanunu", "İstanbul"],
  "ozet": ["Araçtaki sel hasarını kasko karşılar; ancak genel şartlara göre sel ve su baskını ek teminattır, poliçede yazıp yazmadığına bakılmalı. Trafik sigortası kendi aracınızın hasarını ödemez.",

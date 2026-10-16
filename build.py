@@ -121,15 +121,15 @@ def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
 def save_btn(p):
     return (f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[topcat(p)][0])}" '
             f'data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 22)}</button>')
+def iso(p): return p["date"].isoformat() + (f'T{p["saat"]}:00+03:00' if p.get("saat") else "")
+def when(p): return trdate(p["date"]) + (f", {p['saat']}" if p.get("saat") else "")
 def meta(p, date=True, cat=False):
-    s = ""
-    if date: s += f'<span class="dt">{ico("clock", 16)}<time datetime="{p["date"].isoformat()}">{trdate(p["date"])}</time></span>'
-    s += f'<span>{"" if date else ico("clock", 16)}{rtime(p)} dk okuma</span>'
+    s = f'<span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>'
     if cat: s += f'<span class="mc">{e(CATS[topcat(p)][0])}</span>'
     return f'<div class="meta">{s}</div>'
 
 def sidebar():
-    latest = "".join(f'<li><time datetime="{p["date"].isoformat()}">{kisa(p["date"])}</time><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:6])
+    latest = "".join(f'<li><time datetime="{iso(p)}">{kisa(p["date"])}{(" · " + p["saat"]) if p.get("saat") else ""}</time><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:6])
     cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span>{cat_count[k]}</span></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
     return f"""<aside aria-label="Yan sütun">
@@ -274,7 +274,7 @@ def homepage(chunk):
     analiz = [p for p in cur if p.get("tur") == "Analiz"][:2]
     more = [p for p in rest if p not in analiz][:8]
     shown = {id(p) for p in [lead] + side + featp + analiz + more}
-    sidel = "".join(f'<li><time datetime="{p["date"].isoformat()}">{kisa(p["date"])}</time><div>{kicker(p)}<a class="tt" href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in side)
+    sidel = "".join(f'<li><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time><div>{kicker(p)}<a class="tt" href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in side)
     hero = f"""<h1 class="sr">{NAME}: hukuk, yargı ve mevzuat haberleri</h1>
 <section class="hero" aria-label="Manşet">
 <div class="k">{kicker(lead)}</div>
@@ -293,7 +293,7 @@ def homepage(chunk):
     duo = ""
     if analiz:
         an = "".join(f'<article class="an"><span class="ai">{ico("pen", 22)}</span><div><h3><a href="{p["url"]}">{e(p["title"])}</a></h3><p>{e(p["desc"])}</p>'
-                     f'<div class="meta"><span><b>Hukuki Haberler Editörlüğü</b></span><span>{trdate(p["date"])}</span><span>{rtime(p)} dk okuma</span></div></div></article>' for p in analiz)
+                     f'<div class="meta"><span><b>Hukuki Haberler Editörlüğü</b></span><span>{when(p)}</span></div></div></article>' for p in analiz)
         tc = {}
         for p in cur:
             for t, s_ in zip(p["tags"], p["tagslugs"]): tc[s_] = (t, tc.get(s_, ("", 0))[1] + 1)
@@ -479,7 +479,7 @@ for idx, p in enumerate(POSTS):
     share = f'<div class="share"><a href="https://twitter.com/intent/tweet?url={urllib.parse.quote(full)}&text={urllib.parse.quote(p["title"])}" rel="noopener nofollow" target="_blank">X\'te paylaş</a><a href="https://www.facebook.com/sharer/sharer.php?u={urllib.parse.quote(full)}" rel="noopener nofollow" target="_blank">Facebook</a><a href="https://wa.me/?text={urllib.parse.quote(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">WhatsApp</a><a href="mailto:?subject={urllib.parse.quote(p["title"])}&body={urllib.parse.quote(full)}">E-posta</a></div>'
     tur = p.get("tur", "Haber")
     ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
-          "datePublished": p["date"].isoformat(), "dateModified": p.get("updated") or p["date"].isoformat(),
+          "datePublished": iso(p), "dateModified": p.get("updated") or iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
           "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 800, "height": 420},
@@ -491,7 +491,7 @@ for idx, p in enumerate(POSTS):
     main = f"""<article class="post"><div class="crumb">{crumb}</div>
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
-<div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("cal", 16)}<time datetime="{p['date'].isoformat()}">{trdate(p['date'])}</time></span>{('<span>Güncellendi: ' + e(p["updated"]) + '</span>') if p.get("updated") else ""}<span>{ico("clock", 16)}{rtime(p)} dk okuma</span>{save_btn(p)}</div>
+<div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + e(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high"></div>{credit_html(p)}</figure>
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
