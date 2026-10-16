@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
-{"slug": "2027-butcesi-meclise-geliyor-anayasaya-gore-surec-ve-butce-kabul-edilmezse-ne-olur", "saat": "11:16", "date": "2026-10-16", "tur": "Analiz",
+{"slug": "2027-butcesi-meclise-geliyor-anayasaya-gore-surec-ve-butce-kabul-edilmezse-ne-olur", "saat": "11:16", "date": "2026-10-16", "updated": "2026-10-16T11:18", "tur": "Analiz",
  "title": "2027 Bütçesi Meclis Yolunda: Anayasa Süreci Nasıl İşletiyor, Bütçe Zamanında Çıkmazsa Ne Olur?",
  "cats": ["Ekonomi", "Siyaset"],
  "tags": ["2027 bütçesi", "bütçe kanunu", "Plan ve Bütçe Komisyonu", "Anayasa 161", "geçici bütçe", "kesin hesap", "Cevdet Yılmaz", "TBMM"],
@@ -9,11 +9,13 @@ POSTS = [
   "Cumhurbaşkanı Yardımcısı Cevdet Yılmaz 16 Ekim'de Külliye'deki törende 2027 bütçe teklifinin Meclis'e sunulmaya hazır olduğunu açıkladı.",
   "Anayasa, bütçe teklifinin mali yılbaşından en az 75 gün önce, yani en geç 18 Ekim'e kadar TBMM'ye sunulmasını şart koşuyor.",
   "Plan ve Bütçe Komisyonu görüşmeleri 21 Ekim'de başlayacak ve taslak takvime göre 27 Kasım'da bitecek; ardından Genel Kurul süreci geliyor.",
+  "Teklife göre 2027 giderleri 27,28 trilyon, gelirleri 23,41 trilyon lira; öngörülen açık 3,87 trilyon lira ve faiz giderleri toplam harcamanın yaklaşık yüzde 14,6'sı.",
   "Bütçe yılbaşına kadar kabul edilemezse önce geçici bütçe kanunu çıkarılıyor; o da çıkmazsa önceki yılın bütçesi yeniden değerleme oranıyla artırılarak uygulanıyor."
  ],
  "body": """<p class="lead">Cumhurbaşkanı Yardımcısı Cevdet Yılmaz, 16 Ekim 2026 sabahı Ankara'da Cumhurbaşkanlığı Külliyesi'nde düzenlenen bütçe bağlama töreninde "2027 yıl bütçe teklifimiz Türkiye Büyük Millet Meclisine sunulmaya hazır hâle gelmiştir" dedi. Teklifin Cumhurbaşkanı Recep Tayyip Erdoğan'ın imzasıyla bugün TBMM Başkanlığı'na sunulması bekleniyor. 2025 yılı kesin hesap kanunu teklifi de aynı süreçte Meclis'e gelecek. Önümüzdeki iki buçuk ay Meclis'in gündemini belirleyecek bu sürecin kuralları Anayasa'da yazılı.</p>
 <h2>Törende ne açıklandı?</h2>
-<p>Yılmaz'ın konuşmasında paylaştığı tahminlere göre 2027'de büyümenin yüzde 4,2, yıl sonu tüketici enflasyonunun yüzde 21, işsizlik oranının yüzde 8 olması bekleniyor. Yılmaz, 2026 yıl sonu enflasyon tahmininin yüzde 28,4 olduğunu, kentsel dönüşüm ödeneklerinin yüzde 176 artışla 276 milyar liraya çıkarıldığını da söyledi. Bütçenin toplam gider, gelir ve açık rakamları teklif metni TBMM'nin internet sitesinde yayımlandığında netleşecek.</p>
+<p>Yılmaz'ın konuşmasında paylaştığı tahminlere göre 2027'de büyümenin yüzde 4,2, yıl sonu tüketici enflasyonunun yüzde 21, işsizlik oranının yüzde 8 olması bekleniyor. Yılmaz, 2026 yıl sonu enflasyon tahmininin yüzde 28,4 olduğunu, kentsel dönüşüm ödeneklerinin yüzde 176 artışla 276 milyar liraya çıkarıldığını da söyledi.</p>
+<p><i>Güncelleme (16 Ekim 2026, 11:18): Teklifin ayrıntıları basına yansıdı. Dünya, Karar ve Endeks24'ün aynı rakamları veren haberlerine göre 2027 bütçesinde giderler 27 trilyon 276 milyar lira, gelirler 23 trilyon 408 milyar lira, açık 3 trilyon 868 milyar lira olarak öngörülüyor. Faiz giderleri 3 trilyon 975 milyar lira; bu, toplam harcamanın yaklaşık yüzde 14,6'sı. Bütçe açığının millî gelire oranı yüzde 3,5, deprem harcamaları hariç yüzde 2,8. Vergi kalemlerinde KDV 5 trilyon 681 milyar, gelir vergisi 5 trilyon 533 milyar, ÖTV 3 trilyon 284 milyar lira. Teklifin TBMM Başkanlığı'na sunulduğuna dair resmî açıklama bu notun yazıldığı saatte henüz yoktu.</i></p>
 <h2>Anayasa ne diyor?</h2>
 <p>2017 anayasa değişikliğiyle bütçe teklifini hazırlama ve sunma yetkisi Bakanlar Kurulu'ndan Cumhurbaşkanı'na geçti. Anayasa'nın 161. maddesine göre Cumhurbaşkanı merkezî yönetim bütçe kanunu teklifini mali yılbaşından en az 75 gün önce TBMM'ye sunuyor. 1 Ocak 2027'den geriye sayıldığında son gün 18 Ekim 2026'ya denk geliyor. Aynı maddeye göre bütçe kanununa bütçeyle ilgili olmayan hüküm konulamıyor. Bu kural, bütçe kanununun torba kanun gibi kullanılmasının önünde bir engel.</p>
 <p>Teklif Meclis'te önce Plan ve Bütçe Komisyonu'nda görüşülüyor. Anayasa'nın 162. maddesi komisyona 55 günlük süre tanıyor; komisyonun kabul ettiği metin Genel Kurul'da görüşülüp mali yılbaşına kadar karara bağlanmak zorunda. Genel Kurul'da milletvekilleri gideri artıran ya da geliri azaltan önerge veremiyor. Muhalefet itirazını kurum bütçeleri üzerindeki konuşmalar, soru önergeleri ve oylamada ret oyuyla ortaya koyabiliyor.</p>
@@ -42,6 +44,9 @@ POSTS = [
  "kaynaklar": [
   ["CNBC-e – Cevdet Yılmaz'dan 2027 bütçesi mesajı (16.10.2026)", "https://www.cnbce.com/haberler/cevdet-yilmazdan-2027-butcesi-mesaji-kira-artisi-istihdam-ve-ihracat-vurgusu-h39595"],
   ["İlkses – Cumhurbaşkanı Yardımcısı Yılmaz 2027 yılı bütçesini açıkladı (16.10.2026)", "https://ilkses.com.tr/ekonomi/cumhurbaskani-yardimcisi-yilmaz-2027-yili-butcesini-acikladi-464463"],
+  ["Dünya – 2027 bütçesi açıklandı: 27,3 trilyon liralık harcama, 3,9 trilyon liralık açık (16.10.2026)", "https://www.dunya.com/ekonomi/2027-butcesi-aciklandi-273-trilyon-liralik-harcama-39-trilyon-liralik-acik-haberi-844112"],
+  ["Karar – 2027 bütçesinin ayrıntıları belli oldu (16.10.2026)", "https://www.karar.com/ekonomi-haberleri/2027-butcesinin-ayrintilari-belli-oldu-harcamalar-273-trilyon-acik-39-2078760"],
+  ["Endeks24 – 2027 bütçesinde 3,9 trilyon lira açık öngörüldü (16.10.2026)", "https://www.endeks24.com/2027-butcesinde-3-trilyon-868-milyar-lira-acik"],
   ["Memurlar.net – TBMM'de 2027 yılı bütçe maratonu başlıyor: takvim belli oldu (14.10.2026)", "https://www.memurlar.net/haber/1181009/tbmm-de-2027-yili-butce-maratonu-basliyor-takvim-belli-oldu.html"],
   ["Son Dakika – TBMM'de 2027 Bütçe Kanunu Teklifi'nin komisyon takvimi belirlendi (14.10.2026)", "https://www.sondakika.com/guncel/haber-tbmm-plan-ve-butce-komisyonunda-2027-butce-20329394/"],
   ["Karar – Anayasa teklifinde 15 madde kabul edildi (2017 değişikliği, 161. madde metni)", "https://www.karar.com/anayasa-teklifinde-15-madde-kabul-edildi-371897"],
