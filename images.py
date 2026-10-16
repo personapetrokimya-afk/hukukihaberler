@@ -180,6 +180,7 @@ def build(posts, outdir):
         im.save(dst, "JPEG", quality=82, optimize=True, progressive=True)
         os.makedirs(os.path.join(outdir, "m"), exist_ok=True)
         im.resize((480, 252), Image.LANCZOS).save(os.path.join(outdir, "m", fn), "JPEG", quality=78, optimize=True, progressive=True)
-        res[slug] = (f"/gorsel/{fn}", kind, credit)
+        _v = hashlib.md5(open(dst, "rb").read()).hexdigest()[:8]
+        res[slug] = (f"/gorsel/{fn}?v={_v}", kind, credit)
     typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)
     return res
