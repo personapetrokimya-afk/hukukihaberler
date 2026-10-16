@@ -1,6 +1,56 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
+{"slug": "reklam-kurulu-aldatici-reklam-17-2-milyon-ceza-sahte-indirim-tuketici-haklari", "saat": "15:32", "date": "2026-10-16", "tur": "Analiz",
+ "title": "Reklam Kurulu'ndan Aldatıcı Reklamlara 17,2 Milyon Liralık Ceza: Gerçek Olmayan İndirimi Fark Eden Tüketici Ne Yapabilir?",
+ "cats": ["Ekonomi"],
+ "tags": ["Reklam Kurulu", "Ticaret Bakanlığı", "aldatıcı reklam", "sahte indirim", "6502 sayılı Kanun", "tüketici hakları", "örtülü reklam"],
+ "ozet": [
+  "Ticaret Bakanlığı'nın 16 Ekim'de duyurduğu kararlarla Reklam Kurulu, aldatıcı reklamlar nedeniyle toplam 17,2 milyon liralık idari para cezası verdi; Kurul'un yılın ilk dokuz ayındaki cezaları 249 milyon lirayı aştı.",
+  "Ticari reklamların kuralları 6502 sayılı Tüketicinin Korunması Hakkında Kanun'un 61. maddesinde: reklam doğru ve dürüst olmalı, tüketiciyi aldatmamalı, örtülü reklam yasak ve iddiayı ispat yükü reklam verende.",
+  "Reklam Kurulu'nun verdiği ceza Hazine'ye gider; reklama güvenerek alışveriş yapan tüketicinin zararını karşılamaz. Tüketici, reklamdaki niteliği taşımayan malda ayıplı mal hükümlerine dayanabilir.",
+  "Ceza alan işletmeler, Kurul kararına karşı idari yargıda dava açabilir; karar kesinleşmeden şirketlerin hukuka aykırı davrandığı kesin olarak söylenemez."
+ ],
+ "body": """<p class="lead">Ticaret Bakanlığı, bünyesindeki Reklam Kurulu'nun tüketiciyi aldattığı sonucuna vardığı reklamlar nedeniyle toplam 17,2 milyon liralık idari para cezası verdiğini 16 Ekim'de duyurdu. Bakanlık, Kurul'un 2026'nın ilk dokuz ayında kestiği cezaların 249 milyon lirayı aştığını da açıkladı. Haberlere yansıyan bilgilere göre incelemelerin bir kısmı, gerçekte uygulanmayan ya da olduğundan büyük gösterilen indirim duyurularıyla ilgili. Peki hangi reklam yasak, ceza nasıl veriliyor ve böyle bir reklama güvenerek alışveriş yapan tüketicinin elinde ne var?</p>
+<h2>Kurul hangi kurala dayanıyor?</h2>
+<p>Ticari reklamların çerçevesi 6502 sayılı Tüketicinin Korunması Hakkında Kanun'un 61. maddesinde çiziliyor. Madde, reklamların Reklam Kurulu'nun belirlediği ilkelere, genel ahlaka, kamu düzenine ve kişilik haklarına uygun, dürüst ve doğru olmasını istiyor. Tüketiciyi aldatan ya da bilgi ve tecrübe eksikliğini istismar eden reklam yasak. Aynı maddeye göre örtülü reklam, yani reklam olduğu gizlenerek yapılan tanıtım da yasak.</p>
+<p>Uygulamada en çok iş gören hüküm ispat yükü: reklam verenler, reklamlarındaki iddiaları ispatla yükümlü. "Yüzde 50 indirim", "piyasanın en ucuzu" ya da "klinik olarak kanıtlanmış" diyen işletme, Kurul sorduğunda bunu belgeyle göstermek zorunda. Kanun'un 62. maddesi ise reklamın ötesine geçen haksız ticari uygulamaları ayrıca yasaklıyor.</p>
+<h2>İndirim duyurusu ne zaman aldatıcı sayılır?</h2>
+<p>Ticari Reklam ve Haksız Ticari Uygulamalar Yönetmeliği, indirimli satış duyurularında indirimden önceki fiyat olarak, indirim başlamadan önceki 30 gün içinde uygulanan en düşük fiyatın gösterilmesini istiyor. Bu kural, kampanyadan birkaç gün önce fiyatı yükseltip ardından "indirimli" diye eski fiyata dönme yöntemini hedefliyor. Etikette yazan eski fiyat son bir ayda hiç uygulanmamışsa ya da indirim yalnızca birkaç ürün için geçerliyken tüm mağazada indirim varmış gibi duyuruluyorsa, Kurul'un önüne gelen dosyalar çoğunlukla bu tür durumlar oluyor.</p>
+<h2>Hangi yaptırımlar var?</h2>
+<p>Kanun'un 63. maddesine göre Reklam Kurulu Bakanlık bünyesinde çalışıyor; ticari reklam ve haksız ticari uygulamalara ilişkin ilkeleri belirliyor, şikâyetleri ve kendi tespitlerini inceliyor. 77. maddenin ilgili fıkrası Kurul'a dört tür yaptırım imkânı tanıyor:</p>
+<table class="tablo">
+<tr><th>Yaptırım</th><th>Ne anlama geliyor?</th></tr>
+<tr><td>Durdurma</td><td>Reklamın yayından kaldırılması</td></tr>
+<tr><td>Düzeltme</td><td>Aynı yöntemle düzeltilmiş reklam yayınlanması</td></tr>
+<tr><td>İdari para cezası</td><td>Reklam verene, gerekirse ajans ve mecra kuruluşuna ceza</td></tr>
+<tr><td>Tedbiren durdurma</td><td>İnceleme sürerken reklamın üç aya kadar durdurulması</td></tr>
+</table>
+<p>Ceza tutarları reklamın yayımlandığı mecraya göre farklılaşıyor ve her yıl yeniden değerleme oranıyla güncelleniyor. Kurul kararları birer idari işlem olduğu için ceza alan işletme idare mahkemesinde iptal davası açabiliyor. Bakanlığın açıkladığı rakamlar Kurul kararlarına ait; bu kararların bir kısmı yargıdan dönebilir.</p>
+<h2>Ceza tüketiciye ne kazandırır?</h2>
+<p>Doğrudan bir şey kazandırmaz. Reklam Kurulu'nun kestiği para cezası Hazine'ye gider; reklama güvenip alışveriş yapan kişiye ödeme yapılmaz. Tüketicinin hakkı sözleşmeden doğar. 6502 sayılı Kanun'un 8. maddesi, satıcının bildirdiği ya da reklam ve ilanlarında yer alan özellikleri taşımayan malı ayıplı mal sayıyor. Bu durumda tüketici, 11. madde uyarınca sözleşmeden dönme, ayıp oranında bedelden indirim, ücretsiz onarım ya da ayıpsız misliyle değişim haklarından birini seçebilir.</p>
+<ul class="liste">
+<li>Reklamın ekran görüntüsünü, ürün sayfasını ve fatura ya da sipariş özetini saklayın; fiyat değişimini gösteren eski görüntüler varsa onları da.</li>
+<li>Önce satıcıya yazılı başvurun ve hangi hakkı kullandığınızı açıkça belirtin.</li>
+<li>Sonuç alamazsanız, uyuşmazlığın tutarına göre tüketici hakem heyetine ya da tüketici mahkemesine gidebilirsiniz. Hakem heyeti sınırı her yıl güncellenir.</li>
+<li>Reklamın kendisini şikâyet etmek için il ticaret müdürlüğüne ya da e-Devlet'teki tüketici şikâyeti ekranından Bakanlığa başvurmak mümkün.</li>
+</ul>
+<p>Bakanlığın tüketici alanındaki düzenleme yetkisinin başka bir örneğini, <a href="/taksitli-alisveriste-sureleri-ticaret-bakanligi-belirleyecek-tuketici-ne-bilmeli">taksitli alışverişte sürelerin Bakanlık kararına bırakılmasını</a> anlatırken ele almıştık.</p>
+<h2>Bundan sonra ne olacak?</h2>
+<p>Reklam Kurulu'nun toplantı kararları Bakanlığın internet sitesinde ayrıca yayımlanıyor; hangi sektörlerin ve hangi reklam türlerinin ceza aldığı ayrıntılı olarak orada görülebilecek. Ceza alan şirketlerin dava açıp açmayacağı, açarlarsa idare mahkemelerinin Kurul'un tespitlerini nasıl değerlendireceği de takip edilecek.</p>""",
+ "ornek": [
+  "K, bir giyim sitesinde \"yüzde 40 indirim\" ilanıyla 1.200 liraya bir mont aldı. Daha sonra montun iki hafta önce de 1.200 liraya satıldığını gösteren ekran görüntüsünü buldu. K reklamı Bakanlığa şikâyet edebilir; satıcıya karşı ise ürünün reklamda vaat edilen özelliği taşıyıp taşımadığına göre ayıplı mal hükümlerine dayanarak bedel indirimi isteyebilir. Kurul'un vereceği ceza K'ye ödenmez."
+ ],
+ "anket": {"soru": "İndirim duyurularına ne kadar güveniyorsunuz?", "secenekler": ["Güveniyorum", "Fiyatı başka yerden kontrol ederim", "Güvenmiyorum", "Fikrim yok"]},
+ "kaynaklar": [
+  ["Ticaret Gazetesi – Reklam Kurulu, aldatıcı reklamlara karşı 17,2 milyon TL idari para cezası uyguladı", "https://ticaretgazetesi.com.tr/2026/10/16/reklam-kurulu-aldatici-reklamlara-karsi-172-milyon-tl-idari-para-cezasi-uyguladi/"],
+  ["Memurlar.net – Reklam Kurulu'ndan 9 ayda 249 milyon liralık ceza", "https://www.memurlar.net/haber/1181164/reklam-kurulu-ndan-9-ayda-249-milyon-liralik-ceza.html"],
+  ["Karar – Bakanlıktan yanıltıcı reklamlara 249 milyon liralık ceza", "https://www.karar.com/guncel-haberler/bakanliktan-yaniltici-reklamlara-249-milyon-liralik-ceza-2078730"],
+  ["Yeni Şafak – Ticaret Bakanlığı aldatıcı reklamlar için 9 ayda 249 milyon lirayı aşkın ceza kesti", "https://www.yenisafak.com/ekonomi/ticaret-bakanligi-dugmeye-basti-aldatici-reklamlar-icin-9-ayda-249-milyon-lirayi-askin-ceza-kesti-4864743"],
+  ["Alomaliye – Aldatıcı reklamlara 17,2 milyon TL ceza", "https://www.alomaliye.com/2026/10/16/aldatici-reklamlara-17-2-milyon-tl-ceza/"],
+  ["6502 sayılı Tüketicinin Korunması Hakkında Kanun (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.6502.pdf"]
+ ]
+},
 {"slug": "alo-adalet-135-81-ilde-davaniz-5-yili-astiysa-makul-sure-tazminat-komisyonu-aym", "saat": "14:49", "date": "2026-10-16", "tur": "Analiz",
  "title": "Alo Adalet 135 Artık 81 İlde: Davanız 5 Yılı Aştıysa Hat Ne Sağlar, Tazminat İçin Hangi Yol Var?",
  "cats": ["Yargı"],
