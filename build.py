@@ -640,9 +640,9 @@ write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı."
 
 # RSS
 def _rss(items, title, link):
-    its = "".join(f"<item><title>{e(p['title'])}</title><link>{SITE}{p['url']}</link><guid isPermaLink=\"true\">{SITE}{p['url']}</guid><pubDate>{p['date'].strftime('%a, %d %b %Y 09:00:00 +0300')}</pubDate><category>{e(p['catname'])}</category><description>{e(p['desc'])}</description><media:content url=\"{SITE}{p['img']}\" medium=\"image\" width=\"800\" height=\"420\"/><content:encoded><![CDATA[<p><img src=\"{SITE}{p['img']}\" alt=\"\"></p>{p['body']}]]></content:encoded></item>" for p in items)
-    return (f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/">'
-            f'<channel><title>{e(title)}</title><link>{SITE}{link}</link><description>{TAGLINE}</description><language>tr</language>'
+    its = "".join(f"<item><title>{e(p['title'])}</title><link>{SITE}{p['url']}</link><guid isPermaLink=\"true\">{SITE}{p['url']}</guid><pubDate>{p['date'].strftime('%a, %d %b %Y ') + (p['saat'] + ':00' if p.get('saat') else '09:00:00') + ' +0300'}</pubDate><category>{e(p['catname'])}</category><description>{e(p['desc'])}</description><media:content url=\"{SITE}{p['img']}\" medium=\"image\" width=\"800\" height=\"420\"/><content:encoded><![CDATA[<p><img src=\"{SITE}{p['img']}\" alt=\"\"></p>{p['body']}]]></content:encoded></item>" for p in items)
+    return (f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">'
+            f'<channel><title>{e(title)}</title><link>{SITE}{link}</link><atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/><atom:link rel="self" type="application/rss+xml" href="{SITE}{"/feed/index.xml" if link == "/" else "/feed/" + link.rstrip("/").split("/")[-1] + ".xml"}"/><description>{TAGLINE}</description><language>tr</language>'
             f'<image><url>{SITE}/icon-192.png</url><title>{e(title)}</title><link>{SITE}{link}</link></image>{its}</channel></rss>')
 write("/feed/", _rss(POSTS[:20], NAME, "/"))
 for _k in ("manset", "yargi", "siyaset", "diger", "teknoloji"):
@@ -657,14 +657,14 @@ urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] +
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "yearly", "0.3") for s in tag_posts] + \
        [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
-lm = {p["url"]: p["date"].isoformat() for p in POSTS}
+lm = {p["url"]: (iso(p) if p.get("saat") else p["date"].isoformat()) for p in POSTS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls) + "</urlset>\n"
 with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f: f.write(sm)
 # Google News sitemap: yalnızca son 2 günde yayımlananlar
 _lim = datetime.date.today() - datetime.timedelta(days=2)
 nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">\n' + "".join(
-    f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news></url>\n"
+    f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{iso(p) if p.get('saat') else p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news></url>\n"
     for p in POSTS if p["date"] >= _lim) + "</urlset>\n"
 with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:

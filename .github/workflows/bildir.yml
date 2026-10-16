@@ -1,0 +1,19 @@
+name: Arama motorlarina bildir
+on:
+  push:
+    branches: [main]
+    paths: ["content*.py"]
+jobs:
+  bildir:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Yayin icin bekle
+        run: sleep 150
+      - name: WebSub (Google) ve IndexNow (Bing, Yandex) bildirimi
+        run: |
+          for f in index manset yargi siyaset diger teknoloji; do
+            curl -s -o /dev/null -w "websub $f %{http_code}\n" -X POST https://pubsubhubbub.appspot.com/ -d hub.mode=publish --data-urlencode "hub.url=https://hukukihaberler.com/feed/$f.xml"
+          done
+          URLS=$(curl -s https://hukukihaberler.com/news-sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' | head -50 | python3 -c 'import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))')
+          curl -s -o /dev/null -w "indexnow %{http_code}\n" -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"hukukihaberler.com\",\"key\":\"7f3c9b2e4a6d48e1b5c0d9a8f2e7c613\",\"keyLocation\":\"https://hukukihaberler.com/7f3c9b2e4a6d48e1b5c0d9a8f2e7c613.txt\",\"urlList\":$URLS}"
