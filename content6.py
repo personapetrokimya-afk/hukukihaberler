@@ -1,6 +1,55 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
+{"slug": "imamoglu-savunmasinda-ankara-2-nolu-baro-70-hakim-savci-sozleri-suc-duyurusu-sorusturma-izni", "saat": "14:48", "date": "2026-10-16", "tur": "Haber",
+ "title": "İmamoğlu Savunmasında \"70 Hâkim-Savcı\" Sözlerine Değindi: Ankara 2 No'lu Baro Başkanı Hakkındaki Suç Duyuruları Nasıl İlerler?",
+ "cats": ["Yargı", "Barolar"],
+ "tags": ["Ekrem İmamoğlu", "Ankara 2 No'lu Baro", "Gökhan Ağdemir", "hâkim ve savcı alımı", "suç duyurusu", "Avukatlık Kanunu", "nüfuz ticareti", "İstanbul Barosu"],
+ "ozet": [
+  "Ekrem İmamoğlu, İBB davasındaki savunmasının üçüncü gününde Ankara 2 No'lu Baro Başkanı Gökhan Ağdemir'in \"Bakanlık bize ayrıcalık tanıdı, 70 baro üyesini hâkim savcı yaptık\" sözlerini duruşma salonunda okudu.",
+  "Ağdemir sözlerinin bağlamından koparıldığını söyleyip 12 Ekim'de baro başkanlığı adaylığından çekilmişti; İstanbul ve İzmir baroları ile bir grup avukat suç duyurusunda bulundu.",
+  "Baro başkanı hakkında görevle ilgili bir soruşturma Avukatlık Kanunu gereği Adalet Bakanlığı'nın iznine bağlı; iddiaların muhatabı da Bakanlık olduğu için izin aşaması tartışmanın merkezinde.",
+  "Şu ana kadar Ağdemir veya Bakanlık görevlileri hakkında açılmış bir dava ya da verilmiş bir soruşturma izni kamuoyuna yansımadı."
+ ],
+ "body": """<p class="lead">İBB davasında savunmasının üçüncü gününü yapan Ekrem İmamoğlu, bugün Silivri'deki duruşmada Ankara 2 No'lu Baro Başkanı Gökhan Ağdemir'in bir hafta önce tartışma yaratan \"70 avukatı hâkim savcı yaptık\" sözlerini okudu. Gazeteci Kayhan Ayhan'ın saat 14.02'de X'te paylaştığı görüntülere göre İmamoğlu, \"Baroların böyle bir ayrıcalık hakkı yok\" dedi. Sözler, Ağdemir hakkında yapılan suç duyurularını yeniden gündeme taşıdı.</p>
+<h2>Duruşmada ne söylendi?</h2>
+<p>Ayhan'ın paylaşımındaki görüntüde İmamoğlu, Ağdemir'in sözlerini iki kez okuyarak şöyle diyor: \"İki No'lu Baro Başkanı 'Bakanlık bize ayrıcalık tanıdı, iki sene içerisinde 70 tane baro üyesi arkadaşımızı hâkim savcı yaptık' dedi. Vallahi billahi benim bildiğim, baro başkanımız burada, baroların böyle bir ayrıcalık hakkı yok.\" Duruşmayı canlı aktaran Medyascope ve Diken, İmamoğlu'nun savunmasının bugün de sürdüğünü ve \"87 milyon insan canlı izleseydi bu dava ilk hafta biterdi\" dediğini aktardı. Baro başkanına ilişkin bölüm, bu yazının yayımlandığı saatte haber sitelerinde henüz yer almıyordu.</p>
+<p>Duruşmada savunma sırasında söylenen sözlerin hukuki sınırlarını daha önce <a href="/durusmadaki-savunma-sozleri-suc-olur-mu-imamoglu-sorusturmasi-tck-128">savunma dokunulmazlığı ve TCK 128 yazımızda</a> ele almıştık.</p>
+<h2>Tartışma nereden çıktı?</h2>
+<p>Ağdemir'in \"Bakanlık bize ayrıcalık tanıdı, 70 avukatı hâkim ve savcı yaptık\" sözleri geçen hafta sosyal medyada yayıldı. Tepkilerin ardından Ağdemir, sözlerinin bağlamından koparıldığını ve gerçeğin çarpıtıldığını savundu; 12 Ekim'de ise \"kurumun itibarı kişisel haklılık iddiasının önünde\" diyerek baro başkanlığı adaylığından çekildiğini açıkladı.</p>
+<p>Ardından suç duyuruları geldi. İstanbul Barosu, Cumhuriyet'in aktardığına göre rüşvet ve nüfuz ticareti iddiasıyla başvurdu. İzmir Barosu ve Muğla Barosu Bodrum Temsilciliği de suç duyurusunda bulundu. On avukat ise Ağdemir'le birlikte Adalet Bakanlığı yetkilileri ve mülakat heyeti hakkında şikâyette bulundu. Emek Partisi de konuyu soru önergesiyle Meclis'e taşıdı. Bakanlığın sözlere ilişkin ayrıntılı bir açıklaması bu saate kadar yayımlanmadı.</p>
+<h2>Suç duyurusu nasıl ilerler?</h2>
+<p>Suç duyurusu yalnızca bir başvurudur; soruşturma, dava ya da suçlama anlamına gelmez. İddia edilen fiiller TCK'da üç farklı suça karşılık gelebilir: rüşvet (m. 252), nüfuz ticareti (m. 255) ve görevi kötüye kullanma (m. 257). Hangisinin söz konusu olduğu, sınavda ya da mülakatta somut bir yarar sağlanıp sağlanmadığına, bir menfaat ilişkisi bulunup bulunmadığına bağlı. Bir sözün kendisi, arkasında belgelenmiş bir işlem yoksa tek başına bu suçların ispatı için yeterli sayılmaz.</p>
+<p>Usul açısından belirleyici olan izin rejimi. Avukatlık Kanunu'nun 58. maddesine göre avukatların baro organlarındaki görevlerinden doğan ya da görev sırasında işledikleri suçlarda soruşturma, Adalet Bakanlığı'nın vereceği izinle yapılıyor. Bakanlıkta görevli hâkim ve savcı sınıfındaki yetkililer için de görev suçlarında Hâkimler ve Savcılar Kurulu'nun izni aranıyor. Bu dosyada iddiaların muhatabı Bakanlığın kendisi olduğundan, izin kararını kimin, hangi gerekçeyle vereceği yakından izlenecek. İzin verilmemesi hâlinde başvurucular bu karara itiraz edebilir.</p>
+<table class="tablo">
+<tr><th>Aşama</th><th>Durum</th></tr>
+<tr><td>Sözler</td><td>Ağdemir söyledi, bağlamından koparıldığını savundu</td></tr>
+<tr><td>Suç duyurusu</td><td>İstanbul, İzmir barosu, Bodrum Temsilciliği ve 10 avukat başvurdu</td></tr>
+<tr><td>Soruşturma izni</td><td>Verildiğine dair açıklama yok</td></tr>
+<tr><td>Dava</td><td>Yok</td></tr>
+</table>
+<h2>Bundan sonra ne olacak?</h2>
+<p>Barolar, mülakatla hâkim ve savcı olan 70 kişinin kimler olduğunun açıklanmasını istiyor. Avukatlık mesleğinden hâkim ve savcılığa geçişte yazılı sınav ve mülakatı Adalet Bakanlığı yapıyor, atamayı Hâkimler ve Savcılar Kurulu gerçekleştiriyor. Mülakat puanlarının ve tutanaklarının dosyaya getirtilip getirtilmeyeceği, soruşturmanın derinliğini gösterecek. Masumiyet karinesi gereği, hakkında suç duyurusu yapılan kişiler, bir mahkeme kararı olmadıkça suçlu sayılamaz. Ağdemir'in ya da Bakanlığın İmamoğlu'nun bugünkü sözlerine yanıt vermesi hâlinde haberi güncelleyeceğiz.</p>""",
+ "ornek": [
+  "Bir avukat, baro başkanının mülakat heyetine yaptığı tavsiye sayesinde hâkim adaylığını kazandığını iddia ediyor. Tavsiyenin karşılığında bir menfaat sağlandığı belgelenirse rüşvet ya da nüfuz ticareti tartışılabilir; yalnızca bir tavsiye yazısı varsa ve puanlar objektif ölçütlerle verilmişse suç unsuru oluşmayabilir. Belirleyici olan, mülakat kayıtlarının ve puanlamanın incelenmesidir."
+ ],
+ "anket": {"soru": "Hâkim ve savcı mülakatları için sizce ne yapılmalı?", "secenekler": ["Mülakatlar kayıt altına alınmalı", "Mülakat tamamen kaldırılmalı", "Mevcut sistem yeterli", "Fikrim yok"]},
+ "kaynaklar": [
+  ["Kayhan Ayhan – X paylaşımı (16.10.2026, 14:02)", "https://x.com/kayhanayhann/status/2111050168883630184"],
+  ["Medyascope – İmamoğlu'nun savunmasında üçüncü gün (canlı blog)", "https://medyascope.tv/2026/10/16/imamoglunun-savunmasinda-ucuncu-gun-canli-blog/"],
+  ["Diken – Canlı blog: İmamoğlu savunmada: 87 milyon insan canlı izleseydi bu dava ilk hafta biterdi", "https://www.diken.com.tr/canli-blog-imamoglu-savunmada-87-milyon-insan-canli-izleseydi-bu-dava-ilk-hafta-biterdi/"],
+  ["Medyascope – Gökhan Ağdemir baro başkanı adaylığından çekildi (12.10.2026)", "https://medyascope.tv/2026/10/12/bakanlik-bize-ayricalik-tanidi-demisti-gokhan-agdemir-baro-baskani-adayligindan-cekildi/"],
+  ["SON TV – Gökhan Ağdemir'den açıklama: Kurumun itibarı kişisel haklılık iddiasının önünde", "https://www.son.tv/flas-gelisme-ankara-2-nolu-baro-baskani-gokhan-agdemirden-aciklama-kurumun-itibari-kisisel-haklilik-iddiasinin-onunde/"],
+  ["Cumhuriyet – İstanbul Barosu'ndan 'rüşvet ve nüfuz ticareti' suçlaması", "https://www.cumhuriyet.com.tr/turkiye/yargidaki-torpil-itirafina-suc-duyurusu-istanbul-barosu-ndan-rusvet-ve-nufuz-ticareti-suclamasi-2546322"],
+  ["ANKA – İzmir Barosu'ndan Ağdemir'in açıklamasına suç duyurusu", "https://ankahaber.net/haber/izmir-barosu-ndan-ankara-2-nolu-baro-baskani-agdemir-in-70-avukati-hakim-ve-savci-yaptik-aciklamasina-suc-duyurusu-091f0ac3"],
+  ["ANKA – Avukatlardan Ağdemir, Bakanlık yetkilileri ve mülakat heyeti hakkında suç duyurusu", "https://ankahaber.net/haber/avukatlardan-ankara-2-no-lu-baro-baskani-agdemir-adalet-bakanligi-yetkilileri-ve-mulakat-heyeti-hakkinda-suc-duyurusu-aa70a799"],
+  ["Gündem Fethiye – Muğla Barosu Bodrum Temsilciliği'nden suç duyurusu", "https://gundemfethiye.com.tr/mugla-barosu-bodrum-temsilciliginden-agdemirin-70-tane-baro-uyesi-avukat-arkadasimizi-hakim-savci-yaptik-aciklamasiyla-ilgili-suc-duyurusu-173269/"],
+  ["EMEP – Karaca'dan '70 avukatı hakim ve savcı yaptık' açıklamasına soru önergesi", "https://www.emep.org/karacadan-ankara-2-nolu-baronun-70-avukati-hakim-ve-savci-yaptik-aciklamasina-iliskin-soru-onergesi"],
+  ["BoldMedya – Hâkim ve savcı yapılan 70 ismin açıklanması istendi", "https://boldmedya.com/2026/10/13/hakim-ve-savci-yapilan-70-ismin-aciklanmasi-istendi"],
+  ["1136 sayılı Avukatlık Kanunu (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.1136.pdf"]
+ ]
+},
+
 {"slug": "akbank-rekabet-kurulu-uzlasma-1-71-milyar-isgucu-piyasasi-calisan-ayartmama", "saat": "14:05", "date": "2026-10-16", "tur": "Analiz",
  "title": "Akbank Rekabet Soruşturmasında 1,71 Milyar Lirayla Uzlaştı: Bankalar Arası Çalışan Anlaşmaları Neden Yasak, Uzlaşma Ne Demek, Çalışan Ne Yapabilir?",
  "cats": ["Ekonomi"],
