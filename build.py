@@ -68,7 +68,7 @@ CAT_DESC = {
     "diger/spor": "Spor dünyasından kısa haberler.",
 }
 
-LOGO_SVG = open(os.path.join(os.path.dirname(__file__), "static", "favicon.svg"), encoding="utf-8").read().replace("<svg ", '<svg class="lmark" width="44" height="44" aria-hidden="true" focusable="false" ', 1)
+LOGO_SVG = open(os.path.join(os.path.dirname(__file__), "static", "logo-mark.svg"), encoding="utf-8").read().replace("<svg ", '<svg class="lmark" width="44" height="44" aria-hidden="true" focusable="false" ', 1)
 # ---------------------------------------------------------------- yardımcılar
 TR = str.maketrans("çğıöşüÇĞİÖŞÜ", "cgiosuCGIOSU")
 def slugify(s):
