@@ -68,7 +68,9 @@ nav.cats a.on{color:var(--gold);border-bottom-color:var(--gold)}
 .tk i{width:9px;height:9px;border-radius:50%;background:var(--coral);display:block}
 .ticker ul{list-style:none;margin:0;padding:0;display:flex;gap:0;min-width:0;flex:1;overflow:hidden}
 .ticker li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;font-weight:400}
-.ticker li a{display:block;line-height:40px;overflow:hidden;text-overflow:ellipsis}
+.ticker li{display:flex;align-items:center;flex:0 1 auto}
+.ticker li a{display:block;min-width:0;line-height:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticker li+li:before{flex:none}
 .ticker li+li:before{content:"|";color:var(--line);margin:0 16px}
 .tdate{flex:none;color:var(--mute);font-weight:400;font-size:13.5px}
 .tmore{display:none}
