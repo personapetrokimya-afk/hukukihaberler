@@ -118,6 +118,9 @@ def kicker(p):
 def rtime(p): return max(1, round(p["words"] / 200))
 def kisa(d): return f"{d.day} {AYLAR[d.month-1][:3]}"
 def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
+def mini(p):
+    if not p.get("img"): return ""
+    return f'<a class="mini" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{thumb(p)}" alt="" width="96" height="64" loading="lazy" decoding="async"></a>'
 def save_btn(p):
     return (f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[topcat(p)][0])}" '
             f'data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 22)}</button>')
@@ -131,7 +134,7 @@ def meta(p, date=True, cat=False):
     return f'<div class="meta">{s}</div>'
 
 def sidebar():
-    latest = "".join(f'<li><time datetime="{iso(p)}">{kisa(p["date"])}{(" · " + p["saat"]) if p.get("saat") else ""}</time><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:6])
+    latest = "".join(f'<li class="m">{mini(p)}<div><time datetime="{iso(p)}">{kisa(p["date"])}{(" · " + p["saat"]) if p.get("saat") else ""}</time><a href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in POSTS[:6])
     cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span>{cat_count[k]}</span></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
     return f"""<aside aria-label="Yan sütun">
@@ -277,7 +280,7 @@ def homepage(chunk):
     analiz = [p for p in cur if p.get("tur") == "Analiz"][:2]
     more = [p for p in rest if p not in analiz][:8]
     shown = {id(p) for p in [lead] + side + featp + analiz + more}
-    sidel = "".join(f'<li><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time><div>{kicker(p)}<a class="tt" href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in side)
+    sidel = "".join(f'<li><div class="tl"><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time>{mini(p)}</div><div>{kicker(p)}<a class="tt" href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in side)
     hero = f"""<h1 class="sr">{NAME}: hukuk, yargı ve mevzuat haberleri</h1>
 <section class="hero" aria-label="Manşet">
 <div class="k">{kicker(lead)}</div>

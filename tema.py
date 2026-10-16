@@ -104,9 +104,12 @@ section.blk{padding:26px 0;border-top:1px solid var(--line2)}
 .side h2{font:600 24px/1.2 var(--serif);margin:0 0 6px;display:flex;align-items:center;gap:16px}
 .side h2:after{content:"";flex:1;height:1px;background:var(--line)}
 .side ol{list-style:none;margin:0;padding:0}
-.side li{display:grid;grid-template-columns:62px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line2)}
+.side li{display:grid;grid-template-columns:80px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line2);align-items:start}
+.side .tl{display:flex;flex-direction:column;gap:8px}
+.mini{display:block;border-radius:6px;overflow:hidden;background:var(--dark);aspect-ratio:3/2}.mini img{display:block;width:100%;height:100%;object-fit:cover}
+.box li.m{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-items:start}
 .side li time{font:600 15px/1.35 var(--sans);color:var(--gold)}
-.side li div{border-left:1px solid var(--line2);padding-left:14px}
+.side li>div:last-child{border-left:1px solid var(--line2);padding-left:14px}
 .side li .kicker{font-size:11.5px}
 .side li a.tt{display:block;font:600 16.5px/1.35 var(--serif);margin-top:4px}
 .side .all{display:block;text-align:right;margin-top:14px;font:600 15px var(--sans);color:var(--gold)}
