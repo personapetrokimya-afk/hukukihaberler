@@ -141,7 +141,7 @@ def sidebar():
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
           "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}, "foundingDate": "2010",
-          "sameAs": [], "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme", "email": "iletisim@hukukihaberler.com",
+          "sameAs": [], "masthead": SITE + "/kunye/", "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme", "email": "iletisim@hukukihaberler.com",
           "contactPoint": {"@type": "ContactPoint", "contactType": "editorial", "email": "iletisim@hukukihaberler.com", "url": SITE + "/iletisim/", "availableLanguage": "tr"}}
 
 def _preload(main):
@@ -607,7 +607,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
 <h2>Yazı işleri</h2>
-<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi: Av. Yağmur Tahtasız. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
+<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi: <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a>. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine iletilebilir.</p>
 <h2>İletişim</h2>
@@ -631,13 +631,47 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <h2>Doğrulama</h2>
 <p>Her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
 <h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
-<p>Sitenin hukuk danışmanlığını ve içerik denetimini Av. Yağmur Tahtasız yürütür. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
+<p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> yürütür. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
 <h2>Reklam, sponsorluk ve bağımsızlık</h2>
 <p>Sitede şu an reklam ve sponsorlu içerik bulunmamaktadır. İleride reklam alınması hâlinde reklam alanları haber metninden görsel olarak ayrılacak ve "Reklam" ibaresi taşıyacaktır. Hiçbir kurum veya kişi, ödeme karşılığında bir haberin içeriğini belirleyemez. Yazılarda hukuki bilgiye kaynak olarak bağlantı verilen dış sitelerle ilişkiler bu sayfada açıklanır.</p>
 <h2>Görseller</h2>
 <p>Görseller lisansı uygun kaynaklardan (ör. Wikimedia Commons) alınır; fotoğrafçı, kaynak ve lisans görselin altında bağlantısıyla belirtilir. Görsellerin sağ alt köşesinde site imzası yer alır.</p>"""
 write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkeleri: kaynak ve doğrulama, düzeltme politikası, hukuki içerik denetimi, reklam ve bağımsızlık.", "/yayin-ilkeleri/",
       f'<article class="post static"><h1>Yayın İlkeleri</h1><div class="body">{YAYIN}</div></article>'))
+
+# hukuk danışmanı profil sayfası (gerçek kişi, doğrulanabilir bilgiler)
+AV_URL = "/av-yagmur-tahtasiz/"
+AV_FOTO = "https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg"
+AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + AV_URL, "name": "Av. Yağmur Tahtasız",
+         "mainEntity": {"@type": "Person", "@id": SITE + AV_URL + "#kisi", "name": "Yağmur Tahtasız", "honorificPrefix": "Av.",
+                        "jobTitle": "Avukat", "description": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'in hukuk danışmanı ve içerik denetimi sorumlusu.",
+                        "image": AV_FOTO, "url": SITE + AV_URL,
+                        "alumniOf": {"@type": "CollegeOrUniversity", "name": "Anadolu Üniversitesi Hukuk Fakültesi"},
+                        "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
+                        "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
+                        "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
+                        "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz"]}}
+AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async"></figure>
+<p class="lead">Av. Yağmur Tahtasız, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütür.</p>
+<h2>Eğitim ve meslek</h2>
+<ul class="liste">
+<li><b>Eğitim:</b> Anadolu Üniversitesi Hukuk Fakültesi (2014-2021)</li>
+<li><b>Avukatlık ruhsatı:</b> 2022</li>
+<li><b>Baro:</b> İzmir Barosu</li>
+<li><b>Çalışma alanı:</b> Ağırlıklı olarak aile ve boşanma hukuku; ceza, icra ve iflas ile idare hukuku dosyaları</li>
+</ul>
+<h2>Hukuki Haberler'deki görevi</h2>
+<p>Sitede yayımlanan haber ve analizlerin hukuki çerçevesine ilişkin danışmanlık verir: mevzuat ve içtihat atıflarının, suç ve yaptırım tanımlarının ve usul bilgilerinin doğruluğuna ilişkin denetim ve düzeltme süreçlerinde görüş bildirir. Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır; yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
+<h2>Çıkar ilişkisi</h2>
+<p>Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
+<h2>Bağlantılar</h2>
+<ul class="liste">
+<li><a href="https://yagmurtahtasiz.com/about.html" rel="noopener" target="_blank">yagmurtahtasiz.com</a></li>
+<li><a href="https://www.linkedin.com/in/yagmurtahtasiz" rel="noopener" target="_blank">LinkedIn</a></li>
+</ul>"""
+write(AV_URL, page("Av. Yağmur Tahtasız", "Av. Yağmur Tahtasız: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler hukuk danışmanı ve içerik denetimi sorumlusu.", AV_URL,
+      f'<article class="post static"><h1>Av. Yağmur Tahtasız</h1><p class="sec-desc">Hukuk danışmanı ve içerik denetimi</p><div class="body">{AV}</div></article>',
+      ld=AV_LD, ogtype="profile", crumbs=[("/", "Anasayfa"), ("/kunye/", "Künye"), (AV_URL, "Av. Yağmur Tahtasız")]))
 
 # 404
 write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı.", "/404.html",
@@ -661,7 +695,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "yearly", "0.3") for s in tag_posts] + \
-       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
+       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 lm = {p["url"]: (iso(p) if p.get("saat") else p["date"].isoformat()) for p in POSTS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls) + "</urlset>\n"
