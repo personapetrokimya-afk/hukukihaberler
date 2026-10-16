@@ -650,7 +650,7 @@ AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE +
                         "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
                         "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
                         "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
-                        "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz"]}}
+                        "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"]}}
 AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async"></figure>
 <p class="lead">Av. Yağmur Tahtasız, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütür.</p>
 <h2>Eğitim ve meslek</h2>
