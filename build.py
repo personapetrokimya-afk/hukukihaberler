@@ -121,6 +121,8 @@ def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
 def save_btn(p):
     return (f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[topcat(p)][0])}" '
             f'data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 22)}</button>')
+def upd(u):
+    d = datetime.date.fromisoformat(u[:10]); return trdate(d) + (", " + u[11:16] if "T" in u else "")
 def iso(p): return p["date"].isoformat() + (f'T{p["saat"]}:00+03:00' if p.get("saat") else "")
 def when(p): return trdate(p["date"]) + (f", {p['saat']}" if p.get("saat") else "")
 def meta(p, date=True, cat=False):
@@ -479,7 +481,7 @@ for idx, p in enumerate(POSTS):
     share = f'<div class="share"><a href="https://twitter.com/intent/tweet?url={urllib.parse.quote(full)}&text={urllib.parse.quote(p["title"])}" rel="noopener nofollow" target="_blank">X\'te paylaş</a><a href="https://www.facebook.com/sharer/sharer.php?u={urllib.parse.quote(full)}" rel="noopener nofollow" target="_blank">Facebook</a><a href="https://wa.me/?text={urllib.parse.quote(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">WhatsApp</a><a href="mailto:?subject={urllib.parse.quote(p["title"])}&body={urllib.parse.quote(full)}">E-posta</a></div>'
     tur = p.get("tur", "Haber")
     ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
-          "datePublished": iso(p), "dateModified": p.get("updated") or iso(p),
+          "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
           "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 800, "height": 420},
@@ -491,7 +493,7 @@ for idx, p in enumerate(POSTS):
     main = f"""<article class="post"><div class="crumb">{crumb}</div>
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
-<div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + e(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
+<div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high"></div>{credit_html(p)}</figure>
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
