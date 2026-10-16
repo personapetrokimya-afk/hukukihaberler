@@ -172,6 +172,13 @@ def _preload(main):
     ss = f' imagesrcset="{m.group(2)}" imagesizes="{m.group(3)}"' if m.group(2) else ""
     return f'\n<link rel="preload" as="image" href="{m.group(1)}"{ss} fetchpriority="high">'
 
+GPREF_URL = "https://www.google.com/preferences/source?q=hukukihaberler.com"
+STAR_SVG = '<svg viewBox="0 0 24 24" width="{s}" height="{s}" aria-hidden="true"><path fill="currentColor" d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>'
+def gpref_btn(cls="gpref", label="Google'da tercih et", s=18):
+    return f'<a class="{cls}" href="{GPREF_URL}" target="_blank" rel="noopener">{STAR_SVG.format(s=s)}{label}</a>'
+def gpref_kutu():
+    return f'<aside class="gpbox"><div class="gpt"><b>Hukuki Haberler\'i Google\'da öne çıkarın</b><span>Bizi tercih ettiğiniz kaynak olarak eklediğinizde haberlerimiz Google aramalarındaki "Öne Çıkan Haberler" bölümünde size daha sık gösterilir.</span></div>{gpref_btn("gpref gpbig", "Tercih edilen kaynak olarak ekle", 20)}</aside>'
+
 def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra=""):
     act = active or url
     def on(u): return act == u or (u != "/" and act.startswith(u))
@@ -231,7 +238,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <div class="hwrap htop">
 <a class="brand" href="/" aria-label="{NAME} anasayfa">{ico("scale", 44)}<span><span class="bn">Hukuki Haberler</span><span class="bt">Hukuk, yargı ve mevzuat gündemi</span></span></a>
 {srch("q")}
-<div class="hright"><a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a><small>Yeni haberler akış okuyucunuzda</small></div>
+<div class="hright"><div class="hbtns">{gpref_btn()}<a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a></div><small>Yeni haberleri Google'da ve akış okuyucunuzda kaçırmayın</small></div>
 <button type="button" class="ibtn sbtn" aria-label="Sitede ara" aria-expanded="false" aria-controls="msearch">{ico("search", 22)}</button>
 <button type="button" class="ibtn mbtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="drawer">{ico("menu", 24)}</button>
 </div>
@@ -239,7 +246,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <nav class="cats" aria-label="Bölümler"><div class="hwrap"><ul>{catnav}</ul></div></nav>
 <div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><ul>{ticker}</ul><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a><span class="tdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div></div>
 </header>
-<div id="drawer" class="drawer" hidden><nav class="dp" aria-label="Tüm bölümler"><div class="dh">Bölümler<button type="button" class="ibtn dclose" style="display:inline-flex" aria-label="Menüyü kapat">{ico("close", 24)}</button></div><ul>{drawer}</ul><div class="dsub">Site</div><ul>{drawer2}</ul></nav></div>
+<div id="drawer" class="drawer" hidden><nav class="dp" aria-label="Tüm bölümler"><div class="dh">Bölümler<button type="button" class="ibtn dclose" style="display:inline-flex" aria-label="Menüyü kapat">{ico("close", 24)}</button></div><ul>{drawer}</ul><div class="dsub">Site</div><ul>{drawer2}</ul><div class="dgp">{gpref_btn("gpref gpbig", "Google'da tercih edilen kaynak olarak ekle", 20)}</div></nav></div>
 {body}
 <footer class="site"><div class="hwrap">
 <div class="fcols">
@@ -522,7 +529,7 @@ for idx, p in enumerate(POSTS):
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
-{yazar_kutu(p)}{share}
+{yazar_kutu(p)}{gpref_kutu()}{share}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=ld, ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
