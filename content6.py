@@ -1,6 +1,55 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
+{"slug": "alo-adalet-135-81-ilde-davaniz-5-yili-astiysa-makul-sure-tazminat-komisyonu-aym", "saat": "14:49", "date": "2026-10-16", "tur": "Analiz",
+ "title": "Alo Adalet 135 Artık 81 İlde: Davanız 5 Yılı Aştıysa Hat Ne Sağlar, Tazminat İçin Hangi Yol Var?",
+ "cats": ["Yargı"],
+ "tags": ["Alo Adalet 135", "Adalet Bakanlığı", "makul sürede yargılanma", "Tazminat Komisyonu", "6384 sayılı Kanun", "bireysel başvuru", "uzun süren davalar"],
+ "ozet": [
+  "Adalet Bakanı Akın Gürlek, 5 yılı aşan dava ve 3 yılı aşan soruşturma dosyaları için kurulan Alo Adalet 135 hattının üç ildeki pilot uygulamanın ardından 81 ilde hizmete girdiğini duyurdu.",
+  "Hat, vatandaşın uzayan dosyası hakkında bilgi alması ve başvurusunu iletmesi için bir iletişim kanalı; hâkimin önündeki davayı hızlandırma ya da sonucunu etkileme yetkisi yok.",
+  "Uzun yargılama nedeniyle tazminat için hukuki yol, 6384 sayılı Kanun'la kurulan Tazminat Komisyonu; Anayasa Mahkemesi bu tür şikâyetleri önce Komisyon'a yönlendiriyor.",
+  "Hatta yapılan başvuru, Komisyon başvurusunun ya da kanun yollarının yerine geçmiyor."
+ ],
+ "body": """<p class="lead">Adalet Bakanı Akın Gürlek, bugün saat 14.03'te X'te yaptığı paylaşımda Alo Adalet 135 hattının artık 81 ilde hizmet verdiğini duyurdu. Hat, beş yılı aşan dava ve üç yılı aşan soruşturma dosyalarının tarafları için kuruldu. Peki 135'i aramak dosyayı hızlandırır mı, yıllardır süren bir dava için tazminat istemenin yolu ne?</p>
+<h2>Ne değişti?</h2>
+<p>Gürlek paylaşımında, hattı \"vatandaşlarımızın 5 yılı aşan dava ve 3 yılı aşan soruşturma dosyalarına ilişkin başvurularını iletebilecekleri bir iletişim kanalı\" olarak tanımladı ve uygulamanın devam eden dosyalara ilişkin bilgiye güvenli erişim sağlayacağını söyledi. Anadolu Ajansı ve Memurlar.net'in aktardığına göre hat önce üç ilde pilot olarak denenmişti; bugünden itibaren tüm illerden aranabiliyor. Bakanlık hattın tanıtımını \"Adaletin Bilgi Hattı\" başlıklı resmî sayfasından yapıyor.</p>
+<h2>Hat ne yapabilir, ne yapamaz?</h2>
+<p>Hattın işlevi idari: Bakanlık uzayan dosyaları tespit ediyor, vatandaşın şikâyetini kayda alıyor ve dosyanın durumuna dair bilgi veriyor. Anayasa'nın 138. maddesi ise hiçbir organ, makam ya da kişinin yargı yetkisinin kullanılmasında mahkemelere ve hâkimlere emir ve talimat veremeyeceğini, tavsiye ve telkinde bulunamayacağını hükme bağlıyor. Bu nedenle hattın, mahkemeye \"şu dosyayı öne al\" deme ya da kararın içeriğine dokunma yetkisi bulunmuyor.</p>
+<p>Uygulamada hattın faydası, dosyanın neden beklediğinin görünür hâle gelmesi olabilir: bilirkişi raporunun gecikmesi, tebligat sorunları, başka bir davanın bekletici mesele yapılması ya da mahkemenin iş yükü. Bu bilgi, tarafın avukatıyla birlikte mahkemeye hangi talepte bulunacağını belirlemesine yardımcı olur.</p>
+<h2>Tazminat için yol: Tazminat Komisyonu</h2>
+<p>Davanın makul sürede bitmemesi, Anayasa'nın 36. maddesi ve Avrupa İnsan Hakları Sözleşmesi'nin 6. maddesindeki adil yargılanma hakkının bir parçası. Bu hakkın ihlali nedeniyle tazminat istemenin yolu ise 6384 sayılı Kanun'la Adalet Bakanlığı bünyesinde kurulan İnsan Hakları Tazminat Komisyonu.</p>
+<p>Anayasa Mahkemesi de makul süre şikâyetiyle doğrudan yapılan bireysel başvuruları, 6384 sayılı Kanun uyarınca Tazminat Komisyonu'nun yetkili olduğu gerekçesiyle kabul edilemez buluyor. Yani sırayla gidilmesi gerekiyor: önce Komisyon, Komisyon kararına itiraz için Ankara Bölge İdare Mahkemesi, bu yollar tükendikten sonra gerekirse Anayasa Mahkemesi.</p>
+<table class="tablo">
+<tr><th>Yol</th><th>Ne sağlar</th><th>Ne sağlamaz</th></tr>
+<tr><td>Alo Adalet 135</td><td>Dosya hakkında bilgi, şikâyetin kayda geçmesi</td><td>Tazminat, mahkemeye talimat</td></tr>
+<tr><td>Mahkemeye dilekçe</td><td>Gecikme nedenine yönelik usul talepleri</td><td>Tazminat</td></tr>
+<tr><td>Tazminat Komisyonu</td><td>Uzun yargılama nedeniyle tazminat</td><td>Davanın sonucunu değiştirmez</td></tr>
+<tr><td>AYM bireysel başvuru</td><td>Olağan yollar tükendikten sonra hak ihlali incelemesi</td><td>Komisyon aşaması atlanamaz</td></tr>
+</table>
+<h2>Dosyası uzayan ne yapmalı?</h2>
+<ul class="liste">
+<li>Dosya numarasını, açılış tarihini ve duruşma ertelemelerinin gerekçelerini UYAP veya avukatı aracılığıyla bir arada tutmak.</li>
+<li>Gecikme bilirkişi ya da tebligattan kaynaklanıyorsa mahkemeye somut taleple dilekçe vermek.</li>
+<li>135 hattına yapılan başvurunun, Tazminat Komisyonu başvurusunun yerine geçmediğini bilmek; tazminat isteniyorsa Komisyon'a ayrıca başvurmak.</li>
+</ul>
+<p>Uzun yargılamanın bireyler için ne anlama geldiğini, daha önce <a href="/hizmetli-memurun-13-yillik-hukuk-mucadelesi">bir hizmetli memurun 13 yıllık hukuk mücadelesi</a> üzerinden anlatmıştık. Hattın kaç başvuru aldığı ve başvuruların dosya sürelerine etkisi, Bakanlık verileri açıklandıkça netleşecek.</p>""",
+ "ornek": [
+  "C'nin alacak davası 2020'de açıldı ve bilirkişi raporu üç kez yenilendiği için hâlâ sürüyor. C, 135'i arayarak dosyanın neden beklediğini öğrenebilir ve avukatı aracılığıyla mahkemeden ek süre verilen bilirkişinin değiştirilmesini isteyebilir. Yıllar süren gecikme için tazminat istiyorsa bunun yolu hat değil, Tazminat Komisyonu'na başvurudur."
+ ],
+ "anket": {"soru": "Alo Adalet 135 hattının uzayan davalara etkisi sizce ne olur?", "secenekler": ["Davalar hızlanır", "Yalnızca bilgi sağlar", "Etkisi olmaz", "Fikrim yok"]},
+ "kaynaklar": [
+  ["Akın Gürlek – X paylaşımı (16.10.2026, 14:03)", "https://x.com/abakingurlek/status/2111050361301536962"],
+  ["Adalet Bakanlığı – Alo Adalet 135, Adaletin Bilgi Hattı", "https://aloadalet.adalet.gov.tr/"],
+  ["Anadolu Ajansı – Adalet Bakanı Gürlek'ten Alo Adalet 135 hattına ilişkin paylaşım", "https://www.aa.com.tr/tr/gundem/adalet-bakani-gurlekten-alo-adalet-135-hattina-iliskin-paylasim/4043340"],
+  ["Memurlar.net – Alo Adalet 135 önce 3 ilde pilot uygulandı, şimdi 81 ilde", "https://www.memurlar.net/haber/1181204/alo-adalet-135-once-3-ilde-pilot-uygulandi-simdi-81-ilde.html"],
+  ["Hürriyet – Uzayan davalar için 135 Alo Adalet Hattı devrede: 3 ilde pilot uygulama başladı", "https://www.hurriyet.com.tr/gundem/uzayan-davalar-icin-135-alo-adalet-hatti-devrede-3-ilde-pilot-uygulama-basladi-43291772"],
+  ["Anayasa Mahkemesi – Makul sürede yargılanma şikâyetinde Tazminat Komisyonu'nun yetkili olması nedeniyle kabul edilemezlik", "https://anayasa.gov.tr/tr/haberler/bireysel-basvuru-basin-duyurulari/makul-surede-yargilanma-hakkinin-ihlali-iddiasinin-6384-sayili-kanuna-gore-tazminat-komisyonunun-yetkili-olmasi-nedeniyle-kabul-edilemez-oldugu/"],
+  ["Adalet Bakanlığı – İnsan Hakları Tazminat Komisyonu Başkanlığı", "https://ihtk.adalet.gov.tr/SayfaDetay/tazminat-komisyonu-baskanligi14032024045134"],
+  ["Türkiye Cumhuriyeti Anayasası (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/MevzuatMetin/1.5.2709.pdf"]
+ ]
+},
+
 {"slug": "imamoglu-savunmasinda-ankara-2-nolu-baro-70-hakim-savci-sozleri-suc-duyurusu-sorusturma-izni", "saat": "14:48", "date": "2026-10-16", "tur": "Haber",
  "title": "İmamoğlu Savunmasında \"70 Hâkim-Savcı\" Sözlerine Değindi: Ankara 2 No'lu Baro Başkanı Hakkındaki Suç Duyuruları Nasıl İlerler?",
  "cats": ["Yargı", "Barolar"],
