@@ -1,5 +1,6 @@
 name: Arama motorlarina bildir
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["content*.py"]
