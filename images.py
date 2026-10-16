@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Her haber için 800x420 kapak görseli üretir (site/gorsel/<slug>.jpg).
+"""Her haber için 1200x630 kapak görseli üretir (site/gorsel/<slug>.jpg).
 Orijinal arşiv küçük resmi varsa: bulanık arka plan + ortada keskin küçük resim.
 Yoksa: kategori rengine göre tipografik kapak."""
 import os, hashlib
@@ -7,7 +7,8 @@ from PIL import Image, ImageFilter, ImageDraw, ImageFont, ImageEnhance
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ORIG = os.path.join(HERE, "orig")
-W, H = 800, 420
+W, H = 1200, 630
+S = W / 800  # eski 800px tasarımın ölçek katsayısı
 FONT_B = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
 FONT_S = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
@@ -100,28 +101,29 @@ def typographic(title, catkey, catname):
     dark = tuple(max(0, v - 28) for v in c)
     d.polygon([(0, H), (W, 0), (W, H)], fill=dark)
     # büyük terazi glifi
-    f_big = ImageFont.truetype(FONT_S, 230)
-    d.text((W - 300, H - 290), "⚖", font=f_big, fill=(80, 100, 122))
+    f_big = ImageFont.truetype(FONT_S, int(230 * S))
+    d.text((W - int(300 * S), H - int(290 * S)), "⚖", font=f_big, fill=(80, 100, 122))
     # büyük kategori adı (başlık kartta ayrıca yazıldığı için tekrar edilmez)
-    f_cat = ImageFont.truetype(FONT_S, 18)
-    d.text((44, 44), "HUKUKİ HABERLER", font=f_cat, fill=tuple(min(255, v + 110) for v in c))
-    f_t = ImageFont.truetype(FONT_B, 64 if len(catname) <= 12 else 46)
+    f_cat = ImageFont.truetype(FONT_S, int(18 * S))
+    d.text((int(44 * S), int(44 * S)), "HUKUKİ HABERLER", font=f_cat, fill=tuple(min(255, v + 110) for v in c))
+    f_t = ImageFont.truetype(FONT_B, int((64 if len(catname) <= 12 else 46) * S))
     words, lines, cur = catname.upper().split(), [], ""
     for wd in words:
         t = (cur + " " + wd).strip()
-        if d.textlength(t, font=f_t) > W - 300 and cur:
+        if d.textlength(t, font=f_t) > W - int(300 * S) and cur:
             lines.append(cur); cur = wd
         else:
             cur = t
     if cur: lines.append(cur)
-    y = H // 2 - (len(lines) * 70) // 2 - 10
+    lh = int(72 * S); x0 = int(44 * S)
+    y = H // 2 - (len(lines) * int(70 * S)) // 2 - int(10 * S)
     for ln in lines:
-        d.text((46, y + 3), ln, font=f_t, fill=(0, 0, 0))
-        d.text((44, y), ln, font=f_t, fill=(255, 255, 255))
-        y += 72
-    d.rectangle((44, y + 8, 164, y + 13), fill=(241, 210, 147))
-    f_s = ImageFont.truetype(FONT_S, 18)
-    d.text((44, H - 48), "hukukihaberler.com", font=f_s, fill=(255, 255, 255))
+        d.text((x0 + 2, y + 3), ln, font=f_t, fill=(0, 0, 0))
+        d.text((x0, y), ln, font=f_t, fill=(255, 255, 255))
+        y += lh
+    d.rectangle((x0, y + int(8 * S), x0 + int(120 * S), y + int(13 * S)), fill=(241, 210, 147))
+    f_s = ImageFont.truetype(FONT_S, int(18 * S))
+    d.text((x0, H - int(48 * S)), "hukukihaberler.com", font=f_s, fill=(255, 255, 255))
     return im
 
 COMMONS = os.path.join(HERE, "commons")
@@ -132,24 +134,26 @@ ALIAS = {  # aynı fotoğrafı paylaşan haberler
 }
 def photo(src):
     im = Image.open(src).convert("RGB")
+    up = max(W / im.width, H / im.height) > 1
     im = _cover(im, W, H)
+    if up: im = im.filter(ImageFilter.UnsharpMask(radius=1.4, percent=60, threshold=2))
     return ImageEnhance.Sharpness(im).enhance(1.1)
 
 def imza(im):
     """sağ alt köşeye site imzası"""
     im = im.convert("RGBA")
-    f = ImageFont.truetype(FONT_S, 15)
+    f = ImageFont.truetype(FONT_S, int(15 * S))
     txt = "hukukihaberler.com"
     d0 = ImageDraw.Draw(im)
     tw = d0.textlength(txt, font=f)
-    pad_x, h = 10, 26
-    x1, y1 = W - 12, H - 12
-    x0, y0 = x1 - tw - pad_x * 2 - 12, y1 - h
+    pad_x, h = int(10 * S), int(26 * S)
+    x1, y1 = W - int(12 * S), H - int(12 * S)
+    x0, y0 = x1 - tw - pad_x * 2 - int(12 * S), y1 - h
     ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(ov)
-    d.rounded_rectangle((x0, y0, x1, y1), radius=4, fill=(29, 42, 55, 150))
-    d.rectangle((x0, y0, x0 + 4, y1), fill=(241, 210, 147, 235))
-    d.text((x0 + pad_x + 6, y0 + 4), txt, font=f, fill=(255, 255, 255, 235))
+    d.rounded_rectangle((x0, y0, x1, y1), radius=int(4 * S), fill=(29, 42, 55, 150))
+    d.rectangle((x0, y0, x0 + int(4 * S), y1), fill=(241, 210, 147, 235))
+    d.text((x0 + pad_x + int(6 * S), y0 + int(4 * S)), txt, font=f, fill=(255, 255, 255, 235))
     return Image.alpha_composite(im, ov).convert("RGB")
 
 def build(posts, outdir):
@@ -177,9 +181,10 @@ def build(posts, outdir):
                 if c != "manset": k = c; break
             im = typographic(p["title"], k, p["catname"]); kind = "gen"
         if kind != "gen": im = imza(im)
-        im.save(dst, "JPEG", quality=82, optimize=True, progressive=True)
-        os.makedirs(os.path.join(outdir, "m"), exist_ok=True)
-        im.resize((480, 252), Image.LANCZOS).save(os.path.join(outdir, "m", fn), "JPEG", quality=78, optimize=True, progressive=True)
+        im.save(dst, "JPEG", quality=80, optimize=True, progressive=True)
+        for sub, size, q in (("m", (480, 252), 78), ("l", (800, 420), 80)):
+            os.makedirs(os.path.join(outdir, sub), exist_ok=True)
+            im.resize(size, Image.LANCZOS).save(os.path.join(outdir, sub, fn), "JPEG", quality=q, optimize=True, progressive=True)
         _v = hashlib.md5(open(dst, "rb").read()).hexdigest()[:8]
         res[slug] = (f"/gorsel/{fn}?v={_v}", kind, credit)
     typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)

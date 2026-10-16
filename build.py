@@ -191,8 +191,8 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <meta property="og:url" content="{e(can)}">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:image" content="{SITE + (img or "/gorsel/kapak.jpg")}">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="420">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{SITE + (img or "/gorsel/kapak.jpg")}">
 <meta name="twitter:title" content="{e(title)}">
@@ -235,9 +235,9 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </body>
 </html>"""
 
-def srcset(p): return f'srcset="{thumb(p)} 480w, {p["img"]} 800w"'
+def srcset(p): return f'srcset="{thumb(p)} 480w, {p["img"].replace("/gorsel/", "/gorsel/l/")} 800w, {p["img"]} 1200w"'
 def pic(p, lazy=True, sizes="(max-width:767px) 112px, 300px"):
-    return (f'<a class="pic" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{p["img"]}" {srcset(p)} sizes="{sizes}" alt="" width="800" height="420"'
+    return (f'<a class="pic" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{p["img"]}" {srcset(p)} sizes="{sizes}" alt="" width="1200" height="630"'
             f'{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>')
 def credit_html(p):
     c = p.get("credit")
@@ -488,7 +488,7 @@ for idx, p in enumerate(POSTS):
           "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
-          "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 800, "height": 420},
+          "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630},
           "author": {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"},
           "publisher": {"@type": "Organization", "name": NAME, "url": SITE, "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
     k0 = topcat(p)
@@ -498,7 +498,7 @@ for idx, p in enumerate(POSTS):
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span><a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a></span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
-<figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="800" height="420" fetchpriority="high"></div>{credit_html(p)}</figure>
+<figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
@@ -682,7 +682,7 @@ write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı."
 
 # RSS
 def _rss(items, title, link):
-    its = "".join(f"<item><title>{e(p['title'])}</title><link>{SITE}{p['url']}</link><guid isPermaLink=\"true\">{SITE}{p['url']}</guid><pubDate>{p['date'].strftime('%a, %d %b %Y ') + (p['saat'] + ':00' if p.get('saat') else '09:00:00') + ' +0300'}</pubDate><category>{e(p['catname'])}</category><description>{e(p['desc'])}</description><media:content url=\"{SITE}{p['img']}\" medium=\"image\" width=\"800\" height=\"420\"/><content:encoded><![CDATA[<p><img src=\"{SITE}{p['img']}\" alt=\"\"></p>{p['body']}]]></content:encoded></item>" for p in items)
+    its = "".join(f"<item><title>{e(p['title'])}</title><link>{SITE}{p['url']}</link><guid isPermaLink=\"true\">{SITE}{p['url']}</guid><pubDate>{p['date'].strftime('%a, %d %b %Y ') + (p['saat'] + ':00' if p.get('saat') else '09:00:00') + ' +0300'}</pubDate><category>{e(p['catname'])}</category><description>{e(p['desc'])}</description><media:content url=\"{SITE}{p['img']}\" medium=\"image\" width=\"1200\" height=\"630\"/><content:encoded><![CDATA[<p><img src=\"{SITE}{p['img']}\" alt=\"\"></p>{p['body']}]]></content:encoded></item>" for p in items)
     return (f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">'
             f'<channel><title>{e(title)}</title><link>{SITE}{link}</link><atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/><atom:link rel="self" type="application/rss+xml" href="{SITE}{"/feed/index.xml" if link == "/" else "/feed/" + link.rstrip("/").split("/")[-1] + ".xml"}"/><description>{TAGLINE}</description><language>tr</language>'
             f'<image><url>{SITE}/icon-192.png</url><title>{e(title)}</title><link>{SITE}{link}</link></image>{its}</channel></rss>')
