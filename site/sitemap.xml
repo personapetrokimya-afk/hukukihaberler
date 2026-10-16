@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/aym-cezaevi-kosullarini-milletvekillerine-sikayet-eden-hukumluye-disiplin-cezasi-ifade-ozgurlugu-ihlali</loc><lastmod>2026-10-16T17:47:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/rtuk-sozcu-tv-koza-tv-fon-yayinlari-ust-sinirdan-ceza-kanallar-hangi-yola-basvurabilir</loc><lastmod>2026-10-16T16:53:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/chpde-48-kisi-ihrac-edildi-ihrac-edilenler-yargiya-gidebilir-mi-batum-emsali</loc><lastmod>2026-10-16T16:48:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/resit-kibar-davasi-istanbul-barosu-aciklama-barolarin-katilma-talebi-sirket-sahiplerine-suc-duyurusu</loc><lastmod>2026-10-16T15:53:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -138,12 +139,19 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/anayasa-mahkemesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/bireysel-basvuru/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ifade-ozgurlugu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/dilekce-hakki/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ceza-infaz-kurumu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/disiplin-cezasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/tbmm-insan-haklari-komisyonu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/5275-sayili-kanun/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/rtuk/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sozcu-tv/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/koza-tv/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/fon-sorusturmasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/idari-para-cezasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/ifade-ozgurlugu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/iptal-davasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/chp/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ihrac/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -188,7 +196,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/makul-surede-yargilanma/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tazminat-komisyonu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/6384-sayili-kanun/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/bireysel-basvuru/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/uzun-suren-davalar/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ekrem-imamoglu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ankara-2-no-lu-baro/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -349,7 +356,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/alti-ay-kidem/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/performans-dusuklugu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/gerekceli-karar-hakki/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/anayasa-mahkemesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/bolge-adliye-mahkemesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/siyasi-parti-mali-denetimi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/2820-sayili-siyasi-partiler-kanunu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
