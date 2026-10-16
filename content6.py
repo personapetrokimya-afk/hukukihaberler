@@ -1,6 +1,53 @@
 # -*- coding: utf-8 -*-
 # Gündem analizleri, özgün hukuki değerlendirme haberleri
 POSTS = [
+{"slug": "serin-2-apartmani-davasi-3-belediye-calisani-yargilanacak-deprem-davalarinda-kamu-gorevlisi-sorumlulugu", "saat": "15:34", "date": "2026-10-16", "tur": "Analiz",
+ "title": "Serin-2 Apartmanı Dosyasında 3 Eski Belediye Çalışanına Dava: Deprem Davalarında Kamu Görevlisinin Sorumluluğu ve Ailelerin Hakları",
+ "cats": ["Yargı"],
+ "tags": ["Serin-2 Apartmanı", "Diyarbakır", "6 Şubat depremleri", "bilinçli taksir", "TCK 85", "soruşturma izni", "tam yargı davası", "deprem davaları"],
+ "ozet": [
+  "Diyarbakır'da 6 Şubat 2023 depremlerinde yıkılan ve 77 kişinin hayatını kaybettiği Serin-2 Apartmanı'yla ilgili olarak dönemin 3 belediye çalışanı hakkında dava açıldı.",
+  "Bina nedeniyle başka sanıkların yargılandığı dava sürüyor; yeni dosya, sorumluluk zincirinin imar denetimi yapan kamu görevlilerine uzandığını gösteriyor.",
+  "Birden fazla kişinin ölümüne taksirle neden olma suçunda ceza 2 ila 15 yıl; bilinçli taksir kabul edilirse ceza üçte birden yarıya kadar artırılıyor.",
+  "Aileler ceza davasına katılabilir; belediyenin hizmet kusuru için ayrıca idari yargıda tazminat yolu var. Sanıklar hakkında kesinleşmiş bir hüküm yok."
+ ],
+ "body": """<p class="lead">Diyarbakır'da 6 Şubat 2023 depremlerinde yıkılan ve 77 kişiye mezar olan Serin-2 Apartmanı'yla ilgili yeni bir dava açıldı. Bu kez sanık sandalyesine binanın yapıldığı ya da denetlendiği dönemde belediyede görev yapan 3 çalışan oturacak. Binayla ilgili başka sanıkların yargılandığı dava ise sürüyor. Dosya, deprem davalarında sık sorulan soruyu yeniden gündeme getirdi: Yıkılan binada müteahhitin yanında kamu görevlisi hangi gerekçeyle yargılanır ve aileler hangi yollara başvurabilir?</p>
+<h2>Ne oldu?</h2>
+<p>Yerel ve ulusal basında yer alan haberlere göre, Serin-2 Apartmanı'na ilişkin soruşturmada dönemin 3 belediye çalışanı hakkında kamu davası açıldı. Binayla ilgili ilk davada yargılama sürüyor; dosyaya yakın zamanda yeni bir bilirkişi raporu da girdi. Bu yazıda sanıkların adlarına yer verilmedi. Yeni davanın mevcut dosyayla birleştirilip birleştirilmeyeceği, mahkemenin değerlendireceği bir usul meselesi. Ceza Muhakemesi Kanunu, aynı olaydan doğan bağlantılı davaların birlikte görülmesine imkân tanıyor.</p>
+<h2>Kamu görevlisi neden yargılanıyor?</h2>
+<p>Bir binanın yapı ruhsatı, proje onayı, yapı denetimi ve iskân aşamalarında belediyenin imar birimleri devrede. Savcılıklar deprem dosyalarında yalnızca müteahhit, proje müellifi ve yapı denetim görevlilerine değil, ruhsat ve denetim sürecinde imzası bulunan ya da denetim yükümlülüğünü yerine getirmediği değerlendirilen kamu görevlilerine de yöneliyor. Sorumluluğun dayanağı, görevlinin projeye aykırılığı görmesi ve engellemesi gerekirken bunu yapmaması iddiası. Bunun ispatı bilirkişi raporlarına dayanıyor: Yıkılmada hangi kusurun ne ölçüde payı olduğu, o kusurun hangi aşamada fark edilebileceği gibi sorular, sanıkların sorumluluğunu belirleyecek.</p>
+<p>Kamu görevlileri hakkında görevleriyle ilgili suçlarda soruşturma yapılabilmesi için 4483 sayılı Kanun uyarınca soruşturma izni aranıyor. Bu izin süreci, deprem dosyalarında kamu görevlilerine yönelik davaların müteahhit davalarından sonra açılmasının nedenlerinden biri olabiliyor.</p>
+<h2>Hangi ceza gündemde?</h2>
+<p>Deprem davalarında en sık uygulanan hüküm, Türk Ceza Kanunu'nun taksirle öldürmeyi düzenleyen 85. maddesi. Fiil birden fazla kişinin ölümüne neden olmuşsa ceza 2 yıldan 15 yıla kadar hapis. Sanığın sonucu öngördüğü hâlde istemediği kabul edilirse bu bilinçli taksir sayılıyor ve TCK 22. madde uyarınca ceza üçte birden yarısına kadar artırılıyor. Böylece üst sınır 22 yıl 6 aya çıkabiliyor.</p>
+<table class="tablo">
+<tr><th>Durum</th><th>Ceza aralığı</th></tr>
+<tr><td>Birden fazla kişinin ölümü, taksir (TCK 85/2)</td><td>2 - 15 yıl hapis</td></tr>
+<tr><td>Bilinçli taksir kabul edilirse (TCK 22/3)</td><td>Ceza üçte birden yarıya kadar artar</td></tr>
+</table>
+<p>Kusurun birden fazla kişiye dağıldığı dosyalarda her sanığın cezası kendi kusuruna göre belirleniyor. Bu nedenle aynı binadan yargılanan müteahhit ile imar görevlisi arasında ceza farkı oluşabiliyor.</p>
+<h2>Aileler ne yapabilir?</h2>
+<ul class="liste">
+<li><b>Davaya katılma:</b> Hayatını kaybedenlerin yakınları, iddianamenin kabulünden hükme kadar davaya katılan olarak dahil olabilir. Katılan, delil sunabilir ve karara karşı kanun yoluna başvurabilir.</li>
+<li><b>İdari yargıda tazminat:</b> Belediyenin denetim görevini aksattığı düşünülüyorsa hizmet kusuru nedeniyle tam yargı davası açılabilir. İdari Yargılama Usulü Kanunu'nun 13. maddesine göre önce idareye başvurmak gerekiyor; başvuru, zararı öğrenmeden itibaren bir yıl içinde ve her hâlde eylemden itibaren beş yıl içinde yapılmalı.</li>
+<li><b>Özel hukuk yolu:</b> Müteahhit ve diğer özel kişilere karşı tazminat talepleri adli yargıda ayrıca ileri sürülebilir.</li>
+</ul>
+<p>Uzun süren davalarda tarafların başvurabileceği yolları, <a href="/alo-adalet-135-81-ilde-davaniz-5-yili-astiysa-makul-sure-tazminat-komisyonu-aym">Alo Adalet 135 hattı ve makul süre tazminatı</a> yazımızda ayrıca ele almıştık.</p>
+<h2>Bundan sonra ne olacak?</h2>
+<p>Mahkeme yeni dava için duruşma günü belirleyecek ve birleştirme konusunda karar verecek. Sanıklar ilk duruşmada savunmalarını yapacak; bilirkişi raporlarına itiraz hakları bulunuyor. Dava açılmış olması suçun işlendiği anlamına gelmiyor. Sanıklar masumiyet karinesinden yararlanıyor ve sorumluluk ancak kesinleşmiş bir mahkûmiyet kararıyla ortaya konabilir.</p>""",
+ "ornek": [
+  "Depremde yıkılan bir binada annesini kaybeden B, binanın ruhsatını veren belediyenin denetimi aksattığını düşünüyor. B, ceza davasında katılan olabilir; belediyeye karşı tazminat istemek için ise önce belediyeye yazılı başvuru yapmalı, talebi reddedilirse ya da cevap alamazsa idare mahkemesinde tam yargı davası açmalı. İki yol birbirinden bağımsız işliyor."
+ ],
+ "anket": {"soru": "Deprem davalarında sorumluluk sizce en çok hangi aşamada aranmalı?", "secenekler": ["Müteahhit ve proje aşaması", "Belediye ruhsat ve denetimi", "Yapı denetim kuruluşları", "Hepsi birlikte"]},
+ "kaynaklar": [
+  ["Karar – Depremde 77 kişinin öldüğü binayla ilgili 3 belediye çalışanına dava", "https://www.karar.com/guncel-haberler/depremde-77-kisinin-oldugu-binayla-ilgili-3-belediye-calisanina-dava-2078535"],
+  ["Memurlar.net – 77 kişiye mezar olan binayla ilgili 3 belediye çalışanına dava", "https://www.memurlar.net/haber/1181086/77-kisiye-mezar-olan-binayla-ilgili-3-belediye-calisanina-dava.html"],
+  ["Diyarbakır Söz – Dönemin 3 belediye çalışanı hakkında dava açıldı", "https://diyarbakirsoz.com/diyarbakir/donemin-3-belediye-calisani-hakkinda-dava-acildi-570215"],
+  ["Diyarbakır Söz – Serin-2 Apartmanı'na ilişkin hazırlanan yeni bilirkişi raporu", "https://diyarbakirsoz.com/diyarbakir/serin-2-apartmanina-iliskin-hazirlanan-yeni-bilirkisi-raporu-568750"],
+  ["En Son Dakika – Serin-2 Apartmanı'na ilişkin sanıkların yargılanması sürdü", "https://www.ensondakika.com.tr/diyarbakir-da-depremde-77-kisinin-oldugu-serin-2-apartmani-na-iliskin-saniklarin-yargilanmasi-surdu/714467/"],
+  ["5237 sayılı Türk Ceza Kanunu (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5237.pdf"],
+  ["2577 sayılı İdari Yargılama Usulü Kanunu (mevzuat.gov.tr)", "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.2577.pdf"]
+ ]
+},
 {"slug": "reklam-kurulu-aldatici-reklam-17-2-milyon-ceza-sahte-indirim-tuketici-haklari", "saat": "15:32", "date": "2026-10-16", "tur": "Analiz",
  "title": "Reklam Kurulu'ndan Aldatıcı Reklamlara 17,2 Milyon Liralık Ceza: Gerçek Olmayan İndirimi Fark Eden Tüketici Ne Yapabilir?",
  "cats": ["Ekonomi"],
