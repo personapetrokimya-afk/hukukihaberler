@@ -47,3 +47,14 @@ _izler = [s for s in _git("log", "-20", "--format=%an %ae %cn %ce%n%B").splitlin
 if _izler:
     print("HATA: son commit'lerde yayın kimliği dışında iz var:", _izler[:3]); sys.exit(1)
 print("kimlik tamam")
+
+# başlık ve sss uzunluk denetimi (17 Ekim 2026 ve sonrası yazılar)
+try:
+    import content6 as _c6
+    _uz = [(p["slug"], len(p["title"])) for p in _c6.POSTS if p.get("date", "") >= "2026-10-17" and len(p["title"]) > 75]
+    _sq = [(p["slug"], q) for p in _c6.POSTS if p.get("date", "") >= "2026-10-17" for q, _ in p.get("sss", []) if len(q) > 45]
+    for s, n in _uz: print(f"UZUN BAŞLIK ({n} karakter, en fazla 75): {s}")
+    for s, q in _sq: print(f"UZUN SORU ({len(q)} karakter, en fazla 45): {s}: {q}")
+    if _uz or _sq: sys.exit(1)
+except ImportError:
+    pass
