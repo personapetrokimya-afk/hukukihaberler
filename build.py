@@ -192,7 +192,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
     drawer2 = "".join(f'<li><a href="{u}"><span>{t}</span></a></li>' for u, t in SITE_LINKS)
     ticker = "".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:3])
     lds = []
-    if ld: lds.append(ld)
+    if ld: lds.extend(ld if isinstance(ld, list) else [ld])
     if crumbs:
         lds.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u} for i, (u, n) in enumerate(crumbs)]})
@@ -472,6 +472,18 @@ def kaynak_html(p):
     items = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(t)}</a>' for t, u in k)
     return f'<p class="kaynak"><b>Kaynak:</b> {items}</p>'
 
+def sss_html(p):
+    s = p.get("sss")
+    if not s: return ""
+    items = "".join(f'<div class="sq"><h3>{e(q)}</h3><p>{e(a)}</p></div>' for q, a in s[:4])
+    return f'<section class="sss" aria-labelledby="sss-h"><h2 id="sss-h">Merak edilenler</h2>{items}</section>'
+
+def sss_ld(p, full):
+    s = p.get("sss")
+    if not s: return None
+    return {"@context": "https://schema.org", "@type": "FAQPage", "url": full + "#sss-h", "inLanguage": "tr-TR",
+            "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in s[:4]]}
+
 def ornek_html(p):
     o = p.get("ornek")
     if not o: return ""
@@ -532,12 +544,12 @@ for idx, p in enumerate(POSTS):
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
-{ornek_html(p)}{kaynak_html(p)}{anket_html(p)}
+{ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
 {yazar_kutu(p)}{gpref_kutu()}{share}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
-    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=ld, ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
+    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
 
 # kategoriler
 for k, (name, parent) in CATS.items():

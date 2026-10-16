@@ -209,6 +209,12 @@ h1.sec{font:700 36px/1.15 var(--serif);margin:0 0 6px}.sec-desc{color:var(--mute
 .ozet{background:var(--card);border-left:3px solid var(--gold);padding:14px 20px 8px;margin:0 0 22px;font:16.5px/1.55 var(--sans)}
 .ozet b{display:block;text-transform:uppercase;font-size:12.5px;letter-spacing:.08em;color:var(--gold);margin-bottom:6px}
 .ozet ul{margin:0;padding-left:18px}.ozet li{margin-bottom:6px}
+.sss{margin:28px 0 8px;padding:20px 22px 6px;background:var(--card);border-radius:10px;border-top:3px solid var(--gold)}
+.sss h2{font:700 21px/1.3 var(--serif);margin:0 0 12px}
+.sss .sq{padding:12px 0;border-top:1px solid var(--line2)}.sss .sq:first-of-type{border-top:0;padding-top:4px}
+.sss h3{font:700 17px/1.4 var(--sans);margin:0 0 6px}
+.sss p{font:400 16px/1.6 var(--sans);margin:0;opacity:.92}
+@media(max-width:767px){.sss{padding:16px 16px 4px}.sss h2{font-size:19px}.sss h3{font-size:16px}}
 .okuma{margin:22px 0;border-top:1px solid var(--gold);border-bottom:1px solid var(--line2);padding:12px 0;font-family:var(--sans);max-width:70ch}
 .okuma span{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:8px}
 .okuma a{display:flex;gap:14px;align-items:center;text-decoration:none!important;color:var(--ink)!important}
