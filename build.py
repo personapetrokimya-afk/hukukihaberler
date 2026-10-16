@@ -141,7 +141,8 @@ def sidebar():
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
           "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}, "foundingDate": "2010",
-          "sameAs": [], "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme"}
+          "sameAs": [], "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme", "email": "iletisim@hukukihaberler.com",
+          "contactPoint": {"@type": "ContactPoint", "contactType": "editorial", "email": "iletisim@hukukihaberler.com", "url": SITE + "/iletisim/", "availableLanguage": "tr"}}
 
 def _preload(main):
     m = re.search(r'<img src="([^"]+)"(?: srcset="([^"]+)")?(?: sizes="([^"]+)")?[^>]*fetchpriority=.?high', main)
@@ -592,6 +593,8 @@ HAKKINDA = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan 
 write("/hakkinda/", page("Hakkında", "Hukuki Haberler: 2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi.", "/hakkinda/",
       f'<article class="post static"><h1>Hakkında</h1><div class="body">{HAKKINDA}</div></article>'))
 ILETISIM = """<p class="lead">Hukuki Haberler bağımsız bir yayın sitesidir; bireysel hukuki danışmanlık talebi kabul etmez.</p>
+<h2>E-posta</h2>
+<p>Haber ihbarı, düzeltme, tekzip ve yayınla ilgili her türlü bildirim için: <b><a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a></b>. Bildirimler yazı işleri tarafından okunur ve kural olarak üç iş günü içinde yanıtlanır.</p>
 <h2>Düzeltme ve güncelleme</h2>
 <p>Bir haberde eskimiş ya da hatalı bir bilgi fark ettiyseniz, haberin adresini ve doğru bilginin kaynağını belirten bir not iletebilirsiniz; doğrulanan düzeltmeler habere işlenir ve güncelleme tarihi gösterilir. Her haberin sonunda konuyla ilgili resmî kaynaklara bağlantı bulunur; güncel ve bağlayıcı bilgi için her zaman bu kaynaklar esas alınmalıdır.</p>
 <h2>Hukuki danışmanlık</h2>
@@ -606,7 +609,9 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Yazı işleri</h2>
 <p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi: Av. Yağmur Tahtasız. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
-<p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri için <a href="/iletisim/">iletişim sayfasındaki</a> yol izlenir.</p>
+<p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine iletilebilir.</p>
+<h2>İletişim</h2>
+<p>E-posta: <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a></p>
 <h2>Telif</h2>
 <p>Sitedeki metinler kaynak gösterilmek ve bağlantı verilmek şartıyla alıntılanabilir; bütün hâlinde kopyalanamaz.</p>"""
 write("/kunye/", page("Künye", "Hukuki Haberler künye: yayın ilkeleri, yazı işleri, düzeltme ve telif esasları.", "/kunye/",
@@ -622,7 +627,7 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <h2>Kaynak ve doğrulama</h2>
 <p>Mümkün olan her durumda birincil kaynağa dayanırız: mevzuat metni, Resmî Gazete, mahkeme kararı, kamu kurumu açıklaması. İkincil kaynak (basın kuruluşu, ajans) kullanıldığında haberin altında bağlantısıyla belirtilir. İddia iddia olarak; soruşturma, kovuşturma, mahkûmiyet ve kesinleşme kavramları birbirinden ayrılarak yazılır. Soruşturma aşamasındaki kişiler için masumiyet karinesi esastır. Çocukların ve hassas durumdaki kişilerin kimlikleri yayımlanmaz.</p>
 <h2 id="duzeltme">Düzeltme, güncelleme ve tekzip</h2>
-<p>Hatalı olduğu tespit edilen bilgi kaynağıyla doğrulandığında düzeltilir; ilk yayın tarihi korunur, güncelleme tarihi ve neyin değiştiği yazının içinde belirtilir. Tekzip talepleri 5187 sayılı Basın Kanunu çerçevesinde değerlendirilir. Bildirimler için <a href="/iletisim/">iletişim</a> sayfası kullanılabilir.</p>
+<p>Hatalı olduğu tespit edilen bilgi kaynağıyla doğrulandığında düzeltilir; ilk yayın tarihi korunur, güncelleme tarihi ve neyin değiştiği yazının içinde belirtilir. Tekzip talepleri 5187 sayılı Basın Kanunu çerçevesinde değerlendirilir. Bildirimler <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine gönderilebilir.</p>
 <h2>Doğrulama</h2>
 <p>Her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
 <h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
