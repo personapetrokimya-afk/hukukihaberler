@@ -174,7 +174,8 @@ def build(posts, outdir):
             im = with_thumb(os.path.join(ORIG, src)); kind = "orig"
         elif os.path.exists(cpath) and key in meta:
             im = photo(cpath); kind = "photo"; m = meta[key]
-            credit = {"artist": m.get("artist") or "Wikimedia Commons", "lic": m.get("lic", ""), "page": m.get("page", "")}
+            credit = {"artist": m.get("artist") or "Wikimedia Commons", "lic": m.get("lic", ""), "page": m.get("page", ""),
+                      "kaynak": m.get("kaynak", "Wikimedia Commons")}
         else:
             k = p["catkeys"][0]
             for c in p["catkeys"]:
