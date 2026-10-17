@@ -318,7 +318,7 @@ def homepage(chunk):
 <h2 class="t{" lt" if len(lead["title"]) > 60 else ""}"><a href="{lead['url']}">{e(lead['title'])}</a></h2>
 <p class="d">{e(lead['desc'])}</p>
 <div class="m">{meta(lead, cat=True).replace('<div class="meta">', '<div class="meta" style="flex:1">')}{save_btn(lead)}</div>
-<figure class="img">{pic(lead, lazy=False, sizes="(max-width:767px) 100vw, (max-width:1023px) 50vw, 600px")}{credit_html(lead)}</figure>
+<figure class="img">{pic(lead, lazy=False, sizes="(max-width:767px) 100vw, (max-width:1023px) 50vw, 600px")}{credit_html(lead)}{('<div class="hoz"><b>Öne çıkanlar</b><ul>' + "".join(f"<li>{e(x)}</li>" for x in lead.get("ozet", [])[:3]) + '</ul><a href="' + lead["url"] + '">Haberin devamı →</a></div>') if lead.get("ozet") else ""}</figure>
 <div class="side"><h2>Son gelişmeler</h2><ol>{sidel}</ol><a class="all" href="/arsiv/">Tüm son gelişmeler →</a></div>
 </section>"""
     feat = (f'<section class="blk"><h2 class="sec-h"><span class="dh">Öne çıkan haberler</span><span class="mh">Son Haberler</span>'
