@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/gulnar-fuhus-sorusturmasi-6-tutuklama-ruhsat-iptali</loc><lastmod>2026-10-18T00:21:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/istanbul-universitesi-lisansustu-yonetmeligi-yeni-metin</loc><lastmod>2026-10-18T00:06:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/ege-universitesi-lisansustu-yonetmelik-yapay-zeka-beyani</loc><lastmod>2026-10-18T00:05:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/atasehir-adiguzel-myo-girisimcilik-kulucka-merkezi-yonetmeligi</loc><lastmod>2026-10-18T00:04:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -173,6 +174,14 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/gulnar/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/mersin/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/fuhus-sorusturmasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/tck-227/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ruhsat-iptali/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/isyeri-ruhsati/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ahlak-buro/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/istanbul-universitesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/lisansustu-egitim/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -222,7 +231,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/kayyim/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cmk-133/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tmsf/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ev-hapsi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ihaleye-fesat-karistirma/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ogrenci-affi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -257,7 +265,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/iptal-davasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yurutmeyi-durdurma/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/danistay-6-daire/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/mersin/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/siber-suclar/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/banka-hesabi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sisli/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
