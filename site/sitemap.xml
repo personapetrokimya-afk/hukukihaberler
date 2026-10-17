@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/istanbul-universitesi-lisansustu-yonetmeligi-yeni-metin</loc><lastmod>2026-10-18T00:06:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/ege-universitesi-lisansustu-yonetmelik-yapay-zeka-beyani</loc><lastmod>2026-10-18T00:05:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/atasehir-adiguzel-myo-girisimcilik-kulucka-merkezi-yonetmeligi</loc><lastmod>2026-10-18T00:04:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/adiguzel-myo-turkce-ogretimi-merkezi-yonetmeligi</loc><lastmod>2026-10-18T00:04:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -172,15 +173,20 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/istanbul-universitesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/lisansustu-egitim/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/yuksek-lisans/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/doktora/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/2547-sayili-kanun/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/enstitu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ege-universitesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/lisansustu-yonetmelik/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/uretken-yapay-zeka/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tez-beyani/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/yuksek-lisans/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yok-etik-rehber/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tezsiz-yuksek-lisans/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/atasehir-adiguzel-myo/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kulucka-merkezi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/girisimcilik/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -189,7 +195,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/uygulama-ve-arastirma-merkezi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/atasehir-adiguzel-meslek-yuksekokulu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/turkce-ogretimi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/2547-sayili-kanun/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yuksekogretim-mevzuati/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/izmir-barosu/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/baro-secimi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
