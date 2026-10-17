@@ -58,3 +58,9 @@ try:
     if _uz or _sq: sys.exit(1)
 except ImportError:
     pass
+
+# kaynak etiketi (cite) kalıntısı yayına çıkmasın
+import runpy as _rp
+_k = [p["slug"] for p in _rp.run_path("content6.py")["POSTS"] if "cite index" in str(p) or "</cite>" in str(p)]
+if _k:
+    print("HATA: cite etiketi kalıntısı:", _k); raise SystemExit(1)
