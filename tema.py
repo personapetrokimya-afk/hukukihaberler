@@ -11,7 +11,7 @@ FONTS = "".join(_ff("Source Serif 4", "source-serif-4", w) for w in (400, 600, 7
         "".join(_ff("Source Sans 3", "source-sans-3", w) for w in (400, 600, 700))
 
 CSS = FONTS + "@font-face{font-family:'SS3F';src:local('Arial'),local('Helvetica'),local('Liberation Sans');size-adjust:91%;ascent-override:112%;descent-override:30%}@font-face{font-family:'SS4F';src:local('Georgia'),local('Times New Roman'),local('Liberation Serif');size-adjust:104%;ascent-override:90%;descent-override:30%}" + """
-:root{--bg:#35495E;--dark:#2D4054;--card:#41576D;--line:#64788C;--line2:rgba(100,120,140,.55);--gold:#F1D293;--ink:#F7F5F0;--mute:#D4DCE4;--coral:#F08A7A;
+:root{--bg:#17242F;--dark:#0F1A24;--card:#213345;--line:#3A5268;--line2:rgba(72,98,122,.6);--gold:#F1D293;--ink:#EEF2F6;--mute:#AEBFCF;--coral:#F08A7A;--k-yargi:#F1D293;--k-yuksek:#8EB8F5;--k-siyaset:#F0907A;--k-ekonomi:#63CFAE;--k-teknoloji:#74D0E6;--k-diger:#C4AEF0;
 --serif:'Source Serif 4','SS4F',Georgia,'Times New Roman',serif;--sans:'Source Sans 3','SS3F',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;--pad:16px;--bnav:64px}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;color-scheme:dark}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);overflow-wrap:break-word}
@@ -24,7 +24,7 @@ a{color:var(--ink);text-decoration:none}a:hover{color:var(--gold)}
 @media(max-width:1023px){.hwrap{padding:0 var(--pad)}}
 @media(max-width:359px){:root{--pad:12px}}
 /* ---------- header */
-header.site{background:var(--dark);position:relative;z-index:40}
+header.site{background:var(--dark);position:relative;z-index:40;border-bottom:2px solid var(--gold)}
 .htop{display:flex;align-items:center;gap:28px;padding-top:16px;padding-bottom:14px}
 .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:none;color:var(--ink)}
 .brand svg{flex:none;color:var(--gold)}
@@ -85,6 +85,12 @@ nav.cats a.on{color:var(--gold);border-bottom-color:var(--gold)}
 .msearch{background:var(--dark);border-bottom:1px solid var(--line2);padding:10px 0}
 .msearch[hidden]{display:none}
 .msearch .hsearch{max-width:none}
+.kicker.k-yargi,.ovk.k-yargi{color:var(--k-yargi)}.kicker.k-yuksek,.ovk.k-yuksek{color:var(--k-yuksek)}.kicker.k-siyaset,.ovk.k-siyaset{color:var(--k-siyaset)}
+.kicker.k-ekonomi,.ovk.k-ekonomi{color:var(--k-ekonomi)}.kicker.k-teknoloji,.ovk.k-teknoloji{color:var(--k-teknoloji)}.kicker.k-diger,.ovk.k-diger{color:var(--k-diger)}
+.pic[data-k]{position:relative}.pic[data-k]:after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--kr)}
+[data-k=yargi]{--kr:var(--k-yargi)}[data-k=yuksek]{--kr:var(--k-yuksek)}[data-k=siyaset]{--kr:var(--k-siyaset)}[data-k=ekonomi]{--kr:var(--k-ekonomi)}[data-k=teknoloji]{--kr:var(--k-teknoloji)}[data-k=diger]{--kr:var(--k-diger)}
+.ov[data-k]:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--kr);z-index:2}
+.feat .pic,.row .pic{border-radius:4px}
 .oneri{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:60;background:var(--dark);border:1px solid var(--line);border-radius:8px;box-shadow:0 14px 34px rgba(0,0,0,.45);max-height:min(70vh,520px);overflow-y:auto;padding:6px}
 .oneri[hidden]{display:none}
 .oneri .oge{display:flex;gap:12px;align-items:center;padding:8px;border-radius:6px;color:var(--ink);text-decoration:none}

@@ -119,9 +119,17 @@ def topcat(p):
     for c in p["catkeys"]:
         if c != "manset": k = c; break
     return k
+def renk(k):
+    """kategori anahtarından renk sınıfı"""
+    if k in ("yargi/yargitay", "yargi/danistay", "yargi/anayasa-mahkemesi", "yargi/aihm"): return "yuksek"
+    if k in ("yargi", "yargi/adalet-bakanligi", "manset"): return "yargi"
+    if k == "siyaset": return "siyaset"
+    if k == "diger/ekonomi": return "ekonomi"
+    if k == "teknoloji": return "teknoloji"
+    return "diger"
 def kicker(p):
     k = topcat(p)
-    return f'<a class="kicker" href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a>'
+    return f'<a class="kicker k-{renk(k)}" href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a>'
 def rtime(p): return max(1, round(p["words"] / 200))
 def kisa(d): return f"{d.day} {AYLAR[d.month-1][:3]}"
 def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
@@ -268,7 +276,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 
 def srcset(p): return f'srcset="{thumb(p)} 480w, {p["img"].replace("/gorsel/", "/gorsel/l/")} 800w, {p["img"]} 1200w"'
 def pic(p, lazy=True, sizes="(max-width:767px) 112px, 300px"):
-    return (f'<a class="pic" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{p["img"]}" {srcset(p)} sizes="{sizes}" alt="" width="1200" height="630"'
+    return (f'<a class="pic" data-k="{renk(topcat(p))}" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{p["img"]}" {srcset(p)} sizes="{sizes}" alt="" width="1200" height="630"'
             f'{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>')
 def credit_html(p):
     c = p.get("credit")
@@ -314,7 +322,7 @@ def homepage(chunk):
     analiz = [p for p in cur if p.get("tur") == "Analiz"][:2]
     more = [p for p in rest if p not in analiz][:8]
     shown = {id(p) for p in [lead] + side + featp + analiz + more}
-    sidel = "".join(f'<li><a class="ov" href="{p["url"]}">{f'<img src="{thumb(p)}" alt="" width="480" height="270" loading="lazy" decoding="async">' if p.get("img") else ""}<span class="ovt"><span class="ovm"><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time><span class="ovk">{e(CATS[topcat(p)][0])}</span></span><span class="ovh">{e(p["title"])}</span></span></a></li>' for p in side)
+    sidel = "".join(f'<li><a class="ov" data-k="{renk(topcat(p))}" href="{p["url"]}">{f'<img src="{thumb(p)}" alt="" width="480" height="270" loading="lazy" decoding="async">' if p.get("img") else ""}<span class="ovt"><span class="ovm"><time datetime="{iso(p)}">{p["saat"] if p.get("saat") and p["date"] == lead["date"] else kisa(p["date"])}</time><span class="ovk k-{renk(topcat(p))}">{e(CATS[topcat(p)][0])}</span></span><span class="ovh">{e(p["title"])}</span></span></a></li>' for p in side)
     hero = f"""<h1 class="sr">{NAME}: hukuk, yargı ve mevzuat haberleri</h1>
 <section class="hero" aria-label="Manşet">
 <div class="k">{kicker(lead)}</div>
