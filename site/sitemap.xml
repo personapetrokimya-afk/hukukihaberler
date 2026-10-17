@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/yargitay-ziynet-alacagi-bosanma-kesinlesmeden-icra</loc><lastmod>2026-10-17T10:51:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/spk-hedef-portfoy-fonlari-tasfiye-islemleri-basladi</loc><lastmod>2026-10-17T01:47:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/demiryolu-araclari-tescil-yonetmeligi-para-cezalari-guncellendi</loc><lastmod>2026-10-17T01:17:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/bozulabilir-gida-tasimaciligi-yonetmeligi-para-cezalari</loc><lastmod>2026-10-17T01:07:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -151,6 +152,14 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ziynet-alacagi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/yargitay-12-hukuk-dairesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ilamli-icra-takibi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/bosanma-davasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/hmk-350/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/iik-36/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/icranin-geri-birakilmasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/kesinlesme-sarti/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/spk/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/hedef-portfoy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/fon-tasfiyesi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -509,7 +518,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/afet-lojistigi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/13-yargi-paketi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/nafaka/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/bosanma-davasi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yeni-yasama-yili/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sigara-yasagi/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/elektronik-sigara/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
