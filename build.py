@@ -510,14 +510,23 @@ def kaynak_html(p):
     items = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(t)}</a>' for t, u in k)
     return f'<p class="kaynak"><b>Kaynak:</b> {items}</p>'
 
+def sss_temiz(p):
+    """yalnızca geçerli soru-cevap çiftleri (bozuk ["q","a"] gibi maddeler gösterilmez)"""
+    out = []
+    for x in p.get("sss") or []:
+        if isinstance(x, (list, tuple)) and len(x) >= 2:
+            q, a = str(x[0]).strip(), str(x[1]).strip()
+            if len(q) >= 5 and len(a) >= 5: out.append((q, a))
+    return out
+
 def sss_html(p):
-    s = p.get("sss")
+    s = sss_temiz(p)
     if not s: return ""
     items = "".join(f'<div class="sq"><h3>{e(q)}</h3><p>{e(a)}</p></div>' for q, a in s[:4])
     return f'<section class="sss" aria-labelledby="sss-h"><h2 id="sss-h">Merak edilenler</h2>{items}</section>'
 
 def sss_ld(p, full):
-    s = p.get("sss")
+    s = sss_temiz(p)
     if not s: return None
     return {"@context": "https://schema.org", "@type": "FAQPage", "url": full + "#sss-h", "inLanguage": "tr-TR",
             "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in s[:4]]}
