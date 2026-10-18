@@ -99,6 +99,16 @@ def write(path, content):
 def words(h): return len(re.sub(r"<[^>]+>", " ", h).split())
 
 # ---------------------------------------------------------------- yazıları hazırla
+def kart_ozeti(p, sinir=200):
+    """paylaşım kartı ve liste için kısa özet: haberin ilk özet maddesi (yoksa metnin başı); tam cümlede kesilir"""
+    if p.get("desc"): return p["desc"]
+    kaynak = (p.get("ozet") or [""])[0] or p["body"]
+    t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", kaynak))).strip()
+    if len(t) <= sinir: return t
+    k = t[:sinir]
+    i = max(k.rfind(". "), k.rfind("? "), k.rfind("! "))
+    return k[:i + 1] if i >= 80 else k.rsplit(" ", 1)[0] + "…"
+
 for p in POSTS:
     p["date"] = datetime.date.fromisoformat(p["date"])
     p["file"] = p.get("path") or ("/" + p["slug"] + ".html")   # eski .html adresi (dosya)
@@ -106,7 +116,7 @@ for p in POSTS:
     p["catkeys"] = [CAT_BY_NAME[c] for c in p["cats"]]
     p["tagslugs"] = [slugify(t) for t in p.get("tags", [])]
     p["words"] = words(p["body"])
-    p["desc"] = p.get("desc") or re.sub(r"<[^>]+>", "", p["body"]).strip()[:155].rsplit(" ", 1)[0] + "…"
+    p["desc"] = kart_ozeti(p)
 POSTS.sort(key=lambda p: p["date"], reverse=True)
 assert len({p["slug"] for p in POSTS}) == len(POSTS), "slug tekrarı"
 import images as _images
@@ -202,7 +212,7 @@ def gpref_kutu():
     if not GPREF_AKTIF: return ""
     return f'<aside class="gpbox"><div class="gpt"><b>Hukuki Haberler\'i Google\'da öne çıkarın</b><span>Bizi tercih ettiğiniz kaynak olarak eklediğinizde haberlerimiz Google aramalarındaki "Öne Çıkan Haberler" bölümünde size daha sık gösterilir.</span></div>{gpref_btn("gpref gpbig", "Tercih edilen kaynak olarak ekle", 20)}</aside>'
 
-def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra=""):
+def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra="", ogek=""):
     act = active or url
     def on(u): return act == u or (u != "/" and act.startswith(u))
     catnav = "".join(f'<li><a href="{u}"{" class=on aria-current=page" if on(u) else ""}>{t}</a></li>' for u, t in CATNAV)
@@ -242,12 +252,17 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <meta property="og:url" content="{e(can)}">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:image" content="{SITE + (img or "/gorsel/kapak.jpg")}">
+<meta property="og:image:secure_url" content="{SITE + (img or "/gorsel/kapak.jpg")}">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(title)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@HukukiHaberTR">
 <meta name="twitter:image" content="{SITE + (img or "/gorsel/kapak.jpg")}">
+<meta name="twitter:image:alt" content="{e(title)}">
 <meta name="twitter:title" content="{e(title)}">
-<meta name="twitter:description" content="{e(desc)}">
+<meta name="twitter:description" content="{e(desc)}">{ogek}
 <link rel="alternate" type="application/rss+xml" title="{NAME} RSS" href="/feed/index.xml">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -579,7 +594,11 @@ for idx, p in enumerate(POSTS):
 {yazar_kutu(p)}{gpref_kutu()}{share}{kaynak_goster(p, full)}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
-    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
+    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/",
+                          ogek=f'\n<meta property="article:published_time" content="{iso(p)}">'
+                               + (f'\n<meta property="article:modified_time" content="{e(str(p["updated"]))}">' if p.get("updated") else "")
+                               + f'\n<meta property="article:section" content="{e(CATS[k0][0])}">'
+                               + "".join(f'\n<meta property="article:tag" content="{e(t)}">' for t in p["tags"][:6])))
 
 # kategoriler
 for k, (name, parent) in CATS.items():
