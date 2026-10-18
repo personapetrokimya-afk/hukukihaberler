@@ -263,7 +263,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <div class="hwrap htop">
 <a class="brand" href="/" aria-label="{NAME} anasayfa">{ico("scale", 44)}<span><span class="bn">Hukuki Haberler</span><span class="bt">Hukuk, yargı ve mevzuat gündemi</span></span></a>
 {srch("q")}
-<div class="hright"><div class="hbtns">{gpref_btn()}<a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a></div><small>{GPREF_ALT}</small></div>
+<div class="hright"><div class="hbtns">{gpref_btn()}<a class="xbtn" href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">{ico("takip", 18)}X'te takip et</a><a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a></div><small>{GPREF_ALT}</small></div>
 <button type="button" class="ibtn sbtn" aria-label="Sitede ara" aria-expanded="false" aria-controls="msearch">{ico("search", 22)}</button>
 <button type="button" class="ibtn mbtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="drawer">{ico("menu", 24)}</button>
 </div>
@@ -277,7 +277,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <div class="fcols">
 <div><div class="fbrand">{ico("scale", 30)}Hukuki Haberler</div><p style="margin:0;max-width:440px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, mevzuat değişiklikleri ve gündemin hukuki boyutu.</p></div>
 <div><h4>Bölümler</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}</ul></div>
-<div><h4>Site</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li></ul></div>
+<div><h4>Site</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li><li><a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">X: @HukukiHaberTR</a></li></ul></div>
 </div>
 <div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz.</div>
 </div></footer>
@@ -691,6 +691,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine iletilebilir.</p>
 <h2>İletişim</h2>
 <p>E-posta: <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a></p>
+<p>X: <a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">@HukukiHaberTR</a></p>
 <h2>Telif</h2>
 <p>Sitedeki metinler kaynak gösterilmek ve bağlantı verilmek şartıyla alıntılanabilir; bütün hâlinde kopyalanamaz.</p>"""
 write("/kunye/", page("Künye", "Hukuki Haberler künye: yayın ilkeleri, yazı işleri, düzeltme ve telif esasları.", "/kunye/",

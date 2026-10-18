@@ -37,6 +37,7 @@ header.site{background:var(--dark);position:relative;z-index:40;border-bottom:2p
 .hright{flex:none;text-align:right}
 .rssbtn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:var(--gold);color:#22303F;border-radius:3px;font:700 15px var(--sans)}
 .rssbtn:hover{color:#22303F;background:#f6dfae}
+.xbtn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid var(--gold);color:var(--gold);border-radius:3px;font:700 15px var(--sans);white-space:nowrap}.xbtn:hover{background:var(--gold);color:#22303F}
 .hright small{display:block;margin-top:6px;font-size:12.5px;color:var(--mute)}
 .hbtns{display:flex;gap:8px;justify-content:flex-end}
 .gpref{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#fff;color:#1a2633;border:2px solid #E30613;border-radius:3px;font:700 15px var(--sans);white-space:nowrap}
@@ -363,6 +364,7 @@ def ico(name, size=20, cls=""):
     P = {
      "scale": '<path d="M12 3v18M7 21h10M4 7h16"/><circle cx="12" cy="3.5" r="1.2" fill="currentColor"/><path d="M4 7l-3 7a3.2 2.4 0 0 0 6 0zM20 7l-3 7a3.2 2.4 0 0 0 6 0z"/>',
      "search": '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+     "takip": '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/><path d="M19 8v6M16 11h6"/>',
      "duyur": '<path d="M3 10v4h3l7 4V6L6 10z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/>',
      "topluluk": '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/>',
      "sohbet": '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>',
