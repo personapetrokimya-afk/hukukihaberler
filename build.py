@@ -295,7 +295,7 @@ def row(p, h="h3"):
             f'{pic(p, sizes="(max-width:767px) 112px, 160px")}</li>')
 card = feat_card
 
-def listing(title, desc, base, items, crumb="", intro="", crumbs=None):
+def listing(title, desc, base, items, crumb="", intro="", crumbs=None, noindex=False):
     n = max(1, (len(items) + PER_PAGE - 1) // PER_PAGE)
     for i in range(n):
         chunk = items[i*PER_PAGE:(i+1)*PER_PAGE]
@@ -310,7 +310,7 @@ def listing(title, desc, base, items, crumb="", intro="", crumbs=None):
             continue
         head = (f'<div class="crumb">{crumb}</div>' if crumb else "") + f'<h1 class="sec">{e(title)}</h1><p class="sec-desc">{e(desc)}</p>' + intro
         main = head + '<ul class="rows one">' + "".join(row(p, "h2") for p in chunk) + "</ul>" + pager
-        write(url, page(ttl, desc, url, main, noindex=(i > 0), crumbs=crumbs if i == 0 else None))
+        write(url, page(ttl, desc, url, main, noindex=(i > 0 or noindex), crumbs=crumbs if i == 0 else None))
 
 def homepage(chunk):
     cur = [p for p in POSTS if p["date"].year >= 2026]
@@ -610,6 +610,7 @@ write("/arama/", page("Arama", "Hukuki Haberler içinde haber, karar ve mevzuat 
       noindex=True, extra=SEARCH_JS))
 
 # etiketler
+ETIKET_ALT_SINIR = 3   # bundan az haberi olan etiket sayfası dizine girmez, sitemap'e eklenmez
 tag_posts = {}
 for p in POSTS:
     for t, s in zip(p["tags"], p["tagslugs"]):
@@ -617,7 +618,8 @@ for p in POSTS:
 for s, d in tag_posts.items():
     items = sorted(d["posts"], key=lambda p: p["date"], reverse=True)
     crumb = f'<a href="/">Anasayfa</a> › Etiket'
-    listing(f"{d['name']}", f"“{d['name']}” etiketli haberler.", f"/haber-etiketi/{s}/", items, crumb=crumb)
+    listing(f"{d['name']}", f"“{d['name']}” etiketli haberler.", f"/haber-etiketi/{s}/", items, crumb=crumb,
+            noindex=len(items) < ETIKET_ALT_SINIR)   # tek-iki haberli etiket sayfaları zayıf içerik sayılır
 
 # aylık arşiv
 months = {}
@@ -758,7 +760,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 # sitemap
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
-       [(f"/haber-etiketi/{s}/", "yearly", "0.3") for s in tag_posts] + \
+       [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if len(tag_posts[s]["posts"]) >= ETIKET_ALT_SINIR] + \
        [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 lm = {p["url"]: (iso(p) if p.get("saat") else p["date"].isoformat()) for p in POSTS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
