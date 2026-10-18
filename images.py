@@ -158,18 +158,44 @@ def imza(im):
 
 def build(posts, outdir):
     """returns {slug: (url, kind, credit)}"""
-    import json
+    import json, shutil
+    # görseller kalıcı bir önbellek klasöründe üretilir (build.py site/ klasörünü her seferinde siler), sonra site/'ye kopyalanır
+    hedef = outdir
+    outdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek")
     os.makedirs(outdir, exist_ok=True)
     meta = {}
     mp = os.path.join(COMMONS, "meta.json")
     if os.path.exists(mp): meta = json.load(open(mp, encoding="utf-8"))
     res = {}
+    # önbellek: kaynağı ve kodu değişmeyen görseller yeniden üretilmez (yayın süresini ~20 sn kısaltır)
+    _kod = hashlib.md5(open(__file__, "rb").read()).hexdigest()[:10]
+    _op = os.path.join(outdir, ".onbellek.json")
+    try: onbellek = json.load(open(_op, encoding="utf-8"))
+    except Exception: onbellek = {}
+    yeni_onbellek = {}
+    def _md5(yol): return hashlib.md5(open(yol, "rb").read()).hexdigest()[:12]
     for p in posts:
         slug = p["slug"]; fn = f"{slug}.jpg"; dst = os.path.join(outdir, fn)
         key = ALIAS.get(slug, slug)
         cpath = os.path.join(COMMONS, key + ".jpg")
         src = MAP.get(slug)
         credit = None
+        if src and os.path.exists(os.path.join(ORIG, src)):
+            imza_ = ("orig", _md5(os.path.join(ORIG, src)))
+        elif os.path.exists(cpath) and key in meta:
+            imza_ = ("photo", _md5(cpath))
+        else:
+            imza_ = ("gen", p["title"], tuple(p["catkeys"]), p["catname"])
+        imza_ = _kod + "|" + "|".join(map(str, imza_))
+        if (onbellek.get(slug, {}).get("imza") == imza_ and os.path.exists(dst)
+                and all(os.path.exists(os.path.join(outdir, sub, fn)) for sub in ("m", "l"))):
+            c = onbellek[slug]
+            if c["kind"] == "photo":
+                m = meta[key]
+                c["credit"] = {"artist": m.get("artist") or "Wikimedia Commons", "lic": m.get("lic", ""), "page": m.get("page", ""),
+                               "kaynak": m.get("kaynak", "Wikimedia Commons")}
+            res[slug] = (c["url"], c["kind"], c.get("credit")); yeni_onbellek[slug] = c
+            continue
         if src and os.path.exists(os.path.join(ORIG, src)):
             im = with_thumb(os.path.join(ORIG, src)); kind = "orig"
         elif os.path.exists(cpath) and key in meta:
@@ -188,5 +214,15 @@ def build(posts, outdir):
             im.resize(size, Image.LANCZOS).save(os.path.join(outdir, sub, fn), "JPEG", quality=q, optimize=True, progressive=True)
         _v = hashlib.md5(open(dst, "rb").read()).hexdigest()[:8]
         res[slug] = (f"/gorsel/{fn}?v={_v}", kind, credit)
+        yeni_onbellek[slug] = {"imza": imza_, "url": res[slug][0], "kind": kind}
+    json.dump(yeni_onbellek, open(_op, "w", encoding="utf-8"), ensure_ascii=False, sort_keys=True, indent=0)
+    if not os.path.exists(os.path.join(outdir, "kapak.jpg")):
+        typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)
+    for sub in ("", "m", "l"): os.makedirs(os.path.join(hedef, sub), exist_ok=True)
+    for slug in res:
+        for sub in ("", "m", "l"):
+            shutil.copy2(os.path.join(outdir, sub, f"{slug}.jpg"), os.path.join(hedef, sub, f"{slug}.jpg"))
+    shutil.copy2(os.path.join(outdir, "kapak.jpg"), os.path.join(hedef, "kapak.jpg"))
+    return res
     typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)
     return res
