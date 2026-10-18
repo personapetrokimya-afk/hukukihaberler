@@ -78,6 +78,16 @@ def slugify(s):
     return s
 def e(s): return html.escape(s, quote=True)
 AYLAR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]
+def kaynak_goster(p, full):
+    """haberi kullanan siteler için hazır alıntı + bağlantı metni"""
+    kod = f'<a href="{full}">{p["title"]}</a> (Hukuki Haberler, {trdate(p["date"])})'
+    return ('<div class="cite"><b>Bu haberi kaynak gösterin</b>'
+            '<p>Haberden alıntı yapıyorsanız aşağıdaki bağlantıyı kullanabilirsiniz.</p>'
+            f'<textarea readonly rows="3" aria-label="Kaynak bağlantısı">{e(kod)}</textarea>'
+            '<button type="button" onclick="var t=this.previousElementSibling;t.select();'
+            '(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).catch(function(){document.execCommand(\'copy\')});'
+            'this.textContent=\'Kopyalandı\'">Kopyala</button></div>')
+
 def trdate(d):
     return f"{d.day} {AYLAR[d.month-1]} {d.year}"
 def write(path, content):
@@ -559,7 +569,7 @@ for idx, p in enumerate(POSTS):
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
-{yazar_kutu(p)}{gpref_kutu()}{share}
+{yazar_kutu(p)}{gpref_kutu()}{share}{kaynak_goster(p, full)}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/"))
