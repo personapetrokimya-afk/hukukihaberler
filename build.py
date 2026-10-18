@@ -181,7 +181,7 @@ def sidebar():
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
           "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}, "foundingDate": "2010",
-          "sameAs": [], "masthead": SITE + "/kunye/", "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme", "email": "iletisim@hukukihaberler.com",
+          "sameAs": ["https://x.com/HukukiHaberTR"], "masthead": SITE + "/kunye/", "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme", "email": "iletisim@hukukihaberler.com",
           "contactPoint": {"@type": "ContactPoint", "contactType": "editorial", "email": "iletisim@hukukihaberler.com", "url": SITE + "/iletisim/", "availableLanguage": "tr"}}
 
 def _preload(main):
