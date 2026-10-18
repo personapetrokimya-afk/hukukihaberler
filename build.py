@@ -548,7 +548,14 @@ for idx, p in enumerate(POSTS):
          (f'<a href="{older["url"]}"><small>Önceki haber</small>{e(older["title"])}</a>' if older else "<span></span>") + \
          (f'<a class="r" href="{newer["url"]}"><small>Sonraki haber</small>{e(newer["title"])}</a>' if newer else "<span></span>") + "</nav>"
     full = SITE + p["url"]
-    share = f'<div class="share"><a href="https://twitter.com/intent/tweet?url={urllib.parse.quote(full)}&text={urllib.parse.quote(p["title"])}" rel="noopener nofollow" target="_blank">X\'te paylaş</a><a href="https://www.facebook.com/sharer/sharer.php?u={urllib.parse.quote(full)}" rel="noopener nofollow" target="_blank">Facebook</a><a href="https://wa.me/?text={urllib.parse.quote(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">WhatsApp</a><a href="mailto:?subject={urllib.parse.quote(p["title"])}&body={urllib.parse.quote(full)}">E-posta</a></div>'
+    _q = urllib.parse.quote
+    share = ('<div class="share">'
+             f'<a href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank">{ico("duyur", 18)}X\'te paylaş</a>'
+             f'<a href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank">{ico("topluluk", 18)}Facebook</a>'
+             f'<a href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">{ico("sohbet", 18)}WhatsApp</a>'
+             f'<a href="mailto:?subject={_q(p["title"])}&body={_q(full)}">{ico("zarf", 18)}E-posta</a>'
+             f'<button type="button" data-u="{full}" onclick="var b=this;(navigator.clipboard?navigator.clipboard.writeText(b.dataset.u):Promise.reject()).then(function(){{b.lastChild.textContent=\'Kopyalandı\'}}).catch(function(){{}})">{ico("baglanti", 18)}<span>Bağlantıyı kopyala</span></button>'
+             '</div>')
     tur = p.get("tur", "Haber")
     ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
           "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
