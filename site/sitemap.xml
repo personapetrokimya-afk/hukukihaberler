@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/en-dusuk-emekli-aylik-asgari-ucret-teklifi</loc><lastmod>2026-10-19T21:26:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/tutuklu-gazeteci-217a-iddianamesi-surec</loc><lastmod>2026-10-19T21:26:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/esenyurt-baskan-vekili-gorevden-alindi-surec</loc><lastmod>2026-10-19T21:20:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/anset-iddianamesi-kabul-edildi-55-sanik-surec</loc><lastmod>2026-10-19T21:20:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -205,6 +206,10 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/kanun-teklifi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/5510-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/plan-ve-butce-komisyonu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/tbmm/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/iddianame/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/basin-ozgurlugu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tutukluluk-incelemesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -250,7 +255,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/yurutmeyi-durdurma/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sgk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/fon-tasfiyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/kanun-teklifi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirimci-haklari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tck-188/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/bakirkoy-cumhuriyet-bassavciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -261,8 +265,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/ibb-davasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ev-hapsi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/saglik-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/plan-ve-butce-komisyonu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/tbmm/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yargitay-3-hukuk-dairesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ulastirma-ve-altyapi-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/idari-para-cezasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
