@@ -435,7 +435,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><div class="tkiz"><ul style="--tks:{ticker_sure}s">{ticker}</ul></div><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a></div></div>
 <div class="hwrap htop">
 <div class="hl"><span class="hdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div>
-<a class="brand" href="/" aria-label="{NAME} anasayfa"><span class="bust">Bağımsız hukuk haberciliği</span><span class="bn">Hukuki Haberler</span><span class="balt">Hukuk <i>•</i> Yargı <i>•</i> Gündem</span></a>
+<a class="brand" href="/" aria-label="{NAME} anasayfa"><span class="brow">{ico("scale", 40, "bt1")}<span class="bn">Hukuki Haberler</span>{ico("scale", 40, "bt2")}</span><span class="balt">Hukuk <i>•</i> Yargı <i>•</i> Gündem</span></a>
 <div class="hright"><div class="hbtns">{gpref_btn()}<a class="xbtn" href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">{ico("takip", 18)}X'te takip et</a><a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a></div></div>
 </div>
 <nav class="hnav" aria-label="Bölümler"><div class="hwrap hnr">
