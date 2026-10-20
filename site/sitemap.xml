@@ -311,6 +311,16 @@
 <url><loc>https://hukukihaberler.com/2010/09/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/2010/08/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/2010/07/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/konular/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/konu/ceza-hukuku/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/is-hukuku/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/aile-hukuku/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/idare-hukuku/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/anayasa-ve-temel-haklar/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/vergi-ve-sosyal-guvenlik/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/kisisel-veriler-ve-bilisim/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/tuketici-haklari/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
+<url><loc>https://hukukihaberler.com/konu/ticaret-ve-sermaye-piyasasi/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
 <url><loc>https://hukukihaberler.com/arsiv/</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
 <url><loc>https://hukukihaberler.com/hakkinda/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/kunye/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>

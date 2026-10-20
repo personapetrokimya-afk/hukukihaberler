@@ -146,6 +146,62 @@ os.makedirs(OUT)
 _IMG = _images.build(POSTS, os.path.join(OUT, "gorsel"))
 for p in POSTS: p["img"], p["imgkind"], p["credit"] = _IMG[p["slug"]]
 
+# ---------------------------------------------------------------- konu dosyaları (hukuk dallarına göre; mevcut adresler değişmez)
+def _mz_url(no, tertip=5): return f"https://www.mevzuat.gov.tr/mevzuat?MevzuatNo={no}&MevzuatTur=1&MevzuatTertip={tertip}"
+KONULAR = [
+ ("ceza-hukuku", "Ceza Hukuku",
+  "Suçlar ve cezalar, soruşturma ve kovuşturma süreçleri, tutuklama ve adli kontrol ile ceza yargılamasındaki gelişmeler.",
+  ["tck", "ceza", "tutuklama", "tutuklandı", "gözaltı", "soruşturma", "kovuşturma", "iddianame", "savcı", "başsavcılık", "dolandırıcılık", "hapis", "sulh ceza", "cmk", "suç duyurusu", "adli kontrol", "operasyon"],
+  [("5237 sayılı Türk Ceza Kanunu", _mz_url(5237)), ("5271 sayılı Ceza Muhakemesi Kanunu", _mz_url(5271))]),
+ ("is-hukuku", "İş Hukuku",
+  "İşçi ile işveren arasındaki ilişkiler: iş sözleşmesi, ücret, kıdem ve ihbar tazminatı, işe iade, iş kazası ve sendikal haklar.",
+  ["iş kanunu", "işçi", "işveren", "kıdem", "ihbar tazminatı", "sendika", "işten çıkar", "işe iade", "asgari ücret", "iş kazası", "fazla mesai", "iş hukuku", "iş sözleşmesi"],
+  [("4857 sayılı İş Kanunu", _mz_url(4857)), ("5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu", _mz_url(5510))]),
+ ("aile-hukuku", "Aile Hukuku",
+  "Boşanma, nafaka, velayet, mal rejimi ve aile içi şiddete karşı koruma tedbirlerine ilişkin düzenlemeler ve kararlar.",
+  ["boşanma", "nafaka", "velayet", "aile hukuku", "evlilik", "medeni kanun", "6284", "mal rejimi", "aile mahkemesi"],
+  [("4721 sayılı Türk Medeni Kanunu", _mz_url(4721)), ("6284 sayılı Ailenin Korunması ve Kadına Karşı Şiddetin Önlenmesine Dair Kanun", _mz_url(6284))]),
+ ("idare-hukuku", "İdare Hukuku",
+  "İdarenin işlemleri ve yargısal denetimi: iptal ve tam yargı davaları, yürütmeyi durdurma, kamu görevlileri ve disiplin hukuku.",
+  ["danıştay", "idari yargı", "iptal davası", "yürütmeyi durdurma", "kamu görevlisi", "memur", "disiplin cezası", "idare mahkemesi", "tam yargı", "valilik"],
+  [("2577 sayılı İdari Yargılama Usulü Kanunu", _mz_url(2577)), ("657 sayılı Devlet Memurları Kanunu", _mz_url(657))]),
+ ("anayasa-ve-temel-haklar", "Anayasa ve Temel Haklar",
+  "Anayasa Mahkemesi'nin iptal ve bireysel başvuru kararları, AİHM kararları ve temel hak ve özgürlüklere ilişkin gelişmeler.",
+  ["anayasa mahkemesi", "bireysel başvuru", "hak ihlali", "aym", "anayasa", "ifade özgürlüğü", "toplantı hürriyeti", "aihm", "temel hak"],
+  [("Türkiye Cumhuriyeti Anayasası", _mz_url(2709)), ("6216 sayılı Anayasa Mahkemesinin Kuruluşu ve Yargılama Usulleri Hakkında Kanun", _mz_url(6216))]),
+ ("vergi-ve-sosyal-guvenlik", "Vergi ve Sosyal Güvenlik",
+  "Vergi, harç ve prim düzenlemeleri, emeklilik ve sosyal güvenlik hakları ile bu alandaki yargı kararları.",
+  ["vergi", "harç", "sgk", "emekli aylığı", "erken emeklilik", "emeklilik yaşı", "prim borcu", "gelir idaresi", "sosyal güvenlik", "sigortalılık", "eyt"],
+  [("213 sayılı Vergi Usul Kanunu", _mz_url(213, 4)), ("193 sayılı Gelir Vergisi Kanunu", _mz_url(193, 4)), ("5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu", _mz_url(5510))]),
+ ("kisisel-veriler-ve-bilisim", "Kişisel Veriler ve Bilişim",
+  "Kişisel verilerin korunması, veri ihlalleri, siber suçlar, erişim engelleri ve dijital platformlara ilişkin düzenlemeler.",
+  ["kvkk", "kişisel veri", "veri ihlali", "siber", "erişim engeli", "bilişim", "yapay zeka", "sosyal medya", "5651", "fidye yazılımı"],
+  [("6698 sayılı Kişisel Verilerin Korunması Kanunu", _mz_url(6698)), ("5651 sayılı İnternet Ortamında Yapılan Yayınların Düzenlenmesi Hakkında Kanun", _mz_url(5651))]),
+ ("tuketici-haklari", "Tüketici Hakları",
+  "Ayıplı mal ve hizmet, sigorta ve abonelik uyuşmazlıkları, tüketici hakem heyetleri ve tüketiciyi koruyan düzenlemeler.",
+  ["tüketici", "kasko", "sigorta şirket", "konut sigortası", "ayıplı", "garanti belgesi", "hakem heyeti", "abonelik", "cayma hakkı", "mesafeli sözleşme"],
+  [("6502 sayılı Tüketicinin Korunması Hakkında Kanun", _mz_url(6502))]),
+ ("ticaret-ve-sermaye-piyasasi", "Ticaret ve Sermaye Piyasası",
+  "Şirketler, sermaye piyasası, rekabet ve bankacılık alanındaki düzenlemeler, idari yaptırımlar ve yargı süreçleri.",
+  ["spk", "sermaye piyasası", "anonim şirket", "limited şirket", "holding", "rekabet", "borsa", "fon", "ticaret kanunu", "konkordato", "iflas", "bankacılık", "tmsf"],
+  [("6102 sayılı Türk Ticaret Kanunu", _mz_url(6102)), ("6362 sayılı Sermaye Piyasası Kanunu", _mz_url(6362)), ("4054 sayılı Rekabetin Korunması Hakkında Kanun", _mz_url(4054))]),
+ ("kira-ve-tasinmaz", "Kira ve Taşınmaz",
+  "Kira ilişkileri, tahliye, kira artışı, tapu ve imar uyuşmazlıkları ile kentsel dönüşüme ilişkin düzenlemeler.",
+  ["kira", "kiracı", "kira artış", "kira sözleşmesi", "tahliye davası", "tapu", "imar", "kentsel dönüşüm", "kamulaştırma"],
+  [("6098 sayılı Türk Borçlar Kanunu", _mz_url(6098))]),
+]
+KONU_ALT = 3          # bundan az haberi olan konu sayfası oluşturulmaz
+KONU_DIZIN = 5        # bundan az haberi olan konu sayfası dizine girmez
+def _tr_kucuk(s): return s.replace("İ", "i").replace("I", "ı").lower()
+_KONU_RE = {k: re.compile("|".join((r"(?<!\w)" + re.escape(_tr_kucuk(w)) + (r"(?!\w)" if len(w) <= 4 else "")) for w in ws))
+            for k, _, _, ws, _ in KONULAR}
+for p in POSTS:
+    h = _tr_kucuk(p["title"] + " | " + " | ".join(p.get("tags", [])))
+    p["konular"] = [k for k, *_ in KONULAR if _KONU_RE[k].search(h)]
+KONU_HABER = {k: [p for p in POSTS if k in p["konular"]] for k, *_ in KONULAR}
+KONU_AD = {k: ad for k, ad, *_ in KONULAR}
+KONU_VAR = [k for k, *_ in KONULAR if len(KONU_HABER[k]) >= KONU_ALT]
+
 # WebP kopyaları: aynı görselin ~%40 daha küçük hâli; <picture> ile sunulur, desteklemeyen tarayıcı JPEG alır.
 # Önbellek içerik özetine göre tutulur, yalnızca yeni/değişen görsel yeniden kodlanır.
 def webp_uret(kok):
@@ -167,6 +223,40 @@ try:
     print("webp yeni:", webp_uret(os.path.join(OUT, "gorsel")))
 except Exception as _e:   # WebP üretilemezse site JPEG ile çalışmaya devam eder
     print("webp üretilemedi:", _e)
+# Discover/Google Görseller için 1:1 ve 4:3 kırpımlar (yalnızca fotoğraflı haberler; yazılı kapak görselleri kırpılınca metin kesilir)
+ORAN_KIRP = {"4x3": (840, 630), "1x1": (630, 630)}
+def _imza_sol():
+    from PIL import ImageFont as _F, ImageDraw as _D, Image as _Im
+    f = _F.truetype(_images.FONT_S, int(15 * _images.S))
+    tw = _D.Draw(_Im.new("RGB", (10, 10))).textlength("hukukihaberler.com", font=f)
+    return int(_images.W - int(12 * _images.S) - tw - int(10 * _images.S) * 2 - int(12 * _images.S))
+def oran_kopyalari():
+    from PIL import Image as _Im
+    global _imza_x0
+    _imza_x0 = _imza_sol()
+    onb = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "kirp"); os.makedirs(onb, exist_ok=True)
+    n = 0
+    for p in POSTS:
+        p["img_oran"] = {}
+        if p.get("imgkind") in ("gen", "orig"): continue   # yazılı kapaklar ve çerçeveli eski görseller kırpılmaz
+        src = os.path.join(OUT, p["img"].split("?")[0].lstrip("/"))
+        if not os.path.exists(src): continue
+        h = hashlib.md5(open(src, "rb").read()).hexdigest()
+        for ad, (w, hh) in ORAN_KIRP.items():
+            c = os.path.join(onb, f"{h}_{ad}.jpg")
+            if not os.path.exists(c):
+                im = _Im.open(src).convert("RGB"); cw = w * im.height // hh; x = (im.width - cw) // 2
+                x = max(0, min(x, _imza_x0 - cw - 2))   # sağ alttaki site imzası kırpımın içine yarım girmesin
+                im.crop((x, 0, x + cw, im.height)).resize((w, hh), _Im.LANCZOS).save(c, "JPEG", quality=82, optimize=True, progressive=True); n += 1
+            hedef = os.path.join(OUT, "gorsel", ad, os.path.basename(src)); os.makedirs(os.path.dirname(hedef), exist_ok=True)
+            shutil.copyfile(c, hedef)
+            p["img_oran"][ad] = (f"/gorsel/{ad}/{os.path.basename(src)}?v={h[:8]}", w, hh)
+    return n
+try:
+    print("oran kırpımı yeni:", oran_kopyalari())
+except Exception as _e:
+    print("oran kırpımı yapılamadı:", _e)
+    for p in POSTS: p.setdefault("img_oran", {})
 _WEBP_RE = re.compile(r'<img src="(/gorsel/[^"?]+)\.jpg(\?v=[0-9a-f]+)?"([^>]*)>')
 def _webp(u):
     return re.sub(r'(/gorsel/[^"?\s]+)\.jpg', r'\1.webp', u)
@@ -364,7 +454,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <footer class="site"><div class="hwrap">
 <div class="fcols">
 <div><div class="fbrand">{ico("scale", 30)}Hukuki Haberler</div><p style="margin:0;max-width:440px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, mevzuat değişiklikleri ve gündemin hukuki boyutu.</p></div>
-<div><h2>Bölümler</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}</ul></div>
+<div><h2>Bölümler</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}<li><a href="/konular/">Konu dosyaları</a></li></ul></div>
 <div><h2>Site</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li><li><a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">X: @HukukiHaberTR</a></li></ul></div>
 </div>
 <div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz.</div>
@@ -529,7 +619,7 @@ POST_URLS = {p["url"] for p in POSTS}
 ESKI_ADRES = {"/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
               "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor"}
 _SABIT_YOL = {"arsiv", "analiz", "mevzuat", "kesfet", "hakkinda", "kunye", "iletisim", "yayin-ilkeleri", "gizlilik-politikasi",
-              "kullanim-kosullari", "av-yagmur-tahtasiz", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
+              "kullanim-kosullari", "av-yagmur-tahtasiz", "konu", "konular", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
 def ic_bag(h):
     """Metin içi site bağlantıları: yönlendirmeye düşen adresleri doğrudan hedefe çevirir, karşılığı olmayan bağlantıyı kaldırır (metin kalır)"""
     def f(m):
@@ -570,6 +660,33 @@ def karar_html(p):
     u = str(k.get("kaynak") or "")
     kay = f'<a class="kk-k" href="{e(u)}" target="_blank" rel="noopener">Karar metni (resmî kaynak)</a>' if u.startswith("https://") else ""
     return f'<aside class="karark" aria-label="Karar künyesi"><b>Karar künyesi</b><dl>{sat}</dl>{kay}</aside>\n'
+
+_ONEK = re.compile(r"^\s*Güncelleme(?:\s*\([^)]*\))?\s*:\s*")
+def _onek_sil(s): return _ONEK.sub("", s)
+def govde_temiz(h):
+    """metne işlenmiş güncelleme notlarında yinelenen "Güncelleme (...):" önekini kaldırır"""
+    return re.sub(r"(<b>Güncelleme \([^)]*\):</b>\s*)Güncelleme(?:\s*\([^)]*\))?\s*:\s*", r"\1", h)
+def gecmis_html(p):
+    """Okura açık güncelleme geçmişi: ilk yayın, ardından her güncelleme/düzeltmenin tarihi ve ne değiştiği"""
+    g = [x for x in (p.get("gecmis") or []) if isinstance(x, dict) and x.get("tarih")]
+    if not g:   # eski haberler: metne işlenmiş "Güncelleme (gün ay yıl, SS.DD):" notlarından geçmiş çıkarılır
+        for m in re.finditer(r"<b>Güncelleme \((\d{1,2}) (\w+) (\d{4}), (\d{2})\.(\d{2})\):</b>\s*(.*?)</p>", p["body"]):
+            if m.group(2) in AYLAR:
+                g.append({"tarih": f"{m.group(3)}-{AYLAR.index(m.group(2)) + 1:02d}-{int(m.group(1)):02d}T{m.group(4)}:{m.group(5)}", "tur": "Güncelleme",
+                          "not": kisalt(_onek_sil(html.unescape(re.sub(r"<[^>]+>", "", m.group(6)))), 220)})
+    u = str(p.get("updated") or "")
+    if u and not g and p.get("saat") and "T" in u:   # yayından sonraki ilk bir saat içindeki teknik düzenlemeler (görsel, biçim) geçmişe yazılmaz
+        try:
+            if (datetime.datetime.fromisoformat(u[:16]) - datetime.datetime.fromisoformat(f'{p["date"].isoformat()}T{p["saat"]}')).total_seconds() < 3600: u = ""
+        except ValueError: pass
+    if not g and not u: return ""
+    sat = [f'<li><time datetime="{iso(p)}">{when(p)}</time><span>İlk yayın</span></li>']
+    for x in sorted(g, key=lambda x: str(x["tarih"])):
+        sat.append(f'<li><time datetime="{e(str(x["tarih"]))}">{upd(str(x["tarih"]))}</time><span><b>{e(str(x.get("tur") or "Güncelleme"))}:</b> {e(kisalt(_onek_sil(str(x.get("not") or "")), 220))}</span></li>')
+    if not g:
+        sat.append(f'<li><time datetime="{e(u)}">{upd(u)}</time><span>Güncellendi</span></li>')
+    return (f'<section class="gecmis" aria-labelledby="gecmis-{p["slug"][:40]}"><h2 id="gecmis-{p["slug"][:40]}">Güncelleme geçmişi</h2><ol>{"".join(sat)}</ol>'
+            '<p>Düzeltme ilkelerimiz <a href="/yayin-ilkeleri/#duzeltme">Yayın İlkeleri</a> sayfasındadır; hata bildirimi için <a href="/iletisim/">iletişim</a>.</p></section>\n')
 
 def ozet_html(p):
     o = p.get("ozet")
@@ -689,7 +806,7 @@ for idx, p in enumerate(POSTS):
           "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
-          "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630},
+          "isAccessibleForFree": True, "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
           "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
@@ -701,12 +818,13 @@ for idx, p in enumerate(POSTS):
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
-{ozet_html(p)}{karar_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, ic_bag(autolink(p))))}</div>
+{ozet_html(p)}{karar_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p)))))}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
+{('<p class="konub"><b>Konu dosyası:</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
 {yazar_kutu(p)}{gpref_kutu()}{kaynak_goster(p, full)}
-<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
+{gecmis_html(p)}<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/",
                           ogek=f'\n<meta property="article:published_time" content="{iso(p)}">'
@@ -739,6 +857,34 @@ def _mz(p):
     return any(k in h for k in _MZ)
 _mv = [p for p in POSTS if _mz(p)]
 listing("Mevzuat", "Kanunlar, kanun teklifleri, yönetmelikler, Resmî Gazete ve yargı paketlerine ilişkin haberler.", "/mevzuat/", _mv, crumb='<a href="/">Anasayfa</a> › Mevzuat')
+# konu dosyaları
+_KARAR_KAT = {"yargi/yargitay", "yargi/danistay", "yargi/anayasa-mahkemesi", "yargi/aihm"}
+for k, ad, tanim, _, mevzuat in KONULAR:
+    if k not in KONU_VAR: continue
+    its = KONU_HABER[k]; url = f"/konu/{k}/"
+    son = its[:6]; goster = {q["slug"] for q in son}
+    kararlar = [q for q in its if (set(q["catkeys"]) & _KARAR_KAT or q.get("karar")) and q["slug"] not in goster][:6]; goster |= {q["slug"] for q in kararlar}
+    analizler = [q for q in its if q.get("tur") == "Analiz" and q["slug"] not in goster][:4]; goster |= {q["slug"] for q in analizler}
+    kalan = [q for q in its if q["slug"] not in goster]
+    diger_k = [x for x in KONU_VAR if x != k]
+    blok = lambda baslik, ls: (f'<h2 class="sec-h">{baslik}</h2><ul class="rows one">' + "".join(row(q, "h3") for q in ls) + "</ul>") if ls else ""
+    main = (f'<div class="crumb"><a href="/">Anasayfa</a> › <a href="/konular/">Konular</a> › {e(ad)}</div><h1 class="sec">{e(ad)}</h1>'
+            f'<p class="sec-desc">{e(tanim)}</p>'
+            f'<aside class="mzk"><b>Temel mevzuat</b><ul>' + "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{e(t)}</a></li>' for t, u in mevzuat) +
+            '</ul><small>Bağlantılar Cumhurbaşkanlığı Mevzuat Bilgi Sistemi\'ndeki güncel metne gider.</small></aside>'
+            + blok("Son gelişmeler", son) + blok("Mahkeme kararları", kararlar) + blok("Analizler", analizler)
+            + (f'<h2 class="sec-h">Arşivden</h2><ul class="liste">' + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in kalan[:80]) + "</ul>" if kalan else "")
+            + f'<h2 class="sec-h">Diğer konu dosyaları</h2><ul class="chips">' + "".join(f'<li><a href="/konu/{x}/">{e(KONU_AD[x])}<small>{len(KONU_HABER[x])}</small></a></li>' for x in diger_k) + "</ul>")
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": ad, "description": tanim, "url": SITE + url, "inLanguage": "tr-TR",
+          "isPartOf": {"@id": SITE + "/#site"}, "about": {"@type": "Thing", "name": ad},
+          "mainEntity": {"@type": "ItemList", "numberOfItems": len(its), "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": SITE + q["url"]} for i, q in enumerate(its[:20])]}}
+    write(url, page(f"{ad}: Haberler, Kararlar ve Mevzuat", f"{ad} konusundaki {len(its)} haber ve analiz. {tanim}", url, main, ld=ld,
+                    noindex=len(its) < KONU_DIZIN, crumbs=[("/", "Anasayfa"), ("/konular/", "Konular"), (url, ad)], active="/konular/"))
+write("/konular/", page("Konu Dosyaları", "Hukuk dallarına göre konu dosyaları: ceza, iş, aile, idare, vergi, ticaret hukuku ve daha fazlası; haberler, kararlar ve temel mevzuat bir arada.", "/konular/",
+      '<div class="crumb"><a href="/">Anasayfa</a> › Konular</div><h1 class="sec">Konu Dosyaları</h1><p class="sec-desc">Haberler, mahkeme kararları ve temel mevzuat, hukuk dallarına göre bir arada.</p><ul class="konul">'
+      + "".join(f'<li><a href="/konu/{k}/"><b>{e(KONU_AD[k])}</b><span>{e(next(t for kk, _, t, *_ in KONULAR if kk == k))}</span><small>{len(KONU_HABER[k])} haber</small></a></li>' for k in KONU_VAR) + "</ul>",
+      crumbs=[("/", "Anasayfa"), ("/konular/", "Konular")]))
+
 _tc = {}
 for p in POSTS:
     if p["date"].year >= 2026:
@@ -749,6 +895,7 @@ _chips_t = "".join(f'<li><a href="/haber-etiketi/{s_}/">{e(t)}<small>{n}</small>
 write("/kesfet/", page("Keşfet", "Hukuki Haberler bölümleri, güncel konu başlıkları ve arşiv.", "/kesfet/",
       f'<h1 class="sec">Keşfet</h1><p class="sec-desc">Bölümler, güncel konular ve arşiv.</p>'
       f'<form class="searchbox" action="/arama/" method="get" role="search"><label class="sr" for="kq">Sitede ara</label><input id="kq" name="q" type="search" placeholder="Haber, karar, mevzuat veya konu ara…"><button type="submit">Ara</button></form>'
+      f'<h2 class="sec-h">Konu dosyaları</h2><ul class="chips">' + "".join(f'<li><a href="/konu/{k}/">{e(KONU_AD[k])}<small>{len(KONU_HABER[k])}</small></a></li>' for k in KONU_VAR) + '</ul>'
       f'<h2 class="sec-h">Bölümler</h2><ul class="chips">{_chips_c}</ul><h2 class="sec-h">Güncel konular</h2><ul class="chips">{_chips_t}</ul>'
       f'<h2 class="sec-h">Arşiv</h2><p><a href="/arsiv/" style="color:var(--gold);text-decoration:underline">2010\'dan bugüne tüm haberler →</a></p>'))
 write("/kaydedilenler/", page("Kaydedilenler", "Bu cihazda kaydettiğiniz haberler.", "/kaydedilenler/",
@@ -943,7 +1090,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if etiket_dizinde(s)] + \
-       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
+       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 def _guncel_iso(p):
     u = p.get("updated")
     if u and "T" in str(u): return str(u)[:16] + ":00+03:00"

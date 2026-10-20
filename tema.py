@@ -286,6 +286,16 @@ footer ul{list-style:none;margin:0;padding:0}footer li a{display:inline-flex;min
 footer .fbrand{display:flex;align-items:center;gap:10px;font:700 24px var(--serif);color:var(--ink);margin-bottom:10px}footer .fbrand svg{color:var(--gold)}
 footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .bnav{display:none}
+.konub{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;font:15px var(--sans)}.konub a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border:1px solid var(--gold);color:var(--gold);border-radius:2px;font-weight:600}
+.mzk{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:6px;background:#122130;padding:14px 18px;margin:0 0 26px;font:15px/1.5 var(--sans)}.mzk b{display:block;margin-bottom:6px}.mzk ul{margin:0 0 6px;padding-left:18px}.mzk li{margin:3px 0}.mzk a{color:var(--gold);text-decoration:underline}.mzk small{color:var(--mute)}
+.konul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.konul a{display:flex;flex-direction:column;gap:6px;height:100%;padding:16px 18px;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:6px;background:var(--card)}
+.konul b{font:700 20px var(--serif)}.konul span{font:15px/1.5 var(--sans);color:var(--mute)}.konul small{margin-top:auto;font:600 13px var(--sans);color:var(--gold)}
+.gecmis{border-top:1px solid var(--line2);margin:8px 0 18px;padding-top:14px;font:15px/1.5 var(--sans)}
+.gecmis h2{font:700 17px var(--sans);margin:0 0 8px}
+.gecmis ol{list-style:none;margin:0 0 8px;padding:0 0 0 14px;border-left:2px solid var(--line)}
+.gecmis li{position:relative;padding:4px 0 8px}.gecmis li:before{content:"";position:absolute;left:-20px;top:11px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.gecmis time{display:block;font-size:13.5px;color:var(--mute)}.gecmis p{margin:0;font-size:14px;color:var(--mute)}.gecmis p a{color:var(--gold)}
 picture{display:contents}
 .karark{border:1px solid var(--line);border-left:4px solid var(--k-yuksek);border-radius:6px;background:#122130;padding:14px 18px;margin:0 0 22px;font:15px/1.5 var(--sans)}
 .karark>b{display:block;margin-bottom:8px;font-size:13px;letter-spacing:.06em;color:var(--k-yuksek)}
@@ -445,7 +455,7 @@ DRAWER = [("/", "Anasayfa", "home"), ("/haber-kategorisi/manset/", "Gündem", "s
           ("/haber-kategorisi/yargi/danistay/", "Danıştay", "building"), ("/haber-kategorisi/siyaset/", "Siyaset", "flag"),
           ("/haber-kategorisi/barolar/", "Barolar", "brief"), ("/haber-kategorisi/universiteler/", "Üniversiteler", "cap"),
           ("/haber-kategorisi/teknoloji/", "Teknoloji", "laptop"), ("/haber-kategorisi/basindan/", "Basından", "paper"),
-          ("/haber-kategorisi/diger/", "Diğer", "grid"), ("/arsiv/", "Arşiv", "archive")]
+          ("/haber-kategorisi/diger/", "Diğer", "grid"), ("/konular/", "Konu dosyaları", "doc"), ("/arsiv/", "Arşiv", "archive")]
 SITE_LINKS = [("/hakkinda/", "Hakkında"), ("/kunye/", "Künye"), ("/yayin-ilkeleri/", "Yayın İlkeleri"), ("/iletisim/", "İletişim"), ("/gizlilik-politikasi/", "Gizlilik ve Çerezler"), ("/kullanim-kosullari/", "Kullanım Koşulları")]
 
 JS = r"""<script>
