@@ -214,8 +214,8 @@ section.blk.tint+section.blk{border-top:0}
 .cols{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:48px;padding:26px 0 40px}
 .cols>aside{border-left:1px solid var(--line2);padding-left:32px}
 .box{margin-bottom:30px}
-.box h3{font:600 20px/1.2 var(--serif);margin:0 0 6px;display:flex;align-items:center;gap:14px}
-.box h3:after{content:"";flex:1;height:1px;background:var(--line)}
+.box h2,.box h3{font:600 20px/1.2 var(--serif);margin:0 0 6px;display:flex;align-items:center;gap:14px}
+.box h2:after,.box h3:after{content:"";flex:1;height:1px;background:var(--line)}
 .box ul{list-style:none;margin:0;padding:0}
 .box li{padding:10px 0;border-bottom:1px solid var(--line2);font:600 16px/1.35 var(--serif)}
 .box li time{display:block;font:600 13px var(--sans);color:var(--gold);margin-bottom:3px}
@@ -281,11 +281,22 @@ h1.sec{font:700 36px/1.15 var(--serif);margin:0 0 6px}.sec-desc{color:var(--mute
 footer.site{background:var(--dark);margin-top:10px;padding:36px 0 26px;font:15px/1.7 var(--sans);color:var(--mute)}
 footer.site a{color:var(--ink)}
 .fcols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:22px}
-footer h4{margin:0 0 10px;font:700 13px var(--sans);text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
+footer h2,footer h4{margin:0 0 10px;font:700 13px var(--sans);text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
 footer ul{list-style:none;margin:0;padding:0}footer li a{display:inline-flex;min-height:32px;align-items:center}
 footer .fbrand{display:flex;align-items:center;gap:10px;font:700 24px var(--serif);color:var(--ink);margin-bottom:10px}footer .fbrand svg{color:var(--gold)}
 footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .bnav{display:none}
+picture{display:contents}
+.karark{border:1px solid var(--line);border-left:4px solid var(--k-yuksek);border-radius:6px;background:#122130;padding:14px 18px;margin:0 0 22px;font:15px/1.5 var(--sans)}
+.karark>b{display:block;margin-bottom:8px;font-size:13px;letter-spacing:.06em;color:var(--k-yuksek)}
+.karark dl{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px}.karark dt{font-size:13px;color:var(--mute)}.karark dd{margin:0;font-weight:600}
+.karark .kk-k{display:inline-block;margin-top:10px;color:var(--gold);text-decoration:underline}
+.cerez{position:fixed;left:16px;bottom:16px;z-index:90;max-width:520px;background:#0B141C;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:6px;padding:14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.45);font:14.5px/1.5 var(--sans)}
+.cerez[hidden]{display:none}.cerez p{margin:0 0 10px}.cerez a{color:var(--gold);text-decoration:underline}
+.cerez div{display:flex;gap:8px;justify-content:flex-end}
+.cerez button,.btn-cerez{min-height:44px;padding:0 16px;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 15px var(--sans);border-radius:3px;cursor:pointer}
+.cerez button{border-color:var(--gold);min-width:104px}
+@media(max-width:767px){.cerez{left:8px;right:8px;max-width:none;bottom:calc(var(--bnav) + env(safe-area-inset-bottom) + 8px)}}
 /* ---------- tablet */
 @media(max-width:1023px){
  header.site{--hst:111px}
@@ -435,7 +446,7 @@ DRAWER = [("/", "Anasayfa", "home"), ("/haber-kategorisi/manset/", "Gündem", "s
           ("/haber-kategorisi/barolar/", "Barolar", "brief"), ("/haber-kategorisi/universiteler/", "Üniversiteler", "cap"),
           ("/haber-kategorisi/teknoloji/", "Teknoloji", "laptop"), ("/haber-kategorisi/basindan/", "Basından", "paper"),
           ("/haber-kategorisi/diger/", "Diğer", "grid"), ("/arsiv/", "Arşiv", "archive")]
-SITE_LINKS = [("/hakkinda/", "Hakkında"), ("/kunye/", "Künye"), ("/yayin-ilkeleri/", "Yayın İlkeleri"), ("/iletisim/", "İletişim"), ("/gizlilik-politikasi/", "Gizlilik")]
+SITE_LINKS = [("/hakkinda/", "Hakkında"), ("/kunye/", "Künye"), ("/yayin-ilkeleri/", "Yayın İlkeleri"), ("/iletisim/", "İletişim"), ("/gizlilik-politikasi/", "Gizlilik ve Çerezler"), ("/kullanim-kosullari/", "Kullanım Koşulları")]
 
 JS = r"""<script>
 (function(){
@@ -451,6 +462,11 @@ dr.addEventListener('keydown',function(e){if(e.key==='Tab'){var f=dr.querySelect
 d.addEventListener('keydown',function(e){if(e.key==='Escape'){if(dr&&!dr.hidden)closeD();var ms=$('#msearch');if(ms&&!ms.hidden){ms.hidden=true;$('.sbtn').setAttribute('aria-expanded','false');$('.sbtn').focus()}}});
 /* üst bar yapışınca küçük logo ve takip düğmesi */
 var hs=$('header.site'),hn=$('.hnav');if(hs&&hn){var yp=function(){var y=-hs.getBoundingClientRect().top>=hn.offsetTop-2;if(y!==hs.classList.contains('yapis')){hs.classList.toggle('yapis',y);hs.querySelectorAll('.mlogo,.rssmini').forEach(function(a){a.tabIndex=y?0:-1})}};addEventListener('scroll',yp,{passive:true});yp()}
+/* çerez tercihi (Consent Mode) */
+(function(){var cz=$('#cerez');if(!cz)return;var v=null;try{v=ls&&ls.getItem('hh:cerez')}catch(e){}
+function sec(x){try{ls&&ls.setItem('hh:cerez',x)}catch(e){}if(window.gtag)gtag('consent','update',{analytics_storage:x==='evet'?'granted':'denied'});cz.hidden=true}
+if(!v)cz.hidden=false;cz.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){sec(b.dataset.c)})});
+var dg=$('#cerezdegis');if(dg)dg.addEventListener('click',function(){cz.hidden=false;var f=cz.querySelector('button');f&&f.focus()})})();
 /* mobil arama */
 var sb=$('.sbtn'),ms=$('#msearch');if(sb&&ms)sb.addEventListener('click',function(){ms.hidden=!ms.hidden;sb.setAttribute('aria-expanded',String(!ms.hidden));if(!ms.hidden)ms.querySelector('input').focus({preventScroll:true})});
 /* canlı arama önerileri: yazarken görseli ve başlığıyla eşleşen haberler */

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """hukukihaberler.com — statik site üretici.
 Eski WordPress adres yapısı korunur; her eski adres 200 ya da 301 döner."""
-import os, re, json, shutil, html, datetime, unicodedata, urllib.parse
+import hashlib, os, re, json, shutil, html, datetime, unicodedata, urllib.parse
 from content1 import POSTS as P1
 from content2 import POSTS as P2
 from content3 import POSTS as P3
@@ -48,24 +48,24 @@ CATS = {
 }
 CAT_BY_NAME = {v[0]: k for k, v in CATS.items()}
 CAT_DESC = {
-    "manset": "Günün öne çıkan hukuk ve yargı haberleri.",
-    "yargi": "Yüksek mahkemeler, Adalet Bakanlığı ve yargı teşkilatına ilişkin haberler.",
-    "yargi/adalet-bakanligi": "Adalet Bakanlığı duyuruları, atamalar ve düzenlemeler.",
-    "yargi/aihm": "Avrupa İnsan Hakları Mahkemesi kararları ve Türkiye'ye ilişkin başvurular.",
-    "yargi/anayasa-mahkemesi": "Anayasa Mahkemesi kararları ve anayasa tartışmaları.",
-    "yargi/danistay": "Danıştay kararları ve idari yargı gündemi.",
-    "yargi/yargitay": "Yargıtay daire ve genel kurul kararları.",
-    "siyaset": "Siyaset gündeminin hukuku ilgilendiren başlıkları.",
-    "teknoloji": "Teknoloji, iletişim ve internet alanındaki hukuki gelişmeler.",
-    "universiteler": "Hukuk fakülteleri, YÖK ve yükseköğretim haberleri.",
-    "barolar": "Barolardan ve avukatlık mesleğinden haberler.",
-    "basindan": "Basına yansıyan hukuk haberlerinin özetleri.",
-    "hukuk-burolarindan": "Hukuk bürolarını ilgilendiren gelişmeler.",
-    "diger": "Hukukla dolaylı ilgili ekonomi, dünya ve gündem haberleri.",
-    "diger/3-sayfa": "Adliyeye yansıyan günlük olaylar.",
-    "diger/dunya": "Dünyadan hukuk ve yargı haberleri.",
-    "diger/ekonomi": "Ekonomi gündeminin hukuki boyutu.",
-    "diger/spor": "Spor dünyasından kısa haberler.",
+    "manset": "Günün öne çıkan hukuk ve yargı haberleri: yüksek mahkeme kararları, Resmî Gazete'deki düzenlemeler ve gündemdeki davaların hukuki boyutu.",
+    "yargi": "Yargıtay, Danıştay, Anayasa Mahkemesi ve AİHM kararları; Adalet Bakanlığı düzenlemeleri, soruşturma ve kovuşturma süreçleri.",
+    "yargi/adalet-bakanligi": "Adalet Bakanlığı duyuruları, yönetmelik değişiklikleri, yargı paketleri, hâkim ve savcı atamaları ile infaz düzenlemeleri.",
+    "yargi/aihm": "Avrupa İnsan Hakları Mahkemesi'nin Türkiye'ye ilişkin kararları, ihlal tespitleri ve bireysel başvuru süreçleri.",
+    "yargi/anayasa-mahkemesi": "Anayasa Mahkemesi iptal kararları, bireysel başvuruda hak ihlali kararları ve Resmî Gazete'de yayımlanan gerekçeler.",
+    "yargi/danistay": "Danıştay daire ve kurul kararları, yürütmeyi durdurma kararları ve idari yargıdaki emsal uyuşmazlıklar.",
+    "yargi/yargitay": "Yargıtay hukuk ve ceza dairelerinin emsal kararları, içtihadı birleştirme kararları ve genel kurul kararları.",
+    "siyaset": "Siyasi gündemin hukuki boyutu: kanun teklifleri, anayasa tartışmaları, seçim mevzuatı ve siyasetçilere ilişkin yargı süreçleri.",
+    "teknoloji": "Kişisel veriler, siber suçlar, erişim engelleri ve dijital platformlara ilişkin düzenlemeler ile bu alandaki yargı kararları.",
+    "universiteler": "YÖK düzenlemeleri, üniversite yönetmelikleri, sınav ve öğrenci haklarına ilişkin kararlar ile hukuk fakültelerinden haberler.",
+    "barolar": "Barolar ve Türkiye Barolar Birliği açıklamaları, avukatlık mevzuatı, staj ve meslek haklarına ilişkin gelişmeler.",
+    "basindan": "Ulusal basına yansıyan hukuk ve yargı haberlerinin kaynak gösterilerek derlenmiş özetleri.",
+    "hukuk-burolarindan": "Hukuk bürolarını ve avukatlık uygulamasını ilgilendiren mevzuat değişiklikleri ve mesleki gelişmeler.",
+    "diger": "Ekonomi, dünya ve gündem haberlerinin hukukla ilgili yönleri; vergi, tüketici ve ticaret mevzuatındaki değişiklikler.",
+    "diger/3-sayfa": "Adliyeye yansıyan olaylar, soruşturmalar ve davalar; masumiyet karinesi gözetilerek aktarılan gelişmeler.",
+    "diger/dunya": "Dünyadan hukuk ve yargı haberleri: uluslararası mahkemeler, yabancı yüksek mahkeme kararları ve karşılaştırmalı hukuk.",
+    "diger/ekonomi": "Ekonomi gündeminin hukuki boyutu: vergi, SGK, sermaye piyasası, rekabet ve tüketici mevzuatındaki değişiklikler.",
+    "diger/spor": "Spor dünyasındaki hukuki uyuşmazlıklar, disiplin kararları ve spor mevzuatındaki değişiklikler.",
 }
 
 LOGO_SVG = open(os.path.join(os.path.dirname(__file__), "static", "logo-mark.svg"), encoding="utf-8").read().replace("<svg ", '<svg class="lmark" width="44" height="44" aria-hidden="true" focusable="false" ', 1)
@@ -88,6 +88,14 @@ def kaynak_goster(p, full):
             '(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).catch(function(){document.execCommand(\'copy\')});'
             'this.textContent=\'Kopyalandı\'">Kopyala</button></div>')
 
+def kisalt(s, n):
+    """Meta açıklaması: n karakteri aşarsa cümle ya da kelime sınırında kısaltır"""
+    s = re.sub(r"\s+", " ", str(s)).strip()
+    if len(s) <= n: return s
+    c = s[:n]
+    i = c.rfind(". ")
+    if i >= n * 0.6: return c[:i + 1]
+    return c[:c.rfind(" ")].rstrip(",;:–-") + "…"
 def trdate(d):
     return f"{d.day} {AYLAR[d.month-1]} {d.year}"
 def write(path, content):
@@ -95,6 +103,7 @@ def write(path, content):
     if path.endswith("/"): full = os.path.join(full, "index.html")
     elif not os.path.splitext(full)[1]: full = os.path.join(full, "index.html")
     os.makedirs(os.path.dirname(full), exist_ok=True)
+    if full.endswith(".html") and "<picture" not in content and "resim_webp" in globals(): content = resim_webp(content)
     with open(full, "w", encoding="utf-8", newline="\n") as f: f.write(content)
 def words(h): return len(re.sub(r"<[^>]+>", " ", h).split())
 
@@ -121,10 +130,56 @@ POSTS.sort(key=lambda p: p["date"], reverse=True)
 assert len({p["slug"] for p in POSTS}) == len(POSTS), "slug tekrarı"
 import images as _images
 for p in POSTS: p["catname"] = CATS[p["catkeys"][0]][0] if p["catkeys"][0] != "manset" or len(p["catkeys"]) == 1 else CATS[p["catkeys"][1]][0]
+# önceki derlemenin WebP dosyalarını önbelleğe al (yeni sunucuda/temiz kopyada yeniden kodlama gerekmesin)
+try:
+    _wo = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "webp"); os.makedirs(_wo, exist_ok=True)
+    for _dp, _, _fs in os.walk(os.path.join(OUT, "gorsel")):
+        for _f in _fs:
+            _j = os.path.join(_dp, _f[:-5] + ".jpg")
+            if _f.endswith(".webp") and os.path.exists(_j):
+                _c = os.path.join(_wo, hashlib.md5(open(_j, "rb").read()).hexdigest() + ".webp")
+                if not os.path.exists(_c): shutil.copyfile(os.path.join(_dp, _f), _c)
+except Exception as _e:
+    print("webp önbellek uyarısı:", _e)
 if os.path.exists(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT)
 _IMG = _images.build(POSTS, os.path.join(OUT, "gorsel"))
 for p in POSTS: p["img"], p["imgkind"], p["credit"] = _IMG[p["slug"]]
+
+# WebP kopyaları: aynı görselin ~%40 daha küçük hâli; <picture> ile sunulur, desteklemeyen tarayıcı JPEG alır.
+# Önbellek içerik özetine göre tutulur, yalnızca yeni/değişen görsel yeniden kodlanır.
+def webp_uret(kok):
+    from PIL import Image as _Im
+    onb = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "webp")
+    os.makedirs(onb, exist_ok=True)
+    n = 0
+    for dp, _, fs in os.walk(kok):
+        for f in fs:
+            if not f.endswith(".jpg"): continue
+            src = os.path.join(dp, f)
+            h = hashlib.md5(open(src, "rb").read()).hexdigest()
+            c = os.path.join(onb, h + ".webp")
+            if not os.path.exists(c):
+                _Im.open(src).convert("RGB").save(c, "WEBP", quality=76, method=5); n += 1
+            shutil.copyfile(c, src[:-4] + ".webp")
+    return n
+try:
+    print("webp yeni:", webp_uret(os.path.join(OUT, "gorsel")))
+except Exception as _e:   # WebP üretilemezse site JPEG ile çalışmaya devam eder
+    print("webp üretilemedi:", _e)
+_WEBP_RE = re.compile(r'<img src="(/gorsel/[^"?]+)\.jpg(\?v=[0-9a-f]+)?"([^>]*)>')
+def _webp(u):
+    return re.sub(r'(/gorsel/[^"?\s]+)\.jpg', r'\1.webp', u)
+def resim_webp(h):
+    """/gorsel/ JPEG'lerini <picture> içine alır: önce WebP, yedek JPEG"""
+    def f(m):
+        yol, v, rest = m.group(1), m.group(2) or "", m.group(3)
+        if not os.path.exists(os.path.join(OUT, yol.lstrip("/") + ".webp")): return m.group(0)
+        ss = re.search(r'srcset="([^"]+)"', rest); sz = re.search(r'sizes="([^"]+)"', rest)
+        kaynak = _webp(ss.group(1)) if ss else f"{yol}.webp{v}"
+        return (f'<picture><source type="image/webp" srcset="{kaynak}"' + (f' sizes="{sz.group(1)}"' if sz else "") + '>'
+                + m.group(0) + '</picture>')
+    return _WEBP_RE.sub(f, h)
 for p in POSTS:
     links = re.findall(re.escape(TARGET), p["body"])
     assert len(links) <= 2, f"{p['slug']}: hedef siteye {len(links)} link (en fazla 2)"
@@ -185,20 +240,28 @@ def sidebar():
     cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span>{cat_count[k]}</span></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
     return f"""<aside aria-label="Yan sütun">
-<div class="box"><h3>Son gelişmeler</h3><ul>{latest}</ul></div>
-<div class="box"><h3>Bölümler</h3><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a><span>{len(POSTS)}</span></li></ul></div>
+<div class="box"><h2>Son gelişmeler</h2><ul>{latest}</ul></div>
+<div class="box"><h2>Bölümler</h2><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a><span>{len(POSTS)}</span></li></ul></div>
 </aside>"""
 
-ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/",
+ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/",
+          "ethicsPolicy": SITE + "/yayin-ilkeleri/", "verificationFactCheckingPolicy": SITE + "/yayin-ilkeleri/#dogrulama",
+          "actionableFeedbackPolicy": SITE + "/iletisim/",
           "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}, "foundingDate": "2010",
           "sameAs": ["https://x.com/HukukiHaberTR"], "masthead": SITE + "/kunye/", "publishingPrinciples": SITE + "/yayin-ilkeleri/", "correctionsPolicy": SITE + "/yayin-ilkeleri/#duzeltme", "email": "iletisim@hukukihaberler.com",
           "contactPoint": {"@type": "ContactPoint", "contactType": "editorial", "email": "iletisim@hukukihaberler.com", "url": SITE + "/iletisim/", "availableLanguage": "tr"}}
+WEBSITE_LD = {"@context": "https://schema.org", "@type": "WebSite", "@id": SITE + "/#site", "url": SITE + "/", "name": NAME,
+              "alternateName": ["HukukiHaberler", "hukukihaberler.com"], "inLanguage": "tr-TR", "publisher": {"@id": SITE + "/#kurum"}}
 
 def _preload(main):
     m = re.search(r'<img src="([^"]+)"(?: srcset="([^"]+)")?(?: sizes="([^"]+)")?[^>]*fetchpriority=.?high', main)
     if not m: return ""
-    ss = f' imagesrcset="{m.group(2)}" imagesizes="{m.group(3)}"' if m.group(2) else ""
-    return f'\n<link rel="preload" as="image" href="{m.group(1)}"{ss} fetchpriority="high">'
+    src, ss_, sz_ = m.group(1), m.group(2), m.group(3)
+    tip = ""
+    if src.startswith("/gorsel/") and os.path.exists(os.path.join(OUT, src.split("?")[0].lstrip("/")[:-4] + ".webp")):
+        src = _webp(src); ss_ = _webp(ss_) if ss_ else ss_; tip = ' type="image/webp"'
+    ss = f' imagesrcset="{ss_}" imagesizes="{sz_}"' if ss_ else ""
+    return f'\n<link rel="preload" as="image" href="{src}"{ss}{tip} fetchpriority="high">'
 
 # Google "tercih edilen kaynak" listesi siteyi tanıyınca True yapılır (google.com/preferences/source?q=hukukihaberler.com sonuç verince)
 GPREF_AKTIF = False
@@ -230,7 +293,9 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
     ldjson = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
     robots = '<meta name="robots" content="noindex,follow">' if noindex else '<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">'
     can = canonical or (SITE + url)
-    full_title = f"{title} | {NAME}" if url != "/" else f"{NAME} | Hukuk, Yargı, Yargıtay, Danıştay ve Mevzuat Haberleri"
+    # uzun haber başlıklarında site adı eklenmez (arama sonucunda kesilmesin; site adı Google'da ayrıca gösterilir)
+    full_title = (title if len(title) > 52 else f"{title} | {NAME}") if url != "/" else f"{NAME} | Hukuk, Yargı, Yargıtay, Danıştay ve Mevzuat Haberleri"
+    desc = kisalt(desc, 160)
     today = datetime.date.today()
     srch = lambda i: f'<form class="hsearch" action="/arama/" method="get" role="search"><label class="sr" for="{i}">Sitede ara</label>{ico("search", 20)}<input id="{i}" name="q" type="search" placeholder="Haber, karar, mevzuat veya konu ara…" autocomplete="off"></form>'
     body = (f'<div class="hwrap"><div class="cols"><main id="icerik">{main}</main>{sidebar()}</div></div>' if side
@@ -240,8 +305,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-84SWYM8295"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','G-84SWYM8295');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}var _cz=null;try{{_cz=localStorage.getItem('hh:cerez')}}catch(e){{}}gtag('consent','default',{{analytics_storage:_cz==='evet'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'}});gtag('js',new Date());gtag('config','G-84SWYM8295');addEventListener('load',function(){{var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-84SWYM8295';document.head.appendChild(s)}});</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(full_title)}</title>
 <meta name="description" content="{e(desc)}">
@@ -300,12 +364,13 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <footer class="site"><div class="hwrap">
 <div class="fcols">
 <div><div class="fbrand">{ico("scale", 30)}Hukuki Haberler</div><p style="margin:0;max-width:440px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, mevzuat değişiklikleri ve gündemin hukuki boyutu.</p></div>
-<div><h4>Bölümler</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}</ul></div>
-<div><h4>Site</h4><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li><li><a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">X: @HukukiHaberTR</a></li></ul></div>
+<div><h2>Bölümler</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}</ul></div>
+<div><h2>Site</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li><li><a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">X: @HukukiHaberTR</a></li></ul></div>
 </div>
 <div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz.</div>
 </div></footer>
 <nav class="bnav" aria-label="Alt menü">{bn("/", "Ana Sayfa", "home")}{bn("/kesfet/", "Keşfet", "compass")}{bn("/kaydedilenler/", "Kaydedilen", "bookmark")}<button type="button" aria-controls="drawer" aria-expanded="false">{ico("menu", 22)}<span>Menü</span></button></nav>
+<div id="cerez" class="cerez" role="region" aria-label="Çerez tercihi" hidden><p>Ziyaret istatistiklerini ölçmek için Google Analytics çerezlerini kullanmak istiyoruz. İzin vermezseniz ölçüm çerezsiz ve kimliksiz yapılır. <a href="/gizlilik-politikasi/#cerezler">Ayrıntılar</a></p><div><button type="button" data-c="hayir">Reddet</button><button type="button" data-c="evet" class="ok">İzin ver</button></div></div>
 {JS}{extra}
 </body>
 </html>"""
@@ -340,7 +405,7 @@ def listing(title, desc, base, items, crumb="", intro="", crumbs=None, noindex=F
                  f'<span>Sayfa {i+1} / {n}</span>' + (f'<a href="{nxt}">Daha eski →</a>' if nxt else '<span></span>') + '</nav>') if n > 1 else ""
         ttl = title if i == 0 else f"{title} – Sayfa {i+1}"
         if base == "/" and i == 0:
-            write(url, page(ttl, desc, url, homepage(chunk), noindex=False, ld=ORG_LD, side=False))
+            write(url, page(ttl, desc, url, homepage(chunk), noindex=False, ld=[ORG_LD, WEBSITE_LD], side=False))
             continue
         head = (f'<div class="crumb">{crumb}</div>' if crumb else "") + f'<h1 class="sec">{e(title)}</h1><p class="sec-desc">{e(desc)}</p>' + intro
         main = head + '<ul class="rows one">' + "".join(row(p, "h2") for p in chunk) + "</ul>" + pager
@@ -459,6 +524,24 @@ INTERNAL = [
  ("kamu görevlisine hakaret", "durusmadaki-savunma-sozleri-suc-olur-mu-imamoglu-sorusturmasi-tck-128"),
 ]
 BY_SLUG = {p["slug"]: p for p in POSTS}
+POST_URLS = {p["url"] for p in POSTS}
+# yayından kalkmış ya da adresi değişmiş haberler: eski adres -> yeni adres (yönlendirme ve iç bağlantılar için)
+ESKI_ADRES = {"/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
+              "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor"}
+_SABIT_YOL = {"arsiv", "analiz", "mevzuat", "kesfet", "hakkinda", "kunye", "iletisim", "yayin-ilkeleri", "gizlilik-politikasi",
+              "kullanim-kosullari", "av-yagmur-tahtasiz", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
+def ic_bag(h):
+    """Metin içi site bağlantıları: yönlendirmeye düşen adresleri doğrudan hedefe çevirir, karşılığı olmayan bağlantıyı kaldırır (metin kalır)"""
+    def f(m):
+        href, rest, txt = m.group(1), m.group(2), m.group(3)
+        yol, ek = (href.split("#", 1) + [""])[:2]
+        ek = ("#" + ek) if ek else ""
+        tek = yol.strip("/")
+        if not tek or "/" in tek or tek.isdigit() or tek in _SABIT_YOL: return m.group(0)
+        if "/" + tek in POST_URLS: return f'<a href="/{tek}{ek}"{rest}>{txt}</a>'
+        if "/" + tek in ESKI_ADRES: return f'<a href="{ESKI_ADRES["/" + tek]}{ek}"{rest}>{txt}</a>'
+        return txt
+    return re.sub(r'<a href="(/[^"]*)"([^>]*)>(.*?)</a>', f, h, flags=re.S)
 def autolink(p, limit=3):
     body, n, used = p["body"], 0, set()
     for phrase, slug in INTERNAL:
@@ -475,6 +558,18 @@ def autolink(p, limit=3):
             body = body[:m.start()] + f'<a href="{q["url"]}">{m.group(0)}</a>' + body[m.end():]
             n += 1; used.add(slug); break
     return body
+
+KARAR_ALANLARI = [("mahkeme", "Mahkeme"), ("daire", "Daire"), ("esas", "Esas no"), ("karar_no", "Karar no"), ("tarih", "Karar tarihi"),
+                  ("konu", "Konu"), ("uyusmazlik", "Uyuşmazlık"), ("sonuc", "Sonuç"), ("etki", "Pratik etkisi")]
+def karar_html(p):
+    """Mahkeme kararı künyesi: yalnızca kaynakta açıkça yer alan alanlar yazılır, olmayan alan gösterilmez"""
+    k = p.get("karar")
+    if not isinstance(k, dict): return ""
+    sat = "".join(f"<div><dt>{ad}</dt><dd>{e(str(k[a]))}</dd></div>" for a, ad in KARAR_ALANLARI if str(k.get(a) or "").strip())
+    if not sat: return ""
+    u = str(k.get("kaynak") or "")
+    kay = f'<a class="kk-k" href="{e(u)}" target="_blank" rel="noopener">Karar metni (resmî kaynak)</a>' if u.startswith("https://") else ""
+    return f'<aside class="karark" aria-label="Karar künyesi"><b>Karar künyesi</b><dl>{sat}</dl>{kay}</aside>\n'
 
 def ozet_html(p):
     o = p.get("ozet")
@@ -597,7 +692,7 @@ for idx, p in enumerate(POSTS):
           "isAccessibleForFree": True, "image": {"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630},
           "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
-          "publisher": {"@type": "Organization", "name": NAME, "url": SITE, "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
+          "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
     k0 = topcat(p)
     crumbs = [("/", "Anasayfa")] + ([(f"/haber-kategorisi/{CATS[k0][1]}/", CATS[CATS[k0][1]][0])] if CATS[k0][1] else []) + [(f"/haber-kategorisi/{k0}/", CATS[k0][0]), (p["url"], p["title"])]
     crumb = " › ".join(f'<a href="{u}">{e(n)}</a>' for u, n in crumbs[:-1])
@@ -606,7 +701,7 @@ for idx, p in enumerate(POSTS):
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
-{ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
+{ozet_html(p)}{karar_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, ic_bag(autolink(p))))}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
@@ -666,6 +761,10 @@ write("/arama/", page("Arama", "Hukuki Haberler içinde haber, karar ve mevzuat 
 
 # etiketler
 ETIKET_ALT_SINIR = 3   # bundan az haberi olan etiket sayfası dizine girmez, sitemap'e eklenmez
+_KAT_ADLARI = {v[0].casefold() for v in CATS.values()}
+def etiket_dizinde(s):
+    d = tag_posts[s]
+    return len(d["posts"]) >= ETIKET_ALT_SINIR and d["name"].casefold() not in _KAT_ADLARI   # kategoriyle aynı adlı etiket kategori sayfasının kopyasıdır
 tag_posts = {}
 for p in POSTS:
     for t, s in zip(p["tags"], p["tagslugs"]):
@@ -673,14 +772,14 @@ for p in POSTS:
 for s, d in tag_posts.items():
     items = sorted(d["posts"], key=lambda p: p["date"], reverse=True)
     crumb = f'<a href="/">Anasayfa</a> › Etiket'
-    listing(f"{d['name']}", f"“{d['name']}” etiketli haberler.", f"/haber-etiketi/{s}/", items, crumb=crumb,
-            noindex=len(items) < ETIKET_ALT_SINIR)   # tek-iki haberli etiket sayfaları zayıf içerik sayılır
+    listing(f"{d['name']}", kisalt(f"“{d['name']}” konusunda yayımlanan {len(items)} haber ve analiz. Son gelişme: {items[0]['title']}", 158), f"/haber-etiketi/{s}/", items, crumb=crumb,
+            noindex=not etiket_dizinde(s))   # tek-iki haberli ya da kategoriyle aynı adlı etiket sayfaları dizine girmez
 
 # aylık arşiv
 months = {}
 for p in POSTS: months.setdefault((p["date"].year, p["date"].month), []).append(p)
 for (y, m), items in months.items():
-    listing(f"{AYLAR[m-1]} {y}", f"{AYLAR[m-1]} {y} ayında yayımlanan haberler.", f"/{y}/{m:02d}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a> › {y}')
+    listing(f"{AYLAR[m-1]} {y}", f"{AYLAR[m-1]} {y} ayında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi.", f"/{y}/{m:02d}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a> › {y}')
 years = sorted({y for y, _ in months})
 # yazısı olmayan aylar → yıl arşivi; yazısı olmayan yıllar → genel arşiv
 for y in range(2010, 2019):
@@ -692,12 +791,12 @@ for y in range(2010, 2019):
         REDIRECTS.append((f"/{y}", "/arsiv/")); REDIRECTS.append((f"/{y}/*", "/arsiv/"))
 for y in years:
     items = [p for p in POSTS if p["date"].year == y]
-    listing(f"{y} yılı haberleri", f"{y} yılında yayımlanan haberler.", f"/{y}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a>')
+    listing(f"{y} yılı haberleri", f"{y} yılında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi; aylara göre arşiv.", f"/{y}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a>')
 arch = ""
 for y in sorted(years, reverse=True):
-    arch += f'<ul><b>{y}</b>' + "".join(f'<li><a href="/{yy}/{mm:02d}/">{AYLAR[mm-1]}</a> ({len(months[(yy,mm)])})</li>' for (yy, mm) in sorted(months, reverse=True) if yy == y) + "</ul>"
+    arch += f'<ul><b><a href="/{y}/">{y}</a></b>' + "".join(f'<li><a href="/{yy}/{mm:02d}/">{AYLAR[mm-1]}</a> ({len(months[(yy,mm)])})</li>' for (yy, mm) in sorted(months, reverse=True) if yy == y) + "</ul>"
 all_list = "".join(f'<li><time>{trdate(p["date"])}</time> — <a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS)
-write("/arsiv/", page("Arşiv", "Hukuki Haberler arşivi: aylara göre tüm haberler.", "/arsiv/",
+write("/arsiv/", page("Arşiv", "Hukuki Haberler arşivi: 2010'dan bu yana yayımlanan tüm hukuk, yargı ve mevzuat haberleri, yıllara ve aylara göre.", "/arsiv/",
       f'<h1 class="sec">Arşiv</h1><p class="sec-desc">Yayımlanan tüm haberler, aylara göre.</p><div class="arch">{arch}</div><h2 style="font-size:20px;margin-top:24px">Tüm haberler</h2><ul style="font:15px/1.7 Arial,sans-serif;padding-left:18px">{all_list}</ul>'))
 
 # sabit sayfalar
@@ -718,8 +817,24 @@ ILETISIM = """<p class="lead">Hukuki Haberler bağımsız bir yayın sitesidir; 
 <p>Site, somut dosyalar hakkında görüş vermez. Bir uyuşmazlık için bulunduğunuz ildeki bir avukata ya da baroların adli yardım bürolarına başvurabilirsiniz. Baro iletişim bilgileri <a href="https://www.barobirlik.org.tr/" rel="noopener" target="_blank">Türkiye Barolar Birliği</a> sitesinde yer alır.</p>"""
 write("/iletisim/", page("İletişim", "Hukuki Haberler iletişim: düzeltme bildirimi, kaynaklar ve hukuki danışmanlık için başvurulabilecek yerler.", "/iletisim/",
       f'<article class="post static"><h1>İletişim</h1><div class="body">{ILETISIM}</div></article>'))
-GIZ = """<p class="lead">Bu site ziyaretçilerinden kişisel veri toplamaz.</p>
-<p>Sitede üyelik, yorum ya da form bulunmaz; reklam veya takip amaçlı çerez kullanılmaz. Ziyaret sayıları, çerez kullanmayan ve bireysel ziyaretçiyi tanımlamayan Cloudflare Web Analytics ile toplu olarak ölçülür. Barındırma altyapısı, güvenlik ve performans amacıyla IP adresi ve istek zamanı gibi teknik kayıtları kısa süreli tutabilir; bu kayıtlar kimlik tespiti için kullanılmaz. Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları) kendi gizlilik politikalarına tabidir.</p>"""
+GIZ = """<p class="lead">Bu sayfa, Hukuki Haberler'i ziyaret ettiğinizde hangi verilerin işlendiğini ve çerez tercihinizi nasıl değiştirebileceğinizi açıklar.</p>
+<h2>Toplanan veriler</h2>
+<p>Sitede üyelik, yorum ve iletişim formu yoktur; ad, e-posta gibi kimlik bilgisi istenmez. Bize e-posta gönderirseniz, e-posta adresiniz ve mesajınız yalnızca yanıt vermek ve düzeltme taleplerini değerlendirmek için kullanılır.</p>
+<h2 id="cerezler">Çerezler ve ziyaret ölçümü</h2>
+<ul class="liste">
+<li><b>Google Analytics 4 (Google LLC):</b> Hangi haberlerin okunduğunu ve ziyaretçilerin siteye nereden geldiğini toplu olarak ölçmek için kullanılır. Analiz çerezleri (<code>_ga</code>, <code>_ga_*</code>) <b>yalnızca izin verirseniz</b> tarayıcınıza yazılır. İzin vermezseniz Google'a çerez ve tanımlayıcı içermeyen, kimliksiz ölçüm sinyalleri gönderilir. Reklam ve kişiselleştirme amaçlı izinler her durumda kapalıdır. Veriler Google tarafından yurt dışındaki sunucularda işlenebilir.</li>
+<li><b>Cloudflare Web Analytics:</b> Çerez kullanmayan, bireysel ziyaretçiyi tanımlamayan toplu sayfa görüntüleme ölçümüdür.</li>
+<li><b>Tarayıcı depolaması:</b> "Kaydedilenler" listesi, ankette oy verdiğiniz bilgisi ve çerez tercihiniz yalnızca kendi tarayıcınızda (localStorage) saklanır; sunucuya gönderilmez.</li>
+</ul>
+<p><button type="button" class="btn-cerez" id="cerezdegis">Çerez tercihimi değiştir</button></p>
+<h2>Okur anketleri</h2>
+<p>Bazı haberlerdeki anketlerde verilen oylar toplu sayı olarak tutulur. Aynı ankete kısa sürede tekrar oy verilmesini önlemek için IP adresinizden türetilen ve geri çevrilemeyen bir özet 24 saat saklanır; IP adresinin kendisi kaydedilmez.</p>
+<h2>Barındırma ve güvenlik kayıtları</h2>
+<p>Site Cloudflare altyapısında barındırılır. Barındırma hizmeti, güvenlik ve performans amacıyla IP adresi ve istek zamanı gibi teknik kayıtları kısa süreli tutabilir; bu kayıtlar tarafımızca kimlik tespiti için kullanılmaz.</p>
+<h2>Dış bağlantılar</h2>
+<p>Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları, X) ve paylaşım düğmeleri ilgili sitelerin kendi gizlilik politikalarına tabidir. Paylaşım düğmeleri siz tıklamadıkça bu sitelere veri göndermez.</p>
+<h2>Haklarınız ve iletişim</h2>
+<p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki talepleriniz için <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine yazabilirsiniz.</p>"""
 KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan bağımsız bir hukuk haber sitesidir. Ticari bir kuruluşa, hukuk bürosuna ya da baroya bağlı değildir.</p>
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
@@ -734,8 +849,19 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <p>Sitedeki metinler kaynak gösterilmek ve bağlantı verilmek şartıyla alıntılanabilir; bütün hâlinde kopyalanamaz.</p>"""
 write("/kunye/", page("Künye", "Hukuki Haberler künye: yayın ilkeleri, yazı işleri, düzeltme ve telif esasları.", "/kunye/",
       f'<article class="post static"><h1>Künye</h1><div class="body">{KUNYE}</div></article>'))
-write("/gizlilik-politikasi/", page("Gizlilik Politikası", "Hukuki Haberler gizlilik politikası: çerez kullanılmaz, kişisel veri toplanmaz.", "/gizlilik-politikasi/",
-      f'<article class="post static"><h1>Gizlilik Politikası</h1><div class="body">{GIZ}</div></article>', noindex=True))
+write("/gizlilik-politikasi/", page("Gizlilik ve Çerez Politikası", "Hukuki Haberler gizlilik ve çerez politikası: hangi verilerin işlendiği, Google Analytics çerezleri ve çerez tercihinin değiştirilmesi.", "/gizlilik-politikasi/",
+      f'<article class="post static"><h1>Gizlilik ve Çerez Politikası</h1><div class="body">{GIZ}</div></article>'))
+KOSUL = """<p class="lead">Hukuki Haberler'i kullanan herkes aşağıdaki koşulları kabul etmiş sayılır.</p>
+<h2>İçeriğin niteliği</h2>
+<p>Sitedeki haber ve analizler genel bilgilendirme amaçlıdır; hukuki görüş, danışmanlık ya da avukat-müvekkil ilişkisi oluşturmaz. Süre, oran ve tutar gibi bilgiler yazının yayın tarihindeki mevzuatı yansıtır ve sonradan değişmiş olabilir. Somut bir uyuşmazlıkta bir avukata başvurulmalı, güncel ve bağlayıcı bilgi için yazının altında bağlantısı verilen resmî kaynaklar esas alınmalıdır.</p>
+<h2>Alıntı ve telif</h2>
+<p>Metinler, kaynak gösterilmek ve ilgili habere bağlantı verilmek şartıyla kısmen alıntılanabilir; bütün hâlinde kopyalanamaz, çoğaltılamaz ve başka bir sitede yayımlanamaz. Görseller kendi lisanslarına tabidir; fotoğrafçı ve lisans bilgisi görselin altında yer alır.</p>
+<h2>Dış bağlantılar</h2>
+<p>Haberlerde verilen dış bağlantıların içeriğinden ilgili siteler sorumludur.</p>
+<h2>Düzeltme ve iletişim</h2>
+<p>Hatalı olduğunu düşündüğünüz bilgiler için <a href="/yayin-ilkeleri/#duzeltme">düzeltme politikamıza</a> bakabilir, <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine yazabilirsiniz. Kişisel verilere ilişkin esaslar <a href="/gizlilik-politikasi/">Gizlilik ve Çerez Politikası</a> sayfasındadır.</p>"""
+write("/kullanim-kosullari/", page("Kullanım Koşulları", "Hukuki Haberler kullanım koşulları: içeriğin niteliği, alıntı ve telif kuralları, dış bağlantılar ve düzeltme.", "/kullanim-kosullari/",
+      f'<article class="post static"><h1>Kullanım Koşulları</h1><div class="body">{KOSUL}</div></article>'))
 
 YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini hukukçu olmayan okurun da anlayabileceği açıklıkta, kaynağı gösterilmiş ve tarihli biçimde aktarmaktır.</p>
 <h2>Kapsam ve hedef kitle</h2>
@@ -746,7 +872,7 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <p>Mümkün olan her durumda birincil kaynağa dayanırız: mevzuat metni, Resmî Gazete, mahkeme kararı, kamu kurumu açıklaması. İkincil kaynak (basın kuruluşu, ajans) kullanıldığında haberin altında bağlantısıyla belirtilir. İddia iddia olarak; soruşturma, kovuşturma, mahkûmiyet ve kesinleşme kavramları birbirinden ayrılarak yazılır. Soruşturma aşamasındaki kişiler için masumiyet karinesi esastır. Çocukların ve hassas durumdaki kişilerin kimlikleri yayımlanmaz.</p>
 <h2 id="duzeltme">Düzeltme, güncelleme ve tekzip</h2>
 <p>Hatalı olduğu tespit edilen bilgi kaynağıyla doğrulandığında düzeltilir; ilk yayın tarihi korunur, güncelleme tarihi ve neyin değiştiği yazının içinde belirtilir. Tekzip talepleri 5187 sayılı Basın Kanunu çerçevesinde değerlendirilir. Bildirimler <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine gönderilebilir.</p>
-<h2>Doğrulama</h2>
+<h2 id="dogrulama">Doğrulama</h2>
 <p>Her metindeki tarih, sayı, madde numarası ve alıntı yayımlanmadan önce kaynağına bakılarak kontrol edilir; kaynağı doğrulanamayan bilgi yayımlanmaz.</p>
 <h2 id="yontem">Çalışma yöntemi ve yazılım araçları</h2>
 <p>Gündemi izlemek, resmî kaynaklardaki yeni duyuruları tespit etmek ve haber taslaklarını hazırlamak için yazılım araçlarından yararlanırız. Anlık gelişmelere ilişkin haberler editör onayıyla yayımlanır. Bu yolla hazırlanan tüm metinler kaynak, tarafsızlık ve doğrulama ilkelerimize göre denetlenir; dayanılan kaynak geri çekildiğinde ya da bir hata tespit edildiğinde düzeltme politikamız uygulanır.</p>
@@ -816,17 +942,25 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 # sitemap
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
-       [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if len(tag_posts[s]["posts"]) >= ETIKET_ALT_SINIR] + \
-       [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
-lm = {p["url"]: (iso(p) if p.get("saat") else p["date"].isoformat()) for p in POSTS}
+       [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if etiket_dizinde(s)] + \
+       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
+def _guncel_iso(p):
+    u = p.get("updated")
+    if u and "T" in str(u): return str(u)[:16] + ":00+03:00"
+    if u: return str(u)
+    return iso(p) if p.get("saat") else p["date"].isoformat()
+lm = {p["url"]: _guncel_iso(p) for p in POSTS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls) + "</urlset>\n"
 with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f: f.write(sm)
 # Google News sitemap: yalnızca son 2 günde yayımlananlar
-_lim = datetime.date.today() - datetime.timedelta(days=2)
+_tz = datetime.timezone(datetime.timedelta(hours=3))
+_lim = datetime.datetime.now(_tz) - datetime.timedelta(hours=48)
+def _yayin_an(p):
+    return datetime.datetime.fromisoformat(iso(p)) if p.get("saat") else datetime.datetime.combine(p["date"], datetime.time(9, 0), _tz)
 nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">\n' + "".join(
     f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{iso(p) if p.get('saat') else p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news></url>\n"
-    for p in POSTS if p["date"] >= _lim) + "</urlset>\n"
+    for p in POSTS if _yayin_an(p) >= _lim) + "</urlset>\n"
 with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
     f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/news-sitemap.xml\n")
@@ -840,8 +974,7 @@ REDIRECTS += [("/search/*", "/"), ("/wp-login.php", "/"), ("/wp-admin/*", "/"), 
               ("/cep-telefonu-faturasina-ust-limit-geliyor.html/cep-telefonu", "/cep-telefonu-faturasina-ust-limit-geliyor"),
               ("/turkcell-superlig-bugun-basliyor.html", "/super-toto-ligi-bugun-basliyor"),
               ("/ese-eve-don-cagrisi-15-tl.html", "/ese-‘eve-don’-cagrisi-15-tl"), ("/osd.xml", "/"),
-              ("/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi", "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler/"),
-              ("/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor", "/spk-baskani-gorevden-alindi-ne-anlama-geliyor/"),
+              *ESKI_ADRES.items(),
               ("/haber-hukuk/:tag", "/haber-etiketi/:tag/")]   # dikkat: /haber-etiketi/* gibi joker kurallar gerçek sayfaları da yönlendirir
 # arşivde olup artık karşılığı olmayan etiket adresleri → anasayfa (statik, :tag kuralından önce gelsin)
 try:
@@ -859,12 +992,16 @@ def enc(u): return urllib.parse.quote(u, safe="/:*?=&")
 for a, b in REDIRECTS:
     a = a.rstrip("/") or "/"   # Pages sondaki eğik çizgiyi kendisi eşler; tekrarları at
     if a in seen or a == b.rstrip("/"): continue
+    if b.endswith("/") and b.rstrip("/") in POST_URLS: b = b.rstrip("/")
     seen.add(a); lines.append(f"{enc(a)} {enc(b)} 301")
 with open(os.path.join(OUT, "_redirects"), "w", encoding="utf-8") as f: f.write("\n".join(lines) + "\n")
 with open(os.path.join(OUT, "_routes.json"), "w", encoding="utf-8") as f:
     f.write('{"version":1,"include":["/api/*"],"exclude":[]}')
 with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
-    f.write("/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: SAMEORIGIN\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n")
+    f.write("/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: SAMEORIGIN\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
+            "  Strict-Transport-Security: max-age=31536000\n  Cross-Origin-Opener-Policy: same-origin\n"
+            "/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n"
+            "/gorsel/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n")
 
 # özet
 n_files = sum(len(fs) for _, _, fs in os.walk(OUT))
