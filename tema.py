@@ -289,6 +289,18 @@ footer ul{list-style:none;margin:0;padding:0}footer li a{display:inline-flex;min
 footer .fbrand{display:flex;align-items:center;gap:10px;font:700 24px var(--serif);color:var(--ink);margin-bottom:10px}footer .fbrand svg{color:var(--gold)}
 footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .bnav{display:none}
+.yzr{background:#122130;border:1px solid var(--line);border-radius:8px;padding:14px 16px 6px}
+.yzr h2 a{color:var(--ink)}.yzr h2 a:hover{color:var(--gold)}
+.yzr ul{list-style:none;margin:0;padding:0}.yzr li{display:flex;gap:14px;align-items:center;padding:12px 0}.yzr li+li{border-top:1px solid var(--line2)}
+.yzr .yz-f{flex:none}.yzr img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);display:block}
+.yzr .yz-ad{display:block;font:700 13.5px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.yzr small{display:block;margin-top:2px;font:600 14px/1.35 var(--sans);color:var(--ink)}
+.yzr .yz-son{display:block;margin-top:3px;font:14px/1.35 var(--serif);color:var(--mute)}.yzr a.yz-son:hover{color:var(--gold)}
+.yzl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.yzl a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;height:100%;padding:22px 20px;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:8px;background:var(--card)}
+.yzl a:hover{color:var(--ink);border-color:var(--gold)}
+.yzl img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin-bottom:6px}
+.yzl b{font:700 20px var(--serif)}.yzl small{font:600 14px var(--sans);color:var(--gold)}.yzl span{font:15px/1.55 var(--sans);color:var(--mute)}
 .kf{max-width:900px;margin:0 auto}
 .kf-lead{font:400 19px/1.55 var(--serif);color:#D5DEE7;margin:4px 0 18px;max-width:640px}
 .kf-say{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -500,7 +512,7 @@ DRAWER = [("/", "Anasayfa", "home"), ("/haber-kategorisi/manset/", "Gündem", "s
           ("/haber-kategorisi/barolar/", "Barolar", "brief"), ("/haber-kategorisi/universiteler/", "Üniversiteler", "cap"),
           ("/haber-kategorisi/teknoloji/", "Teknoloji", "laptop"), ("/haber-kategorisi/basindan/", "Basından", "paper"),
           ("/haber-kategorisi/diger/", "Diğer", "grid"), ("/konular/", "Konu dosyaları", "doc"), ("/arsiv/", "Arşiv", "archive")]
-SITE_LINKS = [("/hakkinda/", "Hakkında"), ("/kunye/", "Künye"), ("/yayin-ilkeleri/", "Yayın İlkeleri"), ("/iletisim/", "İletişim"), ("/gizlilik-politikasi/", "Gizlilik ve Çerezler"), ("/kullanim-kosullari/", "Kullanım Koşulları")]
+SITE_LINKS = [("/hakkinda/", "Hakkında"), ("/kunye/", "Künye"), ("/yazarlar/", "Yazarlar"), ("/yayin-ilkeleri/", "Yayın İlkeleri"), ("/iletisim/", "İletişim"), ("/gizlilik-politikasi/", "Gizlilik ve Çerezler"), ("/kullanim-kosullari/", "Kullanım Koşulları")]
 
 JS = r"""<script>
 (function(){

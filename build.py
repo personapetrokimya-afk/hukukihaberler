@@ -16,7 +16,11 @@ NAME = "Hukuki Haberler"
 YAZARLAR = {
     "yagmur-tahtasiz": {"ad": "Av. Yağmur Tahtasız", "kisi": "Yağmur Tahtasız", "url": "/av-yagmur-tahtasiz/",
                         "foto": "https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg",
+                        "alan": "Boşanma ve aile hukuku",
                         "bio": "İzmir Barosu'na kayıtlı avukat. Anadolu Üniversitesi Hukuk Fakültesi mezunu; 2022'den bu yana aile ve boşanma hukuku ağırlıklı olarak avukatlık yapıyor. Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütüyor."},
+    "umut-tekin": {"ad": "Av. Umut Tekin", "kisi": "Umut Tekin", "url": "/av-umut-tekin/", "foto": "/yazar/av-umut-tekin.jpg",
+                   "alan": "Ceza ve ağır ceza hukuku",
+                   "bio": "İzmir Barosu'na kayıtlı avukat; 2019'dan bu yana ağırlıklı olarak ceza ve ağır ceza yargılamasında avukatlık yapıyor. Hukuki Haberler'de yazar ve editör olarak ceza hukuku alanındaki haber ve analizleri izliyor."},
 }
 TAGLINE = "Hukuk, yargı ve mevzuat gündemi"
 OUT = os.path.join(os.path.dirname(__file__), "site")
@@ -325,12 +329,23 @@ def meta(p, date=True, cat=False):
     if cat: s += f'<span class="mc">{e(CATS[topcat(p)][0])}</span>'
     return f'<div class="meta">{s}</div>'
 
+def yazarlar_kutu(baslik="h2"):
+    """yazarlar: fotoğraf, ad, uzmanlık alanı ve (varsa) son yazısı"""
+    s = []
+    for k, y in YAZARLAR.items():
+        son = next((q for q in POSTS if q.get("yazar") == k), None)
+        alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
+        s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy"></a>'
+                 f'<div><a class="yz-ad" href="{y["url"]}">{e(y["ad"])}</a><small>{e(y["alan"])}</small>{alt if son else ""}</div></li>')
+    return (f'<div class="box yzr"><{baslik}><a href="/yazarlar/">Yazarlar</a></{baslik}><ul>{"".join(s)}</ul></div>')
+
 def sidebar():
     latest = "".join(f'<li class="m">{mini(p)}<div><time datetime="{iso(p)}">{kisa(p["date"])}{(" · " + p["saat"]) if p.get("saat") else ""}</time><a href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in POSTS[:6])
     cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span>{cat_count[k]}</span></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
     return f"""<aside aria-label="Yan sütun">
 <div class="box"><h2>Son gelişmeler</h2><ul>{latest}</ul></div>
+{yazarlar_kutu()}
 <div class="box"><h2>Bölümler</h2><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a><span>{len(POSTS)}</span></li></ul></div>
 </aside>"""
 
@@ -539,7 +554,7 @@ def homepage(chunk):
         top = [x for x in sorted(tc.items(), key=lambda x: (-x[1][1], x[1][0])) if x[1][1] >= 2][:5]
         topics = "".join(f'<li><a href="/haber-etiketi/{s_}/">{e(t)}</a><small>{n} haber</small></li>' for s_, (t, n) in top)
         duo = (f'<section class="blk duo tint"><div><h2 class="sec-h">Analiz</h2><div class="an-list">{an}</div></div>'
-               + (f'<aside aria-label="Gündemdeki konular"><h2 class="sec-h">Gündemdeki konular</h2><ol class="topics">{topics}</ol></aside>' if topics else "") + '</section>')
+               + (f'<aside aria-label="Gündemdeki konular"><h2 class="sec-h">Gündemdeki konular</h2><ol class="topics">{topics}</ol>{yazarlar_kutu()}</aside>' if topics else "") + '</section>')
     son = f'<section class="blk"><h2 class="sec-h">Diğer haberler<a class="all" href="/arsiv/">Tümü</a></h2><ul class="rows">{"".join(row(p) for p in more)}</ul></section>' if more else ""
     secs = ""
     for k, label in (("yargi", "Yargı"), ("siyaset", "Siyaset"), ("diger", "Ekonomi ve Gündem"), ("teknoloji", "Teknoloji")):
@@ -619,7 +634,7 @@ POST_URLS = {p["url"] for p in POSTS}
 ESKI_ADRES = {"/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
               "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor"}
 _SABIT_YOL = {"arsiv", "analiz", "mevzuat", "kesfet", "hakkinda", "kunye", "iletisim", "yayin-ilkeleri", "gizlilik-politikasi",
-              "kullanim-kosullari", "av-yagmur-tahtasiz", "konu", "konular", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
+              "kullanim-kosullari", "av-yagmur-tahtasiz", "av-umut-tekin", "yazarlar", "konu", "konular", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
 def ic_bag(h):
     """Metin içi site bağlantıları: yönlendirmeye düşen adresleri doğrudan hedefe çevirir, karşılığı olmayan bağlantıyı kaldırır (metin kalır)"""
     def f(m):
@@ -1039,7 +1054,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
 <h2>Yazı işleri</h2>
-<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi: <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a>. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
+<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi (boşanma ve aile hukuku): <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a>. Yazar ve editör (ceza ve ağır ceza hukuku): <a href="/av-umut-tekin/">Av. Umut Tekin</a>. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine iletilebilir.</p>
 <h2>İletişim</h2>
@@ -1077,7 +1092,7 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <h2 id="yontem">Çalışma yöntemi ve yazılım araçları</h2>
 <p>Gündemi izlemek, resmî kaynaklardaki yeni duyuruları tespit etmek ve haber taslaklarını hazırlamak için yazılım araçlarından yararlanırız. Anlık gelişmelere ilişkin haberler editör onayıyla yayımlanır. Bu yolla hazırlanan tüm metinler kaynak, tarafsızlık ve doğrulama ilkelerimize göre denetlenir; dayanılan kaynak geri çekildiğinde ya da bir hata tespit edildiğinde düzeltme politikamız uygulanır.</p>
 <h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
-<p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> yürütür. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
+<p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> (boşanma ve aile hukuku), ceza ve ağır ceza hukuku alanındaki yazı ve editörlük işlerini <a href="/av-umut-tekin/">Av. Umut Tekin</a> yürütür. Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesi için de aşağıdaki bağlantı ilkesi geçerlidir. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
 <h2>Reklam, sponsorluk ve bağımsızlık</h2>
 <p>Sitede şu an reklam ve sponsorlu içerik bulunmamaktadır. İleride reklam alınması hâlinde reklam alanları haber metninden görsel olarak ayrılacak ve "Reklam" ibaresi taşıyacaktır. Hiçbir kurum veya kişi, ödeme karşılığında bir haberin içeriğini belirleyemez. Yazılarda hukuki bilgiye kaynak olarak bağlantı verilen dış sitelerle ilişkiler bu sayfada açıklanır.</p>
 <h2>Görseller</h2>
@@ -1118,8 +1133,53 @@ AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız"
 <li><a href="https://www.linkedin.com/in/yagmurtahtasiz" rel="noopener" target="_blank">LinkedIn</a></li>
 </ul>"""
 write(AV_URL, page("Av. Yağmur Tahtasız", "Av. Yağmur Tahtasız: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler hukuk danışmanı ve içerik denetimi sorumlusu.", AV_URL,
-      f'<article class="post static"><h1>Av. Yağmur Tahtasız</h1><p class="sec-desc">Hukuk danışmanı ve içerik denetimi</p><div class="body">{AV}</div></article>',
-      ld=AV_LD, ogtype="profile", crumbs=[("/", "Anasayfa"), ("/kunye/", "Künye"), (AV_URL, "Av. Yağmur Tahtasız")]))
+      f'<article class="post static"><h1>Av. Yağmur Tahtasız</h1><p class="sec-desc">Hukuk danışmanı ve içerik denetimi · Boşanma ve aile hukuku</p><div class="body">{AV}</div></article>',
+      ld=AV_LD, ogtype="profile", crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (AV_URL, "Av. Yağmur Tahtasız")]))
+
+# yazar ve editör: Av. Umut Tekin (bilgiler umuttekin.av.tr üzerinden doğrulanmıştır)
+UT_URL = "/av-umut-tekin/"
+UT_FOTO = "/yazar/av-umut-tekin.jpg"
+UT_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + UT_URL, "name": "Av. Umut Tekin",
+         "mainEntity": {"@type": "Person", "@id": SITE + UT_URL + "#kisi", "name": "Umut Tekin", "honorificPrefix": "Av.",
+                        "jobTitle": "Avukat", "description": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'de ceza ve ağır ceza hukuku alanında yazar ve editör.",
+                        "image": SITE + UT_FOTO, "url": SITE + UT_URL,
+                        "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
+                        "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
+                        "workLocation": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "Bayraklı", "addressRegion": "İzmir", "addressCountry": "TR"}},
+                        "knowsAbout": ["Ceza hukuku", "Ağır ceza yargılaması", "Uyuşturucu suçları", "Dolandırıcılık suçları", "Örgüt davaları"],
+                        "knowsLanguage": ["tr", "en"],
+                        "sameAs": ["https://umuttekin.av.tr/", "https://umuttekin.av.tr/avukat-umut-tekin/", "https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233", "https://www.instagram.com/av.umut.tekin/"]}}
+_utp = [q for q in POSTS if q.get("yazar") == "umut-tekin"]
+UT_YAZILAR = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in _utp) + "</ul>") if _utp else ""
+UT = f"""<figure class="avfoto"><img src="{UT_FOTO}" alt="Av. Umut Tekin" width="240" height="240" loading="lazy" decoding="async"></figure>
+<p class="lead">Av. Umut Tekin, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'de ceza ve ağır ceza hukuku alanında yazar ve editör olarak görev yapar.</p>
+<h2>Meslek</h2>
+<ul class="liste">
+<li><b>Baro:</b> İzmir Barosu (sicil no 17343)</li>
+<li><b>Mesleğe başlama:</b> 2019</li>
+<li><b>Çalışma alanı:</b> Ağırlıklı olarak ceza ve ağır ceza yargılaması; uyuşturucu suçları, dolandırıcılık suçları ve örgüt davaları. Soruşturma aşamasından istinaf ve temyize kadar ceza dosyalarında müdafi ya da suçtan zarar görenin vekili olarak çalışır.</li>
+<li><b>Yabancı dil:</b> İngilizce</li>
+<li><b>Büro:</b> Bayraklı, İzmir</li>
+</ul>
+<h2>Hukuki Haberler'deki görevi</h2>
+<p>Ceza hukuku ve ağır ceza yargılamasına ilişkin haber ve analizlerde yazar ve editör olarak çalışır: suç tanımlarının, yaptırımların, tutuklama ve adli kontrol gibi usul bilgilerinin doğruluğunu denetler. Yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
+<h2>Çıkar ilişkisi</h2>
+<p>Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
+{UT_YAZILAR}<h2>Bağlantılar</h2>
+<ul class="liste">
+<li><a href="https://umuttekin.av.tr/avukat-umut-tekin/" rel="noopener" target="_blank">umuttekin.av.tr</a></li>
+<li><a href="https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233" rel="noopener" target="_blank">LinkedIn</a></li>
+<li><a href="https://www.instagram.com/av.umut.tekin/" rel="noopener" target="_blank">Instagram</a></li>
+</ul>"""
+write(UT_URL, page("Av. Umut Tekin", "Av. Umut Tekin: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler'de ceza ve ağır ceza hukuku yazarı ve editörü.", UT_URL,
+      f'<article class="post static"><h1>Av. Umut Tekin</h1><p class="sec-desc">Yazar ve editör · Ceza ve ağır ceza hukuku</p><div class="body">{UT}</div></article>',
+      ld=UT_LD, ogtype="profile", img=UT_FOTO, crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (UT_URL, "Av. Umut Tekin")]))
+
+# yazarlar sayfası
+_yz = "".join(f'<li><a href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy"><b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a></li>' for y in YAZARLAR.values())
+write("/yazarlar/", page("Yazarlar", "Hukuki Haberler yazarları ve editörleri: Av. Yağmur Tahtasız (boşanma ve aile hukuku) ve Av. Umut Tekin (ceza ve ağır ceza hukuku).", "/yazarlar/",
+      f'<div class="crumb"><a href="/">Anasayfa</a> › Yazarlar</div><h1 class="sec">Yazarlar</h1><p class="sec-desc">Haber ve analizlerin hukuki çerçevesini alanında çalışan avukatlar yazar, denetler ve düzenler.</p><ul class="yzl">{_yz}</ul>',
+      crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar")]))
 
 # 404
 write("/404.html", page("Sayfa bulunamadı", "Aradığınız sayfa bulunamadı.", "/404.html",
@@ -1143,7 +1203,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if etiket_dizinde(s)] + \
-       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
+       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/av-umut-tekin/", "yearly", "0.3"), ("/yazarlar/", "monthly", "0.4"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 def _guncel_iso(p):
     u = p.get("updated")
     if u and "T" in str(u): return str(u)[:16] + ":00+03:00"
