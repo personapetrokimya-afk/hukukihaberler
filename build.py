@@ -354,7 +354,7 @@ def yazarlar_kutu(baslik="h2"):
     """yazarlar: fotoğraf, ad, uzmanlık alanı ve (varsa) son yazısı"""
     s = []
     for k, y in YAZARLAR.items():
-        son = next((q for q in POSTS if q.get("yazar") == k), None)
+        son = next((q for q in POSTS if q.get("yazar") == k or q.get("denetleyen") == k), None)
         alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
         s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
                  f'<div><a class="yz-ad" href="{y["url"]}">{e(y["ad"])}</a><small>{e(y["alan"])}</small>{alt if son else ""}</div></li>')
@@ -1143,6 +1143,11 @@ AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE +
                         "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
                         "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
                         "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"]}}
+def incelenen_listesi(k):
+    ls = [q for q in POSTS if q.get("denetleyen") == k]
+    if not ls: return ""
+    return (f'<h2 id="incelenenler">İncelediği haberler <small style="font:600 15px var(--sans);color:var(--mute)">({len(ls)})</small></h2><ul class="liste">'
+            + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in ls) + "</ul>")
 _avp = [q for q in POSTS if q.get("yazar") == "yagmur-tahtasiz"]
 AV_YAZILAR = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in _avp) + "</ul>") if _avp else ""
 AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure>
@@ -1158,7 +1163,7 @@ AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız"
 <p>Sitede yayımlanan haber ve analizlerin hukuki çerçevesine ilişkin danışmanlık verir: mevzuat ve içtihat atıflarının, suç ve yaptırım tanımlarının ve usul bilgilerinin doğruluğuna ilişkin denetim ve düzeltme süreçlerinde görüş bildirir. Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır; yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
 <h2>Çıkar ilişkisi</h2>
 <p>Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
-{AV_YAZILAR}<h2>Bağlantılar</h2>
+{AV_YAZILAR}{incelenen_listesi("yagmur-tahtasiz")}<h2>Bağlantılar</h2>
 <ul class="liste">
 <li><a href="https://yagmurtahtasiz.com/about.html" rel="noopener" target="_blank">yagmurtahtasiz.com</a></li>
 <li><a href="https://www.linkedin.com/in/yagmurtahtasiz" rel="noopener" target="_blank">LinkedIn</a></li>
@@ -1196,7 +1201,7 @@ UT = f"""<figure class="avfoto"><img src="{UT_FOTO}" alt="Av. Umut Tekin" width=
 <p>Ceza hukuku ve ağır ceza yargılamasına ilişkin haber ve analizlerde yazar ve editör olarak çalışır: suç tanımlarının, yaptırımların, tutuklama ve adli kontrol gibi usul bilgilerinin doğruluğunu denetler. Yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
 <h2>Çıkar ilişkisi</h2>
 <p>Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
-{UT_YAZILAR}<h2>Bağlantılar</h2>
+{UT_YAZILAR}{incelenen_listesi("umut-tekin")}<h2>Bağlantılar</h2>
 <ul class="liste">
 <li><a href="https://umuttekin.av.tr/avukat-umut-tekin/" rel="noopener" target="_blank">umuttekin.av.tr</a></li>
 <li><a href="https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233" rel="noopener" target="_blank">LinkedIn</a></li>
@@ -1207,7 +1212,13 @@ write(UT_URL, page("Av. Umut Tekin", "Av. Umut Tekin: İzmir Barosu'na kayıtlı
       ld=UT_LD, ogtype="profile", img=UT_FOTO, crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (UT_URL, "Av. Umut Tekin")]))
 
 # yazarlar sayfası
-_yz = "".join(f'<li><a href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer"><b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a></li>' for y in YAZARLAR.values())
+def _yz_kart(k, y):
+    ls = [q for q in POSTS if q.get("denetleyen") == k]
+    son = ("<div class=\"yz-inc\"><b>Son incelediği haberler</b><ul>" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a><small>{trdate(q["date"])}</small></li>' for q in ls[:6])
+           + f'</ul><a class="yz-tum" href="{y["url"]}#incelenenler">Tüm incelediği haberler ({len(ls)})</a></div>') if ls else ""
+    return (f'<li><a class="yz-ust" href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer">'
+            f'<b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a>{son}</li>')
+_yz = "".join(_yz_kart(k, y) for k, y in YAZARLAR.items())
 write("/yazarlar/", page("Yazarlar", "Hukuki Haberler yazarları ve editörleri: Av. Yağmur Tahtasız (boşanma ve aile hukuku) ve Av. Umut Tekin (ceza ve ağır ceza hukuku).", "/yazarlar/",
       f'<div class="crumb"><a href="/">Anasayfa</a> › Yazarlar</div><h1 class="sec">Yazarlar</h1><p class="sec-desc">Haber ve analizlerin hukuki çerçevesini alanında çalışan avukatlar yazar, denetler ve düzenler.</p><ul class="yzl">{_yz}</ul>',
       crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar")]))
