@@ -278,18 +278,24 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="site">
+<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><div class="tkiz"><ul style="--tks:{ticker_sure}s">{ticker}</ul></div><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a></div></div>
 <div class="hwrap htop">
-<a class="brand" href="/" aria-label="{NAME} anasayfa">{ico("scale", 44)}<span><span class="bn">Hukuki Haberler</span><span class="bt">Hukuk, yargı ve mevzuat gündemi</span></span></a>
-{srch("q")}
-<div class="hright"><div class="hbtns">{gpref_btn()}<a class="xbtn" href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">{ico("takip", 18)}X'te takip et</a><a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a></div><small>{GPREF_ALT}</small></div>
-<button type="button" class="ibtn sbtn" aria-label="Sitede ara" aria-expanded="false" aria-controls="msearch">{ico("search", 22)}</button>
-<button type="button" class="ibtn mbtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="drawer">{ico("menu", 24)}</button>
+<div class="hl"><span class="hdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span><span class="hsub">Hukuk, yargı ve mevzuat gündemi</span></div>
+<a class="brand" href="/" aria-label="{NAME} anasayfa">{ico("scale", 40)}<span class="bn">Hukuki Haberler</span></a>
+<div class="hright"><div class="hbtns">{gpref_btn()}<a class="xbtn" href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">{ico("takip", 18)}X'te takip et</a><a class="rssbtn" href="/feed/index.xml">{ico("rss", 18)}RSS ile takip et</a></div></div>
+</div>
+<nav class="hnav" aria-label="Bölümler"><div class="hwrap hnr">
+<a class="mlogo" href="/" aria-label="{NAME} anasayfa" tabindex="-1">{ico("scale", 28)}</a>
+<button type="button" class="mbtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="drawer">{ico("menu", 22)}<span>Menü</span></button>
+<button type="button" class="sbtn" aria-label="Sitede ara" aria-expanded="false" aria-controls="msearch">{ico("search", 20)}</button>
+<span class="hsep" aria-hidden="true"></span>
+<ul class="catl">{catnav}</ul>
+<a class="rssmini" href="/feed/index.xml" tabindex="-1">{ico("rss", 16)}<span>Takip et</span></a>
 </div>
 <div id="msearch" class="msearch" hidden><div class="hwrap">{srch("q2")}</div></div>
-<nav class="cats" aria-label="Bölümler"><div class="hwrap"><ul>{catnav}</ul></div></nav>
-<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><div class="tkiz"><ul style="--tks:{ticker_sure}s">{ticker}</ul></div><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a><span class="tdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div></div>
+</nav>
 </header>
-<div id="drawer" class="drawer" hidden><nav class="dp" aria-label="Tüm bölümler"><div class="dh">Bölümler<button type="button" class="ibtn dclose" style="display:inline-flex" aria-label="Menüyü kapat">{ico("close", 24)}</button></div><ul>{drawer}</ul><div class="dsub">Site</div><ul>{drawer2}</ul>{"<div class=\"dgp\">" if GPREF_AKTIF else ""}{gpref_btn("gpref gpbig", "Google'da tercih edilen kaynak olarak ekle", 20)}{"</div>" if GPREF_AKTIF else ""}</nav></div>
+<div id="drawer" class="drawer" hidden><nav class="dp" aria-label="Tüm bölümler"><div class="dh"><button type="button" class="ibtn dclose" style="display:inline-flex" aria-label="Menüyü kapat">{ico("close", 24)}</button><a class="dbrand" href="/">{ico("scale", 26)}Hukuki Haberler</a></div><div class="dsrch">{srch("q3")}</div><ul>{drawer}</ul><div class="dsub">Site</div><ul>{drawer2}</ul>{"<div class=\"dgp\">" if GPREF_AKTIF else ""}{gpref_btn("gpref gpbig", "Google'da tercih edilen kaynak olarak ekle", 20)}{"</div>" if GPREF_AKTIF else ""}</nav></div>
 {body}
 <footer class="site"><div class="hwrap">
 <div class="fcols">
@@ -576,7 +582,7 @@ for idx, p in enumerate(POSTS):
          (f'<a class="r" href="{newer["url"]}"><small>Sonraki haber</small>{e(newer["title"])}</a>' if newer else "<span></span>") + "</nav>"
     full = SITE + p["url"]
     _q = urllib.parse.quote
-    share = ('<section class="sharek" aria-label="Paylaş"><h2>Bu haberi paylaşın</h2><div class="share">'
+    share = ('<section class="sharek" aria-label="Paylaş"><svg class="atac" viewBox="0 0 24 24" width="46" height="46" aria-hidden="true"><path d="M15 6.5v10a3 3 0 0 1-6 0V5a2 2 0 0 1 4 0v10.5a1 1 0 0 1-2 0V7.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><h2>Bu haberi paylaşın</h2><div class="share">'
              f'<a href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank">{ico("duyur", 18)}X\'te paylaş</a>'
              f'<a href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank">{ico("topluluk", 18)}Facebook</a>'
              f'<a href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">{ico("sohbet", 18)}WhatsApp</a>'
