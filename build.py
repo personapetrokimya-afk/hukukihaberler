@@ -889,15 +889,68 @@ _tc = {}
 for p in POSTS:
     if p["date"].year >= 2026:
         for t, s_ in zip(p["tags"], p["tagslugs"]): _tc[s_] = (t, _tc.get(s_, ("", 0))[1] + 1)
-_chips_c = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in [("/haber-kategorisi/manset/", "Gündem"), ("/analiz/", "Analiz"), ("/mevzuat/", "Mevzuat")]) + \
-           "".join(f'<li><a href="/haber-kategorisi/{k}/">{e(v[0])}<small>{cat_count[k]}</small></a></li>' for k, v in CATS.items() if cat_count[k] and k != "manset")
-_chips_t = "".join(f'<li><a href="/haber-etiketi/{s_}/">{e(t)}<small>{n}</small></a></li>' for s_, (t, n) in sorted(_tc.items(), key=lambda x: (-x[1][1], x[1][0]))[:30])
-write("/kesfet/", page("Keşfet", "Hukuki Haberler bölümleri, güncel konu başlıkları ve arşiv.", "/kesfet/",
-      f'<h1 class="sec">Keşfet</h1><p class="sec-desc">Bölümler, güncel konular ve arşiv.</p>'
-      f'<form class="searchbox" action="/arama/" method="get" role="search"><label class="sr" for="kq">Sitede ara</label><input id="kq" name="q" type="search" placeholder="Haber, karar, mevzuat veya konu ara…"><button type="submit">Ara</button></form>'
-      f'<h2 class="sec-h">Konu dosyaları</h2><ul class="chips">' + "".join(f'<li><a href="/konu/{k}/">{e(KONU_AD[k])}<small>{len(KONU_HABER[k])}</small></a></li>' for k in KONU_VAR) + '</ul>'
-      f'<h2 class="sec-h">Bölümler</h2><ul class="chips">{_chips_c}</ul><h2 class="sec-h">Güncel konular</h2><ul class="chips">{_chips_t}</ul>'
-      f'<h2 class="sec-h">Arşiv</h2><p><a href="/arsiv/" style="color:var(--gold);text-decoration:underline">2010\'dan bugüne tüm haberler →</a></p>'))
+# keşfet: siteyi tanıtan ve bölümlere, konulara, arşive yönlendiren sayfa
+_KONU_IKON = {"ceza-hukuku": "gavel", "is-hukuku": "brief", "aile-hukuku": "home", "idare-hukuku": "building", "anayasa-ve-temel-haklar": "court",
+              "vergi-ve-sosyal-guvenlik": "doc", "kisisel-veriler-ve-bilisim": "laptop", "tuketici-haklari": "bookmark",
+              "ticaret-ve-sermaye-piyasasi": "paper", "kira-ve-tasinmaz": "home"}
+_son30 = datetime.date.today() - datetime.timedelta(days=30)
+_tc30 = {}
+for p in POSTS:
+    if p["date"] >= _son30:
+        for t, s_ in zip(p["tags"], p["tagslugs"]):
+            if t.casefold() in {v[0].casefold() for v in CATS.values()}: continue
+            _tc30[s_] = (t, _tc30.get(s_, ("", 0))[1] + 1)
+_gundem = sorted(_tc30.items(), key=lambda x: (-x[1][1], x[1][0]))[:8]
+_bolumler = [("/haber-kategorisi/manset/", "Gündem", "star", "Günün öne çıkan gelişmeleri", cat_count["manset"]),
+             ("/mevzuat/", "Mevzuat", "doc", "Resmî Gazete, kanun ve yönetmelikler", len(_mv)),
+             ("/analiz/", "Analiz", "pen", "Gelişmelerin hukuki çerçevesi", len(_an)),
+             ("/haber-kategorisi/yargi/anayasa-mahkemesi/", "Anayasa Mahkemesi", "court", "İptal ve bireysel başvuru kararları", cat_count["yargi/anayasa-mahkemesi"]),
+             ("/haber-kategorisi/yargi/yargitay/", "Yargıtay", "gavel", "Daire ve kurul kararları", cat_count["yargi/yargitay"]),
+             ("/haber-kategorisi/yargi/danistay/", "Danıştay", "building", "İdari yargı kararları", cat_count["yargi/danistay"]),
+             ("/haber-kategorisi/yargi/", "Yargı", "scale", "Mahkemeler ve yargı teşkilatı", cat_count["yargi"]),
+             ("/haber-kategorisi/siyaset/", "Siyaset", "flag", "Siyasetin hukuki boyutu", cat_count["siyaset"]),
+             ("/haber-kategorisi/barolar/", "Barolar", "brief", "Avukatlık ve meslek", cat_count["barolar"]),
+             ("/haber-kategorisi/universiteler/", "Üniversiteler", "cap", "YÖK ve yükseköğretim", cat_count["universiteler"]),
+             ("/haber-kategorisi/teknoloji/", "Teknoloji", "laptop", "Veri, bilişim ve internet", cat_count["teknoloji"]),
+             ("/haber-kategorisi/basindan/", "Basından", "paper", "Basına yansıyanlar", cat_count["basindan"])]
+_son_haber = POSTS[:3]
+_kf = (
+    '<div class="kf">'
+    '<header class="kf-bas"><h1 class="sec">Keşfet</h1>'
+    '<p class="kf-lead">Yüksek mahkeme kararlarını, mevzuat değişikliklerini ve gündemin hukuki boyutunu konuya, bölüme ve tarihe göre takip edin.</p>'
+    f'<ul class="kf-say"><li><b>{len(POSTS)}</b><span>haber ve analiz</span></li><li><b>{len(KONU_VAR)}</b><span>konu dosyası</span></li>'
+    f'<li><b>{sum(1 for p in POSTS if p["date"] >= datetime.date.today() - datetime.timedelta(days=7))}</b><span>son 7 günde</span></li><li><b>2010</b><span>yayında</span></li></ul></header>'
+    '<form class="searchbox kf-ara" action="/arama/" method="get" role="search"><label class="sr" for="kq">Sitede ara</label>'
+    '<input id="kq" name="q" type="search" placeholder="Karar, kanun, kurum veya konu ara…"><button type="submit">Ara</button></form>'
+    + ('<p class="kf-oner"><span>Öne çıkan konular:</span>' + "".join(f'<a href="/arama/?q={urllib.parse.quote(t)}">{e(t)}</a>' for _, (t, n) in _gundem[:4]) + '</p>' if _gundem else "")
+    + '<section class="kf-blok"><h2 class="sec-h">Şu an gündemde</h2><ol class="kf-son">'
+    + "".join(f'<li><a href="{p["url"]}"><img src="{thumb(p)}" alt="" width="96" height="50" loading="lazy"><span><small>{e(p["catname"])} · {when(p)}</small><b>{e(p["title"])}</b></span></a></li>' for p in _son_haber)
+    + '</ol><a class="kf-tum" href="/">Anasayfaya dön</a></section>'
+    + '<section class="kf-blok"><h2 class="sec-h">Konu dosyaları</h2><p class="kf-not">Haberler, mahkeme kararları ve temel mevzuat, hukuk dallarına göre bir arada.</p><ul class="kf-konu">'
+    + "".join(f'<li><a href="/konu/{k}/"><span class="kf-ik">{ico(_KONU_IKON.get(k, "doc"), 22)}</span><span class="kf-km"><b>{e(KONU_AD[k])}</b><small>Son: {e(KONU_HABER[k][0]["title"])}</small></span><em>{len(KONU_HABER[k])}</em></a></li>' for k in KONU_VAR)
+    + '</ul></section>'
+    + '<section class="kf-blok"><h2 class="sec-h">Bölümler</h2><ul class="kf-bol">'
+    + "".join(f'<li><a href="{u}">{ico(i, 22)}<b>{t}</b><small>{a}</small><em>{n} haber</em></a></li>' for u, t, i, a, n in _bolumler if n)
+    + '</ul></section>'
+    + ('<section class="kf-blok"><h2 class="sec-h">Son 30 günün başlıkları</h2><ol class="kf-gun">'
+       + "".join(f'<li><a href="/haber-etiketi/{s_}/"><i>{j + 1}</i><b>{e(t)}</b><small>{n} haber</small></a></li>' for j, (s_, (t, n)) in enumerate(_gundem))
+       + '</ol></section>' if _gundem else "")
+    + '<section class="kf-blok kf-ilke"><h2 class="sec-h">Nasıl çalışıyoruz</h2><ul>'
+      '<li><b>Kaynak gösteriyoruz.</b> Her haberin altında dayanılan resmî belge ve haber kaynakları bağlantısıyla yer alır.</li>'
+      '<li><b>Editör onayı.</b> Haberler yayımlanmadan önce editör tarafından kontrol edilir ve onaylanır.</li>'
+      '<li><b>Açık düzeltme.</b> Bir bilgi değiştiğinde ya da hata bulunduğunda haber güncellenir; güncelleme geçmişi haberin altında görünür.</li>'
+      '<li><b>Hukuki denetim.</b> Hukuk danışmanlığı ve içerik denetimi <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> tarafından yürütülür.</li>'
+      '</ul><p><a href="/yayin-ilkeleri/">Yayın ilkelerimiz</a> · <a href="/kunye/">Künye</a> · <a href="/iletisim/">Hata bildirin</a></p></section>'
+    + '<section class="kf-blok"><h2 class="sec-h">Takip edin</h2><div class="kf-takip">'
+      f'<a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">{ico("takip", 20)}<span><b>X</b><small>@HukukiHaberTR</small></span></a>'
+      f'<a href="/feed/index.xml">{ico("rss", 20)}<span><b>RSS</b><small>Akış okuyucunuzda</small></span></a>'
+      f'<a href="/kaydedilenler/">{ico("bookmark", 20)}<span><b>Kaydedilenler</b><small>Bu cihazda sakladıklarınız</small></span></a>'
+      '</div></section>'
+    + '<section class="kf-blok"><h2 class="sec-h">Arşiv</h2><p class="kf-not">2010\'dan bu yana yayımlanan tüm haberler, yıllara göre.</p><ul class="kf-yil">'
+    + "".join(f'<li><a href="/{y}/">{y}</a></li>' for y in sorted({p["date"].year for p in POSTS}, reverse=True)) + '<li><a href="/arsiv/">Tüm arşiv</a></li></ul></section>'
+    '</div>')
+write("/kesfet/", page("Keşfet", "Hukuki Haberler'i keşfedin: konu dosyaları, bölümler, son 30 günün gündem başlıkları, yayın ilkeleri ve 2010'dan bu yana arşiv.", "/kesfet/",
+      _kf, crumbs=[("/", "Anasayfa"), ("/kesfet/", "Keşfet")], side=False))
 write("/kaydedilenler/", page("Kaydedilenler", "Bu cihazda kaydettiğiniz haberler.", "/kaydedilenler/",
       '<h1 class="sec">Kaydedilenler</h1><p class="sec-desc">Kaydettiğiniz haberler yalnızca bu cihazdaki tarayıcıda saklanır; hesap veya sunucu kaydı tutulmaz.</p><div id="kayitlar"><noscript><p class="empty">Bu özellik için tarayıcınızda JavaScript açık olmalıdır.</p></noscript></div>', noindex=True))
 with open(os.path.join(OUT, "arama.json"), "w", encoding="utf-8") as f:
