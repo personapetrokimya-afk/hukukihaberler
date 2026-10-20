@@ -64,3 +64,15 @@ import runpy as _rp
 _k = [p["slug"] for p in _rp.run_path("content6.py")["POSTS"] if "cite index" in str(p) or "</cite>" in str(p)]
 if _k:
     print("HATA: cite etiketi kalıntısı:", _k); raise SystemExit(1)
+
+# görsel denetimi: sayfalardaki her <img src> ve srcset dosyası gerçekten var olmalı
+import glob
+_eksik={}
+for _f in glob.glob(OUT+"/**/*.html",recursive=True):
+    _t=open(_f,encoding="utf-8").read()
+    _u=re.findall(r'<img[^>]+?src="(/[^"]+)"',_t)+[x.strip().split()[0] for s in re.findall(r'srcset="([^"]+)"',_t) for x in s.split(",") if x.strip().startswith("/")]
+    for u in _u:
+        if not os.path.isfile(os.path.join(OUT,urllib.parse.unquote(u.split("?")[0]).lstrip("/"))): _eksik.setdefault(u.split("?")[0],_f)
+for k,v in list(_eksik.items())[:20]: print("EKSİK GÖRSEL",k,"<-",v)
+print("görsel eksik",len(_eksik))
+if _eksik: sys.exit(1)

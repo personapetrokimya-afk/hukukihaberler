@@ -431,6 +431,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<script>(function(){{function f(i){{if(!i||i.tagName!=='IMG'||i.dataset.gy==='2')return;var p=i.parentNode;if(p&&p.tagName==='PICTURE'&&p.querySelector('source')){{i.dataset.gy=1;p.querySelectorAll('source').forEach(function(s){{s.remove()}});var u=i.getAttribute('src');i.removeAttribute('src');i.setAttribute('src',u);return}}i.dataset.gy=2;i.style.display='none';if(p&&p.tagName==='PICTURE')p.style.display='none';var c=i.closest('.okuma');if(c)c.classList.add('gyok')}}document.addEventListener('error',function(e){{f(e.target)}},true);document.addEventListener('DOMContentLoaded',function(){{document.querySelectorAll('img').forEach(function(i){{if(i.complete&&i.getAttribute('src')&&i.naturalWidth===0)f(i)}})}})}})()</script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}var _cz=null;try{{_cz=localStorage.getItem('hh:cerez')}}catch(e){{}}gtag('consent','default',{{analytics_storage:_cz==='evet'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'}});gtag('js',new Date());gtag('config','G-84SWYM8295');addEventListener('load',function(){{var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-84SWYM8295';document.head.appendChild(s)}});</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(full_title)}</title>

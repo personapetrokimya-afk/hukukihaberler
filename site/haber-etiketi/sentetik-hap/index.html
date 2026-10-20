@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<script>(function(){function f(i){if(!i||i.tagName!=='IMG'||i.dataset.gy==='2')return;var p=i.parentNode;if(p&&p.tagName==='PICTURE'&&p.querySelector('source')){i.dataset.gy=1;p.querySelectorAll('source').forEach(function(s){s.remove()});var u=i.getAttribute('src');i.removeAttribute('src');i.setAttribute('src',u);return}i.dataset.gy=2;i.style.display='none';if(p&&p.tagName==='PICTURE')p.style.display='none';var c=i.closest('.okuma');if(c)c.classList.add('gyok')}document.addEventListener('error',function(e){f(e.target)},true);document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('img').forEach(function(i){if(i.complete&&i.getAttribute('src')&&i.naturalWidth===0)f(i)})})})()</script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}var _cz=null;try{_cz=localStorage.getItem('hh:cerez')}catch(e){}gtag('consent','default',{analytics_storage:_cz==='evet'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});gtag('js',new Date());gtag('config','G-84SWYM8295');addEventListener('load',function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-84SWYM8295';document.head.appendChild(s)});</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>sentetik hap | Hukuki Haberler</title>
@@ -381,7 +382,7 @@ footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .gecmis ol{list-style:none;margin:0 0 8px;padding:0 0 0 14px;border-left:2px solid var(--line)}
 .gecmis li{position:relative;padding:4px 0 8px}.gecmis li:before{content:"";position:absolute;left:-20px;top:11px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
 .gecmis time{display:block;font-size:13.5px;color:var(--mute)}.gecmis p{margin:0;font-size:14px;color:var(--mute)}.gecmis p a{color:var(--gold)}
-picture{display:contents}
+picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;display:block}
 .karark{border:1px solid var(--line);border-left:4px solid var(--k-yuksek);border-radius:6px;background:#122130;padding:14px 18px;margin:0 0 22px;font:15px/1.5 var(--sans)}
 .karark>b{display:block;margin-bottom:8px;font-size:13px;letter-spacing:.06em;color:var(--k-yuksek)}
 .karark dl{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px}.karark dt{font-size:13px;color:var(--mute)}.karark dd{margin:0;font-weight:600}

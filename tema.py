@@ -358,7 +358,7 @@ footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .gecmis ol{list-style:none;margin:0 0 8px;padding:0 0 0 14px;border-left:2px solid var(--line)}
 .gecmis li{position:relative;padding:4px 0 8px}.gecmis li:before{content:"";position:absolute;left:-20px;top:11px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
 .gecmis time{display:block;font-size:13.5px;color:var(--mute)}.gecmis p{margin:0;font-size:14px;color:var(--mute)}.gecmis p a{color:var(--gold)}
-picture{display:contents}
+picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;display:block}
 .karark{border:1px solid var(--line);border-left:4px solid var(--k-yuksek);border-radius:6px;background:#122130;padding:14px 18px;margin:0 0 22px;font:15px/1.5 var(--sans)}
 .karark>b{display:block;margin-bottom:8px;font-size:13px;letter-spacing:.06em;color:var(--k-yuksek)}
 .karark dl{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px}.karark dt{font-size:13px;color:var(--mute)}.karark dd{margin:0;font-weight:600}
