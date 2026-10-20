@@ -1039,12 +1039,47 @@ for y in range(2010, 2019):
 for y in years:
     items = [p for p in POSTS if p["date"].year == y]
     listing(f"{y} yılı haberleri", f"{y} yılında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi; aylara göre arşiv.", f"/{y}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a>')
-arch = ""
+def _ar_satir(p):
+    return (f'<li data-t="{e(_tr_kucuk(p["title"]))}"><time datetime="{p["date"].strftime("%Y-%m-%d")}">{p["date"].day}<small>{AYLAR[p["date"].month-1][:3]}</small></time>'
+            f'<a href="{p["url"]}">{e(p["title"])}</a><span class="ar-k">{e(CATS[topcat(p)][0])}</span></li>')
+_ar_yil, _ar_bolum = [], []
+_son_yil = max(years)
 for y in sorted(years, reverse=True):
-    arch += f'<ul><b><a href="/{y}/">{y}</a></b>' + "".join(f'<li><a href="/{yy}/{mm:02d}/">{AYLAR[mm-1]}</a> ({len(months[(yy,mm)])})</li>' for (yy, mm) in sorted(months, reverse=True) if yy == y) + "</ul>"
-all_list = "".join(f'<li><time>{trdate(p["date"])}</time> — <a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS)
-write("/arsiv/", page("Arşiv", "Hukuki Haberler arşivi: 2010'dan bu yana yayımlanan tüm hukuk, yargı ve mevzuat haberleri, yıllara ve aylara göre.", "/arsiv/",
-      f'<h1 class="sec">Arşiv</h1><p class="sec-desc">Yayımlanan tüm haberler, aylara göre.</p><div class="arch">{arch}</div><h2 style="font-size:20px;margin-top:24px">Tüm haberler</h2><ul style="font:15px/1.7 Arial,sans-serif;padding-left:18px">{all_list}</ul>'))
+    yp = [p for p in POSTS if p["date"].year == y]
+    _ar_yil.append(f'<li><a href="#y{y}">{y}<small>{len(yp)}</small></a></li>')
+    enc = max(len(months.get((y, m), [])) for m in range(1, 13))
+    hucre = ""
+    for m in range(1, 13):
+        n_ = len(months.get((y, m), []))
+        if n_:
+            hucre += (f'<li><a href="/{y}/{m:02d}/"><b>{AYLAR[m-1]}</b><small>{n_} haber</small>'
+                      f'<i style="--o:{max(.06, n_ / enc):.2f}"></i></a></li>')
+        else:
+            _gel = (y, m) > (datetime.datetime.now().year, datetime.datetime.now().month)
+            hucre += f'<li class="bos"><span><b>{AYLAR[m-1]}</b><small>{"&nbsp;" if _gel else "yayın yok"}</small></span></li>'
+    liste = ""
+    for m in range(12, 0, -1):
+        ms = months.get((y, m))
+        if not ms: continue
+        liste += f'<h3 class="ar-ayb">{AYLAR[m-1]} {y}<small>{len(ms)}</small></h3><ul class="ar-l">{"".join(_ar_satir(p) for p in ms)}</ul>'
+    _ar_bolum.append(f'<section class="ar-y" id="y{y}"><div class="ar-yh"><h2><a href="/{y}/">{y}</a></h2><span>{len(yp)} haber</span></div>'
+                     f'<ol class="ar-takvim" aria-label="{y} ayları">{hucre}</ol>'
+                     f'<details class="ar-d"{" open" if y == _son_yil else ""}><summary>{y} yılındaki tüm başlıklar</summary>{liste}</details></section>')
+_ilk_yil = min(years)
+AR = (f'<div class="crumb"><a href="/">Anasayfa</a> › Arşiv</div><h1 class="sec">Arşiv</h1>'
+      f'<p class="sec-desc">{_ilk_yil}\'dan bu yana yayımlanan {len(POSTS)} haber ve analiz. Yıla ya da aya göre gezinebilir, başlıklar içinde arama yapabilirsiniz.</p>'
+      f'<div class="ar-ust"><label class="ar-ara"><span class="sr">Arşivde ara</span>{ico("search", 18)}<input id="arq" type="search" placeholder="Başlıklarda ara, örneğin nafaka" autocomplete="off"></label>'
+      f'<nav class="ar-yil" aria-label="Yıllar"><ul>{"".join(_ar_yil)}</ul></nav></div><p class="ar-sonuc" id="arn" hidden></p>'
+      + "".join(_ar_bolum) +
+      """<script>(function(){var q=document.getElementById('arq'),n=document.getElementById('arn');if(!q)return;
+function tr(s){return s.toLocaleLowerCase('tr').normalize('NFC')}
+q.addEventListener('input',function(){var v=tr(q.value.trim()),say=0;document.querySelectorAll('.ar-y').forEach(function(sec){var g=0;
+sec.querySelectorAll('.ar-l li').forEach(function(li){var ok=!v||li.dataset.t.indexOf(v)>-1;li.hidden=!ok;if(ok)g++});
+sec.querySelectorAll('.ar-ayb').forEach(function(h){var u=h.nextElementSibling,k=u.querySelectorAll('li:not([hidden])').length;h.hidden=!k;u.hidden=!k});
+var d=sec.querySelector('details');if(v){d.open=g>0}sec.hidden=v&&!g;sec.querySelector('.ar-takvim').hidden=!!v;say+=g});
+n.hidden=!v;n.textContent=v?(say?say+' başlık bulundu':'Bu aramayla eşleşen başlık yok. Farklı bir kelime deneyin.'):''})})()</script>""")
+write("/arsiv/", page("Arşiv", "Hukuki Haberler arşivi: 2010'dan bu yana yayımlanan tüm hukuk, yargı ve mevzuat haberleri, yıllara ve aylara göre.", "/arsiv/", AR,
+      crumbs=[("/", "Anasayfa"), ("/arsiv/", "Arşiv")]))
 
 # sabit sayfalar
 HAKKINDA = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan bağımsız bir hukuk haber sitesidir.</p>
