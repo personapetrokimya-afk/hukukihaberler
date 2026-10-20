@@ -292,7 +292,7 @@ footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .yzr{background:#122130;border:1px solid var(--line);border-radius:8px;padding:14px 16px 6px}
 .yzr h2 a{color:var(--ink)}.yzr h2 a:hover{color:var(--gold)}
 .yzr ul{list-style:none;margin:0;padding:0}.yzr li{display:flex;gap:14px;align-items:center;padding:12px 0}.yzr li+li{border-top:1px solid var(--line2)}
-.yzr .yz-f{flex:none}.yzr img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);display:block}
+.yzr .yz-f{flex:none}.yzr img,.yzl img,.byl img,.ykutu>img,.avfoto img{object-position:50% 18%}.yzr img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);display:block}
 .yzr .yz-ad{display:block;font:700 13.5px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
 .yzr small{display:block;margin-top:2px;font:600 14px/1.35 var(--sans);color:var(--ink)}
 .yzr .yz-son{display:block;margin-top:3px;font:14px/1.35 var(--serif);color:var(--mute)}.yzr a.yz-son:hover{color:var(--gold)}

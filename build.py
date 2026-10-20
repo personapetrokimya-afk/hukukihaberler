@@ -13,9 +13,25 @@ SITE = "https://hukukihaberler.com"
 NAME = "Hukuki Haberler"
 # Gerçek kişi yazarlar. Bir yazıya "yazar" alanı YALNIZCA o kişi yazıyı kendisi yazdıysa ya da
 # metni bizzat inceleyip onayladıysa eklenir; zamanlanmış görevler bu alanı asla doldurmaz.
+def yerel_foto(url, ad):
+    """yazar fotoğrafını sitenin kendi sunucusundan verir: yoksa bir kez indirip kare kırpar (static/yazar/), olmazsa dış adresi kullanır"""
+    yol = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "yazar", ad + ".jpg")
+    if not os.path.exists(yol):
+        try:
+            import io, urllib.request
+            from PIL import Image as _Im
+            veri = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=15).read()
+            im = _Im.open(io.BytesIO(veri)).convert("RGB")
+            k = min(im.size); y0 = max(0, int((im.height - k) * 0.15))
+            os.makedirs(os.path.dirname(yol), exist_ok=True)
+            im.crop(((im.width - k) // 2, y0, (im.width - k) // 2 + k, y0 + k)).resize((480, 480), _Im.LANCZOS).save(yol, "JPEG", quality=85, optimize=True, progressive=True)
+        except Exception:
+            return url
+    return "/yazar/" + ad + ".jpg"
+
 YAZARLAR = {
     "yagmur-tahtasiz": {"ad": "Av. Yağmur Tahtasız", "kisi": "Yağmur Tahtasız", "url": "/av-yagmur-tahtasiz/",
-                        "foto": "https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg",
+                        "foto": yerel_foto("https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg", "av-yagmur-tahtasiz"),
                         "alan": "Boşanma ve aile hukuku",
                         "bio": "İzmir Barosu'na kayıtlı avukat. Anadolu Üniversitesi Hukuk Fakültesi mezunu; 2022'den bu yana aile ve boşanma hukuku ağırlıklı olarak avukatlık yapıyor. Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütüyor."},
     "umut-tekin": {"ad": "Av. Umut Tekin", "kisi": "Umut Tekin", "url": "/av-umut-tekin/", "foto": "/yazar/av-umut-tekin.jpg",
@@ -1102,11 +1118,11 @@ write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkel
 
 # hukuk danışmanı profil sayfası (gerçek kişi, doğrulanabilir bilgiler)
 AV_URL = "/av-yagmur-tahtasiz/"
-AV_FOTO = "https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg"
+AV_FOTO = YAZARLAR["yagmur-tahtasiz"]["foto"]
 AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + AV_URL, "name": "Av. Yağmur Tahtasız",
          "mainEntity": {"@type": "Person", "@id": SITE + AV_URL + "#kisi", "name": "Yağmur Tahtasız", "honorificPrefix": "Av.",
                         "jobTitle": "Avukat", "description": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'in hukuk danışmanı ve içerik denetimi sorumlusu.",
-                        "image": AV_FOTO, "url": SITE + AV_URL,
+                        "image": (SITE + AV_FOTO if AV_FOTO.startswith("/") else AV_FOTO), "url": SITE + AV_URL,
                         "alumniOf": {"@type": "CollegeOrUniversity", "name": "Anadolu Üniversitesi Hukuk Fakültesi"},
                         "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
                         "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
