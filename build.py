@@ -576,13 +576,13 @@ for idx, p in enumerate(POSTS):
          (f'<a class="r" href="{newer["url"]}"><small>Sonraki haber</small>{e(newer["title"])}</a>' if newer else "<span></span>") + "</nav>"
     full = SITE + p["url"]
     _q = urllib.parse.quote
-    share = ('<div class="share">'
+    share = ('<section class="sharek" aria-label="Paylaş"><h2>Bu haberi paylaşın</h2><div class="share">'
              f'<a href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank">{ico("duyur", 18)}X\'te paylaş</a>'
              f'<a href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank">{ico("topluluk", 18)}Facebook</a>'
              f'<a href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">{ico("sohbet", 18)}WhatsApp</a>'
              f'<a href="mailto:?subject={_q(p["title"])}&body={_q(full)}">{ico("zarf", 18)}E-posta</a>'
              f'<button type="button" data-u="{full}" onclick="var b=this;(navigator.clipboard?navigator.clipboard.writeText(b.dataset.u):Promise.reject()).then(function(){{b.lastChild.textContent=\'Kopyalandı\'}}).catch(function(){{}})">{ico("baglanti", 18)}<span>Bağlantıyı kopyala</span></button>'
-             '</div>')
+             '</div></section>')
     tur = p.get("tur", "Haber")
     ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
           "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
@@ -602,8 +602,9 @@ for idx, p in enumerate(POSTS):
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
 {ozet_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, autolink(p)))}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
+{share}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
-{yazar_kutu(p)}{gpref_kutu()}{share}{kaynak_goster(p, full)}
+{yazar_kutu(p)}{gpref_kutu()}{kaynak_goster(p, full)}
 <div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/",
