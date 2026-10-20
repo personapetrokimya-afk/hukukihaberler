@@ -218,6 +218,11 @@ _KONU_RE = {k: re.compile("|".join((r"(?<!\w)" + re.escape(_tr_kucuk(w)) + (r"(?
 for p in POSTS:
     h = _tr_kucuk(p["title"] + " | " + " | ".join(p.get("tags", [])))
     p["konular"] = [k for k, *_ in KONULAR if _KONU_RE[k].search(h)]
+# hukuki inceleme: boşanma/aile hukuku yazıları Av. Yağmur Tahtasız, ceza hukuku yazıları Av. Umut Tekin tarafından incelenir
+for p in POSTS:
+    if p.get("denetleyen"): continue
+    if "aile-hukuku" in p["konular"]: p["denetleyen"] = "yagmur-tahtasiz"
+    elif "ceza-hukuku" in p["konular"] and "rekabet" not in _tr_kucuk(p["title"]): p["denetleyen"] = "umut-tekin"
 KONU_HABER = {k: [p for p in POSTS if k in p["konular"]] for k, *_ in KONULAR}
 KONU_AD = {k: ad for k, ad, *_ in KONULAR}
 KONU_VAR = [k for k, *_ in KONULAR if len(KONU_HABER[k]) >= KONU_ALT]
@@ -321,13 +326,13 @@ def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
 def byline(p):
     y = YAZARLAR.get(p.get("yazar"))
     if not y: return '<a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a>'
-    return f'<a class="byl" href="{y["url"]}" rel="author"><img src="{y["foto"]}" alt="" width="28" height="28" loading="lazy">{e(y["ad"])}</a>'
+    return f'<a class="byl" href="{y["url"]}" rel="author"><img src="{y["foto"]}" alt="" width="28" height="28" loading="lazy" referrerpolicy="no-referrer">{e(y["ad"])}</a>'
 def yazar_kutu(p):
     y = YAZARLAR.get(p.get("yazar"))
     if not y: return ""
     digr = [q for q in POSTS if q.get("yazar") == p["yazar"] and q["slug"] != p["slug"]][:5]
     li = "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a></li>' for q in digr)
-    return (f'<aside class="ykutu" aria-label="Yazar"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="88" height="88" loading="lazy">'
+    return (f'<aside class="ykutu" aria-label="Yazar"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="88" height="88" loading="lazy" referrerpolicy="no-referrer">'
             f'<div><small>Yazar</small><a class="yad" href="{y["url"]}" rel="author">{e(y["ad"])}</a><p>{e(y["bio"])}</p>'
             + (f'<b>Yazarın diğer yazıları</b><ul>{li}</ul>' if li else "") + f'<a class="yall" href="{y["url"]}">Tüm yazıları →</a></div></aside>')
 def mini(p):
@@ -351,7 +356,7 @@ def yazarlar_kutu(baslik="h2"):
     for k, y in YAZARLAR.items():
         son = next((q for q in POSTS if q.get("yazar") == k), None)
         alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
-        s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy"></a>'
+        s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
                  f'<div><a class="yz-ad" href="{y["url"]}">{e(y["ad"])}</a><small>{e(y["alan"])}</small>{alt if son else ""}</div></li>')
     return (f'<div class="box yzr"><{baslik}><a href="/yazarlar/">Yazarlar</a></{baslik}><ul>{"".join(s)}</ul></div>')
 
@@ -724,9 +729,9 @@ def inceleme_karti(p):
     y = YAZARLAR.get(p.get("denetleyen"))
     if not y: return ""
     return (f'<aside class="inceleme" aria-label="Hukuki inceleme"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
-            f'<img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
+            f'<img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
             f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])} · İzmir Barosu</span>'
-            f'<p>Bu {"analiz" if p.get("tur") == "Analiz" else "haber"} yayımlanmadan önce {e(y["ad"])} tarafından hukuki açıdan incelendi. '
+            f'<p>Bu {"analiz" if p.get("tur") == "Analiz" else "haber"} {e(y["ad"])} tarafından hukuki açıdan incelenmiştir. '
             f'İçerik genel bilgilendirme amaçlıdır; somut bir dosya için hukuki danışmanlık yerine geçmez.</p></div></aside>\n')
 
 def ozet_html(p):
@@ -1140,7 +1145,7 @@ AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE +
                         "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"]}}
 _avp = [q for q in POSTS if q.get("yazar") == "yagmur-tahtasiz"]
 AV_YAZILAR = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in _avp) + "</ul>") if _avp else ""
-AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async"></figure>
+AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure>
 <p class="lead">Av. Yağmur Tahtasız, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütür.</p>
 <h2>Eğitim ve meslek</h2>
 <ul class="liste">
@@ -1202,7 +1207,7 @@ write(UT_URL, page("Av. Umut Tekin", "Av. Umut Tekin: İzmir Barosu'na kayıtlı
       ld=UT_LD, ogtype="profile", img=UT_FOTO, crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (UT_URL, "Av. Umut Tekin")]))
 
 # yazarlar sayfası
-_yz = "".join(f'<li><a href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy"><b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a></li>' for y in YAZARLAR.values())
+_yz = "".join(f'<li><a href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer"><b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a></li>' for y in YAZARLAR.values())
 write("/yazarlar/", page("Yazarlar", "Hukuki Haberler yazarları ve editörleri: Av. Yağmur Tahtasız (boşanma ve aile hukuku) ve Av. Umut Tekin (ceza ve ağır ceza hukuku).", "/yazarlar/",
       f'<div class="crumb"><a href="/">Anasayfa</a> › Yazarlar</div><h1 class="sec">Yazarlar</h1><p class="sec-desc">Haber ve analizlerin hukuki çerçevesini alanında çalışan avukatlar yazar, denetler ve düzenler.</p><ul class="yzl">{_yz}</ul>',
       crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar")]))
