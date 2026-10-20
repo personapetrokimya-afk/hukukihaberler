@@ -218,7 +218,10 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
     catnav = "".join(f'<li><a href="{u}"{" class=on aria-current=page" if on(u) else ""}>{t}</a></li>' for u, t in CATNAV)
     drawer = "".join(f'<li><a href="{u}">{ico(i, 20)}<span>{t}</span></a></li>' for u, t, i in DRAWER)
     drawer2 = "".join(f'<li><a href="{u}"><span>{t}</span></a></li>' for u, t in SITE_LINKS)
-    ticker = "".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in POSTS[:3])
+    _tk = POSTS[:5]
+    ticker = ("".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in _tk)
+              + "".join(f'<li aria-hidden="true"><a href="{p["url"]}" tabindex="-1">{e(p["title"])}</a></li>' for p in _tk))
+    ticker_sure = max(30, int(sum(len(p["title"]) for p in _tk) * 0.16))   # okunur hız: ~6 karakter/sn
     lds = []
     if ld: lds.extend(ld if isinstance(ld, list) else [ld])
     if crumbs:
@@ -284,7 +287,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </div>
 <div id="msearch" class="msearch" hidden><div class="hwrap">{srch("q2")}</div></div>
 <nav class="cats" aria-label="Bölümler"><div class="hwrap"><ul>{catnav}</ul></div></nav>
-<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><ul>{ticker}</ul><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a><span class="tdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div></div>
+<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><div class="tkiz"><ul style="--tks:{ticker_sure}s">{ticker}</ul></div><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a><span class="tdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div></div>
 </header>
 <div id="drawer" class="drawer" hidden><nav class="dp" aria-label="Tüm bölümler"><div class="dh">Bölümler<button type="button" class="ibtn dclose" style="display:inline-flex" aria-label="Menüyü kapat">{ico("close", 24)}</button></div><ul>{drawer}</ul><div class="dsub">Site</div><ul>{drawer2}</ul>{"<div class=\"dgp\">" if GPREF_AKTIF else ""}{gpref_btn("gpref gpbig", "Google'da tercih edilen kaynak olarak ekle", 20)}{"</div>" if GPREF_AKTIF else ""}</nav></div>
 {body}

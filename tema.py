@@ -66,10 +66,13 @@ nav.cats a.on{color:var(--gold);border-bottom-color:var(--gold)}
 .tk i:after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--coral);animation:tkring 1.2s ease-out infinite}
 @keyframes tkblink{0%,100%{opacity:1}50%{opacity:.25}}
 @keyframes tkring{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.6);opacity:0}}
-.ticker ul{list-style:none;margin:0;padding:0;display:flex;gap:0;min-width:0;flex:1;overflow:hidden}
-.ticker li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;font-weight:400}
-.ticker li{display:flex;align-items:center;flex:0 1 auto}
-.ticker li a{display:block;min-width:0;line-height:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticker .tkiz{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent)}
+.ticker ul{list-style:none;margin:0;padding:0 0 0 28px;display:flex;width:max-content;animation:tkay var(--tks,45s) linear infinite}
+.ticker .tkiz:hover ul,.ticker .tkiz:focus-within ul{animation-play-state:paused}
+@keyframes tkay{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker ul{animation:none}}
+.ticker li{white-space:nowrap;font-weight:400;display:flex;align-items:center;flex:none}
+.ticker li a{display:block;line-height:40px;white-space:nowrap}
 .ticker li+li:before{flex:none}
 .ticker li+li:before{content:"|";color:var(--line);margin:0 16px}
 .tdate{flex:none;color:var(--mute);font-weight:400;font-size:13.5px}
@@ -282,8 +285,6 @@ footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
  nav.cats ul{gap:28px}
  nav.cats a{font-size:17px;padding:12px 0 10px}
  .ticker .hwrap{height:44px;gap:12px}
- .ticker li+li{display:none}
- .ticker li{flex:1}
  .tdate{display:none}
  .tmore{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;margin-left:8px;color:var(--ink);flex:none}
  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"k img" "t img" "d img" "m img" "side side";column-gap:24px}
