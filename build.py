@@ -719,6 +719,16 @@ def gecmis_html(p):
     return (f'<section class="gecmis" aria-labelledby="gecmis-{p["slug"][:40]}"><h2 id="gecmis-{p["slug"][:40]}">Güncelleme geçmişi</h2><ol>{"".join(sat)}</ol>'
             '<p>Düzeltme ilkelerimiz <a href="/yayin-ilkeleri/#duzeltme">Yayın İlkeleri</a> sayfasındadır; hata bildirimi için <a href="/iletisim/">iletişim</a>.</p></section>\n')
 
+def inceleme_karti(p):
+    """haberi yayımlanmadan önce hukuki açıdan inceleyen avukatın kartı (yalnızca kimlik ve alan bilgisi; iletişim, ücret ya da çağrı yok)"""
+    y = YAZARLAR.get(p.get("denetleyen"))
+    if not y: return ""
+    return (f'<aside class="inceleme" aria-label="Hukuki inceleme"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
+            f'<img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
+            f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])} · İzmir Barosu</span>'
+            f'<p>Bu {"analiz" if p.get("tur") == "Analiz" else "haber"} yayımlanmadan önce {e(y["ad"])} tarafından hukuki açıdan incelendi. '
+            f'İçerik genel bilgilendirme amaçlıdır; somut bir dosya için hukuki danışmanlık yerine geçmez.</p></div></aside>\n')
+
 def ozet_html(p):
     o = p.get("ozet")
     if not o: return ""
@@ -837,7 +847,7 @@ for idx, p in enumerate(POSTS):
           "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
-          "isAccessibleForFree": True, "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
+          "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
           "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
@@ -849,7 +859,7 @@ for idx, p in enumerate(POSTS):
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
-{ozet_html(p)}{karar_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p)))))}</div>
+{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p)))))}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
 {('<p class="konub"><b>Konu dosyası:</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
