@@ -757,7 +757,10 @@ BY_SLUG = {p["slug"]: p for p in POSTS}
 POST_URLS = {p["url"] for p in POSTS}
 # yayından kalkmış ya da adresi değişmiş haberler: eski adres -> yeni adres (yönlendirme ve iç bağlantılar için)
 ESKI_ADRES = {"/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
-              "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor"}
+              "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor",
+              # yayın ilkesi gereği kamuoyunca tanınmayan kişilerin adları adresten çıkarıldı (22.10.2026)
+              "/aylin-kotil-ve-omer-sarigul-gozaltisi-aklama-iddiasi-milletvekili-dosyasi-neden-ankaraya": "/aklama-sorusturmasi-gozaltilar-milletvekili-kismi-neden-ankaraya",
+              "/emir-sarigul-milletvekili-babasinin-konutunda-dokunulmazlik-konutu-korur-mu-polis-girebilir-mi": "/yasama-dokunulmazligi-milletvekilinin-evindeki-supheliyi-korur-mu"}
 _SABIT_YOL = {"arsiv", "analiz", "mevzuat", "kesfet", "hakkinda", "kunye", "iletisim", "yayin-ilkeleri", "gizlilik-politikasi",
               "kullanim-kosullari", *[y["adres"] for y in _YZ_VERI["yazarlar"]], "yazarlar", "konu", "konular", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
 def ic_bag(h):
