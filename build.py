@@ -33,7 +33,8 @@ _YZ_VERI = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)
 YAZAR_KAYIT = {y["kod"]: y for y in _YZ_VERI["yazarlar"]}
 def _yz_ad(y): return ((y.get("unvan") or "").strip() + " " + y["kisi"]).strip()
 YAZARLAR = {y["kod"]: {"ad": _yz_ad(y), "kisi": y["kisi"], "url": "/" + y["adres"] + "/",
-                       "foto": y.get("foto") or "/yazar/" + y["adres"] + ".jpg", "alan": y.get("alan", ""), "bio": y.get("kisa", ""),
+                       "foto": y.get("foto") or "/yazar/" + y["adres"] + ".jpg",
+                       "foto_k": re.sub(r"^(/yazar/[^/]+)\.jpg$", r"\1-k.jpg", y.get("foto") or "/yazar/" + y["adres"] + ".jpg"), "alan": y.get("alan", ""), "bio": y.get("kisa", ""),
                        "baro": y.get("baro", ""), "rol": y.get("rol", ""), "unvan": (y.get("unvan") or "").strip(), "goster": y.get("goster", True)}
             for y in _YZ_VERI["yazarlar"]}
 INCELEME = {k: v for k, v in (_YZ_VERI.get("inceleme") or {}).items() if v in YAZARLAR}
@@ -166,6 +167,15 @@ if os.path.exists(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT)
 _IMG = _images.build(POSTS, os.path.join(OUT, "gorsel"))
 for p in POSTS: p["img"], p["imgkind"], p["credit"] = _IMG[p["slug"]]
+def _kucuk_kopya(src, hedef, boyut):
+    from PIL import Image as _Im
+    onb = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "kucuk"); os.makedirs(onb, exist_ok=True)
+    c = os.path.join(onb, hashlib.md5(open(src, "rb").read()).hexdigest() + f"_{boyut[0]}.jpg")
+    if not os.path.exists(c):
+        _Im.open(src).convert("RGB").resize(boyut, _Im.LANCZOS).save(c, "JPEG", quality=80, optimize=True, progressive=True)
+    os.makedirs(os.path.dirname(hedef), exist_ok=True); shutil.copyfile(c, hedef)
+for _f in os.listdir(os.path.join(OUT, "gorsel", "m")):   # liste ve kart küçük resimleri için 240 px kopya
+    if _f.endswith(".jpg"): _kucuk_kopya(os.path.join(OUT, "gorsel", "m", _f), os.path.join(OUT, "gorsel", "s", _f), (240, 126))
 
 # ---------------------------------------------------------------- konu dosyaları (hukuk dallarına göre; mevcut adresler değişmez)
 def _mz_url(no, tertip=5): return f"https://www.mevzuat.gov.tr/mevzuat?MevzuatNo={no}&MevzuatTur=1&MevzuatTertip={tertip}"
@@ -356,13 +366,13 @@ def thumb(p): return p["img"].replace("/gorsel/", "/gorsel/m/")
 def byline(p):
     y = YAZARLAR.get(p.get("yazar"))
     if not y: return '<a href="/yayin-ilkeleri/">Hukuki Haberler Editörlüğü</a>'
-    return f'<a class="byl" href="{y["url"]}" rel="author"><img src="{y["foto"]}" alt="" width="28" height="28" loading="lazy" referrerpolicy="no-referrer">{e(y["ad"])}</a>'
+    return f'<a class="byl" href="{y["url"]}" rel="author"><img src="{y["foto_k"]}" alt="" width="28" height="28" loading="lazy" referrerpolicy="no-referrer">{e(y["ad"])}</a>'
 def yazar_kutu(p):
     y = YAZARLAR.get(p.get("yazar"))
     if not y: return ""
     digr = [q for q in POSTS if q.get("yazar") == p["yazar"] and q["slug"] != p["slug"]][:5]
     li = "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a></li>' for q in digr)
-    return (f'<aside class="ykutu" aria-label="Yazar"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="88" height="88" loading="lazy" referrerpolicy="no-referrer">'
+    return (f'<aside class="ykutu" aria-label="Yazar"><img src="{y["foto_k"]}" alt="{e(y["ad"])}" width="88" height="88" loading="lazy" referrerpolicy="no-referrer">'
             f'<div><small>Yazar</small><a class="yad" href="{y["url"]}" rel="author">{e(y["ad"])}</a><p>{e(y["bio"])}</p>'
             + (f'<b>Yazarın diğer yazıları</b><ul>{li}</ul>' if li else "") + f'<a class="yall" href="{y["url"]}">Tüm yazıları →</a></div></aside>')
 def mini(p):
@@ -386,7 +396,7 @@ def yazarlar_kutu(baslik="h2"):
     for k, y in GORUNEN_YAZARLAR.items():
         son = next((q for q in POSTS if q.get("yazar") == k or q.get("denetleyen") == k), None)
         alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
-        s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
+        s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
                  f'<div><a class="yz-ad" href="{y["url"]}">{e(y["ad"])}</a><small>{e(y["alan"])}</small>{alt if son else ""}</div></li>')
     return (f'<div class="box yzr"><{baslik}><a href="/yazarlar/">Yazarlar</a></{baslik}><ul>{"".join(s)}</ul></div>')
 
@@ -433,6 +443,27 @@ def gpref_kutu():
 
 # çerezsiz ziyaret sayacı: yalnızca sayfa yolu, yönlendiren adres ve ekran genişliği gönderilir; kimlik ya da çerez yoktur
 SAYAC_JS = """<script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>"""
+def _alan_adi(u):
+    return re.sub(r"^www\.", "", urllib.parse.urlparse(u or "").netloc.lower())
+def cikar_notu(govde):
+    """metinde ekipteki avukatların büro sitelerine bağlantı varsa, okura çıkar ilişkisini aynı yerde açıklar"""
+    notlar = []
+    for y in YAZAR_KAYIT.values():
+        b = y.get("buro_sitesi")
+        if not (b and len(b) == 2 and b[1]): continue
+        alan = _alan_adi(b[1])
+        if alan and re.search(r'href="https?://(www\.)?' + re.escape(alan), govde):
+            kim = ((y.get("unvan") or "") + " " + y["kisi"]).strip()
+            gorev = (y.get("rol") or "yazar").strip()
+            gorev = gorev[0].lower() + gorev[1:] if gorev else gorev
+            sesli = [c for c in kim.lower() if c in "aeıioöuü"]
+            son = sesli[-1] if sesli else "e"
+            ek = {"a": "ın", "ı": "ın", "e": "in", "i": "in", "o": "un", "u": "un", "ö": "ün", "ü": "ün"}[son]
+            kim_ = kim + "'" + ("n" if kim[-1:].lower() in "aeıioöuü" else "") + ek
+            notlar.append(f"{html.escape(alan, quote=False)} bağlantısı, Hukuki Haberler'de {html.escape(gorev, quote=False)} görevini yürüten {html.escape(kim_, quote=False)} avukatlık bürosuna aittir")
+    if not notlar: return govde
+    return govde + '<p class="cikar-notu"><b>Çıkar ilişkisi:</b> ' + "; ".join(notlar) + '. Bağlantı yalnızca konuyla ilgili rehber içerik için verilmiştir; <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>.</p>'
+
 def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra="", ogek=""):
     act = active or url
     def on(u): return act == u or (u != "/" and act.startswith(u))
@@ -524,7 +555,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <div class="fcols">
 <div><div class="fbrand">{ico("scale", 30)}Hukuki Haberler</div><p style="margin:0;max-width:440px">2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi. Yüksek mahkeme kararları, mevzuat değişiklikleri ve gündemin hukuki boyutu.</p></div>
 <div><h2>Bölümler</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in CATNAV[:7])}<li><a href="/konular/">Konu dosyaları</a></li></ul></div>
-<div><h2>Site</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li><li><a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">X: @HukukiHaberTR</a></li></ul></div>
+<div><h2>Site</h2><ul>{"".join(f'<li><a href="{u}">{t}</a></li>' for u, t in SITE_LINKS)}<li><a href="/arsiv/">Arşiv</a></li><li><a href="/feed/index.xml">RSS</a></li><li><a href="/gizlilik-politikasi/#cerezler">Çerez tercihleri</a></li><li><a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">X: @HukukiHaberTR</a></li></ul></div>
 </div>
 <div class="bot">© 2010–{today.year} {NAME}. Sitedeki yazılar genel bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz.</div>
 </div></footer>
@@ -534,17 +565,26 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </body>
 </html>"""
 
-def srcset(p): return f'srcset="{thumb(p)} 480w, {p["img"].replace("/gorsel/", "/gorsel/l/")} 800w, {p["img"]} 1200w"'
+def srcset(p): return f'srcset="{p["img"].replace("/gorsel/", "/gorsel/s/")} 240w, {thumb(p)} 480w, {p["img"].replace("/gorsel/", "/gorsel/l/")} 800w, {p["img"]} 1200w"'
 def pic(p, lazy=True, sizes="(max-width:767px) 112px, 300px"):
     return (f'<a class="pic" data-k="{renk(topcat(p))}" href="{p["url"]}" tabindex="-1" aria-hidden="true"><img src="{p["img"]}" {srcset(p)} sizes="{sizes}" alt="" width="1200" height="630"'
             f'{" loading=lazy decoding=async" if lazy else " fetchpriority=high"}></a>')
+_BUGUN = datetime.date.today()
+def arsiv_notu(p):
+    d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
+    if (_BUGUN - d).days < 365: return ""
+    return (f'<p class="arsiv-notu"><b>Arşiv</b> Bu yazı {d.year} yılında yayımlanmıştır. Anlatılan kurallar, süreler ve kurumlar '
+            'o tarihten sonra değişmiş olabilir; güncel durum için yürürlükteki mevzuata bakın.</p>')
+def _temsili(p):
+    """arşiv fotoğrafları olayın kendisini göstermez; okura bunu açıkça söyler"""
+    return "Temsili görsel. " if p.get("imgkind") == "photo" else ""
 def credit_html(p):
     c = p.get("credit")
     if not c: return ""
     if c.get("kaynak") and c["kaynak"] != "Wikimedia Commons":
         lic = f', {e(c["lic"])}' if str(c.get("lic", "")).startswith("CC") else ""
-        return f'<figcaption>Fotoğraf: {e(c["artist"])} / <a href="{e(c["page"])}" rel="nofollow noopener" target="_blank">{e(c["kaynak"])}</a>{lic}</figcaption>'
-    return f'<figcaption>Fotoğraf: {e(c["artist"])} / <a href="{e(c["page"])}" rel="nofollow noopener" target="_blank">Wikimedia Commons</a>, {e(c["lic"])}</figcaption>'
+        return f'<figcaption>{_temsili(p)}Fotoğraf: {e(c["artist"])} / <a href="{e(c["page"])}" rel="nofollow noopener" target="_blank">{e(c["kaynak"])}</a>{lic}</figcaption>'
+    return f'<figcaption>{_temsili(p)}Fotoğraf: {e(c["artist"])} / <a href="{e(c["page"])}" rel="nofollow noopener" target="_blank">Wikimedia Commons</a>, {e(c["lic"])}</figcaption>'
 def feat_card(p):
     return (f'<article>{pic(p, sizes="(max-width:767px) 112px, (max-width:1023px) 50vw, 420px")}<div class="ftxt">{kicker(p)}'
             f'<h3><a href="{p["url"]}">{e(p["title"])}</a></h3><p>{e(p["desc"])}</p>{meta(p)}</div></article>')
@@ -762,7 +802,7 @@ def inceleme_karti(p):
     y = YAZARLAR.get(p.get("denetleyen"))
     if not y: return ""
     return (f'<aside class="inceleme" aria-label="Hukuki inceleme" data-denetleyen="{p["denetleyen"]}"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
-            f'<img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
+            f'<img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
             f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])}{(" · " + e(y["baro"])) if y["baro"] else ""}</span>'
             f'<p>Bu {"analiz" if p.get("tur") == "Analiz" else "haber"} {e(y["ad"])} tarafından hukuki açıdan incelenmiştir. '
             f'İçerik genel bilgilendirme amaçlıdır; somut bir dosya için hukuki danışmanlık yerine geçmez.</p></div></aside>\n')
@@ -897,7 +937,7 @@ for idx, p in enumerate(POSTS):
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
-{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p)))))}</div>
+{arsiv_notu(p)}{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{cikar_notu(re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p))))))}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
 {('<p class="konub"><b>Konu dosyası:</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
@@ -916,7 +956,8 @@ for k, (name, parent) in CATS.items():
     items = [p for p in POSTS if k in p["catkeys"] or (parent is None and any(CATS[c][1] == k for c in p["catkeys"]))]
     crumb = '<a href="/">Anasayfa</a> › ' + (f'<a href="/haber-kategorisi/{parent}/">{e(CATS[parent][0])}</a> › ' if parent else "") + e(name)
     if items:
-        listing(name, CAT_DESC[k], f"/haber-kategorisi/{k}/", items, crumb=crumb)
+        listing(name, CAT_DESC[k], f"/haber-kategorisi/{k}/", items, crumb=crumb,
+                crumbs=[("/", "Anasayfa")] + ([(f"/haber-kategorisi/{parent}/", CATS[parent][0])] if parent else []) + [(f"/haber-kategorisi/{k}/", name)])
     else:
         REDIRECTS.append((f"/haber-kategorisi/{k}/", f"/haber-kategorisi/{parent or 'manset'}/"))
         REDIRECTS.append((f"/haber-kategorisi/{k}", f"/haber-kategorisi/{parent or 'manset'}/"))
@@ -929,13 +970,19 @@ for k, (name, parent) in CATS.items():
 
 # analiz, mevzuat, keşfet, kaydedilenler, arama
 _an = [p for p in POSTS if p.get("tur") == "Analiz"]
-if _an: listing("Analiz", "Gündemdeki hukuki gelişmelerin mevzuat ve içtihat üzerinden açıklandığı analizler.", "/analiz/", _an, crumb='<a href="/">Anasayfa</a> › Analiz')
-_MZ = ("resmî gazete", "resmi gazete", "kanun", "yönetmelik", "tebliğ", "yargı paketi", "genelge", "kararname")
+if _an: listing("Analiz", "Gündemdeki hukuki gelişmelerin mevzuat ve içtihat üzerinden açıklandığı analizler.", "/analiz/", _an, crumb='<a href="/">Anasayfa</a> › Analiz', crumbs=[("/", "Anasayfa"), ("/analiz/", "Analiz")])
+# Mevzuat merkezi: normun kendisini konu alan yazılar (Resmî Gazete, kanun/teklif, yönetmelik, tebliğ, genelge, kararname, yargı paketi).
+# Operasyon, gözaltı, tutuklama, soruşturma ve dava haberleri etiketlerinde "Türk Ceza Kanunu" geçse de buraya alınmaz.
+_MZ = ("resmî gazete", "resmi gazete", "yönetmelik", "tebliğ", "yargı paketi", "genelge", "kararname", "kanun teklifi", "kanun tasarısı",
+       "kanun değişikliği", "kanunu yayımlandı", "kanunu kabul", "yasa teklifi", "torba yasa", "torba kanun", "düzenleme yürürlüğe", "yürürlüğe girdi")
+_MZ_OLAY = re.compile(r"gözaltı|tutukla|operasyon|şüpheli|soruşturma|iddianame|sanık|duruşma|yakalandı|gözaltına|baskın|tahliye")
 def _mz(p):
-    h = (p["title"] + " " + " ".join(p["tags"])).replace("İ", "i").replace("I", "ı").lower()
-    return any(k in h for k in _MZ)
+    b = p["title"].replace("İ", "i").replace("I", "ı").lower()
+    t = " ".join(p["tags"]).replace("İ", "i").replace("I", "ı").lower()
+    if _MZ_OLAY.search(b): return False
+    return any(k in b or k in t for k in _MZ) or bool(re.search(r"\bkanun(u|unda|una|un)?\b", b) and not re.search(r"ceza kanun|muhakemesi kanun", b))
 _mv = [p for p in POSTS if _mz(p)]
-listing("Mevzuat", "Kanunlar, kanun teklifleri, yönetmelikler, Resmî Gazete ve yargı paketlerine ilişkin haberler.", "/mevzuat/", _mv, crumb='<a href="/">Anasayfa</a> › Mevzuat')
+listing("Mevzuat", "Kanunlar, kanun teklifleri, yönetmelikler, Resmî Gazete ve yargı paketlerine ilişkin haberler.", "/mevzuat/", _mv, crumb='<a href="/">Anasayfa</a> › Mevzuat', crumbs=[("/", "Anasayfa"), ("/mevzuat/", "Mevzuat")])
 # konu dosyaları
 _KARAR_KAT = {"yargi/yargitay", "yargi/danistay", "yargi/anayasa-mahkemesi", "yargi/aihm"}
 for k, ad, tanim, _, mevzuat in KONULAR:
@@ -1355,7 +1402,7 @@ def _yz_kart(k, y):
     ls = [q for q in POSTS if q.get("denetleyen") == k]
     son = ("<div class=\"yz-inc\"><b>Son incelediği haberler</b><ul>" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a><small>{trdate(q["date"])}</small></li>' for q in ls[:6])
            + f'</ul><a class="yz-tum" href="{y["url"]}#incelenenler">Tüm incelediği haberler ({len(ls)})</a></div>') if ls else ""
-    return (f'<li><a class="yz-ust" href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer">'
+    return (f'<li><a class="yz-ust" href="{y["url"]}"><img src="{y["foto_k"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer">'
             f'<b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a>{son}</li>')
 _yz = "".join(_yz_kart(k, y) for k, y in GORUNEN_YAZARLAR.items())
 _yz_adlar = [f'{y["ad"]} ({_tr_kucuk_bas(y["alan"])})' if y["alan"] else y["ad"] for y in GORUNEN_YAZARLAR.values()]
@@ -1408,6 +1455,12 @@ with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
     f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/news-sitemap.xml\n")
 shutil.copytree(os.path.join(os.path.dirname(__file__), "static"), OUT, dirs_exist_ok=True)
+# küçük kopyalar: yazar fotoğrafları 160 px (künye, kartlar ve imza satırı 28-120 px gösterir), liste görselleri 240 px
+def _kucuk_kopyalar():
+    yd = os.path.join(OUT, "yazar")
+    for f in (os.listdir(yd) if os.path.isdir(yd) else []):
+        if f.endswith(".jpg") and not f.endswith("-k.jpg"): _kucuk_kopya(os.path.join(yd, f), os.path.join(yd, f[:-4] + "-k.jpg"), (160, 160))
+_kucuk_kopyalar()
 with open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8") as f:
     json.dump({"name": NAME, "short_name": NAME, "start_url": "/", "display": "standalone", "background_color": "#35495E", "theme_color": "#2D4054",
                "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, f, ensure_ascii=False)

@@ -368,7 +368,7 @@ footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .konul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .konul a{display:flex;flex-direction:column;gap:6px;height:100%;padding:16px 18px;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:6px;background:var(--card)}
 .konul b{font:700 20px var(--serif)}.konul span{font:15px/1.5 var(--sans);color:var(--mute)}.konul small{margin-top:auto;font:600 13px var(--sans);color:var(--gold)}
-.post .body .duzeltme-notu{margin:22px 0 0;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(232,196,128,.08);font-size:.92em}
+.post .arsiv-notu{margin:0 0 18px;padding:10px 14px;border:1px solid var(--line2);border-radius:8px;font-size:15px;color:var(--mute)}.post .arsiv-notu b{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:4px;background:var(--line);color:var(--ink);font:700 12px/1.6 var(--sans);letter-spacing:.06em;text-transform:uppercase}.post .body .cikar-notu{margin:22px 0 0;font-size:.86em;color:var(--mute)}.post .body .duzeltme-notu{margin:22px 0 0;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(232,196,128,.08);font-size:.92em}
 .gecmis{border-top:1px solid var(--line2);margin:8px 0 18px;padding-top:14px;font:15px/1.5 var(--sans)}
 .gecmis h2{font:700 17px var(--sans);margin:0 0 8px}
 .gecmis ol{list-style:none;margin:0 0 8px;padding:0 0 0 14px;border-left:2px solid var(--line)}
@@ -401,6 +401,7 @@ picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;displ
  .catl a{height:50px;font-size:16px}
  header.site.yapis .rssmini{display:none}
  .ticker .hwrap{height:44px;gap:12px}
+ .ticker li a{line-height:44px}
  .tdate{display:none}
  .tmore{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;margin-left:8px;color:var(--ink);flex:none}
  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"k img" "t img" "d img" "m img" "side side";column-gap:24px}
@@ -437,7 +438,7 @@ picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;displ
  .meta>.dt+span{border-left:0;padding-left:0}
  .hero .meta .mc{display:inline-flex}
  .hero .t{font-size:clamp(23px,6.6vw,27px);line-height:1.2;margin:10px 0 14px}
- .hero .d{display:none}
+ .hero .d{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:16.5px;line-height:1.45;color:var(--mute);margin:0 0 14px}
  .hero .img{margin:0 0 12px}
  .hero .img .pic{aspect-ratio:40/21;flex:none;min-height:0}
  .hero .img figcaption{display:none}
@@ -451,13 +452,13 @@ picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;displ
  .sec-h:after{display:none}
  .sec-h a.all{margin-left:auto}
  .feat{display:block}
- .feat{gap:12px}.feat article{display:grid;grid-template-columns:minmax(0,1fr) clamp(88px,28vw,112px);gap:14px;padding:14px!important}
+ .feat{gap:12px}.feat article{display:grid;grid-template-columns:minmax(0,1fr) clamp(76px,22vw,96px);gap:12px;padding:14px!important}
  .feat .pic{grid-column:2;grid-row:1;aspect-ratio:40/21;margin:0;border-radius:2px}
  .feat .ftxt{grid-column:1;grid-row:1;min-width:0}
  .feat h3{font-size:clamp(18px,5.2vw,20px);margin:6px 0 8px}
  .feat p,.feat .meta .dt{display:none}
  .rows{grid-template-columns:minmax(0,1fr);gap:12px}
- .row{grid-template-columns:minmax(0,1fr) clamp(88px,28vw,112px);gap:14px;padding:14px}
+ .row{grid-template-columns:minmax(0,1fr) clamp(76px,22vw,96px);gap:12px;padding:14px}
  .row .pic{aspect-ratio:40/21}
  .row h3,.row h2{font-size:clamp(18px,5.2vw,20px)}
  .row p{display:none}
