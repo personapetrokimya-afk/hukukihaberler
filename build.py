@@ -1545,6 +1545,10 @@ for a, b in REDIRECTS:
     if a in seen or a == b.rstrip("/"): continue
     if b.endswith("/") and b.rstrip("/") in POST_URLS: b = b.rstrip("/")
     seen.add(a); lines.append(f"{enc(a)} {enc(b)} 301")
+# taşınan yazıların eski adresleri sondaki eğik çizgiyle de çağrılabiliyor; Pages bunu kendiliğinden eşlemiyor
+for a, b in ESKI_ADRES.items():
+    a2 = a.rstrip("/") + "/"
+    if a2 not in seen: seen.add(a2); lines.insert(0, f"{enc(a2)} {enc(b)} 301")
 with open(os.path.join(OUT, "_redirects"), "w", encoding="utf-8") as f: f.write("\n".join(lines) + "\n")
 with open(os.path.join(OUT, "_routes.json"), "w", encoding="utf-8") as f:
     f.write('{"version":1,"include":["/api/*"],"exclude":[]}')
