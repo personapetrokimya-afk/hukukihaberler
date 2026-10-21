@@ -14,18 +14,69 @@
    "sayfa_aciklama": "Av. Yağmur Tahtasız: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler hukuk danışmanı ve içerik denetimi sorumlusu.",
    "ld_aciklama": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'in hukuk danışmanı ve içerik denetimi sorumlusu.",
    "bolumler": [
-    {"baslik": "Eğitim ve meslek", "tur": "liste", "satirlar": [
-     ["Eğitim", "Anadolu Üniversitesi Hukuk Fakültesi (2014-2021)"],
-     ["Avukatlık ruhsatı", "2022"],
-     ["Baro", "İzmir Barosu"],
-     ["Çalışma alanı", "Ağırlıklı olarak aile ve boşanma hukuku; ceza, icra ve iflas ile idare hukuku dosyaları"]]},
-    {"baslik": "Hukuki Haberler'deki görevi", "tur": "metin", "metin": "Sitede yayımlanan haber ve analizlerin hukuki çerçevesine ilişkin danışmanlık verir: mevzuat ve içtihat atıflarının, suç ve yaptırım tanımlarının ve usul bilgilerinin doğruluğuna ilişkin denetim ve düzeltme süreçlerinde görüş bildirir. Haberler \"Hukuki Haberler Editörlüğü\" imzasıyla yayımlanır; yayın ve düzeltme esasları <a href=\"/yayin-ilkeleri/\">Yayın İlkeleri</a> sayfasında yer alır."},
-    {"baslik": "Çıkar ilişkisi", "tur": "metin", "metin": "Av. Tahtasız'ın avukatlık bürosuna ait <a href=\"https://yagmurtahtasiz.com/\" rel=\"noopener\" target=\"_blank\">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz."}
+    {
+     "baslik": "Eğitim ve meslek",
+     "tur": "liste",
+     "satirlar": [
+      [
+       "Eğitim",
+       "Anadolu Üniversitesi Hukuk Fakültesi (2014-2021)"
+      ],
+      [
+       "Avukatlık ruhsatı",
+       "2022"
+      ],
+      [
+       "Baro",
+       "İzmir Barosu"
+      ],
+      [
+       "Çalışma alanı",
+       "Ağırlıklı olarak aile ve boşanma hukuku; ceza, icra ve iflas ile idare hukuku dosyaları"
+      ]
+     ]
+    },
+    {
+     "baslik": "Hukuki Haberler'deki görevi",
+     "tur": "metin",
+     "metin": "Sitede yayımlanan haber ve analizlerin hukuki çerçevesine ilişkin danışmanlık verir: mevzuat ve içtihat atıflarının, suç ve yaptırım tanımlarının ve usul bilgilerinin doğruluğuna ilişkin denetim ve düzeltme süreçlerinde görüş bildirir. Haberler \"Hukuki Haberler Editörlüğü\" imzasıyla yayımlanır; yayın ve düzeltme esasları <a href=\"/yayin-ilkeleri/\">Yayın İlkeleri</a> sayfasında yer alır."
+    },
+    {
+     "baslik": "Çıkar ilişkisi",
+     "tur": "metin",
+     "metin": "Av. Tahtasız'ın avukatlık bürosuna ait <a href=\"https://yagmurtahtasiz.com/\" rel=\"noopener\" target=\"_blank\">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz."
+    }
    ],
-   "baglantilar": [["yagmurtahtasiz.com", "https://yagmurtahtasiz.com/about.html"], ["LinkedIn", "https://www.linkedin.com/in/yagmurtahtasiz"]],
-   "buro_sitesi": ["yagmurtahtasiz.com", "https://yagmurtahtasiz.com/"],
-   "sameas": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"],
-   "uzmanlik": ["Aile hukuku", "Boşanma hukuku", "Miras hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
+   "baglantilar": [
+    [
+     "yagmurtahtasiz.com",
+     "https://yagmurtahtasiz.com/about.html"
+    ],
+    [
+     "LinkedIn",
+     "https://www.linkedin.com/in/yagmurtahtasiz"
+    ]
+   ],
+   "buro_sitesi": [
+    "yagmurtahtasiz.com",
+    "https://yagmurtahtasiz.com/"
+   ],
+   "sameas": [
+    "https://yagmurtahtasiz.com/",
+    "https://yagmurtahtasiz.com/about.html",
+    "https://www.linkedin.com/in/yagmurtahtasiz",
+    "https://medium.com/@yagmurtahtasiz",
+    "https://yagmurtahtasiz.substack.com",
+    "https://yagmurtahtasiz.blogspot.com"
+   ],
+   "uzmanlik": [
+    "Aile hukuku",
+    "Boşanma hukuku",
+    "Miras hukuku",
+    "Ceza hukuku",
+    "İcra ve iflas hukuku",
+    "İdare hukuku"
+   ],
    "mezuniyet": "Anadolu Üniversitesi Hukuk Fakültesi",
    "konum": "",
    "diller": [],
@@ -45,25 +96,87 @@
    "sayfa_aciklama": "Av. Umut Tekin: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler'de ceza ve ağır ceza hukuku yazarı ve editörü.",
    "ld_aciklama": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'de ceza ve ağır ceza hukuku alanında yazar ve editör.",
    "bolumler": [
-    {"baslik": "Meslek", "tur": "liste", "satirlar": [
-     ["Baro", "İzmir Barosu (sicil no 17343)"],
-     ["Mesleğe başlama", "2019"],
-     ["Çalışma alanı", "Ağırlıklı olarak ceza ve ağır ceza yargılaması; uyuşturucu suçları, dolandırıcılık suçları ve örgüt davaları. Soruşturma aşamasından istinaf ve temyize kadar ceza dosyalarında müdafi ya da suçtan zarar görenin vekili olarak çalışır."],
-     ["Yabancı dil", "İngilizce"],
-     ["Büro", "Bayraklı, İzmir"]]},
-    {"baslik": "Hukuki Haberler'deki görevi", "tur": "metin", "metin": "Ceza hukuku ve ağır ceza yargılamasına ilişkin haber ve analizlerde yazar ve editör olarak çalışır: suç tanımlarının, yaptırımların, tutuklama ve adli kontrol gibi usul bilgilerinin doğruluğunu denetler. Yayın ve düzeltme esasları <a href=\"/yayin-ilkeleri/\">Yayın İlkeleri</a> sayfasında yer alır."},
-    {"baslik": "Çıkar ilişkisi", "tur": "metin", "metin": "Av. Tekin'in avukatlık bürosuna ait <a href=\"https://umuttekin.av.tr/\" rel=\"noopener\" target=\"_blank\">umuttekin.av.tr</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz."}
+    {
+     "baslik": "Meslek",
+     "tur": "liste",
+     "satirlar": [
+      [
+       "Baro",
+       "İzmir Barosu (sicil no 17343)"
+      ],
+      [
+       "Mesleğe başlama",
+       "2019"
+      ],
+      [
+       "Çalışma alanı",
+       "Ağırlıklı olarak ceza ve ağır ceza yargılaması; uyuşturucu suçları, dolandırıcılık suçları ve örgüt davaları. Soruşturma aşamasından istinaf ve temyize kadar ceza dosyalarında müdafi ya da suçtan zarar görenin vekili olarak çalışır."
+      ],
+      [
+       "Yabancı dil",
+       "İngilizce"
+      ],
+      [
+       "Büro",
+       "Bayraklı, İzmir"
+      ]
+     ]
+    },
+    {
+     "baslik": "Hukuki Haberler'deki görevi",
+     "tur": "metin",
+     "metin": "Ceza hukuku ve ağır ceza yargılamasına ilişkin haber ve analizlerde yazar ve editör olarak çalışır: suç tanımlarının, yaptırımların, tutuklama ve adli kontrol gibi usul bilgilerinin doğruluğunu denetler. Yayın ve düzeltme esasları <a href=\"/yayin-ilkeleri/\">Yayın İlkeleri</a> sayfasında yer alır."
+    },
+    {
+     "baslik": "Çıkar ilişkisi",
+     "tur": "metin",
+     "metin": "Av. Tekin'in avukatlık bürosuna ait <a href=\"https://umuttekin.av.tr/\" rel=\"noopener\" target=\"_blank\">umuttekin.av.tr</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz."
+    }
    ],
-   "baglantilar": [["umuttekin.av.tr", "https://umuttekin.av.tr/avukat-umut-tekin/"], ["LinkedIn", "https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233"], ["Instagram", "https://www.instagram.com/av.umut.tekin/"]],
-   "buro_sitesi": ["umuttekin.av.tr", "https://umuttekin.av.tr/"],
-   "sameas": ["https://umuttekin.av.tr/", "https://umuttekin.av.tr/avukat-umut-tekin/", "https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233", "https://www.instagram.com/av.umut.tekin/"],
-   "uzmanlik": ["Ceza hukuku", "Ağır ceza yargılaması", "Uyuşturucu suçları", "Dolandırıcılık suçları", "Örgüt davaları"],
+   "baglantilar": [
+    [
+     "umuttekin.av.tr",
+     "https://umuttekin.av.tr/avukat-umut-tekin/"
+    ],
+    [
+     "LinkedIn",
+     "https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233"
+    ],
+    [
+     "Instagram",
+     "https://www.instagram.com/av.umut.tekin/"
+    ]
+   ],
+   "buro_sitesi": [
+    "umuttekin.av.tr",
+    "https://umuttekin.av.tr/"
+   ],
+   "sameas": [
+    "https://umuttekin.av.tr/",
+    "https://umuttekin.av.tr/avukat-umut-tekin/",
+    "https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233",
+    "https://www.instagram.com/av.umut.tekin/"
+   ],
+   "uzmanlik": [
+    "Ceza hukuku",
+    "Ağır ceza yargılaması",
+    "Uyuşturucu suçları",
+    "Dolandırıcılık suçları",
+    "Örgüt davaları"
+   ],
    "mezuniyet": "",
    "konum": "Bayraklı, İzmir",
-   "diller": ["tr", "en"],
+   "diller": [
+    "tr",
+    "en"
+   ],
    "goster": true
   }
  ],
- "inceleme": {"aile": "yagmur-tahtasiz", "ceza": "umut-tekin", "ozel": "yagmur-tahtasiz"},
+ "inceleme": {
+  "aile": "yagmur-tahtasiz",
+  "ceza": "umut-tekin",
+  "ozel": "yagmur-tahtasiz"
+ },
  "hukuki_denetim": "yagmur-tahtasiz"
 }
