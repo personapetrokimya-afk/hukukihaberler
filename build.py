@@ -448,6 +448,14 @@ def _alan_adi(u):
 def cikar_notu(govde):
     """metinde ekipteki avukatların büro sitelerine bağlantı varsa, okura çıkar ilişkisini aynı yerde açıklar"""
     notlar = []
+    # iş ilişkisi olan büro sitelerine verilen bağlantılar sıralama sinyali taşımaz (Google: rel="nofollow"/"sponsored")
+    alanlar = [_alan_adi(y["buro_sitesi"][1]) for y in YAZAR_KAYIT.values() if y.get("buro_sitesi") and len(y["buro_sitesi"]) == 2 and y["buro_sitesi"][1]]
+    def _rel(m):
+        a = m.group(0)
+        if not any(re.search(r'href="https?://(www\.)?' + re.escape(al) + r'[/"]', a) for al in alanlar if al): return a
+        a = re.sub(r'\srel="[^"]*"', "", a)
+        return a[:-1] + ' rel="nofollow noopener">'
+    govde = re.sub(r"<a\s[^>]*>", _rel, govde)
     for y in YAZAR_KAYIT.values():
         b = y.get("buro_sitesi")
         if not (b and len(b) == 2 and b[1]): continue
