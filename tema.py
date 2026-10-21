@@ -368,6 +368,7 @@ footer .bot{border-top:1px solid var(--line2);padding-top:16px;font-size:13.5px}
 .konul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .konul a{display:flex;flex-direction:column;gap:6px;height:100%;padding:16px 18px;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:6px;background:var(--card)}
 .konul b{font:700 20px var(--serif)}.konul span{font:15px/1.5 var(--sans);color:var(--mute)}.konul small{margin-top:auto;font:600 13px var(--sans);color:var(--gold)}
+.post .body .duzeltme-notu{margin:22px 0 0;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(232,196,128,.08);font-size:.92em}
 .gecmis{border-top:1px solid var(--line2);margin:8px 0 18px;padding-top:14px;font:15px/1.5 var(--sans)}
 .gecmis h2{font:700 17px var(--sans);margin:0 0 8px}
 .gecmis ol{list-style:none;margin:0 0 8px;padding:0 0 0 14px;border-left:2px solid var(--line)}
