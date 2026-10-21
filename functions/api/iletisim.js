@@ -34,7 +34,7 @@ function yetkili(request, env) {
   return fark === 0;
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request, env, waitUntil }) {
   if (!env.ANKET) return yanit({ hata: "Form şu an kullanılamıyor. Lütfen e-posta ile yazın." }, 503);
   const tur = request.headers.get("content-type") || "";
   let b = {};
@@ -79,6 +79,12 @@ export async function onRequestPost({ request, env }) {
   const no = "HH-" + new Date(zaman + 3 * 3600e3).toISOString().slice(2, 10).replace(/-/g, "") + "-" + Math.random().toString(36).slice(2, 7).toUpperCase();
   const kayit = { no, ts: zaman, ...m, konu_ad: KONULAR[m.konu], ulke: request.headers.get("cf-ipcountry") || "", tarayici: temiz(request.headers.get("user-agent"), 200) };
   await env.ANKET.put("msg:" + zaman + "-" + no, JSON.stringify(kayit), { expirationTtl: SAKLAMA_SN });
+  // yönetim paneline haber ver: mesaj hemen alınır (panel kapalıysa yedek denetim birkaç dakika içinde alır)
+  if (env.MESAJ_ANAHTAR && waitUntil) {
+    waitUntil(fetch("https://panel.hukukihaberler.com/yonetim/api/mesaj-bildir", {
+      method: "POST", headers: { Authorization: "Bearer " + env.MESAJ_ANAHTAR, "Content-Type": "application/json" }, body: "{}",
+    }).catch(() => {}));
+  }
   return yanit({ tamam: true, no });
 }
 
