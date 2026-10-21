@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/resmi-gazete-de-yonetmelik-degisikligi-harum-e-arilik</loc><lastmod>2026-10-22T00:07:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/ankara-medipol-universitesi-hutem-yonetmeligi-yayimlandi</loc><lastmod>2026-10-22T00:04:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/aydin-da-cocuk-mustehcenligi-sucu-sorusturmasinda-5-tutuklama</loc><lastmod>2026-10-21T22:58:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/veri-ihlali-kapsaminda-bulundu-ne-demek-kvkk-izmir</loc><lastmod>2026-10-21T22:01:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -273,6 +274,7 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik-degisikligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -331,7 +333,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/yurutmeyi-durdurma/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/iptal-davasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kirmizi-bulten/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik-degisikligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/epdk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/elektrik-piyasasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/basin-ozgurlugu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
