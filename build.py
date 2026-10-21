@@ -445,7 +445,15 @@ def gpref_kutu():
 SAYAC_JS = """<script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>"""
 def _alan_adi(u):
     return re.sub(r"^www\.", "", urllib.parse.urlparse(u or "").netloc.lower())
-def cikar_notu(govde):
+_REHBER_DOLGU = {"blog", "araclar", "html", "nelerdir", "nedir", "nasil", "hesaplama", "dikkat", "edilir", "verilirken", "nelere", "karsi", "kaldirildi"}
+def _tr_ascii(t):
+    return str(t).translate(str.maketrans("çğıöşüÇĞİÖŞÜâî", "cgiosucgiosuai")).lower()
+_OLAY_RE = re.compile(r"gozalti|tutukla|operasyon|supheli|sorusturma|iddianame|sanik|durusma|yakalan|baskin|tahliye|cinayet|olum|saldiri")
+def _OLAY_HABER(p):
+    """operasyon, gözaltı, siyaset ve genel gündem haberleri"""
+    if set(p.get("catkeys", [])) & {"siyaset", "basindan", "diger/3-sayfa", "diger/dunya", "diger/spor"}: return True
+    return bool(_OLAY_RE.search(_tr_ascii(p["title"])))
+def cikar_notu(govde, p=None):
     """metinde ekipteki avukatların büro sitelerine bağlantı varsa, okura çıkar ilişkisini aynı yerde açıklar"""
     notlar = []
     # iş ilişkisi olan büro sitelerine verilen bağlantılar sıralama sinyali taşımaz (Google: rel="nofollow"/"sponsored")
@@ -455,9 +463,21 @@ def cikar_notu(govde):
         if not any(re.search(r'href="https?://(www\.)?' + re.escape(al) + r'[/"]', a) for al in alanlar if al): return a
         a = re.sub(r'\srel="[^"]*"', "", a)
         return a[:-1] + ' rel="nofollow noopener">'
-    # hizmet sayfalarına (ör. /izmir-ceza-avukati.html) bağlantı verilmez; yalnızca konuyu anlatan rehber ve araç sayfaları kalır
+    # büro bağlantı kuralı (kodla uygulanır, bota bırakılmaz): yalnızca rehber/araç sayfası; olay, siyaset ve gündem haberinde hiç yok;
+    # rehberin konu kelimeleri başlıkta geçmeli; yazı başına en fazla 1. Kurala uymayan bağlantı düz metne çevrilir.
+    kalan = [0]
+    def _buro_kural(m):
+        u, metin = m.group(1), m.group(2)
+        yol = urllib.parse.urlparse(u).path
+        if not re.match(r"/(blog|araclar)/", yol): return metin
+        if p is None or _OLAY_HABER(p) or kalan[0] >= 1: return metin
+        kokler = {w[:5] for w in re.split(r"[-/.]", _tr_ascii(yol)) if len(w) >= 4 and w not in _REHBER_DOLGU}
+        baslik = _tr_ascii(p["title"])
+        if not kokler or sum(1 for k in kokler if k in baslik) < min(2, len(kokler)): return metin
+        kalan[0] += 1
+        return m.group(0)
     for al in alanlar:
-        if al: govde = re.sub(r'<a\s[^>]*href="https?://(?:www\.)?' + re.escape(al) + r'(?!/blog/|/araclar/)[^"]*"[^>]*>(.*?)</a>', r"\1", govde, flags=re.S)
+        if al: govde = re.sub(r'<a\s[^>]*href="(https?://(?:www\.)?' + re.escape(al) + r'[^"]*)"[^>]*>(.*?)</a>', _buro_kural, govde, flags=re.S)
     govde = re.sub(r"<a\s[^>]*>", _rel, govde)
     for y in YAZAR_KAYIT.values():
         b = y.get("buro_sitesi")
@@ -959,7 +979,7 @@ for idx, p in enumerate(POSTS):
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
-{arsiv_notu(p)}{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{cikar_notu(re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p))))))}</div>
+{arsiv_notu(p)}{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{cikar_notu(re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p))))), p)}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
 {('<p class="konub"><b>Konu dosyası:</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
