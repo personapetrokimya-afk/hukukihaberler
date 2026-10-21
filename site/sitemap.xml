@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/kisisel-verileri-koruma-kurumu-duyurusu-saglik-kurulusunda-veri</loc><lastmod>2026-10-21T21:57:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/kara-para-aklama-sorusturmasinda-tutuklama-talebiyle-sevk-ne</loc><lastmod>2026-10-21T21:28:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/kirikkale-de-uyusturucu-operasyonu-fuhus-sorusturmasinda-2-tutuklama</loc><lastmod>2026-10-21T21:14:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/gaziosmanpasa-da-15-ton-et-ele-gecirildi-bozuk</loc><lastmod>2026-10-21T20:51:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -269,6 +270,10 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/kvkk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/veri-ihlali/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/fidye-yazilimi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/kisisel-veriler/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sulh-ceza-hakimligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kara-para-aklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/adli-kontrol/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -323,7 +328,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik-degisikligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/epdk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/elektrik-piyasasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/kvkk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/basin-ozgurlugu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/rusvet/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/agir-ceza/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
