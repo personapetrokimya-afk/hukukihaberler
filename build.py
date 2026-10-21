@@ -32,7 +32,7 @@ def yerel_foto(url, ad):
 YAZARLAR = {
     "yagmur-tahtasiz": {"ad": "Av. Yağmur Tahtasız", "kisi": "Yağmur Tahtasız", "url": "/av-yagmur-tahtasiz/",
                         "foto": yerel_foto("https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg", "av-yagmur-tahtasiz"),
-                        "alan": "Boşanma ve aile hukuku",
+                        "alan": "Boşanma, aile, miras ve icra hukuku",
                         "bio": "İzmir Barosu'na kayıtlı avukat. Anadolu Üniversitesi Hukuk Fakültesi mezunu; 2022'den bu yana aile ve boşanma hukuku ağırlıklı olarak avukatlık yapıyor. Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütüyor."},
     "umut-tekin": {"ad": "Av. Umut Tekin", "kisi": "Umut Tekin", "url": "/av-umut-tekin/", "foto": "/yazar/av-umut-tekin.jpg",
                    "alan": "Ceza ve ağır ceza hukuku",
@@ -218,11 +218,32 @@ _KONU_RE = {k: re.compile("|".join((r"(?<!\w)" + re.escape(_tr_kucuk(w)) + (r"(?
 for p in POSTS:
     h = _tr_kucuk(p["title"] + " | " + " | ".join(p.get("tags", [])))
     p["konular"] = [k for k, *_ in KONULAR if _KONU_RE[k].search(h)]
-# hukuki inceleme: boşanma/aile hukuku yazıları Av. Yağmur Tahtasız, ceza hukuku yazıları Av. Umut Tekin tarafından incelenir
+# hukuki inceleme: yalnızca ceza hukuku (suç, soruşturma, kovuşturma, ceza yargılaması) yazıları Av. Umut Tekin;
+# boşanma, aile, miras, icra ve diğer özel hukuk (kira, tüketici, iş, tazminat) yazıları Av. Yağmur Tahtasız tarafından incelenir.
+# Aile ve miras her durumda Yağmur Tahtasız'dadır. İdare, anayasa, vergi gibi alanlarda inceleme kartı gösterilmez.
+def _kelime_re(ws): return re.compile("|".join(r"(?<!\w)" + re.escape(_tr_kucuk(w)) for w in ws))
+_AILE_RE = _kelime_re(["boşan", "nafaka", "velayet", "aile hukuku", "aile mahkemesi", "evlilik", "eşler", "ziynet", "mal rejimi", "edinilmiş mal",
+                       "nesep", "soybağı", "babalık davası", "evlat edin", "vesayet", "6284", "koruma kararı", "uzaklaştırma kararı",
+                       "miras", "mirasçı", "veraset", "tereke", "vasiyet", "saklı pay", "tenkis", "muris"])
+_ICRA_RE = _kelime_re(["icra takib", "icra müdürl", "icra dairesi", "icra ve iflas", "icra hukuku", "haciz", "iflas", "konkordato", "itirazın iptali",
+                       "menfi tespit", "ihtiyati haciz", "2004 sayılı", "kambiyo"])
+_OZEL_RE = _kelime_re(["manevi tazminat", "maddi tazminat", "tazminat davası", "borçlar kanunu", "aydınlatılmış onam", "hekime kusur", "tıbbi müdahale",
+                       "malpraktis", "alacak davası", "kira sözleşme", "kiracı", "kira artış", "tahliye davası", "tapu iptal", "ortaklığın giderilmesi",
+                       "ayıplı", "ayıpsız", "cayma hakkı", "tüketici hakem", "kıdem tazminat", "ihbar tazminat", "işe iade", "yıllık izin", "işten çıkar",
+                       "hak sahipleri ne yapmalı", "hukuki haklar rehberi"])
+_UT_RE = _kelime_re(["tck", "cmk", "türk ceza kanunu", "ceza muhakemesi", "tutukla", "tutuklu", "gözaltı", "iddianame", "sanık", "şüpheli",
+                     "mütalaa", "beraat", "müebbet", "hapis", "cezaevi", "adli kontrol", "kovuşturma", "suç örgütü", "suç duyurusu", "suçlama",
+                     "suçu", "suçlar", "suç mu", "suça", "uyuşturucu", "kara para", "aklama", "irtikap", "rüşvet", "dolandırıcı", "fetö", "deaş",
+                     "terör", "kasten", "taksirle", "öldürme", "yakalandı", "gıyabi", "kırmızı bülten", "operasyon", "ağır ceza", "hagb",
+                     "yasa dışı bahis", "kaçakçılı", "tefeci", "hürriyetten yoksun", "kötü muamele", "fuhuş", "silahlı saldırı"])
+_CEZA_DEGIL = _kelime_re(["rekabet", "rtük", "reklam kurulu", "idari para cezası", "disiplin cezası", "kesin hesab", "adli tatil", "msci", "borsa"])
 for p in POSTS:
     if p.get("denetleyen"): continue
-    if "aile-hukuku" in p["konular"]: p["denetleyen"] = "yagmur-tahtasiz"
-    elif "ceza-hukuku" in p["konular"] and "rekabet" not in _tr_kucuk(p["title"]): p["denetleyen"] = "umut-tekin"
+    _t = _tr_kucuk(p["title"]); _h = _t + " | " + _tr_kucuk(" | ".join(p.get("tags", [])))
+    if "adli tatil" in _t: continue
+    if "aile-hukuku" in p["konular"] or _AILE_RE.search(_h): p["denetleyen"] = "yagmur-tahtasiz"
+    elif _UT_RE.search(_h) and not _CEZA_DEGIL.search(_t): p["denetleyen"] = "umut-tekin"
+    elif _ICRA_RE.search(_h) or _OZEL_RE.search(_h): p["denetleyen"] = "yagmur-tahtasiz"
 KONU_HABER = {k: [p for p in POSTS if k in p["konular"]] for k, *_ in KONULAR}
 KONU_AD = {k: ad for k, ad, *_ in KONULAR}
 KONU_VAR = [k for k, *_ in KONULAR if len(KONU_HABER[k]) >= KONU_ALT]
@@ -1121,7 +1142,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
 <h2>Yazı işleri</h2>
-<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi (boşanma ve aile hukuku): <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a>. Yazar ve editör (ceza ve ağır ceza hukuku): <a href="/av-umut-tekin/">Av. Umut Tekin</a>. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
+<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi (boşanma, aile, miras ve icra hukuku): <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a>. Yazar ve editör (ceza ve ağır ceza hukuku): <a href="/av-umut-tekin/">Av. Umut Tekin</a>. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine iletilebilir.</p>
 <h2>İletişim</h2>
@@ -1159,7 +1180,7 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <h2 id="yontem">Çalışma yöntemi ve yazılım araçları</h2>
 <p>Gündemi izlemek, resmî kaynaklardaki yeni duyuruları tespit etmek ve haber taslaklarını hazırlamak için yazılım araçlarından yararlanırız. Anlık gelişmelere ilişkin haberler editör onayıyla yayımlanır. Bu yolla hazırlanan tüm metinler kaynak, tarafsızlık ve doğrulama ilkelerimize göre denetlenir; dayanılan kaynak geri çekildiğinde ya da bir hata tespit edildiğinde düzeltme politikamız uygulanır.</p>
 <h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
-<p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> (boşanma ve aile hukuku), ceza ve ağır ceza hukuku alanındaki yazı ve editörlük işlerini <a href="/av-umut-tekin/">Av. Umut Tekin</a> yürütür. Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesi için de aşağıdaki bağlantı ilkesi geçerlidir. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
+<p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> (boşanma, aile, miras ve icra hukuku), ceza ve ağır ceza hukuku alanındaki yazı ve editörlük işlerini <a href="/av-umut-tekin/">Av. Umut Tekin</a> yürütür. Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesi için de aşağıdaki bağlantı ilkesi geçerlidir. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
 <h2>Reklam, sponsorluk ve bağımsızlık</h2>
 <p>Sitede şu an reklam ve sponsorlu içerik bulunmamaktadır. İleride reklam alınması hâlinde reklam alanları haber metninden görsel olarak ayrılacak ve "Reklam" ibaresi taşıyacaktır. Hiçbir kurum veya kişi, ödeme karşılığında bir haberin içeriğini belirleyemez. Yazılarda hukuki bilgiye kaynak olarak bağlantı verilen dış sitelerle ilişkiler bu sayfada açıklanır.</p>
 <h2>Görseller</h2>
@@ -1177,7 +1198,7 @@ AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE +
                         "alumniOf": {"@type": "CollegeOrUniversity", "name": "Anadolu Üniversitesi Hukuk Fakültesi"},
                         "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
                         "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
-                        "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
+                        "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Miras hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
                         "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"]}}
 def incelenen_listesi(k):
     ls = [q for q in POSTS if q.get("denetleyen") == k]
@@ -1205,7 +1226,7 @@ AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız"
 <li><a href="https://www.linkedin.com/in/yagmurtahtasiz" rel="noopener" target="_blank">LinkedIn</a></li>
 </ul>"""
 write(AV_URL, page("Av. Yağmur Tahtasız", "Av. Yağmur Tahtasız: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler hukuk danışmanı ve içerik denetimi sorumlusu.", AV_URL,
-      f'<article class="post static"><h1>Av. Yağmur Tahtasız</h1><p class="sec-desc">Hukuk danışmanı ve içerik denetimi · Boşanma ve aile hukuku</p><div class="body">{AV}</div></article>',
+      f'<article class="post static"><h1>Av. Yağmur Tahtasız</h1><p class="sec-desc">Hukuk danışmanı ve içerik denetimi · Boşanma, aile, miras ve icra hukuku</p><div class="body">{AV}</div></article>',
       ld=AV_LD, ogtype="profile", crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (AV_URL, "Av. Yağmur Tahtasız")]))
 
 # yazar ve editör: Av. Umut Tekin (bilgiler umuttekin.av.tr üzerinden doğrulanmıştır)
@@ -1255,7 +1276,7 @@ def _yz_kart(k, y):
     return (f'<li><a class="yz-ust" href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer">'
             f'<b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a>{son}</li>')
 _yz = "".join(_yz_kart(k, y) for k, y in YAZARLAR.items())
-write("/yazarlar/", page("Yazarlar", "Hukuki Haberler yazarları ve editörleri: Av. Yağmur Tahtasız (boşanma ve aile hukuku) ve Av. Umut Tekin (ceza ve ağır ceza hukuku).", "/yazarlar/",
+write("/yazarlar/", page("Yazarlar", "Hukuki Haberler yazarları ve editörleri: Av. Yağmur Tahtasız (boşanma, aile, miras ve icra hukuku) ve Av. Umut Tekin (ceza ve ağır ceza hukuku).", "/yazarlar/",
       f'<div class="crumb"><a href="/">Anasayfa</a> › Yazarlar</div><h1 class="sec">Yazarlar</h1><p class="sec-desc">Haber ve analizlerin hukuki çerçevesini alanında çalışan avukatlar yazar, denetler ve düzenler.</p><ul class="yzl">{_yz}</ul>',
       crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar")]))
 
