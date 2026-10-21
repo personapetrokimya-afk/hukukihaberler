@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/nevsehir-merkezli-nitelikli-dolandiricilik-sucu-operasyonu-12-gozalti</loc><lastmod>2026-10-21T19:30:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/deas-uyeligi-davasinda-15-yila-kadar-hapis-istemi</loc><lastmod>2026-10-21T17:57:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/chp-de-kesin-ihrac-talebiyle-disipline-sevk-edilmek</loc><lastmod>2026-10-21T17:32:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
 <url><loc>https://hukukihaberler.com/manifest-kurucusu-hakkinda-iddianame-mustehcenlik-sucu-nedir</loc><lastmod>2026-10-21T17:09:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
@@ -262,6 +263,9 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/nitelikli-dolandiricilik/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/masak/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/gozalti-sureci/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tck-314/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/terorle-mucadele-kanunu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/siyasi-partiler-kanunu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -285,8 +289,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/gozalti-suresi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirim-fonu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yasa-disi-bahis/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/nitelikli-dolandiricilik/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/masak/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/icisleri-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/7258-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/siber-suclar/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -312,7 +314,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/epdk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/elektrik-piyasasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kvkk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/gozalti-sureci/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/basin-ozgurlugu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/rusvet/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/agir-ceza/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
