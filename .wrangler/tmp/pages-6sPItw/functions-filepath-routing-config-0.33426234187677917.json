@@ -1,0 +1,21 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/anket",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/anket.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/anket",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/anket.js:onRequestPost"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
