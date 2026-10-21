@@ -455,6 +455,9 @@ def cikar_notu(govde):
         if not any(re.search(r'href="https?://(www\.)?' + re.escape(al) + r'[/"]', a) for al in alanlar if al): return a
         a = re.sub(r'\srel="[^"]*"', "", a)
         return a[:-1] + ' rel="nofollow noopener">'
+    # hizmet sayfalarına (ör. /izmir-ceza-avukati.html) bağlantı verilmez; yalnızca konuyu anlatan rehber ve araç sayfaları kalır
+    for al in alanlar:
+        if al: govde = re.sub(r'<a\s[^>]*href="https?://(?:www\.)?' + re.escape(al) + r'(?!/blog/|/araclar/)[^"]*"[^>]*>(.*?)</a>', r"\1", govde, flags=re.S)
     govde = re.sub(r"<a\s[^>]*>", _rel, govde)
     for y in YAZAR_KAYIT.values():
         b = y.get("buro_sitesi")

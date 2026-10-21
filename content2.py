@@ -78,7 +78,7 @@ POSTS = [
 <p>Sekiz ay sonra işbaşı yapan Boz ve arkadaşları, idarenin açtığı yeni dava sonucunda beş ay sonra yeniden işten çıkarıldı. Danıştay 12. Dairesi'nin bozma kararının ardından dosya tekrar idare mahkemesine döndü. Boz, bu süreçte sigortasız işlerde çalışmak zorunda kaldığını ve kazanılmış hakkının her seferinde yeniden tartışmaya açıldığını anlatıyor.</p>
 <h2>Kazanılmış hak ve idari istikrar</h2>
 <p>Danıştay içtihadında, idarenin kendi hatasıyla tesis ettiği bir işlemi, ilgilinin hilesi yoksa makul süre geçtikten sonra geri alamayacağı kabul ediliyor; bu ilke "idari istikrar" olarak adlandırılıyor. Sınav usulsüzlüğü davalarında ise usulsüzlüğün adaydan kaynaklanıp kaynaklanmadığı belirleyici oluyor. Boz'un dosyasında mahkemeler bu noktada farklı sonuçlara ulaştı; uyuşmazlığın bu kadar uzamasının asıl nedeni, her bozma kararının yeniden yargılama gerektirmesi.</p>
-<p>İdari yargıda dava süreleri ve iptal davasının sonuçları için <a href="https://yagmurtahtasiz.com/izmir-idare-hukuku-avukati.html" rel="noopener">idare hukuku</a> sayfasına bakılabilir. Boz'un avukatı, son kararın kesinleşmesi hâlinde geçmişe dönük maaş ve özlük haklarının tamamını talep edeceklerini açıkladı.</p>"""},
+<p>İdari yargıda dava süreleri ve iptal davasının sonuçları için idare hukuku sayfasına bakılabilir. Boz'un avukatı, son kararın kesinleşmesi hâlinde geçmişe dönük maaş ve özlük haklarının tamamını talep edeceklerini açıkladı.</p>"""},
 
 {"slug": "hukukculardan-net-cikis-firarinin", "date": "2010-08-03",
  "title": "Hukukçulardan Net Çıkış: Tutuklama Kararı Olan Terfi Edemez",
