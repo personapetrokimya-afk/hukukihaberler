@@ -264,6 +264,21 @@ h1.sec{font:700 32px/1.18 var(--serif);margin:0 0 6px}.sec-desc{color:var(--mute
 .ornek b{display:block;font:700 12.5px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:6px}.ornek p{margin:0 0 6px}
 .kaynak{font:15px/1.6 var(--sans);color:var(--mute);border-top:1px solid var(--line2);padding-top:12px;margin:0 0 20px}.kaynak b{color:var(--ink);margin-right:4px}.kaynak a{color:var(--gold);text-decoration:underline}
 .anket{background:var(--card);padding:16px 20px;margin:8px 0 22px;font:16px/1.5 var(--sans)}
+.ilt-kanal{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 8px}.ilt-kanal>div{background:var(--card);border-top:3px solid var(--gold);padding:14px 18px}.ilt-kanal h2{margin:0 0 6px!important;font:700 13px/1.3 var(--sans)!important;text-transform:uppercase;letter-spacing:.08em;color:var(--gold)}.ilt-kanal p{margin:6px 0;font-size:16px}
+.ilt-posta{font:700 19px/1.3 var(--sans);word-break:break-all}
+.ilt-kural{background:var(--card);margin:10px 0;padding:0 18px;border-left:3px solid var(--line)}.ilt-kural[open]{border-left-color:var(--gold)}.ilt-kural summary{cursor:pointer;padding:13px 0;font:700 16.5px/1.4 var(--sans);list-style-position:outside}.ilt-kural ul{margin:0 0 12px;padding-left:20px}.ilt-kural li{margin:6px 0;font-size:16px}
+.ilt-form{background:var(--card);padding:20px 22px;margin:12px 0 26px;font:16px/1.5 var(--sans)}
+.ilt-form p{margin:0 0 14px}.ilt-form label{display:block;font-weight:700;margin-bottom:6px;font-size:15px}.ilt-form label small{font-weight:400;color:var(--mute)}
+.ilt-form input[type=text],.ilt-form input[type=email],.ilt-form input[type=tel],.ilt-form input[type=url],.ilt-form select,.ilt-form textarea{width:100%;min-height:46px;background:var(--dark);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:10px 12px;font:16px/1.5 var(--sans)}
+.ilt-form textarea{min-height:170px;resize:vertical}.ilt-form input:focus,.ilt-form select:focus,.ilt-form textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.ilt-iki{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.ilt-sayac{display:block;text-align:right;color:var(--mute);font-size:13px;margin-top:4px}
+.ilt-gizli{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.ilt-onay label{display:flex!important;gap:10px;align-items:flex-start;font-weight:400!important;cursor:pointer}.ilt-onay input{width:20px;height:20px;margin-top:2px;flex:0 0 20px;accent-color:#F1D293}
+.ilt-hata{background:rgba(240,138,122,.14);border-left:3px solid var(--coral);padding:10px 14px;color:var(--ink)}
+.ilt-gonder{background:var(--gold);color:#22303F;border:0;min-height:48px;padding:0 30px;border-radius:3px;font:700 16px var(--sans);cursor:pointer}.ilt-gonder:disabled{opacity:.6;cursor:wait}
+.ilt-not{color:var(--mute);font-size:14px;margin:12px 0 0!important}
+.ilt-tamam{background:var(--card);border-left:4px solid #63CFAE;padding:18px 22px;margin:12px 0 26px;outline:none}.ilt-tamam h3{margin:0 0 6px;font:700 20px var(--serif)}.ilt-tamam p{margin:6px 0}
+@media(max-width:640px){.ilt-kanal,.ilt-iki{grid-template-columns:1fr}.ilt-form{padding:16px}}
 .anket h2{font:700 12.5px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px;color:var(--gold)}.anket .q{font:700 19px/1.4 var(--serif);margin:0 0 10px}
 .anket label{display:flex;align-items:center;gap:8px;min-height:40px;cursor:pointer}
 .anket button{margin-top:8px;background:var(--gold);color:#22303F;border:0;min-height:44px;padding:0 20px;border-radius:3px;font:700 15px var(--sans);cursor:pointer}

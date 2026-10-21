@@ -892,7 +892,7 @@ for idx, p in enumerate(POSTS):
 {('<p class="konub"><b>Konu dosyası:</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
 <div class="tags"><b>Etiketler:</b>{tags_html}</div>
 {yazar_kutu(p)}{gpref_kutu()}{kaynak_goster(p, full)}
-{gecmis_html(p)}<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/">iletişim</a>.</div>
+{gecmis_html(p)}<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/?konu=duzeltme&amp;adres={SITE}{p['url']}#form" rel="nofollow">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
     write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/",
                           ogek=f'\n<meta property="article:published_time" content="{iso(p)}">'
@@ -1111,18 +1111,94 @@ HAKKINDA = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan 
 <p>Sitedeki içerik genel bilgilendirme amaçlıdır; hukuki görüş, danışmanlık ya da vekâlet ilişkisi oluşturmaz. Somut bir uyuşmazlık için bir avukata başvurulmalıdır. Baroların iletişim bilgilerine <a href="https://www.barobirlik.org.tr/" rel="noopener" target="_blank">Türkiye Barolar Birliği</a> sitesinden ulaşılabilir.</p>"""
 write("/hakkinda/", page("Hakkında", "Hukuki Haberler: 2010'dan bu yana hukuk, yargı ve mevzuat gündemini izleyen bağımsız haber sitesi.", "/hakkinda/",
       f'<article class="post static"><h1>Hakkında</h1><div class="body">{HAKKINDA}</div></article>'))
-ILETISIM = """<p class="lead">Hukuki Haberler bağımsız bir yayın sitesidir; bireysel hukuki danışmanlık talebi kabul etmez.</p>
-<h2>E-posta</h2>
-<p>Haber ihbarı, düzeltme, tekzip ve yayınla ilgili her türlü bildirim için: <b><a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a></b>. Bildirimler yazı işleri tarafından okunur ve kural olarak üç iş günü içinde yanıtlanır.</p>
-<h2>Düzeltme ve güncelleme</h2>
-<p>Bir haberde eskimiş ya da hatalı bir bilgi fark ettiyseniz, haberin adresini ve doğru bilginin kaynağını belirten bir not iletebilirsiniz; doğrulanan düzeltmeler habere işlenir ve güncelleme tarihi gösterilir. Her haberin sonunda konuyla ilgili resmî kaynaklara bağlantı bulunur; güncel ve bağlayıcı bilgi için her zaman bu kaynaklar esas alınmalıdır.</p>
-<h2>Hukuki danışmanlık</h2>
-<p>Site, somut dosyalar hakkında görüş vermez. Bir uyuşmazlık için bulunduğunuz ildeki bir avukata ya da baroların adli yardım bürolarına başvurabilirsiniz. Baro iletişim bilgileri <a href="https://www.barobirlik.org.tr/" rel="noopener" target="_blank">Türkiye Barolar Birliği</a> sitesinde yer alır.</p>"""
-write("/iletisim/", page("İletişim", "Hukuki Haberler iletişim: düzeltme bildirimi, kaynaklar ve hukuki danışmanlık için başvurulabilecek yerler.", "/iletisim/",
-      f'<article class="post static"><h1>İletişim</h1><div class="body">{ILETISIM}</div></article>'))
+ILETISIM = """<p class="lead">Haber ihbarı, düzeltme ve cevap hakkı talepleri, içerikle ilgili şikâyetler ve kişisel veri başvuruları için bize e-posta ile ya da aşağıdaki formla ulaşabilirsiniz. Hukuki Haberler bağımsız bir yayın sitesidir; bireysel hukuki danışmanlık vermez.</p>
+<div class="ilt-kanal">
+<div><h2>E-posta</h2><p><a class="ilt-posta" href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a></p><p>Yazı işleri tarafından okunur. Ekli belge göndermeniz gerekiyorsa (karar, resmî yazı, fotoğraf) e-postayı kullanın.</p></div>
+<div><h2>İletişim formu</h2><p>Formdan gelen her mesaja bir kayıt numarası verilir. Yazışmalarda bu numarayı belirtmeniz talebinizin takibini kolaylaştırır.</p><p><a href="#form">Forma git ↓</a></p></div>
+</div>
+<h2>Yanıt süreleri</h2>
+<ul>
+<li><b>Düzeltme, cevap hakkı ve içerik şikâyetleri:</b> öncelikli olarak değerlendirilir; kural olarak üç iş günü içinde yanıtlanır.</li>
+<li><b>Haber ihbarları:</b> doğrulama gerektirdiğinden süre konuya göre değişir. Yayımlanmayan ihbarlara ayrıca yanıt verilmeyebilir.</li>
+<li><b>Kişisel veri (KVKK) başvuruları:</b> 6698 sayılı Kanun'un 13. maddesi uyarınca en geç otuz gün içinde sonuçlandırılır.</li>
+</ul>
+<h2 id="kurallar">Form kuralları</h2>
+<p>Talebinizin hızlı ve doğru değerlendirilebilmesi için lütfen aşağıdaki kurallara uyun.</p>
+<details class="ilt-kural" open><summary>Konuya göre göndermeniz gereken bilgiler</summary>
+<ul>
+<li><b>Haber ihbarı:</b> olayın yeri ve zamanı ile doğrulanabilir bir kaynak (resmî duyuru, karar, belge bağlantısı). Doğrulanamayan ihbarlar yayımlanmaz. İhbarda bulunan kişinin kimliği yayımlanmaz ve üçüncü kişilerle paylaşılmaz.</li>
+<li><b>Düzeltme talebi:</b> haberin adresi, hatalı olduğunu düşündüğünüz bilgi ve doğrusunu gösteren kaynak. Doğrulanan düzeltmeler habere işlenir; haberin altında düzeltme tarihi ve ne değiştiği gösterilir.</li>
+<li><b>Cevap ve düzeltme hakkı:</b> haberin adresi ve yayımlanmasını istediğiniz cevap ya da düzeltme metni. Metin, haberle ilgili olmalı; hakaret, suç isnadı ya da üçüncü kişilerin haklarını ihlal eden ifade içermemelidir. Talepler mevzuattaki süre ve koşullara göre değerlendirilir.</li>
+<li><b>Kişilik hakkı / içerik kaldırma talebi:</b> haberin adresi, hakkınızı ihlal ettiğini düşündüğünüz ifade ve gerekçeniz. Başkası adına başvuruyorsanız yetkinizi (vekâlet, kanuni temsil) belirtin.</li>
+<li><b>KVKK başvurusu:</b> hangi hakkınızı kullanmak istediğinizi (bilgi talebi, düzeltme, silme vb.) ve ilgili sayfayı belirtin. Kimliğinizi doğrulamak için ek bilgi istenebilir.</li>
+<li><b>Teknik sorun:</b> sorunun görüldüğü sayfa adresi, cihaz ve tarayıcı bilgisi.</li>
+</ul></details>
+<details class="ilt-kural"><summary>Form üzerinden kabul edilmeyen talepler</summary>
+<ul>
+<li>Bireysel hukuki danışmanlık, somut bir dosya hakkında görüş ya da dilekçe hazırlama talepleri. Bu talepler için bulunduğunuz ildeki bir avukata ya da baroların adli yardım bürolarına başvurabilirsiniz.</li>
+<li>Avukat önerisi ya da avukat iletişim bilgisi talepleri. Sitede yer alan avukatlar yalnızca yayın içeriğini hukuki açıdan inceler; site aracılığıyla iş kabul etmez.</li>
+<li>Reklam, sponsorlu içerik, tanıtım yazısı ve bağlantı satışı teklifleri. Sitede ücret karşılığı yayımlanan içerik yoktur.</li>
+<li>Hakaret, tehdit ya da nefret söylemi içeren mesajlar. Bu tür mesajlar yanıtlanmaz.</li>
+</ul></details>
+<details class="ilt-kural"><summary>Mesajınızı yazarken</summary>
+<ul>
+<li>Başkalarına ait kişisel verileri (T.C. kimlik numarası, adres, sağlık bilgisi, dosya numarası gibi) talebiniz için zorunlu değilse paylaşmayın.</li>
+<li>Kendi özel nitelikli kişisel verilerinizi (sağlık, ceza mahkûmiyeti vb.) formda paylaşmamanızı öneririz; gerekiyorsa e-posta ile iletin.</li>
+<li>Mesaj en az 30, en fazla 4.000 karakter olabilir; en fazla beş bağlantı içerebilir. Aynı bağlantıdan saatte en fazla beş mesaj gönderilebilir.</li>
+<li>Düzeltme, cevap hakkı ve içerik şikâyetlerinde ilgili haberin adresini yazmak zorunludur.</li>
+</ul></details>
+<h2 id="form">İletişim formu</h2>
+<form class="ilt-form" id="ilt-form" method="post" action="/api/iletisim" novalidate>
+<div class="ilt-iki"><p><label for="ilt-ad">Ad soyad <span aria-hidden="true">*</span></label><input id="ilt-ad" name="ad" type="text" autocomplete="name" required minlength="3" maxlength="80"></p>
+<p><label for="ilt-eposta">E-posta <span aria-hidden="true">*</span></label><input id="ilt-eposta" name="eposta" type="email" autocomplete="email" inputmode="email" required maxlength="160"></p></div>
+<div class="ilt-iki"><p><label for="ilt-konu">Konu <span aria-hidden="true">*</span></label><select id="ilt-konu" name="konu" required><option value="">Seçin</option><option value="ihbar">Haber ihbarı</option><option value="duzeltme">Düzeltme talebi</option><option value="cevap">Cevap ve düzeltme hakkı</option><option value="icerik">Kişilik hakkı / içerik kaldırma talebi</option><option value="kvkk">KVKK başvurusu</option><option value="teknik">Teknik sorun</option><option value="diger">Diğer</option></select></p>
+<p><label for="ilt-tel">Telefon <small>(isteğe bağlı)</small></label><input id="ilt-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" maxlength="30"></p></div>
+<p id="ilt-adres-p"><label for="ilt-adres">İlgili haberin adresi <small id="ilt-adres-not">(düzeltme, cevap ve içerik taleplerinde zorunlu)</small></label><input id="ilt-adres" name="adres" type="url" inputmode="url" maxlength="400" placeholder="https://hukukihaberler.com/..."></p>
+<p><label for="ilt-baslik">Başlık <span aria-hidden="true">*</span></label><input id="ilt-baslik" name="baslik" type="text" required minlength="5" maxlength="140"></p>
+<p><label for="ilt-mesaj">Mesajınız <span aria-hidden="true">*</span></label><textarea id="ilt-mesaj" name="mesaj" rows="8" required minlength="30" maxlength="4000"></textarea><small class="ilt-sayac" id="ilt-sayac" aria-live="polite">0 / 4000</small></p>
+<p class="ilt-gizli" aria-hidden="true"><label for="ilt-web">Bu alanı boş bırakın</label><input id="ilt-web" name="web" type="text" tabindex="-1" autocomplete="off"></p>
+<p class="ilt-onay"><label><input type="checkbox" name="onay" value="1" required> <span>Aşağıdaki <a href="#aydinlatma">aydınlatma metnini</a> ve <a href="#kurallar">form kurallarını</a> okudum. <span aria-hidden="true">*</span></span></label></p>
+<p class="ilt-hata" id="ilt-hata" role="alert" hidden></p>
+<button type="submit" class="ilt-gonder">Gönder</button>
+<p class="ilt-not">* ile işaretli alanlar zorunludur. Form çalışmazsa <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine yazabilirsiniz.</p>
+</form>
+<div class="ilt-tamam" id="ilt-tamam" tabindex="-1" hidden><h3>Mesajınız alındı</h3><p>Kayıt numaranız: <b id="ilt-no"></b></p><p>Talebiniz yazı işleri tarafından değerlendirilecek ve yanıt e-posta adresinize gönderilecektir.</p></div>
+<h2 id="aydinlatma">Kişisel verilerin işlenmesine ilişkin aydınlatma metni</h2>
+<p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun 10. maddesi uyarınca iletişim formu ve e-posta yoluyla bize ulaşan kişileri bilgilendirmek amacıyla hazırlanmıştır.</p>
+<ul>
+<li><b>Veri sorumlusu:</b> Hukuki Haberler (hukukihaberler.com), iletisim@hukukihaberler.com.</li>
+<li><b>İşlenen veriler:</b> ad soyad, e-posta adresi, isteğe bağlı olarak telefon numarası, konu, ilgili sayfa adresi, başlık ve mesaj içeriği, gönderim zamanı, bağlantının ülke bilgisi ve tarayıcı türü. Kötüye kullanımı önlemek için IP adresinizden geri döndürülemez bir özet üretilir ve bir saat içinde silinir; IP adresiniz saklanmaz.</li>
+<li><b>Amaç:</b> talebinizi değerlendirmek ve size yanıt vermek; düzeltme, cevap hakkı ve içerik şikâyetlerine ilişkin yükümlülükleri yerine getirmek; formun kötüye kullanılmasını önlemek.</li>
+<li><b>Hukuki sebep:</b> Kanun'un 5. maddesinin 2. fıkrasındaki hukuki yükümlülüğün yerine getirilmesi (ç), bir hakkın tesisi, kullanılması veya korunması (e) ve ilgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla veri sorumlusunun meşru menfaati (f).</li>
+<li><b>Aktarım:</b> Veriler üçüncü kişilere satılmaz ve pazarlama amacıyla kullanılmaz. Form altyapısı ve barındırma hizmeti Cloudflare, Inc. tarafından sağlanır; veriler bu kapsamda yurt dışındaki sunucularda işlenebilir. Yasal zorunluluk hâlinde yetkili kamu kurum ve kuruluşlarıyla ya da yargı mercileriyle paylaşılabilir.</li>
+<li><b>Saklama süresi:</b> Mesajlar talebin sonuçlanmasından itibaren en fazla iki yıl saklanır, ardından silinir.</li>
+<li><b>Haklarınız:</b> Kanun'un 11. maddesi uyarınca verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini ya da silinmesini isteme ve itiraz etme haklarına sahipsiniz. Başvurularınızı bu formdan "KVKK başvurusu" konusuyla ya da e-posta ile iletebilirsiniz.</li>
+</ul>"""
+ILETISIM_JS = r"""<script>(function(){var f=document.getElementById('ilt-form');if(!f)return;
+var q=new URLSearchParams(location.search),k=document.getElementById('ilt-konu'),a=document.getElementById('ilt-adres'),m=document.getElementById('ilt-mesaj'),s=document.getElementById('ilt-sayac'),h=document.getElementById('ilt-hata');
+f.dataset.t=Date.now();
+if(q.get('konu')&&k.querySelector('option[value="'+q.get('konu').replace(/[^a-z]/g,'')+'"]'))k.value=q.get('konu');
+if(q.get('adres')&&/^https:\/\/hukukihaberler\.com\//.test(q.get('adres')))a.value=q.get('adres');
+function zor(){var z=['duzeltme','cevap','icerik'].indexOf(k.value)>=0;a.required=z;}
+k.addEventListener('change',zor);zor();
+m.addEventListener('input',function(){s.textContent=m.value.length+' / 4000';});
+f.addEventListener('submit',function(e){e.preventDefault();h.hidden=true;
+var v={};new FormData(f).forEach(function(x,y){v[y]=x;});v.onay=f.onay.checked;v.t=+f.dataset.t;
+var hata=[];if((v.ad||'').trim().length<3)hata.push('Ad soyad en az 3 karakter olmalı.');
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((v.eposta||'').trim()))hata.push('Geçerli bir e-posta adresi yazın.');
+if(!v.konu)hata.push('Bir konu seçin.');if(a.required&&!(v.adres||'').trim())hata.push('Bu konu için ilgili haberin adresini yazın.');
+if((v.baslik||'').trim().length<5)hata.push('Başlık en az 5 karakter olmalı.');if((v.mesaj||'').trim().length<30)hata.push('Mesaj en az 30 karakter olmalı.');
+if(!v.onay)hata.push('Aydınlatma metnini okuduğunuzu onaylayın.');
+if(hata.length){h.textContent=hata.join(' ');h.hidden=false;h.focus&&h.scrollIntoView({block:'center'});return;}
+var b=f.querySelector('button[type=submit]');b.disabled=true;b.textContent='Gönderiliyor…';
+fetch('/api/iletisim',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)}).then(function(r){return r.json().then(function(j){return[r.status,j]})}).then(function(x){
+if(x[0]===200&&x[1].tamam){f.hidden=true;var t=document.getElementById('ilt-tamam');document.getElementById('ilt-no').textContent=x[1].no||'—';t.hidden=false;t.focus();t.scrollIntoView({block:'center'});}
+else{h.textContent=x[1].hata||'Mesaj gönderilemedi. Lütfen e-posta ile yazın.';h.hidden=false;}}).catch(function(){h.textContent='Bağlantı hatası. Lütfen yeniden deneyin ya da e-posta ile yazın.';h.hidden=false;}).then(function(){b.disabled=false;b.textContent='Gönder';});});})();</script>"""
+write("/iletisim/", page("İletişim", "Hukuki Haberler iletişim: e-posta adresi, iletişim formu, düzeltme ve cevap hakkı talepleri, KVKK başvuruları ve form kuralları.", "/iletisim/",
+      f'<article class="post static"><h1>İletişim</h1><div class="body">{ILETISIM}</div></article>', extra=ILETISIM_JS))
 GIZ = """<p class="lead">Bu sayfa, Hukuki Haberler'i ziyaret ettiğinizde hangi verilerin işlendiğini ve çerez tercihinizi nasıl değiştirebileceğinizi açıklar.</p>
 <h2>Toplanan veriler</h2>
-<p>Sitede üyelik, yorum ve iletişim formu yoktur; ad, e-posta gibi kimlik bilgisi istenmez. Bize e-posta gönderirseniz, e-posta adresiniz ve mesajınız yalnızca yanıt vermek ve düzeltme taleplerini değerlendirmek için kullanılır.</p>
+<p>Sitede üyelik ve yorum sistemi yoktur. Okurlar yalnızca <a href="/iletisim/">iletişim formu</a> ya da e-posta yoluyla bize ad, e-posta adresi ve mesaj iletebilir; bu bilgiler yalnızca talebi değerlendirmek ve yanıt vermek için kullanılır, en fazla iki yıl saklanır. Ayrıntılar iletişim sayfasındaki <a href="/iletisim/#aydinlatma">aydınlatma metnindedir</a>.</p>
 <h2 id="cerezler">Çerezler ve ziyaret ölçümü</h2>
 <ul class="liste">
 <li><b>Google Analytics 4 (Google LLC):</b> Hangi haberlerin okunduğunu ve ziyaretçilerin siteye nereden geldiğini toplu olarak ölçmek için kullanılır. Analiz çerezleri (<code>_ga</code>, <code>_ga_*</code>) <b>yalnızca izin verirseniz</b> tarayıcınıza yazılır. İzin vermezseniz Google'a çerez ve tanımlayıcı içermeyen, kimliksiz ölçüm sinyalleri gönderilir. Reklam ve kişiselleştirme amaçlı izinler her durumda kapalıdır. Veriler Google tarafından yurt dışındaki sunucularda işlenebilir.</li>
@@ -1137,7 +1213,7 @@ GIZ = """<p class="lead">Bu sayfa, Hukuki Haberler'i ziyaret ettiğinizde hangi 
 <h2>Dış bağlantılar</h2>
 <p>Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları, X) ve paylaşım düğmeleri ilgili sitelerin kendi gizlilik politikalarına tabidir. Paylaşım düğmeleri siz tıklamadıkça bu sitelere veri göndermez.</p>
 <h2>Haklarınız ve iletişim</h2>
-<p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki talepleriniz için <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine yazabilirsiniz.</p>"""
+<p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki talepleriniz için <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine yazabilir ya da <a href="/iletisim/?konu=kvkk#form">iletişim formunu</a> kullanabilirsiniz.</p>"""
 KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan bağımsız bir hukuk haber sitesidir. Ticari bir kuruluşa, hukuk bürosuna ya da baroya bağlı değildir.</p>
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
@@ -1329,6 +1405,12 @@ with open(os.path.join(OUT, "site.webmanifest"), "w", encoding="utf-8") as f:
                "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, f, ensure_ascii=False)
 
 # yönlendirmeler (Cloudflare Pages _redirects)
+# yönetim panelinden kaldırılan eski (arşiv) yazıların adresleri 404 yerine arşive yönlenir (eski adres denetimi bozulmasın)
+if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "kaldirilanlar.json")):
+    for _k in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "kaldirilanlar.json"), encoding="utf-8")):
+        if any(q["slug"] == _k["slug"] for q in POSTS): continue
+        _h = _k.get("hedef") or "/arsiv/"
+        REDIRECTS += [(f"/{_k['slug']}.html", _h), (f"/{_k['slug']}", _h), (f"/{_k['slug']}/", _h)]
 REDIRECTS += [("/search/*", "/"), ("/wp-login.php", "/"), ("/wp-admin/*", "/"), ("/xmlrpc.php", "/"),
               ("/cep-telefonu-faturasina-ust-limit-geliyor.html/cep-telefonu", "/cep-telefonu-faturasina-ust-limit-geliyor"),
               ("/turkcell-superlig-bugun-basliyor.html", "/super-toto-ligi-bugun-basliyor"),
