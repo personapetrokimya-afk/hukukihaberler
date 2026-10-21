@@ -29,15 +29,16 @@ def yerel_foto(url, ad):
             return url
     return "/yazar/" + ad + ".jpg"
 
-YAZARLAR = {
-    "yagmur-tahtasiz": {"ad": "Av. Yağmur Tahtasız", "kisi": "Yağmur Tahtasız", "url": "/av-yagmur-tahtasiz/",
-                        "foto": yerel_foto("https://yagmurtahtasiz.com/assets/images/av-yagmur-tahtasiz.jpg", "av-yagmur-tahtasiz"),
-                        "alan": "Boşanma, aile, miras ve icra hukuku",
-                        "bio": "İzmir Barosu'na kayıtlı avukat. Anadolu Üniversitesi Hukuk Fakültesi mezunu; 2022'den bu yana aile ve boşanma hukuku ağırlıklı olarak avukatlık yapıyor. Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütüyor."},
-    "umut-tekin": {"ad": "Av. Umut Tekin", "kisi": "Umut Tekin", "url": "/av-umut-tekin/", "foto": "/yazar/av-umut-tekin.jpg",
-                   "alan": "Ceza ve ağır ceza hukuku",
-                   "bio": "İzmir Barosu'na kayıtlı avukat; 2019'dan bu yana ağırlıklı olarak ceza ve ağır ceza yargılamasında avukatlık yapıyor. Hukuki Haberler'de yazar ve editör olarak ceza hukuku alanındaki haber ve analizleri izliyor."},
-}
+_YZ_VERI = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "yazarlar.json"), encoding="utf-8"))
+YAZAR_KAYIT = {y["kod"]: y for y in _YZ_VERI["yazarlar"]}
+def _yz_ad(y): return ((y.get("unvan") or "").strip() + " " + y["kisi"]).strip()
+YAZARLAR = {y["kod"]: {"ad": _yz_ad(y), "kisi": y["kisi"], "url": "/" + y["adres"] + "/",
+                       "foto": y.get("foto") or "/yazar/" + y["adres"] + ".jpg", "alan": y.get("alan", ""), "bio": y.get("kisa", ""),
+                       "baro": y.get("baro", ""), "rol": y.get("rol", ""), "unvan": (y.get("unvan") or "").strip(), "goster": y.get("goster", True)}
+            for y in _YZ_VERI["yazarlar"]}
+INCELEME = {k: v for k, v in (_YZ_VERI.get("inceleme") or {}).items() if v in YAZARLAR}
+HUKUKI_DENETIM = _YZ_VERI.get("hukuki_denetim") if _YZ_VERI.get("hukuki_denetim") in YAZARLAR else None
+GORUNEN_YAZARLAR = {k: y for k, y in YAZARLAR.items() if y["goster"]}
 TAGLINE = "Hukuk, yargı ve mevzuat gündemi"
 OUT = os.path.join(os.path.dirname(__file__), "site")
 TARGET = "https://yagmurtahtasiz.com"   # bağlamsal link hedefi (makale başına en fazla 1-2)
@@ -238,12 +239,20 @@ _UT_RE = _kelime_re(["tck", "cmk", "türk ceza kanunu", "ceza muhakemesi", "tutu
                      "yasa dışı bahis", "kaçakçılı", "tefeci", "hürriyetten yoksun", "kötü muamele", "fuhuş", "silahlı saldırı"])
 _CEZA_DEGIL = _kelime_re(["rekabet", "rtük", "reklam kurulu", "idari para cezası", "disiplin cezası", "kesin hesab", "adli tatil", "msci", "borsa"])
 for p in POSTS:
-    if p.get("denetleyen"): continue
+    if p.get("denetleyen") == "yok": p.pop("denetleyen"); p["_kart_yok"] = True
+    if p.get("denetleyen") and p["denetleyen"] not in YAZARLAR: p.pop("denetleyen")
+    if p.get("yazar") and p["yazar"] not in YAZARLAR: p.pop("yazar")
+    if p.get("denetleyen") or p.get("_kart_yok"): continue
     _t = _tr_kucuk(p["title"]); _h = _t + " | " + _tr_kucuk(" | ".join(p.get("tags", [])))
     if "adli tatil" in _t: continue
-    if "aile-hukuku" in p["konular"] or _AILE_RE.search(_h): p["denetleyen"] = "yagmur-tahtasiz"
-    elif _UT_RE.search(_h) and not _CEZA_DEGIL.search(_t): p["denetleyen"] = "umut-tekin"
-    elif _ICRA_RE.search(_h) or _OZEL_RE.search(_h): p["denetleyen"] = "yagmur-tahtasiz"
+    # kural grupları ve sorumlu avukat yazarlar.json "inceleme" alanından (panelden değiştirilir); grubun avukatı yoksa kart gösterilmez
+    if "aile-hukuku" in p["konular"] or _AILE_RE.search(_h):
+        if INCELEME.get("aile"): p["denetleyen"] = INCELEME["aile"]
+    elif _UT_RE.search(_h) and not _CEZA_DEGIL.search(_t):
+        if INCELEME.get("ceza"): p["denetleyen"] = INCELEME["ceza"]
+    elif _ICRA_RE.search(_h) or _OZEL_RE.search(_h):
+        if INCELEME.get("ozel"): p["denetleyen"] = INCELEME["ozel"]
+    if p.get("denetleyen") and p["denetleyen"] not in YAZARLAR: p.pop("denetleyen")
 KONU_HABER = {k: [p for p in POSTS if k in p["konular"]] for k, *_ in KONULAR}
 KONU_AD = {k: ad for k, ad, *_ in KONULAR}
 KONU_VAR = [k for k, *_ in KONULAR if len(KONU_HABER[k]) >= KONU_ALT]
@@ -374,7 +383,7 @@ def meta(p, date=True, cat=False):
 def yazarlar_kutu(baslik="h2"):
     """yazarlar: fotoğraf, ad, uzmanlık alanı ve (varsa) son yazısı"""
     s = []
-    for k, y in YAZARLAR.items():
+    for k, y in GORUNEN_YAZARLAR.items():
         son = next((q for q in POSTS if q.get("yazar") == k or q.get("denetleyen") == k), None)
         alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
         s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
@@ -679,7 +688,7 @@ POST_URLS = {p["url"] for p in POSTS}
 ESKI_ADRES = {"/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
               "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor"}
 _SABIT_YOL = {"arsiv", "analiz", "mevzuat", "kesfet", "hakkinda", "kunye", "iletisim", "yayin-ilkeleri", "gizlilik-politikasi",
-              "kullanim-kosullari", "av-yagmur-tahtasiz", "av-umut-tekin", "yazarlar", "konu", "konular", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
+              "kullanim-kosullari", *[y["adres"] for y in _YZ_VERI["yazarlar"]], "yazarlar", "konu", "konular", "arama", "kaydedilenler", "feed", "haber-kategorisi", "haber-etiketi"}
 def ic_bag(h):
     """Metin içi site bağlantıları: yönlendirmeye düşen adresleri doğrudan hedefe çevirir, karşılığı olmayan bağlantıyı kaldırır (metin kalır)"""
     def f(m):
@@ -752,9 +761,9 @@ def inceleme_karti(p):
     """haberi yayımlanmadan önce hukuki açıdan inceleyen avukatın kartı (yalnızca kimlik ve alan bilgisi; iletişim, ücret ya da çağrı yok)"""
     y = YAZARLAR.get(p.get("denetleyen"))
     if not y: return ""
-    return (f'<aside class="inceleme" aria-label="Hukuki inceleme"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
+    return (f'<aside class="inceleme" aria-label="Hukuki inceleme" data-denetleyen="{p["denetleyen"]}"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
             f'<img src="{y["foto"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
-            f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])} · İzmir Barosu</span>'
+            f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])}{(" · " + e(y["baro"])) if y["baro"] else ""}</span>'
             f'<p>Bu {"analiz" if p.get("tur") == "Analiz" else "haber"} {e(y["ad"])} tarafından hukuki açıdan incelenmiştir. '
             f'İçerik genel bilgilendirme amaçlıdır; somut bir dosya için hukuki danışmanlık yerine geçmez.</p></div></aside>\n')
 
@@ -876,8 +885,8 @@ for idx, p in enumerate(POSTS):
           "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
-          "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
-          "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], "honorificPrefix": "Av.", "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
+          "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
+          "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["yazar"]]["unvan"]} if YAZARLAR[p["yazar"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
     k0 = topcat(p)
@@ -1009,7 +1018,8 @@ _kf = (
       '<li><b>Kaynak gösteriyoruz.</b> Her haberin altında dayanılan resmî belge ve haber kaynakları bağlantısıyla yer alır.</li>'
       '<li><b>Editör onayı.</b> Haberler yayımlanmadan önce editör tarafından kontrol edilir ve onaylanır.</li>'
       '<li><b>Açık düzeltme.</b> Bir bilgi değiştiğinde ya da hata bulunduğunda haber güncellenir; güncelleme geçmişi haberin altında görünür.</li>'
-      '<li><b>Hukuki denetim.</b> Hukuk danışmanlığı ve içerik denetimi <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> tarafından yürütülür.</li>'
+      + (f'<li><b>Hukuki denetim.</b> Hukuk danışmanlığı ve içerik denetimi <a href="{YAZARLAR[HUKUKI_DENETIM]["url"]}">{e(YAZARLAR[HUKUKI_DENETIM]["ad"])}</a> tarafından yürütülür.</li>' if HUKUKI_DENETIM else "")
+      + 
       '</ul><p><a href="/yayin-ilkeleri/">Yayın ilkelerimiz</a> · <a href="/kunye/">Künye</a> · <a href="/iletisim/">Hata bildirin</a></p></section>'
     + '<section class="kf-blok"><h2 class="sec-h">Takip edin</h2><div class="kf-takip">'
       f'<a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">{ico("takip", 20)}<span><b>X</b><small>@HukukiHaberTR</small></span></a>'
@@ -1218,11 +1228,36 @@ GIZ = """<p class="lead">Bu sayfa, Hukuki Haberler'i ziyaret ettiğinizde hangi 
 <p>Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları, X) ve paylaşım düğmeleri ilgili sitelerin kendi gizlilik politikalarına tabidir. Paylaşım düğmeleri siz tıklamadıkça bu sitelere veri göndermez.</p>
 <h2>Haklarınız ve iletişim</h2>
 <p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki talepleriniz için <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine yazabilir ya da <a href="/iletisim/?konu=kvkk#form">iletişim formunu</a> kullanabilirsiniz.</p>"""
+def _mt(x): return html.escape(str(x), quote=False)   # metin düğümü: kesme işareti olduğu gibi kalır
+def _tr_kucuk_bas(t): return (t[:1].replace("I", "ı").replace("İ", "i").lower() + t[1:]) if t else t
+def _tamlayan(ad):
+    """özel ada ilgi eki: Tekin'in, Tahtasız'ın, Kaya'nın, Öztürk'ün"""
+    sesli = [c for c in ad.lower() if c in "aeıioöuü"]
+    son = sesli[-1] if sesli else "e"
+    ek = {"a": "ın", "ı": "ın", "e": "in", "i": "in", "o": "un", "u": "un", "ö": "ün", "ü": "ün"}[son]
+    return ad + "'" + ("n" if ad[-1:].lower() in "aeıioöuü" else "") + ek
+def _yz_bag(y): return f'<a href="{y["url"]}">{html.escape(y["ad"], quote=False)}</a>'
+_YZ_SIRALI = list(GORUNEN_YAZARLAR.values())
+YAZI_ISLERI = "".join(f'{_mt(y["rol"] or "Yazar")}{(" (" + _mt(_tr_kucuk_bas(y["alan"])) + ")") if y["alan"] else ""}: {_yz_bag(y)}. ' for y in _YZ_SIRALI)
+def _buro_parca(k):
+    v = YAZAR_KAYIT[k]; b = v.get("buro_sitesi")
+    if not (b and len(b) == 2 and b[1]): return ""
+    return (f'{_mt(YAZARLAR[k]["unvan"] + " " if YAZARLAR[k]["unvan"] else "")}{_mt(_tamlayan(v["kisi"].split()[-1]))} '
+            f'<a href="{e(b[1])}" rel="noopener" target="_blank">{_mt(b[0])}</a>')
+_burolar = [x for x in (_buro_parca(k) for k in GORUNEN_YAZARLAR) if x]
+_BURO_CUMLE = ((", ".join(_burolar[:-1]) + " ve " + _burolar[-1] if len(_burolar) > 1 else _burolar[0])
+               + (" avukatlık bürosu sitelerine" if len(_burolar) > 1 else " avukatlık bürosu sitesine")
+               + ", yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. ") if _burolar else ""
+DENETIM_PARAGRAF = (("<p>Hukuki içerik denetimini ve alanındaki yazı işlerini şu avukatlar yürütür: "
+                     + "; ".join(f'{_yz_bag(y)} ({_mt(_tr_kucuk_bas(y["rol"]))}{"; " + _mt(_tr_kucuk_bas(y["alan"])) if y["alan"] else ""})' for y in _YZ_SIRALI) + ". "
+                     + _BURO_CUMLE
+                     + "Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>") if _YZ_SIRALI else
+                    "<p>Sitede ücret karşılığı yayımlanmış içerik yoktur.</p>")
 KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan bağımsız bir hukuk haber sitesidir. Ticari bir kuruluşa, hukuk bürosuna ya da baroya bağlı değildir.</p>
 <h2>Yayın ilkeleri</h2>
 <p>Haberler; Resmî Gazete, yüksek mahkeme kararları, TBMM tutanakları, kamu kurumlarının açıklamaları ve ulusal basında yer alan gelişmeler esas alınarak hazırlanır. Her haberde kaynağı belli olmayan iddialara yer verilmez; karar metinleri yayımlandıkça haberler güncellenir ve güncelleme tarihi belirtilir. Kişilerin özel hayatına ilişkin bilgiler, haber değeri olan kamusal yönüyle sınırlı tutulur; adli dosyalarda taraf adları, kamuya açık karar metinlerinde geçtiği ölçüde kullanılır.</p>
 <h2>Yazı işleri</h2>
-<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. Hukuk danışmanı ve içerik denetimi (boşanma, aile, miras ve icra hukuku): <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a>. Yazar ve editör (ceza ve ağır ceza hukuku): <a href="/av-umut-tekin/">Av. Umut Tekin</a>. Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
+<p>Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır. {YAZI_ISLERI}Yayın ve editoryal süreçler <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında açıklanmıştır. Haberlerde yer alan görüşler, atıf yapılan kurum ve kişilere aittir; site bireysel hukuki danışmanlık vermez.</p>
 <h2>Düzeltme ve tekzip</h2>
 <p>Hatalı olduğu bildirilen bilgiler kaynağıyla birlikte doğrulandığında en geç üç iş günü içinde düzeltilir. Düzeltme talepleri <a href="mailto:iletisim@hukukihaberler.com">iletisim@hukukihaberler.com</a> adresine iletilebilir.</p>
 <h2>İletişim</h2>
@@ -1230,6 +1265,7 @@ KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan ba�
 <p>X: <a href="https://x.com/HukukiHaberTR" rel="me noopener" target="_blank">@HukukiHaberTR</a></p>
 <h2>Telif</h2>
 <p>Sitedeki metinler kaynak gösterilmek ve bağlantı verilmek şartıyla alıntılanabilir; bütün hâlinde kopyalanamaz.</p>"""
+KUNYE = KUNYE.replace("{YAZI_ISLERI}", YAZI_ISLERI)
 write("/kunye/", page("Künye", "Hukuki Haberler künye: yayın ilkeleri, yazı işleri, düzeltme ve telif esasları.", "/kunye/",
       f'<article class="post static"><h1>Künye</h1><div class="body">{KUNYE}</div></article>'))
 write("/gizlilik-politikasi/", page("Gizlilik ve Çerez Politikası", "Hukuki Haberler gizlilik ve çerez politikası: hangi verilerin işlendiği, Google Analytics çerezleri ve çerez tercihinin değiştirilmesi.", "/gizlilik-politikasi/",
@@ -1260,93 +1296,59 @@ YAYIN = """<p class="lead">Hukuki Haberler'in amacı, hukuk ve yargı gündemini
 <h2 id="yontem">Çalışma yöntemi ve yazılım araçları</h2>
 <p>Gündemi izlemek, resmî kaynaklardaki yeni duyuruları tespit etmek ve haber taslaklarını hazırlamak için yazılım araçlarından yararlanırız. Anlık gelişmelere ilişkin haberler editör onayıyla yayımlanır. Bu yolla hazırlanan tüm metinler kaynak, tarafsızlık ve doğrulama ilkelerimize göre denetlenir; dayanılan kaynak geri çekildiğinde ya da bir hata tespit edildiğinde düzeltme politikamız uygulanır.</p>
 <h2>Hukuki içerik denetimi ve çıkar ilişkisi</h2>
-<p>Sitenin hukuk danışmanlığını ve içerik denetimini <a href="/av-yagmur-tahtasiz/">Av. Yağmur Tahtasız</a> (boşanma, aile, miras ve icra hukuku), ceza ve ağır ceza hukuku alanındaki yazı ve editörlük işlerini <a href="/av-umut-tekin/">Av. Umut Tekin</a> yürütür. Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesi için de aşağıdaki bağlantı ilkesi geçerlidir. Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>
+{DENETIM_PARAGRAF}
 <h2>Reklam, sponsorluk ve bağımsızlık</h2>
 <p>Sitede şu an reklam ve sponsorlu içerik bulunmamaktadır. İleride reklam alınması hâlinde reklam alanları haber metninden görsel olarak ayrılacak ve "Reklam" ibaresi taşıyacaktır. Hiçbir kurum veya kişi, ödeme karşılığında bir haberin içeriğini belirleyemez. Yazılarda hukuki bilgiye kaynak olarak bağlantı verilen dış sitelerle ilişkiler bu sayfada açıklanır.</p>
 <h2>Görseller</h2>
 <p>Görseller lisansı uygun kaynaklardan (ör. Wikimedia Commons, Flickr, Pixabay) alınır; fotoğrafçı, kaynak ve lisans görselin altında bağlantısıyla belirtilir. Görsellerin sağ alt köşesinde site imzası yer alır.</p>"""
+YAYIN = YAYIN.replace("{DENETIM_PARAGRAF}", DENETIM_PARAGRAF)
 write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkeleri: kaynak ve doğrulama, düzeltme politikası, hukuki içerik denetimi, reklam ve bağımsızlık.", "/yayin-ilkeleri/",
       f'<article class="post static"><h1>Yayın İlkeleri</h1><div class="body">{YAYIN}</div></article>'))
 
-# hukuk danışmanı profil sayfası (gerçek kişi, doğrulanabilir bilgiler)
-AV_URL = "/av-yagmur-tahtasiz/"
-AV_FOTO = YAZARLAR["yagmur-tahtasiz"]["foto"]
-AV_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + AV_URL, "name": "Av. Yağmur Tahtasız",
-         "mainEntity": {"@type": "Person", "@id": SITE + AV_URL + "#kisi", "name": "Yağmur Tahtasız", "honorificPrefix": "Av.",
-                        "jobTitle": "Avukat", "description": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'in hukuk danışmanı ve içerik denetimi sorumlusu.",
-                        "image": (SITE + AV_FOTO if AV_FOTO.startswith("/") else AV_FOTO), "url": SITE + AV_URL,
-                        "alumniOf": {"@type": "CollegeOrUniversity", "name": "Anadolu Üniversitesi Hukuk Fakültesi"},
-                        "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
-                        "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
-                        "knowsAbout": ["Aile hukuku", "Boşanma hukuku", "Miras hukuku", "Ceza hukuku", "İcra ve iflas hukuku", "İdare hukuku"],
-                        "sameAs": ["https://yagmurtahtasiz.com/", "https://yagmurtahtasiz.com/about.html", "https://www.linkedin.com/in/yagmurtahtasiz", "https://medium.com/@yagmurtahtasiz", "https://yagmurtahtasiz.substack.com", "https://yagmurtahtasiz.blogspot.com"]}}
+# yazar profil sayfaları (gerçek kişiler; bilgiler yazarlar.json'dan, panelden düzenlenir; iletişim, ücret ya da çağrı içermez)
+_BARO_URL = {"İzmir Barosu": "https://www.izmirbarosu.org.tr/", "İstanbul Barosu": "https://www.istanbulbarosu.org.tr/",
+             "Ankara Barosu": "https://www.ankarabarosu.org.tr/"}
 def incelenen_listesi(k):
     ls = [q for q in POSTS if q.get("denetleyen") == k]
     if not ls: return ""
     return (f'<h2 id="incelenenler">İncelediği haberler <small style="font:600 15px var(--sans);color:var(--mute)">({len(ls)})</small></h2><ul class="liste">'
             + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in ls) + "</ul>")
-_avp = [q for q in POSTS if q.get("yazar") == "yagmur-tahtasiz"]
-AV_YAZILAR = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in _avp) + "</ul>") if _avp else ""
-AV = f"""<figure class="avfoto"><img src="{AV_FOTO}" alt="Av. Yağmur Tahtasız" width="240" height="240" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure>
-<p class="lead">Av. Yağmur Tahtasız, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'in hukuk danışmanlığını ve içerik denetimini yürütür.</p>
-<h2>Eğitim ve meslek</h2>
-<ul class="liste">
-<li><b>Eğitim:</b> Anadolu Üniversitesi Hukuk Fakültesi (2014-2021)</li>
-<li><b>Avukatlık ruhsatı:</b> 2022</li>
-<li><b>Baro:</b> İzmir Barosu</li>
-<li><b>Çalışma alanı:</b> Ağırlıklı olarak aile ve boşanma hukuku; ceza, icra ve iflas ile idare hukuku dosyaları</li>
-</ul>
-<h2>Hukuki Haberler'deki görevi</h2>
-<p>Sitede yayımlanan haber ve analizlerin hukuki çerçevesine ilişkin danışmanlık verir: mevzuat ve içtihat atıflarının, suç ve yaptırım tanımlarının ve usul bilgilerinin doğruluğuna ilişkin denetim ve düzeltme süreçlerinde görüş bildirir. Haberler "Hukuki Haberler Editörlüğü" imzasıyla yayımlanır; yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
-<h2>Çıkar ilişkisi</h2>
-<p>Av. Tahtasız'ın avukatlık bürosuna ait <a href="https://yagmurtahtasiz.com/" rel="noopener" target="_blank">yagmurtahtasiz.com</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
-{AV_YAZILAR}{incelenen_listesi("yagmur-tahtasiz")}<h2>Bağlantılar</h2>
-<ul class="liste">
-<li><a href="https://yagmurtahtasiz.com/about.html" rel="noopener" target="_blank">yagmurtahtasiz.com</a></li>
-<li><a href="https://www.linkedin.com/in/yagmurtahtasiz" rel="noopener" target="_blank">LinkedIn</a></li>
-</ul>"""
-write(AV_URL, page("Av. Yağmur Tahtasız", "Av. Yağmur Tahtasız: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler hukuk danışmanı ve içerik denetimi sorumlusu.", AV_URL,
-      f'<article class="post static"><h1>Av. Yağmur Tahtasız</h1><p class="sec-desc">Hukuk danışmanı ve içerik denetimi · Boşanma, aile, miras ve icra hukuku</p><div class="body">{AV}</div></article>',
-      ld=AV_LD, ogtype="profile", crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (AV_URL, "Av. Yağmur Tahtasız")]))
-
-# yazar ve editör: Av. Umut Tekin (bilgiler umuttekin.av.tr üzerinden doğrulanmıştır)
-UT_URL = "/av-umut-tekin/"
-UT_FOTO = "/yazar/av-umut-tekin.jpg"
-UT_LD = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + UT_URL, "name": "Av. Umut Tekin",
-         "mainEntity": {"@type": "Person", "@id": SITE + UT_URL + "#kisi", "name": "Umut Tekin", "honorificPrefix": "Av.",
-                        "jobTitle": "Avukat", "description": "İzmir Barosu'na kayıtlı avukat; Hukuki Haberler'de ceza ve ağır ceza hukuku alanında yazar ve editör.",
-                        "image": SITE + UT_FOTO, "url": SITE + UT_URL,
-                        "memberOf": {"@type": "Organization", "name": "İzmir Barosu", "url": "https://www.izmirbarosu.org.tr/"},
-                        "worksFor": {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"},
-                        "workLocation": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "Bayraklı", "addressRegion": "İzmir", "addressCountry": "TR"}},
-                        "knowsAbout": ["Ceza hukuku", "Ağır ceza yargılaması", "Uyuşturucu suçları", "Dolandırıcılık suçları", "Örgüt davaları"],
-                        "knowsLanguage": ["tr", "en"],
-                        "sameAs": ["https://umuttekin.av.tr/", "https://umuttekin.av.tr/avukat-umut-tekin/", "https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233", "https://www.instagram.com/av.umut.tekin/"]}}
-_utp = [q for q in POSTS if q.get("yazar") == "umut-tekin"]
-UT_YAZILAR = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in _utp) + "</ul>") if _utp else ""
-UT = f"""<figure class="avfoto"><img src="{UT_FOTO}" alt="Av. Umut Tekin" width="240" height="240" loading="lazy" decoding="async"></figure>
-<p class="lead">Av. Umut Tekin, İzmir Barosu'na kayıtlı avukattır ve Hukuki Haberler'de ceza ve ağır ceza hukuku alanında yazar ve editör olarak görev yapar.</p>
-<h2>Meslek</h2>
-<ul class="liste">
-<li><b>Baro:</b> İzmir Barosu (sicil no 17343)</li>
-<li><b>Mesleğe başlama:</b> 2019</li>
-<li><b>Çalışma alanı:</b> Ağırlıklı olarak ceza ve ağır ceza yargılaması; uyuşturucu suçları, dolandırıcılık suçları ve örgüt davaları. Soruşturma aşamasından istinaf ve temyize kadar ceza dosyalarında müdafi ya da suçtan zarar görenin vekili olarak çalışır.</li>
-<li><b>Yabancı dil:</b> İngilizce</li>
-<li><b>Büro:</b> Bayraklı, İzmir</li>
-</ul>
-<h2>Hukuki Haberler'deki görevi</h2>
-<p>Ceza hukuku ve ağır ceza yargılamasına ilişkin haber ve analizlerde yazar ve editör olarak çalışır: suç tanımlarının, yaptırımların, tutuklama ve adli kontrol gibi usul bilgilerinin doğruluğunu denetler. Yayın ve düzeltme esasları <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasında yer alır.</p>
-<h2>Çıkar ilişkisi</h2>
-<p>Av. Tekin'in avukatlık bürosuna ait <a href="https://umuttekin.av.tr/" rel="noopener" target="_blank">umuttekin.av.tr</a> sitesine, yalnızca konuyla doğrudan ilgili rehber içerikler için ve sınırlı sayıda bağlantı verilebilir. Bu sitede yer alan içerikler hukuki danışmanlık niteliği taşımaz ve avukat-müvekkil ilişkisi kurmaz.</p>
-{UT_YAZILAR}{incelenen_listesi("umut-tekin")}<h2>Bağlantılar</h2>
-<ul class="liste">
-<li><a href="https://umuttekin.av.tr/avukat-umut-tekin/" rel="noopener" target="_blank">umuttekin.av.tr</a></li>
-<li><a href="https://tr.linkedin.com/in/avukat-umut-tekin-b573a5233" rel="noopener" target="_blank">LinkedIn</a></li>
-<li><a href="https://www.instagram.com/av.umut.tekin/" rel="noopener" target="_blank">Instagram</a></li>
-</ul>"""
-write(UT_URL, page("Av. Umut Tekin", "Av. Umut Tekin: İzmir Barosu'na kayıtlı avukat, Hukuki Haberler'de ceza ve ağır ceza hukuku yazarı ve editörü.", UT_URL,
-      f'<article class="post static"><h1>Av. Umut Tekin</h1><p class="sec-desc">Yazar ve editör · Ceza ve ağır ceza hukuku</p><div class="body">{UT}</div></article>',
-      ld=UT_LD, ogtype="profile", img=UT_FOTO, crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (UT_URL, "Av. Umut Tekin")]))
+def yazar_sayfasi(k):
+    v, y = YAZAR_KAYIT[k], YAZARLAR[k]
+    url, foto, ad = y["url"], y["foto"], y["ad"]
+    yerel = foto.startswith("/")
+    kisi = {"@type": "Person", "@id": SITE + url + "#kisi", "name": v["kisi"], **({"honorificPrefix": y["unvan"]} if y["unvan"] else {}),
+            "jobTitle": "Avukat" if y["unvan"] == "Av." else (v.get("rol") or "Yazar"), "description": v.get("ld_aciklama") or v.get("kisa", ""),
+            "image": SITE + foto if yerel else foto, "url": SITE + url}
+    if v.get("mezuniyet"): kisi["alumniOf"] = {"@type": "CollegeOrUniversity", "name": v["mezuniyet"]}
+    if v.get("baro"): kisi["memberOf"] = {"@type": "Organization", "name": v["baro"], **({"url": _BARO_URL[v["baro"]]} if v["baro"] in _BARO_URL else {})}
+    kisi["worksFor"] = {"@type": "NewsMediaOrganization", "name": NAME, "url": SITE + "/"}
+    if v.get("konum"):
+        _p = [x.strip() for x in v["konum"].split(",") if x.strip()]
+        kisi["workLocation"] = {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": _p[0], **({"addressRegion": _p[-1]} if len(_p) > 1 else {}), "addressCountry": "TR"}}
+    if v.get("uzmanlik"): kisi["knowsAbout"] = v["uzmanlik"]
+    if v.get("diller"): kisi["knowsLanguage"] = v["diller"]
+    if v.get("sameas"): kisi["sameAs"] = v["sameas"]
+    ld = {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + url, "name": ad, "mainEntity": kisi}
+    bol = []
+    for b_ in v.get("bolumler") or []:
+        if b_.get("tur") == "liste":
+            sat = [x for x in b_.get("satirlar") or [] if len(x) == 2 and (x[0] or x[1])]
+            if sat: bol.append(f'<h2>{_mt(b_["baslik"])}</h2>\n<ul class="liste">\n' + "".join(f'<li><b>{_mt(x[0])}:</b> {x[1]}</li>\n' if x[0] else f'<li>{x[1]}</li>\n' for x in sat) + "</ul>")
+        elif (b_.get("metin") or "").strip():
+            bol.append(f'<h2>{_mt(b_["baslik"])}</h2>\n' + "\n".join(f"<p>{x.strip()}</p>" for x in b_["metin"].split("\n\n") if x.strip()))
+    yz = [q for q in POSTS if q.get("yazar") == k]
+    yazilari = ("<h2>Yazıları</h2><ul class=\"liste\">" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in yz) + "</ul>") if yz else ""
+    bag = [x for x in v.get("baglantilar") or [] if len(x) == 2 and x[1]]
+    baglar = ('<h2>Bağlantılar</h2>\n<ul class="liste">\n' + "".join(f'<li><a href="{e(x[1])}" rel="noopener" target="_blank">{_mt(x[0] or x[1])}</a></li>\n' for x in bag) + "</ul>") if bag else ""
+    rp = "" if yerel else ' referrerpolicy="no-referrer"'
+    govde = (f'<figure class="avfoto"><img src="{foto}" alt="{e(ad)}" width="240" height="240" loading="lazy" decoding="async"{rp}></figure>\n'
+             + (f'<p class="lead">{v["giris"]}</p>\n' if v.get("giris") else "") + "\n".join(bol) + "\n" + yazilari + incelenen_listesi(k) + baglar)
+    alt = " · ".join(x for x in (v.get("rol"), v.get("alan")) if x)
+    write(url, page(ad, v.get("sayfa_aciklama") or f"{ad}: {v.get('rol') or 'yazar'}, Hukuki Haberler.", url,
+          f'<article class="post static"><h1>{_mt(ad)}</h1>' + (f'<p class="sec-desc">{_mt(alt)}</p>' if alt else "") + f'<div class="body">{govde}</div></article>',
+          ld=ld, ogtype="profile", noindex=not y["goster"], **({"img": foto} if yerel else {}), crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar"), (url, ad)]))
+for _k in YAZARLAR: yazar_sayfasi(_k)
 
 # yazarlar sayfası
 def _yz_kart(k, y):
@@ -1355,8 +1357,10 @@ def _yz_kart(k, y):
            + f'</ul><a class="yz-tum" href="{y["url"]}#incelenenler">Tüm incelediği haberler ({len(ls)})</a></div>') if ls else ""
     return (f'<li><a class="yz-ust" href="{y["url"]}"><img src="{y["foto"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer">'
             f'<b>{e(y["ad"])}</b><small>{e(y["alan"])}</small><span>{e(y["bio"])}</span></a>{son}</li>')
-_yz = "".join(_yz_kart(k, y) for k, y in YAZARLAR.items())
-write("/yazarlar/", page("Yazarlar", "Hukuki Haberler yazarları ve editörleri: Av. Yağmur Tahtasız (boşanma, aile, miras ve icra hukuku) ve Av. Umut Tekin (ceza ve ağır ceza hukuku).", "/yazarlar/",
+_yz = "".join(_yz_kart(k, y) for k, y in GORUNEN_YAZARLAR.items())
+_yz_adlar = [f'{y["ad"]} ({_tr_kucuk_bas(y["alan"])})' if y["alan"] else y["ad"] for y in GORUNEN_YAZARLAR.values()]
+_yz_aciklama = "Hukuki Haberler yazarları ve editörleri" + (": " + (", ".join(_yz_adlar[:-1]) + " ve " + _yz_adlar[-1] if len(_yz_adlar) > 1 else _yz_adlar[0]) + "." if _yz_adlar else ".")
+write("/yazarlar/", page("Yazarlar", _yz_aciklama, "/yazarlar/",
       f'<div class="crumb"><a href="/">Anasayfa</a> › Yazarlar</div><h1 class="sec">Yazarlar</h1><p class="sec-desc">Haber ve analizlerin hukuki çerçevesini alanında çalışan avukatlar yazar, denetler ve düzenler.</p><ul class="yzl">{_yz}</ul>',
       crumbs=[("/", "Anasayfa"), ("/yazarlar/", "Yazarlar")]))
 
@@ -1382,7 +1386,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if etiket_dizinde(s)] + \
-       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), ("/av-yagmur-tahtasiz/", "yearly", "0.3"), ("/av-umut-tekin/", "yearly", "0.3"), ("/yazarlar/", "monthly", "0.4"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
+       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), *[(y["url"], "yearly", "0.3") for y in GORUNEN_YAZARLAR.values()], ("/yazarlar/", "monthly", "0.4"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 def _guncel_iso(p):
     u = p.get("updated")
     if u and "T" in str(u): return str(u)[:16] + ":00+03:00"
@@ -1415,6 +1419,10 @@ if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "kald
         if any(q["slug"] == _k["slug"] for q in POSTS): continue
         _h = _k.get("hedef") or "/arsiv/"
         REDIRECTS += [(f"/{_k['slug']}.html", _h), (f"/{_k['slug']}", _h), (f"/{_k['slug']}/", _h)]
+# panelden kaldırılan yazarların profil adresleri yazarlar sayfasına yönlenir
+for _a in _YZ_VERI.get("kaldirilan_adresler") or []:
+    if any(y["adres"] == _a for y in _YZ_VERI["yazarlar"]): continue
+    REDIRECTS += [(f"/{_a}", "/yazarlar/"), (f"/{_a}/", "/yazarlar/")]
 REDIRECTS += [("/search/*", "/"), ("/wp-login.php", "/"), ("/wp-admin/*", "/"), ("/xmlrpc.php", "/"),
               ("/cep-telefonu-faturasina-ust-limit-geliyor.html/cep-telefonu", "/cep-telefonu-faturasina-ust-limit-geliyor"),
               ("/turkcell-superlig-bugun-basliyor.html", "/super-toto-ligi-bugun-basliyor"),
