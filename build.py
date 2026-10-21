@@ -801,11 +801,22 @@ def inceleme_karti(p):
     """haberi yayımlanmadan önce hukuki açıdan inceleyen avukatın kartı (yalnızca kimlik ve alan bilgisi; iletişim, ücret ya da çağrı yok)"""
     y = YAZARLAR.get(p.get("denetleyen"))
     if not y: return ""
-    return (f'<aside class="inceleme" aria-label="Hukuki inceleme" data-denetleyen="{p["denetleyen"]}"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
-            f'<img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">Hukuki inceleme</span>'
+    return (f'<aside class="inceleme" aria-label="{"Hukuki inceleme" if p.get("incelendi") else "Alanın hukukçusu"}" data-denetleyen="{p["denetleyen"]}"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
+            f'<img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">{"Hukuki inceleme" if p.get("incelendi") else "Alanın hukukçusu"}</span>'
             f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])}{(" · " + e(y["baro"])) if y["baro"] else ""}</span>'
-            f'<p>Bu {"analiz" if p.get("tur") == "Analiz" else "haber"} {e(y["ad"])} tarafından hukuki açıdan incelenmiştir. '
+            f'<p>{_inceleme_cumlesi(p, y)}'
             f'İçerik genel bilgilendirme amaçlıdır; somut bir dosya için hukuki danışmanlık yerine geçmez.</p></div></aside>\n')
+
+def _inceleme_cumlesi(p, y):
+    """yazının incelendiği ancak editör panelden işaretlediyse söylenir; işaret yoksa yalnızca kişinin sitedeki görevi yazılır"""
+    tur = "analiz" if p.get("tur") == "Analiz" else "haber"
+    if p.get("incelendi"):
+        try: t = datetime.date.fromisoformat(str(p["incelendi"])[:10]); ts = f" {t.day} {AYLAR[t.month - 1]} {t.year} tarihinde"
+        except Exception: ts = ""
+        return f'Bu {tur}{ts} {e(y["ad"])} tarafından hukuki açıdan incelenmiştir. '
+    rol = (y.get("rol") or "yazar").strip()
+    return f'{e(y["ad"])}, Hukuki Haberler\'de {e(rol[0].lower() + rol[1:])} olarak görev yapar. '
+
 
 def ozet_html(p):
     o = p.get("ozet")
@@ -1356,7 +1367,7 @@ write("/yayin-ilkeleri/", page("Yayın İlkeleri", "Hukuki Haberler yayın ilkel
 _BARO_URL = {"İzmir Barosu": "https://www.izmirbarosu.org.tr/", "İstanbul Barosu": "https://www.istanbulbarosu.org.tr/",
              "Ankara Barosu": "https://www.ankarabarosu.org.tr/"}
 def incelenen_listesi(k):
-    ls = [q for q in POSTS if q.get("denetleyen") == k]
+    ls = [q for q in POSTS if q.get("denetleyen") == k and q.get("incelendi")]   # yalnızca editörün "incelendi" işaretlediği yazılar
     if not ls: return ""
     return (f'<h2 id="incelenenler">İncelediği haberler <small style="font:600 15px var(--sans);color:var(--mute)">({len(ls)})</small></h2><ul class="liste">'
             + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a> <small>{trdate(q["date"])}</small></li>' for q in ls) + "</ul>")
@@ -1399,7 +1410,7 @@ for _k in YAZARLAR: yazar_sayfasi(_k)
 
 # yazarlar sayfası
 def _yz_kart(k, y):
-    ls = [q for q in POSTS if q.get("denetleyen") == k]
+    ls = [q for q in POSTS if q.get("denetleyen") == k and q.get("incelendi")]   # yalnızca editörün "incelendi" işaretlediği yazılar
     son = ("<div class=\"yz-inc\"><b>Son incelediği haberler</b><ul>" + "".join(f'<li><a href="{q["url"]}">{e(q["title"])}</a><small>{trdate(q["date"])}</small></li>' for q in ls[:6])
            + f'</ul><a class="yz-tum" href="{y["url"]}#incelenenler">Tüm incelediği haberler ({len(ls)})</a></div>') if ls else ""
     return (f'<li><a class="yz-ust" href="{y["url"]}"><img src="{y["foto_k"]}" alt="{e(y["ad"])}" width="120" height="120" loading="lazy" referrerpolicy="no-referrer">'
