@@ -541,6 +541,8 @@ picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;displ
 <h2>Okur anketleri</h2>
 <p>Bazı haberlerdeki anketlerde verilen oylar toplu sayı olarak tutulur. Aynı ankete kısa sürede tekrar oy verilmesini önlemek için IP adresinizden türetilen ve geri çevrilemeyen bir özet 24 saat saklanır; IP adresinin kendisi kaydedilmez.</p>
 <h2>Barındırma ve güvenlik kayıtları</h2>
+<h2>Ziyaret istatistikleri</h2>
+<p>Hangi haberlerin okunduğunu ve okurların siteye nereden geldiğini toplu olarak görebilmek için kendi sunucumuzda çerezsiz bir sayaç kullanılır. Sayaç yalnızca açılan sayfanın adresini, sizi yönlendiren sitenin adını, ekran genişliğinden çıkarılan cihaz türünü ve ülke bilgisini kaydeder. IP adresiniz saklanmaz; aynı gün içindeki tekrar ziyaretleri ayırt etmek için IP adresi ve tarayıcı bilgisinden, her gün değiştirilen rastgele bir anahtarla geri döndürülemez bir özet üretilir ve ertesi gün bu anahtar silinir. Bu kayıtlarla kimliğiniz belirlenemez; kayıtlar en fazla 400 gün tutulur.</p>
 <p>Site Cloudflare altyapısında barındırılır. Barındırma hizmeti, güvenlik ve performans amacıyla IP adresi ve istek zamanı gibi teknik kayıtları kısa süreli tutabilir; bu kayıtlar tarafımızca kimlik tespiti için kullanılmaz.</p>
 <h2>Dış bağlantılar</h2>
 <p>Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları, X) ve paylaşım düğmeleri ilgili sitelerin kendi gizlilik politikalarına tabidir. Paylaşım düğmeleri siz tıklamadıkça bu sitelere veri göndermez.</p>
@@ -621,6 +623,6 @@ d.querySelectorAll('.save').forEach(function(b){
 var kl=$('#kayitlar');if(kl){var a=get();if(!a.length){kl.innerHTML='<p class="empty">Henüz kaydettiğiniz haber yok. Haberlerdeki yer imi düğmesiyle kaydedebilirsiniz.</p>'}else{kl.innerHTML='<ul class="rows one">'+a.map(function(x,i){return '<li class="row"><div class="rt"><span class="kicker">'+(x.k||'')+'</span><h2><a href="'+x.u+'">'+x.t.replace(/</g,'&lt;')+'</a></h2><div class="meta"><span>'+(x.d||'')+'</span><span><button type="button" class="rm" data-i="'+i+'" style="background:none;border:0;color:var(--gold);font:600 14px var(--sans);cursor:pointer;min-height:44px">Listeden çıkar</button></span></div></div><a class="pic" href="'+x.u+'" tabindex="-1" aria-hidden="true"><img src="'+x.i+'" alt="" width="480" height="252" loading="lazy"></a></li>'}).join('')+'</ul>';
  kl.addEventListener('click',function(e){var r=e.target.closest('.rm');if(!r)return;var a=get();a.splice(+r.dataset.i,1);put(a);location.reload()})}}
 })();
-</script>
+</script><script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>
 </body>
 </html>

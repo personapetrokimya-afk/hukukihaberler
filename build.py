@@ -422,6 +422,8 @@ def gpref_kutu():
     if not GPREF_AKTIF: return ""
     return f'<aside class="gpbox"><div class="gpt"><b>Hukuki Haberler\'i Google\'da öne çıkarın</b><span>Bizi tercih ettiğiniz kaynak olarak eklediğinizde haberlerimiz Google aramalarındaki "Öne Çıkan Haberler" bölümünde size daha sık gösterilir.</span></div>{gpref_btn("gpref gpbig", "Tercih edilen kaynak olarak ekle", 20)}</aside>'
 
+# çerezsiz ziyaret sayacı: yalnızca sayfa yolu, yönlendiren adres ve ekran genişliği gönderilir; kimlik ya da çerez yoktur
+SAYAC_JS = """<script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>"""
 def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra="", ogek=""):
     act = active or url
     def on(u): return act == u or (u != "/" and act.startswith(u))
@@ -519,7 +521,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </div></footer>
 <nav class="bnav" aria-label="Alt menü">{bn("/", "Ana Sayfa", "home")}{bn("/kesfet/", "Keşfet", "compass")}{bn("/kaydedilenler/", "Kaydedilen", "bookmark")}<button type="button" aria-controls="drawer" aria-expanded="false">{ico("menu", 22)}<span>Menü</span></button></nav>
 <div id="cerez" class="cerez" role="region" aria-label="Çerez tercihi" hidden><p>Ziyaret istatistiklerini ölçmek için Google Analytics çerezlerini kullanmak istiyoruz. İzin vermezseniz ölçüm çerezsiz ve kimliksiz yapılır. <a href="/gizlilik-politikasi/#cerezler">Ayrıntılar</a></p><div><button type="button" data-c="hayir">Reddet</button><button type="button" data-c="evet" class="ok">İzin ver</button></div></div>
-{JS}{extra}
+{JS}{SAYAC_JS}{extra}
 </body>
 </html>"""
 
@@ -1209,6 +1211,8 @@ GIZ = """<p class="lead">Bu sayfa, Hukuki Haberler'i ziyaret ettiğinizde hangi 
 <h2>Okur anketleri</h2>
 <p>Bazı haberlerdeki anketlerde verilen oylar toplu sayı olarak tutulur. Aynı ankete kısa sürede tekrar oy verilmesini önlemek için IP adresinizden türetilen ve geri çevrilemeyen bir özet 24 saat saklanır; IP adresinin kendisi kaydedilmez.</p>
 <h2>Barındırma ve güvenlik kayıtları</h2>
+<h2>Ziyaret istatistikleri</h2>
+<p>Hangi haberlerin okunduğunu ve okurların siteye nereden geldiğini toplu olarak görebilmek için kendi sunucumuzda çerezsiz bir sayaç kullanılır. Sayaç yalnızca açılan sayfanın adresini, sizi yönlendiren sitenin adını, ekran genişliğinden çıkarılan cihaz türünü ve ülke bilgisini kaydeder. IP adresiniz saklanmaz; aynı gün içindeki tekrar ziyaretleri ayırt etmek için IP adresi ve tarayıcı bilgisinden, her gün değiştirilen rastgele bir anahtarla geri döndürülemez bir özet üretilir ve ertesi gün bu anahtar silinir. Bu kayıtlarla kimliğiniz belirlenemez; kayıtlar en fazla 400 gün tutulur.</p>
 <p>Site Cloudflare altyapısında barındırılır. Barındırma hizmeti, güvenlik ve performans amacıyla IP adresi ve istek zamanı gibi teknik kayıtları kısa süreli tutabilir; bu kayıtlar tarafımızca kimlik tespiti için kullanılmaz.</p>
 <h2>Dış bağlantılar</h2>
 <p>Haberlerde yer alan dış bağlantılar (Resmî Gazete, mahkeme siteleri, basın kuruluşları, X) ve paylaşım düğmeleri ilgili sitelerin kendi gizlilik politikalarına tabidir. Paylaşım düğmeleri siz tıklamadıkça bu sitelere veri göndermez.</p>

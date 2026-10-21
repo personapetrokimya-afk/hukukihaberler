@@ -670,6 +670,6 @@ d.querySelectorAll('.save').forEach(function(b){
 var kl=$('#kayitlar');if(kl){var a=get();if(!a.length){kl.innerHTML='<p class="empty">Henüz kaydettiğiniz haber yok. Haberlerdeki yer imi düğmesiyle kaydedebilirsiniz.</p>'}else{kl.innerHTML='<ul class="rows one">'+a.map(function(x,i){return '<li class="row"><div class="rt"><span class="kicker">'+(x.k||'')+'</span><h2><a href="'+x.u+'">'+x.t.replace(/</g,'&lt;')+'</a></h2><div class="meta"><span>'+(x.d||'')+'</span><span><button type="button" class="rm" data-i="'+i+'" style="background:none;border:0;color:var(--gold);font:600 14px var(--sans);cursor:pointer;min-height:44px">Listeden çıkar</button></span></div></div><a class="pic" href="'+x.u+'" tabindex="-1" aria-hidden="true"><img src="'+x.i+'" alt="" width="480" height="252" loading="lazy"></a></li>'}).join('')+'</ul>';
  kl.addEventListener('click',function(e){var r=e.target.closest('.rm');if(!r)return;var a=get();a.splice(+r.dataset.i,1);put(a);location.reload()})}}
 })();
-</script>
+</script><script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>
 </body>
 </html>
