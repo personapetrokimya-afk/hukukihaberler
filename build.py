@@ -876,15 +876,17 @@ def baslik_alani(p, tur):
     k = topcat(p)
     d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
     saat = p.get("saat")
-    y = YAZARLAR.get(p.get("denetleyen")) if p.get("incelendi") else None
+    y = YAZARLAR.get(p.get("denetleyen"))   # incelendi işaretliyse "Hukuki inceleme" + onay rozeti; değilse "Alanın hukukçusu"
+    inc_ok = bool(p.get("incelendi"))
     haz = byline(p)
     inc = ""
     if y:
         kisa_ad = ((y["unvan"] + " ") if y["unvan"] else "") + (y["kisi"].split()[0][0] + ". " + " ".join(y["kisi"].split()[1:]) if len(y["kisi"].split()) > 1 else y["kisi"])
         inc = (f'<div class="ky ky-inc"><a class="ky-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto_k"]}" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer"></a>'
-               f'<div class="ky-m"><span class="kl"><span class="uz">Hukuki inceleme</span><span class="ks">İnceleyen</span></span>'
+               f'<div class="ky-m"><span class="kl"><span class="uz">{"Hukuki inceleme" if inc_ok else "Alanın hukukçusu"}</span><span class="ks">{"İnceleyen" if inc_ok else "Hukukçu"}</span></span>'
                f'<a class="kv" href="{y["url"]}"><span class="uz">{e(y["ad"])}</span><span class="ks">{e(kisa_ad)}</span>'
-               f'<svg class="ky-ok" width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="İncelendi"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="#17242F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>')
+               + ('<svg class="ky-ok" width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="İncelendi"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="#17242F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>' if inc_ok else "")
+               + '</a></div></div>')
     alt_sol = (f'Güncellendi: <time datetime="{e(p["updated"])}">{upd(p["updated"])}</time>' if p.get("updated")
                else ("Kaynaklar yazının sonunda belirtilmiştir." if p.get("kaynaklar") else ""))
     return (f'<header class="phead"><div class="pkick"><a href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a><span class="pk-c" aria-hidden="true"></span><span class="pk-t">{e(tur)}</span></div>'
