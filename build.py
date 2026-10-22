@@ -288,34 +288,36 @@ try:
     print("webp yeni:", webp_uret(os.path.join(OUT, "gorsel")))
 except Exception as _e:   # WebP üretilemezse site JPEG ile çalışmaya devam eder
     print("webp üretilemedi:", _e)
-# Discover/Google Görseller için 1:1 ve 4:3 kırpımlar (yalnızca fotoğraflı haberler; yazılı kapak görselleri kırpılınca metin kesilir)
-ORAN_KIRP = {"4x3": (840, 630), "1x1": (630, 630)}
-def _imza_sol():
-    from PIL import ImageFont as _F, ImageDraw as _D, Image as _Im
-    f = _F.truetype(_images.FONT_S, int(15 * _images.S))
-    tw = _D.Draw(_Im.new("RGB", (10, 10))).textlength("hukukihaberler.com", font=f)
-    return int(_images.W - int(12 * _images.S) - tw - int(10 * _images.S) * 2 - int(12 * _images.S))
+# Google Haberler / Discover / Görseller için 16:9, 4:3 ve 1:1 kırpımlar, en az 1200 px genişlikte; yalnızca gerçek fotoğraflı haberler
+# (yazılı kapak kırpılınca metin kesilir). Kaynak olarak sitedeki 1200x630 değil, yüksek çözünürlüklü özgün fotoğraf kullanılır.
+ORAN_KIRP = {"16x9": (1200, 675), "4x3": (1200, 900), "1x1": (1200, 1200)}
+_ORAN_SURUM = "2"
 def oran_kopyalari():
-    from PIL import Image as _Im
-    global _imza_x0
-    _imza_x0 = _imza_sol()
+    from PIL import Image as _Im, ImageFilter as _IF
     onb = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "kirp"); os.makedirs(onb, exist_ok=True)
     n = 0
     for p in POSTS:
         p["img_oran"] = {}
-        if p.get("imgkind") in ("gen", "orig"): continue   # yazılı kapaklar ve çerçeveli eski görseller kırpılmaz
-        src = os.path.join(OUT, p["img"].split("?")[0].lstrip("/"))
+        if p.get("imgkind") != "photo": continue
+        src = os.path.join(_images.COMMONS, _images.ALIAS.get(p["slug"], p["slug"]) + ".jpg")
         if not os.path.exists(src): continue
         h = hashlib.md5(open(src, "rb").read()).hexdigest()
+        ad_ = os.path.basename(p["img"].split("?")[0])
         for ad, (w, hh) in ORAN_KIRP.items():
-            c = os.path.join(onb, f"{h}_{ad}.jpg")
+            c = os.path.join(onb, f"{h}_{ad}_v{_ORAN_SURUM}.jpg")
             if not os.path.exists(c):
-                im = _Im.open(src).convert("RGB"); cw = w * im.height // hh; x = (im.width - cw) // 2
-                x = max(0, min(x, _imza_x0 - cw - 2))   # sağ alttaki site imzası kırpımın içine yarım girmesin
-                im.crop((x, 0, x + cw, im.height)).resize((w, hh), _Im.LANCZOS).save(c, "JPEG", quality=82, optimize=True, progressive=True); n += 1
-            hedef = os.path.join(OUT, "gorsel", ad, os.path.basename(src)); os.makedirs(os.path.dirname(hedef), exist_ok=True)
+                im = _Im.open(src).convert("RGB")
+                if im.width * hh > im.height * w:   # kaynak daha geniş: yanlardan kırp
+                    cw = im.height * w // hh; x = (im.width - cw) // 2; im = im.crop((x, 0, x + cw, im.height))
+                else:                               # kaynak daha uzun: üstten/alttan kırp (üst taraf korunur)
+                    ch = im.width * hh // w; y = max(0, (im.height - ch) // 3); im = im.crop((0, y, im.width, y + ch))
+                buyut = w > im.width
+                im = im.resize((w, hh), _Im.LANCZOS)
+                if buyut: im = im.filter(_IF.UnsharpMask(radius=1.4, percent=60, threshold=2))
+                im.save(c, "JPEG", quality=84, optimize=True, progressive=True); n += 1
+            hedef = os.path.join(OUT, "gorsel", ad, ad_); os.makedirs(os.path.dirname(hedef), exist_ok=True)
             shutil.copyfile(c, hedef)
-            p["img_oran"][ad] = (f"/gorsel/{ad}/{os.path.basename(src)}?v={h[:8]}", w, hh)
+            p["img_oran"][ad] = (f"/gorsel/{ad}/{ad_}?v={h[:8]}", w, hh)
     return n
 try:
     print("oran kırpımı yeni:", oran_kopyalari())
@@ -495,7 +497,7 @@ def cikar_notu(govde, p=None):
     if not notlar: return govde
     return govde + '<p class="cikar-notu"><b>Çıkar ilişkisi:</b> ' + "; ".join(notlar) + '. Bağlantı yalnızca konuyla ilgili rehber içerik için verilmiştir; <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>.</p>'
 
-def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra="", ogek=""):
+def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype="website", crumbs=None, img=None, active=None, side=True, extra="", ogek="", img_alt=None):
     act = active or url
     def on(u): return act == u or (u != "/" and act.startswith(u))
     catnav = "".join(f'<li><a href="{u}"{" class=on aria-current=page" if on(u) else ""}>{t}</a></li>' for u, t in CATNAV)
@@ -544,11 +546,11 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="{e(title)}">
+<meta property="og:image:alt" content="{e(img_alt or title)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@HukukiHaberTR">
 <meta name="twitter:image" content="{SITE + (img or "/gorsel/kapak.jpg")}">
-<meta name="twitter:image:alt" content="{e(title)}">
+<meta name="twitter:image:alt" content="{e(img_alt or title)}">
 <meta name="twitter:title" content="{e(title)}">
 <meta name="twitter:description" content="{e(desc)}">{ogek}
 <link rel="alternate" type="application/rss+xml" title="{NAME} RSS" href="/feed/index.xml">
@@ -615,6 +617,35 @@ def arsiv_notu(p):
 def _temsili(p):
     """arşiv fotoğrafları olayın kendisini göstermez; okura bunu açıkça söyler"""
     return "Temsili görsel. " if p.get("imgkind") == "photo" else ""
+def img_alt(p):
+    """haber görselinin alt metni: fotoğrafı anlatan açıklama; yoksa (yazılı kapak) başlık"""
+    a = ((p.get("credit") or {}).get("alt") or "").strip()
+    return a if a else p["title"]
+def _lisans_url(lic):
+    lic = str(lic or "")
+    m = re.match(r"CC BY(-SA)?(?:\s+(\d\.\d))?", lic, re.I)
+    if m: return f"https://creativecommons.org/licenses/by{(m.group(1) or '').lower()}/{m.group(2) or '4.0'}/"
+    if lic.upper().startswith("CC0") or "public domain" in lic.lower() or "kamu malı" in lic.lower(): return "https://creativecommons.org/publicdomain/zero/1.0/"
+    if "pixabay" in lic.lower(): return "https://pixabay.com/service/license-summary/"
+    if "pexels" in lic.lower(): return "https://www.pexels.com/license/"
+    if "unsplash" in lic.lower(): return "https://unsplash.com/license"
+    return None
+def gorsel_ld(p):
+    """NewsArticle için görsel listesi: 16:9, 4:3, 1:1 (en az 1200 px) + paylaşım görseli; açıklama, kredi ve lisans bilgisiyle"""
+    c = p.get("credit") or {}
+    ortak = {"caption": img_alt(p)}
+    if c.get("artist"):
+        kredi = f'{c["artist"]} / {c.get("kaynak") or "Wikimedia Commons"}'
+        ortak.update(creditText=kredi, copyrightNotice=kredi, creator={"@type": "Person", "name": c["artist"]})
+        lu = _lisans_url(c.get("lic"))
+        if lu: ortak["license"] = lu
+        if c.get("page"): ortak["acquireLicensePage"] = c["page"]
+    else:
+        ortak.update(creditText=NAME, copyrightNotice=NAME)
+    out = [{"@type": "ImageObject", "url": SITE + u, "contentUrl": SITE + u, "width": w, "height": h, **ortak}
+           for u, w, h in p.get("img_oran", {}).values()]
+    out.append({"@type": "ImageObject", "url": SITE + p["img"], "contentUrl": SITE + p["img"], "width": 1200, "height": 630, **ortak})
+    return out
 def credit_html(p):
     c = p.get("credit")
     if not c: return ""
@@ -976,7 +1007,7 @@ for idx, p in enumerate(POSTS):
           "datePublished": (p["eklenme"] + ":00+03:00") if p.get("eklenme") else iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
-          "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
+          "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": gorsel_ld(p), "thumbnailUrl": SITE + p["img"],
           "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["yazar"]]["unvan"]} if YAZARLAR[p["yazar"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
@@ -987,7 +1018,7 @@ for idx, p in enumerate(POSTS):
 {kicker(p)}
 <h1>{e(p['title'])}</h1>
 <div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
-<figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(p['title'])}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
+<figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(img_alt(p))}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
 {arsiv_notu(p)}{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{cikar_notu(re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p))))), p)}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
@@ -996,7 +1027,7 @@ for idx, p in enumerate(POSTS):
 {yazar_kutu(p)}{gpref_kutu()}{kaynak_goster(p, full)}
 {gecmis_html(p)}<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/?konu=duzeltme&amp;adres={SITE}{p['url']}#form" rel="nofollow">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
-    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], active=f"/haber-kategorisi/{k0}/",
+    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], img_alt=img_alt(p), active=f"/haber-kategorisi/{k0}/",
                           ogek=f'\n<meta property="article:published_time" content="{iso(p)}">'
                                + (f'\n<meta property="article:modified_time" content="{e(str(p["updated"]))}">' if p.get("updated") else "")
                                + f'\n<meta property="article:section" content="{e(CATS[k0][0])}">'
@@ -1491,16 +1522,22 @@ def _guncel_iso(p):
     if u: return str(u)
     return iso(p) if p.get("saat") else p["date"].isoformat()
 lm = {p["url"]: _guncel_iso(p) for p in POSTS}
-sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
-    f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls) + "</urlset>\n"
+_SM_IMG = {p["url"]: p for p in POSTS if p.get("img")}
+def _sm_gorsel(u):
+    p = _SM_IMG.get(u)
+    if not p: return ""
+    ler = [p["img"]] + [x[0] for x in p.get("img_oran", {}).values()][:1]
+    return "".join(f"<image:image><image:loc>{e(SITE + x)}</image:loc></image:image>" for x in ler)
+sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "".join(
+    f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority>{_sm_gorsel(u)}</url>\n" for u, c, pr in urls) + "</urlset>\n"
 with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f: f.write(sm)
 # Google News sitemap: yalnızca son 2 günde yayımlananlar
 _tz = datetime.timezone(datetime.timedelta(hours=3))
 _lim = datetime.datetime.now(_tz) - datetime.timedelta(hours=48)
 def _yayin_an(p):
     return datetime.datetime.fromisoformat(iso(p)) if p.get("saat") else datetime.datetime.combine(p["date"], datetime.time(9, 0), _tz)
-nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">\n' + "".join(
-    f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{iso(p) if p.get('saat') else p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news></url>\n"
+nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "".join(
+    f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{iso(p) if p.get('saat') else p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news>{_sm_gorsel(p['url'])}</url>\n"
     for p in POSTS if _yayin_an(p) >= _lim) + "</urlset>\n"
 with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:

@@ -193,7 +193,7 @@ def build(posts, outdir):
             if c["kind"] == "photo":
                 m = meta[key]
                 c["credit"] = {"artist": m.get("artist") or "Wikimedia Commons", "lic": m.get("lic", ""), "page": m.get("page", ""),
-                               "kaynak": m.get("kaynak", "Wikimedia Commons")}
+                               "kaynak": m.get("kaynak", "Wikimedia Commons"), "alt": m.get("alt", "")}
             res[slug] = (c["url"], c["kind"], c.get("credit")); yeni_onbellek[slug] = c
             continue
         if src and os.path.exists(os.path.join(ORIG, src)):
@@ -201,7 +201,7 @@ def build(posts, outdir):
         elif os.path.exists(cpath) and key in meta:
             im = photo(cpath); kind = "photo"; m = meta[key]
             credit = {"artist": m.get("artist") or "Wikimedia Commons", "lic": m.get("lic", ""), "page": m.get("page", ""),
-                      "kaynak": m.get("kaynak", "Wikimedia Commons")}
+                      "kaynak": m.get("kaynak", "Wikimedia Commons"), "alt": m.get("alt", "")}
         else:
             k = p["catkeys"][0]
             for c in p["catkeys"]:
