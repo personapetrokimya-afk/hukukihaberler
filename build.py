@@ -909,11 +909,37 @@ def with_okumadan(p, body):
             out = out[:i] + okumadan_html(rel[1]) + out[i:]
     return out
 
+# paylaşım düğmelerindeki uygulama simgeleri: Simple Icons (CC0 1.0, kamu malı)
+MARKA_YOL = {'x': 'M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z', 'facebook': 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z', 'whatsapp': 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z', 'telegram': 'M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'}
+
+def marka(ad, size=18):
+    return (f'<svg class="mk" viewBox="0 0 24 24" width="{size}" height="{size}" aria-hidden="true" focusable="false">'
+            f'<path fill="currentColor" d="{MARKA_YOL[ad]}"/></svg>')
+
+def kaynak_adi(t):
+    """kaynak satırında kısa ad: "Sondakika, 20 Ekim 2026 15.24: Danıştay ..." -> "Sondakika";
+    "X paylaşımı: ANKA Haber Ajansı (@ankahabera), 20 Ekim ..." -> "ANKA Haber Ajansı" """
+    t = str(t).strip()
+    if re.match(r"https?://", t): return re.sub(r"^www\.", "", urllib.parse.urlsplit(t).netloc)[:40] or t[:40]
+    x = re.match(r"(?i)x paylaşımı\s*:\s*(.+)", t)
+    ad = x.group(1) if x else t.split(":")[0]
+    ad = re.split(r",\s*\d|\s*\(|\s+/\s+|;", ad)[0].strip(" ,.-")
+    ad = ad or t
+    if len(ad) > 34: ad = ad[:34].rsplit(" ", 1)[0].rstrip(" ,.-") + "…"
+    return ad + (" (X)" if x else "")
+
 def kaynak_html(p):
     k = p.get("kaynaklar")
     if not k: return ""
-    items = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(t)}</a>' for t, u in k)
-    return f'<p class="kaynak"><b>Kaynak:</b> {items}</p>'
+    ogeler, gorulen, sayi = [], set(), {}
+    for t, u in k:
+        t = re.sub(r"\s*\[EDİTÖR NOTU:.*?(\]|$)", "", str(t), flags=re.S).strip().rstrip(":").strip()   # iç not okura görünmez
+        ad = kaynak_adi(t)
+        if u in gorulen: continue
+        gorulen.add(u); sayi[ad] = sayi.get(ad, 0) + 1
+        if sayi[ad] > 1: ad = f"{ad} {sayi[ad]}"   # aynı yayın organından ikinci haber
+        ogeler.append(f'<a href="{e(u)}" target="_blank" rel="noopener" title="{e(t)}">{e(ad)}</a>')
+    return f'<p class="kaynak"><b>Kaynak</b>{"".join(ogeler)}</p>'
 
 def sss_temiz(p):
     """yalnızca geçerli soru-cevap çiftleri (bozuk ["q","a"] gibi maddeler gösterilmez)"""
@@ -979,11 +1005,12 @@ for idx, p in enumerate(POSTS):
     full = SITE + p["url"]
     _q = urllib.parse.quote
     share = ('<section class="sharek" aria-label="Paylaş"><svg class="atac" viewBox="0 0 24 24" width="58" height="58" aria-hidden="true"><path d="M15 6.5v10a3 3 0 0 1-6 0V5a2 2 0 0 1 4 0v10.5a1 1 0 0 1-2 0V7.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><h2>Bu haberi paylaşın</h2><div class="share">'
-             f'<a href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank">{ico("duyur", 18)}X\'te paylaş</a>'
-             f'<a href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank">{ico("topluluk", 18)}Facebook</a>'
-             f'<a href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank">{ico("sohbet", 18)}WhatsApp</a>'
-             f'<a href="mailto:?subject={_q(p["title"])}&body={_q(full)}">{ico("zarf", 18)}E-posta</a>'
-             f'<button type="button" data-u="{full}" onclick="var b=this;(navigator.clipboard?navigator.clipboard.writeText(b.dataset.u):Promise.reject()).then(function(){{b.lastChild.textContent=\'Kopyalandı\'}}).catch(function(){{}})">{ico("baglanti", 18)}<span>Bağlantıyı kopyala</span></button>'
+             f'<a class="s-x" href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank" aria-label="X\'te paylaş">{marka("x")}<span>X\'te paylaş</span></a>'
+             f'<a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank" aria-label="Facebook\'ta paylaş">{marka("facebook")}<span>Facebook</span></a>'
+             f'<a class="s-wa" href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank" aria-label="WhatsApp\'ta paylaş">{marka("whatsapp")}<span>WhatsApp</span></a>'
+             f'<a class="s-tg" href="https://t.me/share/url?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank" aria-label="Telegram\'da paylaş">{marka("telegram")}<span>Telegram</span></a>'
+             f'<a class="s-ep" href="mailto:?subject={_q(p["title"])}&body={_q(full)}" aria-label="E-postayla gönder">{ico("zarf", 18)}<span>E-posta</span></a>'
+             f'<button class="s-kp" type="button" data-u="{full}" aria-label="Bağlantıyı kopyala" onclick="var b=this;(navigator.clipboard?navigator.clipboard.writeText(b.dataset.u):Promise.reject()).then(function(){{b.classList.add(\'ok\');b.lastChild.textContent=\'Kopyalandı\'}}).catch(function(){{}})">{ico("baglanti", 18)}<span>Kopyala</span></button>'
              '</div></section>')
     tur = p.get("tur", "Haber")
     ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
