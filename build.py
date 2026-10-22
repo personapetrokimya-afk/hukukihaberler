@@ -1149,8 +1149,8 @@ for idx, p in enumerate(POSTS):
 {arsiv_notu(p)}{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{cikar_notu(re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p))))), p)}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
 {share}
-{('<p class="konub"><b>Konu dosyası:</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
-<div class="tags"><b>Etiketler:</b>{tags_html}</div>
+{('<p class="konub"><b>Konu dosyası</b>' + "".join(f'<a href="/konu/{k}/">{KONU_AD[k]}</a>' for k in p["konular"] if k in KONU_VAR) + '</p>') if any(k in KONU_VAR for k in p["konular"]) else ""}
+<div class="tags"><b>Etiketler</b>{tags_html}</div>
 {yazar_kutu(p)}{gpref_kutu()}{kaynak_goster(p, full)}
 {gecmis_html(p)}<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/?konu=duzeltme&amp;adres={SITE}{p['url']}#form" rel="nofollow">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
