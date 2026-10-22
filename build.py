@@ -872,13 +872,12 @@ def gecmis_html(p):
             '<p>Düzeltme ilkelerimiz <a href="/yayin-ilkeleri/#duzeltme">Yayın İlkeleri</a> sayfasındadır; hata bildirimi için <a href="/iletisim/">iletişim</a>.</p></section>\n')
 
 def baslik_alani(p, tur):
-    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, okuma, hukuki inceleme), Aa/Kaydet/Paylaş"""
+    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, hukuki inceleme), Aa/Kaydet/Paylaş"""
     k = topcat(p)
     d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
     saat = p.get("saat")
     y = YAZARLAR.get(p.get("denetleyen")) if p.get("incelendi") else None
     haz = byline(p)
-    okuma = rtime(p)
     inc = ""
     if y:
         kisa_ad = ((y["unvan"] + " ") if y["unvan"] else "") + (y["kisi"].split()[0][0] + ". " + " ".join(y["kisi"].split()[1:]) if len(y["kisi"].split()) > 1 else y["kisi"])
@@ -893,9 +892,8 @@ def baslik_alani(p, tur):
             + (f'<p class="phaz">Hazırlayan: {haz}</p>' if y else "")
             + f'<div class="kunye{" inc" if y else ""}">'
             f'<div class="ky ky-haz"><span class="kl">Hazırlayan</span><span class="kv">{haz}</span></div>'
-            f'<div class="ky"><span class="kl">Yayın</span><span class="kv"><time datetime="{iso(p)}"><span class="uz">{trdate(d)}</span><span class="ks">{d.day} {AYLAR[d.month-1][:3]}</span></time>'
+            f'<div class="ky"><span class="kl">Yayın</span><span class="kv"><time datetime="{iso(p)}">{trdate(d)}</time>'
             + (f' <span class="km">· {saat}</span>' if saat else "") + '</span></div>'
-            f'<div class="ky ky-ou"><span class="kl">Okuma</span><span class="kv"><span class="uz">{okuma} dakika</span><span class="ks">{okuma} dk</span></span></div>'
             f'{inc}</div>'
             f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
             f'<button type="button" class="yb" aria-label="Yazı boyutunu değiştir">Aa</button>'
