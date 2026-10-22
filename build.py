@@ -871,6 +871,39 @@ def gecmis_html(p):
     return (f'<section class="gecmis" aria-labelledby="gecmis-{p["slug"][:40]}"><h2 id="gecmis-{p["slug"][:40]}">Güncelleme geçmişi</h2><ol>{"".join(sat)}</ol>'
             '<p>Düzeltme ilkelerimiz <a href="/yayin-ilkeleri/#duzeltme">Yayın İlkeleri</a> sayfasındadır; hata bildirimi için <a href="/iletisim/">iletişim</a>.</p></section>\n')
 
+def baslik_alani(p, tur):
+    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, okuma, hukuki inceleme), Aa/Kaydet/Paylaş"""
+    k = topcat(p)
+    d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
+    saat = p.get("saat")
+    y = YAZARLAR.get(p.get("denetleyen")) if p.get("incelendi") else None
+    haz = byline(p)
+    okuma = rtime(p)
+    inc = ""
+    if y:
+        kisa_ad = ((y["unvan"] + " ") if y["unvan"] else "") + (y["kisi"].split()[0][0] + ". " + " ".join(y["kisi"].split()[1:]) if len(y["kisi"].split()) > 1 else y["kisi"])
+        inc = (f'<div class="ky ky-inc"><a class="ky-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto_k"]}" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer"></a>'
+               f'<div class="ky-m"><span class="kl"><span class="uz">Hukuki inceleme</span><span class="ks">İnceleyen</span></span>'
+               f'<a class="kv" href="{y["url"]}"><span class="uz">{e(y["ad"])}</span><span class="ks">{e(kisa_ad)}</span>'
+               f'<svg class="ky-ok" width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="İncelendi"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="#17242F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>')
+    alt_sol = (f'Güncellendi: <time datetime="{e(p["updated"])}">{upd(p["updated"])}</time>' if p.get("updated")
+               else ("Kaynaklar yazının sonunda belirtilmiştir." if p.get("kaynaklar") else ""))
+    return (f'<header class="phead"><div class="pkick"><a href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a><span class="pk-c" aria-hidden="true"></span><span class="pk-t">{e(tur)}</span></div>'
+            f'<h1>{e(p["title"])}</h1>'
+            + (f'<p class="phaz">Hazırlayan: {haz}</p>' if y else "")
+            + f'<div class="kunye{" inc" if y else ""}">'
+            f'<div class="ky ky-haz"><span class="kl">Hazırlayan</span><span class="kv">{haz}</span></div>'
+            f'<div class="ky"><span class="kl">Yayın</span><span class="kv"><time datetime="{iso(p)}"><span class="uz">{trdate(d)}</span><span class="ks">{d.day} {AYLAR[d.month-1][:3]}</span></time>'
+            + (f' <span class="km">· {saat}</span>' if saat else "") + '</span></div>'
+            f'<div class="ky ky-ou"><span class="kl">Okuma</span><span class="kv"><span class="uz">{okuma} dakika</span><span class="ks">{okuma} dk</span></span></div>'
+            f'{inc}</div>'
+            f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
+            f'<button type="button" class="yb" aria-label="Yazı boyutunu değiştir">Aa</button>'
+            f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[k][0])}" data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 15)}<span>Kaydet</span></button>'
+            f'<button type="button" class="pyl" data-u="{SITE + p["url"]}" data-t="{e(p["title"])}">'
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg><span>Paylaş</span></button>'
+            '</div></div></header>\n')
+
 def inceleme_karti(p):
     """haberi yayımlanmadan önce hukuki açıdan inceleyen avukatın kartı (yalnızca kimlik ve alan bilgisi; iletişim, ücret ya da çağrı yok)"""
     y = YAZARLAR.get(p.get("denetleyen"))
@@ -1037,10 +1070,7 @@ for idx, p in enumerate(POSTS):
     k0 = topcat(p)
     crumbs = [("/", "Anasayfa")] + ([(f"/haber-kategorisi/{CATS[k0][1]}/", CATS[CATS[k0][1]][0])] if CATS[k0][1] else []) + [(f"/haber-kategorisi/{k0}/", CATS[k0][0]), (p["url"], p["title"])]
     crumb = " › ".join(f'<a href="{u}">{e(n)}</a>' for u, n in crumbs[:-1])
-    main = f"""<article class="post"><div class="crumb">{crumb}</div>
-{kicker(p)}
-<h1>{e(p['title'])}</h1>
-<div class="meta pmeta"><span class="tur">{e(tur)}</span><span>{byline(p)}</span><span>{ico("clock", 16)}<time datetime="{iso(p)}">{when(p)}</time></span>{('<span>Güncellendi: ' + upd(p["updated"]) + '</span>') if p.get("updated") else ""}{save_btn(p)}</div>
+    main = f"""<article class="post">{baslik_alani(p, tur)}
 <figure class="hero-img"><div class="pic"><img src="{p['img']}" {srcset(p)} sizes="(max-width:767px) 100vw, 760px" alt="{e(img_alt(p))}" width="1200" height="630" fetchpriority="high"></div>{credit_html(p)}</figure>
 {arsiv_notu(p)}{inceleme_karti(p)}{ozet_html(p)}{karar_html(p)}<div class="body">{cikar_notu(re.sub(r'(<table[\s\S]*?</table>)', r'<div class="tscroll">\1</div>', with_okumadan(p, govde_temiz(ic_bag(autolink(p))))), p)}</div>
 {ornek_html(p)}{sss_html(p)}{kaynak_html(p)}{anket_html(p)}
