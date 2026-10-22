@@ -406,7 +406,7 @@ def sidebar():
     cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
     return f"""<aside aria-label="Yan sütun">
-<div class="box"><h2>Son gelişmeler</h2><ul id="yan-son" style="min-height:420px"></ul></div>
+<div class="box zc"><div class="zc-b"><h2>Son gelişmeler</h2><span class="zc-c"><i></i>Canlı</span></div><ol id="yan-son" class="zc-l" style="min-height:420px"></ol><a class="zc-t" href="/arsiv/">Tüm gelişmeler{ico("chev", 14)}</a></div>
 {yazarlar_kutu(son_goster=False)}
 <div class="box"><h2>Bölümler</h2><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a></li></ul></div>
 </aside>"""
@@ -447,7 +447,9 @@ def gpref_kutu():
 CANLI_JS = """<script>(function(){function h(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
 fetch('/canli.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){
 var u=document.getElementById('tk-ul');if(u&&d.tk){var a='',b='',n=0;d.tk.forEach(function(x){n+=x[1].length;a+='<li><a href="'+h(x[0])+'">'+h(x[1])+'</a></li>';b+='<li aria-hidden="true"><a href="'+h(x[0])+'" tabindex="-1">'+h(x[1])+'</a></li>'});u.innerHTML=a+b;u.style.setProperty('--tks',Math.max(30,Math.round(n*0.16))+'s')}
-var s=document.getElementById('yan-son');if(s&&d.son){s.innerHTML=d.son.map(function(x){return '<li class="m"><a class="mini" href="'+h(x[0])+'" tabindex="-1" aria-hidden="true"><img src="'+h(x[4])+'" alt="" width="96" height="64" loading="lazy" decoding="async"></a><div><time datetime="'+h(x[3])+'">'+h(x[2])+'</time><a href="'+h(x[0])+'">'+h(x[1])+'</a></div></li>'}).join('');s.style.minHeight=''}
+var s=document.getElementById('yan-son');if(s&&d.son){var AY=['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];var bt=new Date(Date.now()+(new Date().getTimezoneOffset()+180)*6e4),gun=function(t){return t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2)},bu=gun(bt),du=gun(new Date(bt-864e5));
+s.innerHTML=d.son.slice(0,5).map(function(x,i){var t=x[6]||'',g=x[7]||'',ust,alt='';if(t&&g===bu){ust=t}else if(t&&g===du){ust=t;alt='dün'}else if(g){var p=g.split('-');ust=(+p[2])+' '+AY[+p[1]-1]}else{ust=x[2]}
+return '<li'+(i===0?' class="ilk"':'')+'><div class="zc-z"><time datetime="'+h(x[3])+'">'+h(ust)+'</time>'+(alt?'<small>'+alt+'</small>':'')+'</div><span class="zc-n" aria-hidden="true"></span><div class="zc-m">'+(x[5]?'<span class="zc-k">'+h(x[5])+'</span>':'')+'<a href="'+h(x[0])+'">'+h(x[1])+'</a></div></li>'}).join('');s.style.minHeight=''}
 }).catch(function(){})})();</script>"""
 SAYAC_JS = """<script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>"""
 def _alan_adi(u):
@@ -1652,7 +1654,8 @@ with open(os.path.join(OUT, "_routes.json"), "w", encoding="utf-8") as f:
     f.write('{"version":1,"include":["/api/*"],"exclude":[]}')
 with open(os.path.join(OUT, "canli.json"), "w", encoding="utf-8") as f:
     json.dump({"tk": [[p["url"], p["title"]] for p in POSTS[:5]],
-               "son": [[p["url"], p["title"], kisa(p["date"]) + ((" · " + p["saat"]) if p.get("saat") else ""), iso(p), thumb(p)] for p in POSTS[:6]]},
+               "son": [[p["url"], p["title"], kisa(p["date"]) + ((" · " + p["saat"]) if p.get("saat") else ""), iso(p), thumb(p),
+                        CATS[topcat(p)][0], p.get("saat") or "", str(p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"])] for p in POSTS[:6]]},
               f, ensure_ascii=False, separators=(",", ":"))
 with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
     f.write("/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: SAMEORIGIN\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
