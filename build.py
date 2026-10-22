@@ -159,7 +159,7 @@ try:
         for _f in _fs:
             _j = os.path.join(_dp, _f[:-5] + ".jpg")
             if _f.endswith(".webp") and os.path.exists(_j):
-                _c = os.path.join(_wo, hashlib.md5(open(_j, "rb").read()).hexdigest() + ".webp")
+                _c = os.path.join(_wo, _images.md5_dosya(_j) + ".webp")
                 if not os.path.exists(_c): shutil.copyfile(os.path.join(_dp, _f), _c)
 except Exception as _e:
     print("webp önbellek uyarısı:", _e)
@@ -170,10 +170,10 @@ for p in POSTS: p["img"], p["imgkind"], p["credit"] = _IMG[p["slug"]]
 def _kucuk_kopya(src, hedef, boyut):
     from PIL import Image as _Im
     onb = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "kucuk"); os.makedirs(onb, exist_ok=True)
-    c = os.path.join(onb, hashlib.md5(open(src, "rb").read()).hexdigest() + f"_{boyut[0]}.jpg")
+    c = os.path.join(onb, _images.md5_dosya(src) + f"_{boyut[0]}.jpg")
     if not os.path.exists(c):
         _Im.open(src).convert("RGB").resize(boyut, _Im.LANCZOS).save(c, "JPEG", quality=80, optimize=True, progressive=True)
-    os.makedirs(os.path.dirname(hedef), exist_ok=True); shutil.copyfile(c, hedef)
+    os.makedirs(os.path.dirname(hedef), exist_ok=True); _images.bagla(c, hedef)
 for _f in os.listdir(os.path.join(OUT, "gorsel", "m")):   # liste ve kart küçük resimleri için 240 px kopya
     if _f.endswith(".jpg"): _kucuk_kopya(os.path.join(OUT, "gorsel", "m", _f), os.path.join(OUT, "gorsel", "s", _f), (240, 126))
 
@@ -278,11 +278,11 @@ def webp_uret(kok):
         for f in fs:
             if not f.endswith(".jpg"): continue
             src = os.path.join(dp, f)
-            h = hashlib.md5(open(src, "rb").read()).hexdigest()
+            h = _images.md5_dosya(src)
             c = os.path.join(onb, h + ".webp")
             if not os.path.exists(c):
                 _Im.open(src).convert("RGB").save(c, "WEBP", quality=76, method=5); n += 1
-            shutil.copyfile(c, src[:-4] + ".webp")
+            _images.bagla(c, src[:-4] + ".webp")
     return n
 try:
     print("webp yeni:", webp_uret(os.path.join(OUT, "gorsel")))
@@ -301,7 +301,7 @@ def oran_kopyalari():
         if p.get("imgkind") != "photo": continue
         src = os.path.join(_images.COMMONS, _images.ALIAS.get(p["slug"], p["slug"]) + ".jpg")
         if not os.path.exists(src): continue
-        h = hashlib.md5(open(src, "rb").read()).hexdigest()
+        h = _images.md5_dosya(src)
         ad_ = os.path.basename(p["img"].split("?")[0])
         for ad, (w, hh) in ORAN_KIRP.items():
             c = os.path.join(onb, f"{h}_{ad}_v{_ORAN_SURUM}.jpg")
@@ -316,7 +316,7 @@ def oran_kopyalari():
                 if buyut: im = im.filter(_IF.UnsharpMask(radius=1.4, percent=60, threshold=2))
                 im.save(c, "JPEG", quality=84, optimize=True, progressive=True); n += 1
             hedef = os.path.join(OUT, "gorsel", ad, ad_); os.makedirs(os.path.dirname(hedef), exist_ok=True)
-            shutil.copyfile(c, hedef)
+            _images.bagla(c, hedef)
             p["img_oran"][ad] = (f"/gorsel/{ad}/{ad_}?v={h[:8]}", w, hh)
     return n
 try:
@@ -1609,6 +1609,7 @@ with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
             "/gorsel/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n"
             "/canli.json\n  Cache-Control: no-cache\n")
 
+_images.md5_kaydet()
 # özet
 n_files = sum(len(fs) for _, _, fs in os.walk(OUT))
 print(f"yazı: {len(POSTS)} | kategori: {sum(1 for k in CATS if cat_count[k])} | etiket: {len(tag_posts)} | ay: {len(months)} | dosya: {n_files} | redirect: {len(lines)}")

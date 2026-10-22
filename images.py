@@ -126,6 +126,34 @@ def typographic(title, catkey, catname):
     d.text((x0, H - int(48 * S)), "hukukihaberler.com", font=f_s, fill=(255, 255, 255))
     return im
 
+# Hız: dosya özetleri (inode, boyut, değişme zamanı) anahtarıyla saklanır; görseller önbellekten kopyalanmaz, sabit bağlantıyla
+# (hardlink) yerleştirilir. Böylece her derlemede yüzlerce MB okunup yazılmaz, git de değişmeyen görselleri yeniden taramaz.
+_MD5_YOL = os.path.join(HERE, ".gorsel_onbellek", "md5.json")
+_MD5 = None; _MD5_YENI = {}
+def md5_dosya(yol):
+    global _MD5
+    if _MD5 is None:
+        try:
+            import json as _j; _MD5 = _j.load(open(_MD5_YOL, encoding="utf-8"))
+        except Exception: _MD5 = {}
+    st = os.stat(yol); k = f"{st.st_ino}:{st.st_size}:{st.st_mtime_ns}"
+    v = _MD5.get(k) or _MD5_YENI.get(k)
+    if v is None: v = hashlib.md5(open(yol, "rb").read()).hexdigest()
+    _MD5_YENI[k] = v
+    return v
+def md5_kaydet():
+    import json as _j
+    try:
+        os.makedirs(os.path.dirname(_MD5_YOL), exist_ok=True)
+        _j.dump(_MD5_YENI, open(_MD5_YOL + ".tmp", "w", encoding="utf-8")); os.replace(_MD5_YOL + ".tmp", _MD5_YOL)
+    except Exception as e: print("md5 önbelleği yazılamadı:", e)
+def bagla(src, dst):
+    """önbellekteki dosyayı hedefe sabit bağlantıyla yerleştirir; olmazsa kopyalar"""
+    import shutil as _sh
+    if os.path.lexists(dst): os.remove(dst)
+    try: os.link(src, dst)
+    except OSError: _sh.copy2(src, dst)
+
 COMMONS = os.path.join(HERE, "commons")
 ALIAS = {  # aynı fotoğrafı paylaşan haberler
  "anayasa-mahkemesi-ve-uluslararasi-anlasmalar": "nukleere-hukuk-dar-geliyor",
@@ -173,7 +201,7 @@ def build(posts, outdir):
     try: onbellek = json.load(open(_op, encoding="utf-8"))
     except Exception: onbellek = {}
     yeni_onbellek = {}
-    def _md5(yol): return hashlib.md5(open(yol, "rb").read()).hexdigest()[:12]
+    def _md5(yol): return md5_dosya(yol)[:12]
     for p in posts:
         slug = p["slug"]; fn = f"{slug}.jpg"; dst = os.path.join(outdir, fn)
         key = ALIAS.get(slug, slug)
@@ -212,7 +240,7 @@ def build(posts, outdir):
         for sub, size, q in (("m", (480, 252), 78), ("l", (800, 420), 80)):
             os.makedirs(os.path.join(outdir, sub), exist_ok=True)
             im.resize(size, Image.LANCZOS).save(os.path.join(outdir, sub, fn), "JPEG", quality=q, optimize=True, progressive=True)
-        _v = hashlib.md5(open(dst, "rb").read()).hexdigest()[:8]
+        _v = md5_dosya(dst)[:8]
         res[slug] = (f"/gorsel/{fn}?v={_v}", kind, credit)
         yeni_onbellek[slug] = {"imza": imza_, "url": res[slug][0], "kind": kind}
     json.dump(yeni_onbellek, open(_op, "w", encoding="utf-8"), ensure_ascii=False, sort_keys=True, indent=0)
@@ -221,8 +249,8 @@ def build(posts, outdir):
     for sub in ("", "m", "l"): os.makedirs(os.path.join(hedef, sub), exist_ok=True)
     for slug in res:
         for sub in ("", "m", "l"):
-            shutil.copy2(os.path.join(outdir, sub, f"{slug}.jpg"), os.path.join(hedef, sub, f"{slug}.jpg"))
-    shutil.copy2(os.path.join(outdir, "kapak.jpg"), os.path.join(hedef, "kapak.jpg"))
+            bagla(os.path.join(outdir, sub, f"{slug}.jpg"), os.path.join(hedef, sub, f"{slug}.jpg"))
+    bagla(os.path.join(outdir, "kapak.jpg"), os.path.join(hedef, "kapak.jpg"))
     return res
     typographic("Hukuk, yargı ve mevzuat gündemi", "manset", "Hukuki Haberler").save(os.path.join(outdir, "kapak.jpg"), "JPEG", quality=82, optimize=True)
     return res
