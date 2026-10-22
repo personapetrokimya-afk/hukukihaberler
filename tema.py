@@ -298,7 +298,7 @@ h1.sec{font:700 32px/1.18 var(--serif);margin:0 0 6px}.sec-desc{color:var(--mute
 /* ---------- footer */
 footer.site{background:var(--dark);margin-top:10px;padding:36px 0 26px;font:15px/1.7 var(--sans);color:var(--mute)}
 footer.site a{color:var(--ink)}
-.fcols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:22px}
+.fcols{display:grid;grid-template-columns:1.55fr 1fr 1fr .95fr;gap:40px;margin-bottom:26px}.fmarka p{margin:0;max-width:400px;font-size:14.5px;line-height:1.7}.fbrand{text-decoration:none}.fsos{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.fsos a{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px;border:1px solid var(--line);border-radius:19px;color:var(--ink);text-decoration:none;font:600 14px var(--sans);transition:border-color .15s,color .15s}.fsos a svg{color:var(--gold)}.fsos a:hover{border-color:var(--gold);color:var(--gold)}footer.site nav h2{margin:2px 0 12px;font-size:12px;letter-spacing:.16em}.flist a{display:flex;align-items:center;gap:11px;padding:6px 0;color:var(--ink);text-decoration:none;font:15px/1.35 var(--sans);transition:color .15s}.flist a svg{color:var(--gold);opacity:.8;flex:none;transition:opacity .15s}.flist a:hover{color:var(--gold)}.flist a:hover svg{opacity:1}footer.site .bot{display:flex;justify-content:space-between;align-items:center;gap:8px 24px;flex-wrap:wrap}
 footer h2,footer h4{margin:0 0 10px;font:700 13px var(--sans);text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
 footer ul{list-style:none;margin:0;padding:0}footer li a{display:inline-flex;min-height:32px;align-items:center}
 footer .fbrand{display:flex;align-items:center;gap:10px;font:700 24px var(--serif);color:var(--ink);margin-bottom:10px}footer .fbrand svg{color:var(--gold)}
@@ -475,7 +475,7 @@ picture{display:contents}.okuma.gyok a{grid-template-columns:1fr!important;displ
  .post .pmeta{gap:8px 18px}.post .pmeta>span+span{border-left:0;padding-left:0}
  .okuma img{width:96px;height:64px}.okuma b{font-size:16.5px}
  .pn{grid-template-columns:1fr}.pn .r{text-align:left}
- .fcols{grid-template-columns:1fr;gap:20px}
+ .fcols{grid-template-columns:1fr 1fr;gap:26px 18px;grid-auto-flow:row dense}.fmarka{grid-column:1/-1}.fcols>nav:nth-of-type(1){grid-row:span 2}.fcols>nav:nth-of-type(2),.fcols>nav:nth-of-type(3){grid-column:2}.flist a{font-size:14.5px;padding:7px 0}
  .arch{columns:1}
  .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--dark);border-top:1px solid var(--line2);padding-bottom:env(safe-area-inset-bottom)}
  .bnav a,.bnav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:var(--bnav);background:none;border:0;color:var(--mute);font:600 13px var(--sans);cursor:pointer;padding:0}
@@ -517,6 +517,12 @@ def ico(name, size=20, cls=""):
      "paper": '<rect x="3" y="4" width="14" height="16" rx="2"/><path d="M17 8h3v10a2 2 0 0 1-2 2"/><path d="M7 8h6M7 12h6M7 16h4"/>',
      "grid": '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>',
      "archive": '<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/>',
+     "raf": '<path d="M4 19V5a1 1 0 0 1 1-1h3v16H5a1 1 0 0 1-1-1zM8 4h4v16H8zM13.2 5.4l3.4-.9 3.9 14.5-3.4.9z"/>',
+     "bilgi": '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.2"/>',
+     "kunye": '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16.5c.7-1.6 2-2.4 3.5-2.4s2.8.8 3.5 2.4M14.5 10h4M14.5 13.5h4"/>',
+     "kalkan": '<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+     "kilit": '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+     "cerez": '<path d="M21 12.5A9 9 0 1 1 11.5 3a3 3 0 0 0 3.5 3.5 3 3 0 0 0 3.5 3.5 3 3 0 0 0 2.5 2.5z"/><path d="M8.5 9.5h.01M8 15h.01M13 16h.01M12 12h.01"/>',
      "book": '<path d="M4 4h6a3 3 0 0 1 2 1 3 3 0 0 1 2-1h6v15h-6a2 2 0 0 0-2 2 2 2 0 0 0-2-2H4z"/><path d="M12 5v16"/>',
     }
     sw = "1.6" if name == "scale" else "1.9"
