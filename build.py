@@ -874,7 +874,7 @@ def gecmis_html(p):
             '<p>Düzeltme ilkelerimiz <a href="/yayin-ilkeleri/#duzeltme">Yayın İlkeleri</a> sayfasındadır; hata bildirimi için <a href="/iletisim/">iletişim</a>.</p></section>\n')
 
 def baslik_alani(p, tur):
-    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, hukuki inceleme), Aa/Kaydet/Paylaş"""
+    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, hukuki inceleme), Kaydet/Paylaş"""
     k = topcat(p)
     d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
     saat = p.get("saat")
@@ -900,7 +900,6 @@ def baslik_alani(p, tur):
             f'{inc}</div>'
             + (f'<p class="phaz">Hazırlayan: {haz}</p>' if y else "")
             +             f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
-            f'<button type="button" class="yb" aria-label="Yazı boyutunu değiştir">Aa</button>'
             f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[k][0])}" data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 15)}<span>Kaydet</span></button>'
             f'<button type="button" class="pyl" data-u="{SITE + p["url"]}" data-t="{e(p["title"])}">'
             '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg><span>Paylaş</span></button>'
