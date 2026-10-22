@@ -232,36 +232,16 @@ for p in POSTS:
 # hukuki inceleme: yalnızca ceza hukuku (suç, soruşturma, kovuşturma, ceza yargılaması) yazıları Av. Umut Tekin;
 # boşanma, aile, miras, icra ve diğer özel hukuk (kira, tüketici, iş, tazminat) yazıları Av. Yağmur Tahtasız tarafından incelenir.
 # Aile ve miras her durumda Yağmur Tahtasız'dadır. İdare, anayasa, vergi gibi alanlarda inceleme kartı gösterilmez.
-def _kelime_re(ws): return re.compile("|".join(r"(?<!\w)" + re.escape(_tr_kucuk(w)) for w in ws))
-_AILE_RE = _kelime_re(["boşan", "nafaka", "velayet", "aile hukuku", "aile mahkemesi", "evlilik", "eşler", "ziynet", "mal rejimi", "edinilmiş mal",
-                       "nesep", "soybağı", "babalık davası", "evlat edin", "vesayet", "6284", "koruma kararı", "uzaklaştırma kararı",
-                       "miras", "mirasçı", "veraset", "tereke", "vasiyet", "saklı pay", "tenkis", "muris"])
-_ICRA_RE = _kelime_re(["icra takib", "icra müdürl", "icra dairesi", "icra ve iflas", "icra hukuku", "haciz", "iflas", "konkordato", "itirazın iptali",
-                       "menfi tespit", "ihtiyati haciz", "2004 sayılı", "kambiyo"])
-_OZEL_RE = _kelime_re(["manevi tazminat", "maddi tazminat", "tazminat davası", "borçlar kanunu", "aydınlatılmış onam", "hekime kusur", "tıbbi müdahale",
-                       "malpraktis", "alacak davası", "kira sözleşme", "kiracı", "kira artış", "tahliye davası", "tapu iptal", "ortaklığın giderilmesi",
-                       "ayıplı", "ayıpsız", "cayma hakkı", "tüketici hakem", "kıdem tazminat", "ihbar tazminat", "işe iade", "yıllık izin", "işten çıkar",
-                       "hak sahipleri ne yapmalı", "hukuki haklar rehberi"])
-_UT_RE = _kelime_re(["tck", "cmk", "türk ceza kanunu", "ceza muhakemesi", "tutukla", "tutuklu", "gözaltı", "iddianame", "sanık", "şüpheli",
-                     "mütalaa", "beraat", "müebbet", "hapis", "cezaevi", "adli kontrol", "kovuşturma", "suç örgütü", "suç duyurusu", "suçlama",
-                     "suçu", "suçlar", "suç mu", "suça", "uyuşturucu", "kara para", "aklama", "irtikap", "rüşvet", "dolandırıcı", "fetö", "deaş",
-                     "terör", "kasten", "taksirle", "öldürme", "yakalandı", "gıyabi", "kırmızı bülten", "operasyon", "ağır ceza", "hagb",
-                     "yasa dışı bahis", "kaçakçılı", "tefeci", "hürriyetten yoksun", "kötü muamele", "fuhuş", "silahlı saldırı"])
-_CEZA_DEGIL = _kelime_re(["rekabet", "rtük", "reklam kurulu", "idari para cezası", "disiplin cezası", "kesin hesab", "adli tatil", "msci", "borsa"])
+# hukuki inceleme kuralı inceleme_kurali.py'de (editör botu da aynı kuralı kullanır)
+import inceleme_kurali as _ik
 for p in POSTS:
     if p.get("denetleyen") == "yok": p.pop("denetleyen"); p["_kart_yok"] = True
     if p.get("denetleyen") and p["denetleyen"] not in YAZARLAR: p.pop("denetleyen")
     if p.get("yazar") and p["yazar"] not in YAZARLAR: p.pop("yazar")
     if p.get("denetleyen") or p.get("_kart_yok"): continue
-    _t = _tr_kucuk(p["title"]); _h = _t + " | " + _tr_kucuk(" | ".join(p.get("tags", [])))
-    if "adli tatil" in _t: continue
-    # kural grupları ve sorumlu avukat yazarlar.json "inceleme" alanından (panelden değiştirilir); grubun avukatı yoksa kart gösterilmez
-    if "aile-hukuku" in p["konular"] or _AILE_RE.search(_h):
-        if INCELEME.get("aile"): p["denetleyen"] = INCELEME["aile"]
-    elif _UT_RE.search(_h) and not _CEZA_DEGIL.search(_t):
-        if INCELEME.get("ceza"): p["denetleyen"] = INCELEME["ceza"]
-    elif _ICRA_RE.search(_h) or _OZEL_RE.search(_h):
-        if INCELEME.get("ozel"): p["denetleyen"] = INCELEME["ozel"]
+    # kural grupları inceleme_kurali.py'de; sorumlu avukat yazarlar.json "inceleme" alanından (panelden değiştirilir); grubun avukatı yoksa kart gösterilmez
+    _g = _ik.grup(p["title"], p.get("tags", []), p["konular"])
+    if _g and INCELEME.get(_g): p["denetleyen"] = INCELEME[_g]
     if p.get("denetleyen") and p["denetleyen"] not in YAZARLAR: p.pop("denetleyen")
 KONU_HABER = {k: [p for p in POSTS if k in p["konular"]] for k, *_ in KONULAR}
 KONU_AD = {k: ad for k, ad, *_ in KONULAR}
