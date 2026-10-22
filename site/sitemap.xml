@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/hakimler-ve-savcilar-kurulundan-bassavci-ve-vekillerine-adli</loc><lastmod>2026-10-23T02:15:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/hakimler-ve-savcilar-kurulundan-bassavci-ve-vekillerine-adli.jpg?v=a27335cf</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/hakimler-ve-savcilar-kurulundan-bassavci-ve-vekillerine-adli.jpg?v=12c5b917</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/fon-tasfiyesi-kanun-teklifi-tbmm-genel-kurulunda-kabul</loc><lastmod>2026-10-23T02:15:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/fon-tasfiyesi-kanun-teklifi-tbmm-genel-kurulunda-kabul.jpg?v=d89304ef</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/fon-tasfiyesi-kanun-teklifi-tbmm-genel-kurulunda-kabul.jpg?v=14a0fda3</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/cukurova-belediyesi-son-dakika-sorusturmasinda-belediye-baskani-tutuklandi</loc><lastmod>2026-10-23T01:41:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/cukurova-belediyesi-son-dakika-sorusturmasinda-belediye-baskani-tutuklandi.jpg?v=1c2d6fc3</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/cukurova-belediyesi-son-dakika-sorusturmasinda-belediye-baskani-tutuklandi.jpg?v=97038e98</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/fon-sorusturmasi-son-dakika-16-supheliden-12-si</loc><lastmod>2026-10-23T01:27:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/fon-sorusturmasi-son-dakika-16-supheliden-12-si.jpg?v=8efeab16</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/fon-sorusturmasi-son-dakika-16-supheliden-12-si.jpg?v=67ac1e66</image:loc></image:image></url>
@@ -345,6 +346,10 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/hakimler-ve-savcilar-kurulu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/hsk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ilke-karari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/fon-tasfiyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirim-fonlari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/spk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -362,7 +367,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/sulh-ceza-hakimligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/piyasa-dolandiriciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik-degisikligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/2547-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/2863-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kgk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -390,7 +394,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/bireysel-basvuru/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ureme-hucresi-ticareti/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/istanbul-operasyonu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/hsk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/istanbul-barosu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tutukluluk-incelemesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/teror-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
