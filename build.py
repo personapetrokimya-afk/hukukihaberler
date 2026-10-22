@@ -1004,7 +1004,7 @@ for idx, p in enumerate(POSTS):
          (f'<a class="r" href="{newer["url"]}"><small>Sonraki haber</small>{e(newer["title"])}</a>' if newer else "<span></span>") + "</nav>"
     full = SITE + p["url"]
     _q = urllib.parse.quote
-    share = ('<section class="sharek" aria-label="Paylaş"><svg class="atac" viewBox="0 0 24 24" width="58" height="58" aria-hidden="true"><path d="M15 6.5v10a3 3 0 0 1-6 0V5a2 2 0 0 1 4 0v10.5a1 1 0 0 1-2 0V7.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><h2>Bu haberi paylaşın</h2><div class="share">'
+    share = ('<section class="sharek" aria-label="Paylaş"><svg class="atac" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path d="M15 6.5v10a3 3 0 0 1-6 0V5a2 2 0 0 1 4 0v10.5a1 1 0 0 1-2 0V7.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><h2>Bu haberi paylaşın</h2><div class="share">'
              f'<a class="s-x" href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank" aria-label="X\'te paylaş">{marka("x")}<span>X\'te paylaş</span></a>'
              f'<a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank" aria-label="Facebook\'ta paylaş">{marka("facebook")}<span>Facebook</span></a>'
              f'<a class="s-wa" href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank" aria-label="WhatsApp\'ta paylaş">{marka("whatsapp")}<span>WhatsApp</span></a>'
