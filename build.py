@@ -1538,6 +1538,8 @@ with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f: f.write
 _tz = datetime.timezone(datetime.timedelta(hours=3))
 _lim = datetime.datetime.now(_tz) - datetime.timedelta(hours=48)
 def _yayin_an(p):
+    if p.get("saat") and not re.fullmatch(r"\d\d:\d\d", str(p["saat"])):   # ön derlemede yer tutucu saat: yayın anı = şimdi
+        return datetime.datetime.now(_tz)
     return datetime.datetime.fromisoformat(iso(p)) if p.get("saat") else datetime.datetime.combine(p["date"], datetime.time(9, 0), _tz)
 nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "".join(
     f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{iso(p) if p.get('saat') else p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news>{_sm_gorsel(p['url'])}</url>\n"
