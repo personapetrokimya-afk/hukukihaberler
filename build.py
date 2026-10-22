@@ -304,6 +304,64 @@ try:
 except Exception as _e:
     print("oran kırpımı yapılamadı:", _e)
     for p in POSTS: p.setdefault("img_oran", {})
+# Haber kartı: başlığın yazılı olduğu 1200x675 görsel (/gorsel/kart/<slug>.jpg). Google Görseller ve yapay zekâ özetlerindeki görsel
+# şeritleri çoğunlukla başlığı üzerinde yazan kartları gösterir; kart haberin kendi fotoğrafının üstüne (yoksa site renginde) üretilir,
+# sayfada paylaşım kutusunda görünür, yapılandırılmış veride ve görsel site haritasında yer alır. Yalnızca son yazılar (hız için).
+_KART_SURUM = "1"; KART_AZAMI = 400
+_FONT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fontlar")
+def _kart_satirlar(d, metin, font, en):
+    satir, cur = [], ""
+    for w in metin.split():
+        t = (cur + " " + w).strip()
+        if cur and d.textlength(t, font=font) > en: satir.append(cur); cur = w
+        else: cur = t
+    if cur: satir.append(cur)
+    return satir
+def haber_kartlari():
+    from PIL import Image as _Im, ImageDraw as _ID, ImageFont as _IFt, ImageFilter as _IF
+    onb = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gorsel_onbellek", "kart"); os.makedirs(onb, exist_ok=True)
+    serif = os.path.join(_FONT_DIR, "SourceSerif4_600SemiBold.ttf"); sans = os.path.join(_FONT_DIR, "SourceSans3_600SemiBold.ttf")
+    if not (os.path.exists(serif) and os.path.exists(sans)): return 0
+    W_, H_ = 1200, 675; n = 0
+    for p in POSTS[:KART_AZAMI]:
+        oran = (p.get("img_oran") or {}).get("16x9")
+        kaynak = os.path.join(OUT, oran[0].split("?")[0].lstrip("/")) if oran else None
+        if kaynak and not os.path.exists(kaynak): kaynak = None
+        kat = CATS[topcat(p)][0]
+        anahtar = hashlib.md5(json.dumps([_KART_SURUM, p["title"], kat, str(p["date"]), _images.md5_dosya(kaynak) if kaynak else ""], ensure_ascii=False).encode()).hexdigest()
+        c = os.path.join(onb, anahtar + ".jpg")
+        if not os.path.exists(c):
+            if kaynak:
+                im = _Im.open(kaynak).convert("RGB").resize((W_, H_))
+                im = _Im.blend(im, _Im.new("RGB", (W_, H_), (15, 26, 36)), 0.58)
+            else:
+                im = _Im.new("RGB", (W_, H_), (23, 36, 47))
+            # alttan koyulaşan geçiş: başlık her fotoğrafta okunur
+            g = _Im.linear_gradient("L").resize((W_, H_)); sis = _Im.new("RGB", (W_, H_), (12, 21, 30))
+            im = _Im.composite(sis, im, g.point(lambda v: int(v * 0.75)))
+            d = _ID.Draw(im); x0 = 72
+            f_k = _IFt.truetype(sans, 26); f_s = _IFt.truetype(sans, 24)
+            d.text((x0, 64), "HUKUKİ HABERLER", font=f_k, fill=(241, 210, 147))
+            kx = x0 + d.textlength("HUKUKİ HABERLER", font=f_k) + 22
+            d.line((kx, 79, kx + 36, 79), fill=(241, 210, 147), width=2)
+            d.text((kx + 58, 64), kat.upper(), font=f_k, fill=(236, 240, 244))
+            for boy in (72, 64, 58, 52, 46):
+                f_t = _IFt.truetype(serif, boy)
+                sat = _kart_satirlar(d, p["title"], f_t, W_ - 2 * x0)
+                if len(sat) <= 4: break
+            sat = sat[:4]
+            lh = int(boy * 1.18); y = H_ - 120 - lh * len(sat)
+            for s_ in sat:
+                d.text((x0, y), s_, font=f_t, fill=(246, 242, 234)); y += lh
+            d.rectangle((x0, H_ - 92, x0 + 64, H_ - 89), fill=(241, 210, 147))
+            d.text((x0, H_ - 76), "hukukihaberler.com", font=f_s, fill=(214, 224, 232))
+            tarih = trdate(p["date"]) + ((", " + p["saat"]) if p.get("saat") else "")
+            d.text((W_ - x0 - d.textlength(tarih, font=f_s), H_ - 76), tarih, font=f_s, fill=(174, 191, 207))
+            im.save(c, "JPEG", quality=86, optimize=True, progressive=True); n += 1
+        hedef = os.path.join(OUT, "gorsel", "kart", p["slug"] + ".jpg"); os.makedirs(os.path.dirname(hedef), exist_ok=True)
+        _images.bagla(c, hedef)
+        p["kart"] = f"/gorsel/kart/{p['slug']}.jpg?v={anahtar[:8]}"
+    return n
 _WEBP_RE = re.compile(r'<img src="(/gorsel/[^"?]+)\.jpg(\?v=[0-9a-f]+)?"([^>]*)>')
 def _webp(u):
     return re.sub(r'(/gorsel/[^"?\s]+)\.jpg', r'\1.webp', u)
@@ -650,6 +708,10 @@ def gorsel_ld(p):
     out = [{"@type": "ImageObject", "url": SITE + u, "contentUrl": SITE + u, "width": w, "height": h, **ortak}
            for u, w, h in p.get("img_oran", {}).values()]
     out.append({"@type": "ImageObject", "url": SITE + p["img"], "contentUrl": SITE + p["img"], "width": 1200, "height": 630, **ortak})
+    if p.get("kart"):
+        out.append({"@type": "ImageObject", "url": SITE + p["kart"], "contentUrl": SITE + p["kart"], "width": 1200, "height": 675,
+                    "caption": p["title"], "name": p["title"], "creditText": NAME, "copyrightNotice": NAME,
+                    "creator": {"@type": "Organization", "name": NAME}})
     return out
 def credit_html(p):
     c = p.get("credit")
@@ -1036,6 +1098,10 @@ document.querySelectorAll('.anket').forEach(function(box){
 });
 </script>"""
 
+try:
+    print("haber kartı yeni:", haber_kartlari())
+except Exception as _e:
+    print("haber kartı üretilemedi:", _e)
 # yazılar
 def related(p):
     cands = [q for q in POSTS if q is not p and (set(q["catkeys"]) & set(p["catkeys"]) or set(q["tagslugs"]) & set(p["tagslugs"]))]
@@ -1053,7 +1119,9 @@ for idx, p in enumerate(POSTS):
          (f'<a class="r" href="{newer["url"]}"><small>Sonraki haber</small>{e(newer["title"])}</a>' if newer else "<span></span>") + "</nav>"
     full = SITE + p["url"]
     _q = urllib.parse.quote
-    share = ('<section class="sharek" aria-label="Paylaş"><svg class="atac" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path d="M15 6.5v10a3 3 0 0 1-6 0V5a2 2 0 0 1 4 0v10.5a1 1 0 0 1-2 0V7.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><h2>Bu haberi paylaşın</h2><div class="share">'
+    share = ('<section class="sharek" aria-label="Paylaş"><svg class="atac" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path d="M15 6.5v10a3 3 0 0 1-6 0V5a2 2 0 0 1 4 0v10.5a1 1 0 0 1-2 0V7.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><h2>Bu haberi paylaşın</h2>'
+             + (f'<img class="kartimg" src="{p["kart"]}" alt="{e(p["title"])}" width="1200" height="675" loading="lazy" decoding="async">' if p.get("kart") else "")
+             + '<div class="share">'
              f'<a class="s-x" href="https://twitter.com/intent/tweet?url={_q(full)}&text={_q(p["title"])}" rel="noopener nofollow" target="_blank" aria-label="X\'te paylaş">{marka("x")}<span>X\'te paylaş</span></a>'
              f'<a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u={_q(full)}" rel="noopener nofollow" target="_blank" aria-label="Facebook\'ta paylaş">{marka("facebook")}<span>Facebook</span></a>'
              f'<a class="s-wa" href="https://wa.me/?text={_q(p["title"] + " " + full)}" rel="noopener nofollow" target="_blank" aria-label="WhatsApp\'ta paylaş">{marka("whatsapp")}<span>WhatsApp</span></a>'
@@ -1066,7 +1134,10 @@ for idx, p in enumerate(POSTS):
           "datePublished": (p["eklenme"] + ":00+03:00") if p.get("eklenme") else iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
-          "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": gorsel_ld(p), "thumbnailUrl": SITE + p["img"],
+          "isAccessibleForFree": True,
+          **({"mentions": [{"@type": "Person", "name": x["ad"]} for x in p["isimler"] if isinstance(x, dict) and x.get("ad")]} if p.get("isimler") else {}),
+          "about": [{"@type": "Thing", "name": t} for t in p["tags"][:4]],
+          **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": gorsel_ld(p), "thumbnailUrl": SITE + p["img"],
           "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["yazar"]]["unvan"]} if YAZARLAR[p["yazar"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
@@ -1582,7 +1653,7 @@ _SM_IMG = {p["url"]: p for p in POSTS if p.get("img")}
 def _sm_gorsel(u):
     p = _SM_IMG.get(u)
     if not p: return ""
-    ler = [p["img"]] + [x[0] for x in p.get("img_oran", {}).values()][:1]
+    ler = [p["img"]] + [x[0] for x in p.get("img_oran", {}).values()][:1] + ([p["kart"]] if p.get("kart") else [])
     return "".join(f"<image:image><image:loc>{e(SITE + x)}</image:loc></image:image>" for x in ler)
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "".join(
     f"<url><loc>{SITE}{u}</loc>{('<lastmod>'+lm[u]+'</lastmod>') if u in lm else ''}<changefreq>{c}</changefreq><priority>{pr}</priority>{_sm_gorsel(u)}</url>\n" for u, c, pr in urls) + "</urlset>\n"
