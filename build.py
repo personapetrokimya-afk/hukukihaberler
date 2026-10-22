@@ -893,13 +893,13 @@ def baslik_alani(p, tur):
                else ("Kaynaklar yazının sonunda belirtilmiştir." if p.get("kaynaklar") else ""))
     return (f'<header class="phead"><div class="pkick"><a href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a><span class="pk-c" aria-hidden="true"></span><span class="pk-t">{e(tur)}</span></div>'
             f'<h1>{e(p["title"])}</h1>'
-            + (f'<p class="phaz">Hazırlayan: {haz}</p>' if y else "")
             + f'<div class="kunye{" inc" if y else ""}">'
             f'<div class="ky ky-haz"><span class="kl">Hazırlayan</span><span class="kv">{haz}</span></div>'
             f'<div class="ky"><span class="kl">Yayın</span><span class="kv"><time datetime="{iso(p)}">{trdate(d)}</time>'
             + (f' <span class="km">· {saat}</span>' if saat else "") + '</span></div>'
             f'{inc}</div>'
-            f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
+            + (f'<p class="phaz">Hazırlayan: {haz}</p>' if y else "")
+            +             f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
             f'<button type="button" class="yb" aria-label="Yazı boyutunu değiştir">Aa</button>'
             f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[k][0])}" data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 15)}<span>Kaydet</span></button>'
             f'<button type="button" class="pyl" data-u="{SITE + p["url"]}" data-t="{e(p["title"])}">'
