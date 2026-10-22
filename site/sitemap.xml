@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/ortak-yazili-sinav-kilavuzu-turk-egitim-sen-dort</loc><lastmod>2026-10-22T22:50:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/ortak-yazili-sinav-kilavuzu-turk-egitim-sen-dort.jpg?v=f8af5810</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/ortak-yazili-sinav-kilavuzu-turk-egitim-sen-dort.jpg?v=996ea934</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/anele-ve-alklc-de-piyasa-dolandiriciligi-spk-dan</loc><lastmod>2026-10-22T22:46:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/anele-ve-alklc-de-piyasa-dolandiriciligi-spk-dan.jpg?v=99afb46e</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/anele-ve-alklc-de-piyasa-dolandiriciligi-spk-dan.jpg?v=4db6ceea</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/ogrenci-affi-yatay-geciste-taban-puan-esaslari-ne</loc><lastmod>2026-10-22T22:37:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/ogrenci-affi-yatay-geciste-taban-puan-esaslari-ne.jpg?v=8efeab16</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/ogrenci-affi-yatay-geciste-taban-puan-esaslari-ne.jpg?v=67ac1e66</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/milli-egitim-bakanligi-meta-ya-dava-acmayi-dusunuyor</loc><lastmod>2026-10-22T22:18:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/milli-egitim-bakanligi-meta-ya-dava-acmayi-dusunuyor.jpg?v=6a31b2ce</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/milli-egitim-bakanligi-meta-ya-dava-acmayi-dusunuyor.jpg?v=7d37ffae</image:loc></image:image></url>
@@ -305,6 +306,9 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/yurutmeyi-durdurma/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/meb/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/iyuk-27/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/spk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/suc-duyurusu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/etkin-pismanlik/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -378,7 +382,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/cmk-91/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kanun-teklifi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ara-odeme/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/yurutmeyi-durdurma/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/iptal-davasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kirmizi-bulten/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/epdk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
