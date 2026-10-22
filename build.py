@@ -392,24 +392,25 @@ def meta(p, date=True, cat=False):
     if cat: s += f'<span class="mc">{e(CATS[topcat(p)][0])}</span>'
     return f'<div class="meta">{s}</div>'
 
-def yazarlar_kutu(baslik="h2"):
+def yazarlar_kutu(baslik="h2", son_goster=True):
     """yazarlar: fotoğraf, ad, uzmanlık alanı ve (varsa) son yazısı"""
     s = []
     for k, y in GORUNEN_YAZARLAR.items():
-        son = next((q for q in POSTS if q.get("yazar") == k or q.get("denetleyen") == k), None)
+        son = next((q for q in POSTS if q.get("yazar") == k or q.get("denetleyen") == k), None) if son_goster else None
         alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
         s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
                  f'<div><a class="yz-ad" href="{y["url"]}">{e(y["ad"])}</a><small>{e(y["alan"])}</small>{alt if son else ""}</div></li>')
     return (f'<div class="box yzr"><{baslik}><a href="/yazarlar/">Yazarlar</a></{baslik}><ul>{"".join(s)}</ul></div>')
 
 def sidebar():
-    latest = "".join(f'<li class="m">{mini(p)}<div><time datetime="{iso(p)}">{kisa(p["date"])}{(" · " + p["saat"]) if p.get("saat") else ""}</time><a href="{p["url"]}">{e(p["title"])}</a></div></li>' for p in POSTS[:6])
-    cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a><span>{cat_count[k]}</span></li>'
+    """her sayfada AYNI kalan kenar çubuğu: yeni haber yayımlanınca bütün sayfalar değişmesin (yayın ve yükleme hızı).
+    "Son gelişmeler" /canli.json'dan doldurulur; bölümler sayısız listelenir."""
+    cats = "".join(f'<li class="c"><a href="/haber-kategorisi/{k}/">{e(v[0])}</a></li>'
                    for k, v in CATS.items() if v[1] is None and cat_count[k])
     return f"""<aside aria-label="Yan sütun">
-<div class="box"><h2>Son gelişmeler</h2><ul>{latest}</ul></div>
-{yazarlar_kutu()}
-<div class="box"><h2>Bölümler</h2><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a><span>{len(POSTS)}</span></li></ul></div>
+<div class="box"><h2>Son gelişmeler</h2><ul id="yan-son" style="min-height:420px"></ul></div>
+{yazarlar_kutu(son_goster=False)}
+<div class="box"><h2>Bölümler</h2><ul>{cats}<li class="c"><a href="/arsiv/">Arşiv</a></li></ul></div>
 </aside>"""
 
 ORG_LD = {"@context": "https://schema.org", "@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/",
@@ -444,6 +445,12 @@ def gpref_kutu():
     return f'<aside class="gpbox"><div class="gpt"><b>Hukuki Haberler\'i Google\'da öne çıkarın</b><span>Bizi tercih ettiğiniz kaynak olarak eklediğinizde haberlerimiz Google aramalarındaki "Öne Çıkan Haberler" bölümünde size daha sık gösterilir.</span></div>{gpref_btn("gpref gpbig", "Tercih edilen kaynak olarak ekle", 20)}</aside>'
 
 # çerezsiz ziyaret sayacı: yalnızca sayfa yolu, yönlendiren adres ve ekran genişliği gönderilir; kimlik ya da çerez yoktur
+# Üst şerit ve "Son gelişmeler": tek dosyadan (/canli.json) doldurulur; böylece yeni haber yalnızca birkaç dosyayı değiştirir
+CANLI_JS = """<script>(function(){function h(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+fetch('/canli.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){
+var u=document.getElementById('tk-ul');if(u&&d.tk){var a='',b='',n=0;d.tk.forEach(function(x){n+=x[1].length;a+='<li><a href="'+h(x[0])+'">'+h(x[1])+'</a></li>';b+='<li aria-hidden="true"><a href="'+h(x[0])+'" tabindex="-1">'+h(x[1])+'</a></li>'});u.innerHTML=a+b;u.style.setProperty('--tks',Math.max(30,Math.round(n*0.16))+'s')}
+var s=document.getElementById('yan-son');if(s&&d.son){s.innerHTML=d.son.map(function(x){return '<li class="m"><a class="mini" href="'+h(x[0])+'" tabindex="-1" aria-hidden="true"><img src="'+h(x[4])+'" alt="" width="96" height="64" loading="lazy" decoding="async"></a><div><time datetime="'+h(x[3])+'">'+h(x[2])+'</time><a href="'+h(x[0])+'">'+h(x[1])+'</a></div></li>'}).join('');s.style.minHeight=''}
+}).catch(function(){})})();</script>"""
 SAYAC_JS = """<script>(function(){try{if(location.hostname!=='hukukihaberler.com')return;var d=JSON.stringify({p:location.pathname,r:document.referrer,w:screen.width});var u='https://panel.hukukihaberler.com/sayac';if(navigator.sendBeacon)navigator.sendBeacon(u,d);else fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}catch(e){}})();</script>"""
 def _alan_adi(u):
     return re.sub(r"^www\.", "", urllib.parse.urlparse(u or "").netloc.lower())
@@ -503,10 +510,6 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
     catnav = "".join(f'<li><a href="{u}"{" class=on aria-current=page" if on(u) else ""}>{t}</a></li>' for u, t in CATNAV)
     drawer = "".join(f'<li><a href="{u}">{ico(i, 20)}<span>{t}</span></a></li>' for u, t, i in DRAWER)
     drawer2 = "".join(f'<li><a href="{u}"><span>{t}</span></a></li>' for u, t in SITE_LINKS)
-    _tk = POSTS[:5]
-    ticker = ("".join(f'<li><a href="{p["url"]}">{e(p["title"])}</a></li>' for p in _tk)
-              + "".join(f'<li aria-hidden="true"><a href="{p["url"]}" tabindex="-1">{e(p["title"])}</a></li>' for p in _tk))
-    ticker_sure = max(30, int(sum(len(p["title"]) for p in _tk) * 0.16))   # okunur hız: ~6 karakter/sn
     lds = []
     if ld: lds.extend(ld if isinstance(ld, list) else [ld])
     if crumbs:
@@ -565,7 +568,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 <body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="site">
-<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><div class="tkiz"><ul style="--tks:{ticker_sure}s">{ticker}</ul></div><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a></div></div>
+<div class="ticker"><div class="hwrap"><span class="tk"><i></i>Güncel</span><div class="tkiz"><ul id="tk-ul" style="--tks:60s"></ul></div><a class="tmore" href="/arsiv/" aria-label="Tüm haberler">{ico("chev", 20)}</a></div></div>
 <div class="hwrap htop">
 <div class="hl"><span class="hdate">{today.day} {AYLAR[today.month-1]} {today.year}, {GUNLER[today.weekday()]}</span></div>
 <a class="brand" href="/" aria-label="{NAME} anasayfa"><span class="brow">{ico("scale", 40, "bt1")}<span class="bn">Hukuki Haberler</span>{ico("scale", 40, "bt2")}</span><span class="balt">Hukuk <i>•</i> Yargı <i>•</i> Gündem</span></a>
@@ -594,7 +597,7 @@ def page(title, desc, url, main, ld=None, noindex=False, canonical=None, ogtype=
 </div></footer>
 <nav class="bnav" aria-label="Alt menü">{bn("/", "Ana Sayfa", "home")}{bn("/kesfet/", "Keşfet", "compass")}{bn("/kaydedilenler/", "Kaydedilen", "bookmark")}<button type="button" aria-controls="drawer" aria-expanded="false">{ico("menu", 22)}<span>Menü</span></button></nav>
 <div id="cerez" class="cerez" role="region" aria-label="Çerez tercihi" hidden><p>Ziyaret istatistiklerini ölçmek için Google Analytics çerezlerini kullanmak istiyoruz. İzin vermezseniz ölçüm çerezsiz ve kimliksiz yapılır. <a href="/gizlilik-politikasi/#cerezler">Ayrıntılar</a></p><div><button type="button" data-c="hayir">Reddet</button><button type="button" data-c="evet" class="ok">İzin ver</button></div></div>
-{JS}{SAYAC_JS}{extra}
+{JS}{CANLI_JS}{SAYAC_JS}{extra}
 </body>
 </html>"""
 
@@ -1595,11 +1598,16 @@ for a, b in ESKI_ADRES.items():
 with open(os.path.join(OUT, "_redirects"), "w", encoding="utf-8") as f: f.write("\n".join(lines) + "\n")
 with open(os.path.join(OUT, "_routes.json"), "w", encoding="utf-8") as f:
     f.write('{"version":1,"include":["/api/*"],"exclude":[]}')
+with open(os.path.join(OUT, "canli.json"), "w", encoding="utf-8") as f:
+    json.dump({"tk": [[p["url"], p["title"]] for p in POSTS[:5]],
+               "son": [[p["url"], p["title"], kisa(p["date"]) + ((" · " + p["saat"]) if p.get("saat") else ""), iso(p), thumb(p)] for p in POSTS[:6]]},
+              f, ensure_ascii=False, separators=(",", ":"))
 with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
     f.write("/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: SAMEORIGIN\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
             "  Strict-Transport-Security: max-age=31536000\n  Cross-Origin-Opener-Policy: same-origin\n"
             "/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n"
-            "/gorsel/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n")
+            "/gorsel/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n"
+            "/canli.json\n  Cache-Control: no-cache\n")
 
 # özet
 n_files = sum(len(fs) for _, _, fs in os.walk(OUT))
