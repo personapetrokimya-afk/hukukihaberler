@@ -603,6 +603,12 @@ def pic(p, lazy=True, sizes="(max-width:767px) 112px, 300px"):
 _BUGUN = datetime.date.today()
 def arsiv_notu(p):
     d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
+    if p.get("eklenme"):   # sonradan eklenen eski tarihli yazı: olay tarihiyle listelenir, gerçek eklenme günü okura açıkça söylenir
+        try: ek = datetime.date.fromisoformat(str(p["eklenme"])[:10])
+        except ValueError: ek = None
+        if ek and ek > d:
+            return (f'<p class="arsiv-notu"><b>Arşiv</b> Bu yazı {trdate(ek)} tarihinde siteye eklenmiştir; anlatılan gelişme '
+                    f'{trdate(d)} tarihlidir. Bilgiler eklenme günü itibarıyla gözden geçirilmiştir.</p>')
     if (_BUGUN - d).days < 365: return ""
     return (f'<p class="arsiv-notu"><b>Arşiv</b> Bu yazı {d.year} yılında yayımlanmıştır. Anlatılan kurallar, süreler ve kurumlar '
             'o tarihten sonra değişmiş olabilir; güncel durum için yürürlükteki mevzuata bakın.</p>')
@@ -967,7 +973,7 @@ for idx, p in enumerate(POSTS):
              '</div></section>')
     tur = p.get("tur", "Haber")
     ld = {"@context": "https://schema.org", "@type": "AnalysisNewsArticle" if tur == "Analiz" else "NewsArticle", "headline": p["title"], "description": p["desc"],
-          "datePublished": iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
+          "datePublished": (p["eklenme"] + ":00+03:00") if p.get("eklenme") else iso(p), "dateModified": (p["updated"] + (":00+03:00" if "T" in p["updated"] else "")) if p.get("updated") else iso(p),
           "mainEntityOfPage": {"@type": "WebPage", "@id": full}, "url": full, "inLanguage": "tr-TR",
           "articleSection": p["cats"][0], "keywords": ", ".join(p["tags"]), "wordCount": p["words"],
           "isAccessibleForFree": True, **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": [{"@type": "ImageObject", "url": SITE + p["img"], "width": 1200, "height": 630}] + [{"@type": "ImageObject", "url": SITE + u, "width": w, "height": h} for u, w, h in p.get("img_oran", {}).values()],
