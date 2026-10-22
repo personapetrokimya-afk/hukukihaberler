@@ -874,7 +874,7 @@ def gecmis_html(p):
             '<p>Düzeltme ilkelerimiz <a href="/yayin-ilkeleri/#duzeltme">Yayın İlkeleri</a> sayfasındadır; hata bildirimi için <a href="/iletisim/">iletişim</a>.</p></section>\n')
 
 def baslik_alani(p, tur):
-    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, hukuki inceleme), Kaydet/Paylaş"""
+    """haber başlığı ve künye: kategori · tür, başlık, künye satırı (hazırlayan, yayın, hukuki inceleme), kartın sağ üstünde Kaydet"""
     k = topcat(p)
     d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
     saat = p.get("saat")
@@ -889,8 +889,10 @@ def baslik_alani(p, tur):
                f'<a class="kv" href="{y["url"]}"><span class="uz">{e(y["ad"])}</span><span class="ks">{e(kisa_ad)}</span>'
                + ('<svg class="ky-ok" width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="İncelendi"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="#17242F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>' if inc_ok else "")
                + '</a></div></div>')
+    kaydet = (f'<button type="button" class="save ksv" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[k][0])}" data-d="{trdate(p["date"])}" '
+              f'aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 14)}<span>Kaydet</span></button>')
     alt_sol = (f'Güncellendi: <time datetime="{e(p["updated"])}">{upd(p["updated"])}</time>' if p.get("updated")
-               else ("Kaynaklar yazının sonunda belirtilmiştir." if p.get("kaynaklar") else ""))
+               else ("Kaynaklar yazının sonunda belirtilmiştir." if p.get("kaynaklar") else ""))   # masaüstü alt satır
     return (f'<header class="phead"><div class="pkick"><a href="/haber-kategorisi/{k}/">{e(CATS[k][0])}</a><span class="pk-c" aria-hidden="true"></span><span class="pk-t">{e(tur)}</span></div>'
             f'<h1>{e(p["title"])}</h1>'
             + f'<div class="kunye{" inc" if y else ""}">'
@@ -898,8 +900,8 @@ def baslik_alani(p, tur):
             f'<div class="ky"><span class="kl">Yayın</span><span class="kv"><time datetime="{iso(p)}">{trdate(d)}</time>'
             + (f' <span class="km">· {saat}</span>' if saat else "") + '</span></div>'
             f'{inc}</div>'
-            + (f'<p class="phaz">Hazırlayan: {haz}</p>' if y else "")
-            +             f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
+            + f'<div class="phaz">{f"<span><i>Hazırlayan:</i> {haz}</span>" if y else "<span></span>"}{kaydet}</div>'
+            + f'<div class="paks"><span class="pak-n">{alt_sol}</span><div class="pak-b">'
             f'<button type="button" class="save" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[k][0])}" data-d="{trdate(p["date"])}" aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 15)}<span>Kaydet</span></button>'
             f'<button type="button" class="pyl" data-u="{SITE + p["url"]}" data-t="{e(p["title"])}">'
             '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg><span>Paylaş</span></button>'
