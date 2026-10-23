@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/cukurova-belediye-baskani-emrah-kozay-gorevden-uzaklastirildi</loc><lastmod>2026-10-23T21:14:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/cukurova-belediye-baskani-emrah-kozay-gorevden-uzaklastirildi.jpg?v=02d68386</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/cukurova-belediye-baskani-emrah-kozay-gorevden-uzaklastirildi.jpg?v=af5d0a8f</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/cukurova-belediye-baskani-emrah-kozay-gorevden-uzaklastirildi.jpg?v=56b20d15</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/kara-para-aklama-sorusturmasinda-3-supheli-tutuklama-talebiyle</loc><lastmod>2026-10-23T21:14:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/kara-para-aklama-sorusturmasinda-3-supheli-tutuklama-talebiyle.jpg?v=3202bdfc</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/kara-para-aklama-sorusturmasinda-3-supheli-tutuklama-talebiyle.jpg?v=09c5c53f</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/kara-para-aklama-sorusturmasinda-3-supheli-tutuklama-talebiyle.jpg?v=80ae96c0</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a</loc><lastmod>2026-10-23T20:00:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a.jpg?v=ceea2f44</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a.jpg?v=165bb406</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a.jpg?v=ba6f3f54</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte</loc><lastmod>2026-10-23T20:00:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte.jpg?v=320039a5</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte.jpg?v=19b5d553</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte.jpg?v=e20c33dd</image:loc></image:image></url>
@@ -389,6 +390,9 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/cukurova-belediyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/gorevden-uzaklastirma/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/icisleri-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama-talebi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ev-hapsi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/adli-kontrol/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -424,7 +428,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/tbmm-genel-kurulu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirimci-haklari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/6362-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/cukurova-belediyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/adana/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/belediye-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cmk-100/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -483,7 +486,6 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/mutalaa/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/bakirkoy-cumhuriyet-bassavciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirim-fonu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/icisleri-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ticaret-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cmk-108/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tahliye-talebi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
