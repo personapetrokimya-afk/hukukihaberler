@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a</loc><lastmod>2026-10-23T20:00:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a.jpg?v=ceea2f44</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a.jpg?v=165bb406</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/fon-sorusturmasinda-tutuklu-sayisi-haberlere-gore-99-a.jpg?v=ba6f3f54</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte</loc><lastmod>2026-10-23T20:00:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte.jpg?v=320039a5</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte.jpg?v=19b5d553</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/yas-dogrulama-e-devlet-uzerinden-yapilacak-dmm-sahte.jpg?v=e20c33dd</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/sumud-filosu-davasi-mustekiler-30-mart-2027</loc><lastmod>2026-10-23T19:59:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/sumud-filosu-davasi-mustekiler-30-mart-2027.jpg?v=8fe3f097</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/sumud-filosu-davasi-mustekiler-30-mart-2027.jpg?v=f5cb71f3</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/sumud-filosu-davasi-mustekiler-30-mart-2027.jpg?v=374279d8</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/kutahya-merkezli-yasa-disi-bahis-operasyonu-5-ilde</loc><lastmod>2026-10-23T19:58:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/kutahya-merkezli-yasa-disi-bahis-operasyonu-5-ilde.jpg?v=3fde64c0</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/kutahya-merkezli-yasa-disi-bahis-operasyonu-5-ilde.jpg?v=84e753cc</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/kutahya-merkezli-yasa-disi-bahis-operasyonu-5-ilde.jpg?v=e2366160</image:loc></image:image></url>
@@ -387,6 +388,12 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/fon-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/fon-tasfiyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/spk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/ara-odeme/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/adli-kontrol/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yas-dogrulama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sosyal-medya/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/e-devlet/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -401,26 +408,20 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/ankara-cumhuriyet-bassavciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tck-226/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ureme-hucresi-ticareti/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/adli-kontrol/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tck-220/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/rusvet/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/hakimler-ve-savcilar-kurulu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/hsk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/resmi-gazete/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ilke-karari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/fon-tasfiyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirim-fonlari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/spk/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tbmm-genel-kurulu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/ara-odeme/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yatirimci-haklari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/6362-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cukurova-belediyesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/adana/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/belediye-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cmk-100/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/fon-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ev-hapsi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/sulh-ceza-hakimligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/piyasa-dolandiriciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
