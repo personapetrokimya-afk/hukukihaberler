@@ -860,7 +860,15 @@ INTERNAL = [
 BY_SLUG = {p["slug"]: p for p in POSTS}
 POST_URLS = {p["url"] for p in POSTS}
 # yayından kalkmış ya da adresi değişmiş haberler: eski adres -> yeni adres (yönlendirme ve iç bağlantılar için)
-ESKI_ADRES = {"/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
+ESKI_ADRES = {# aynı olayı anlatan ikinci yazılar tek yazıda toplandı (24.10.2026)
+              "/kamu-ihale-kurumu-tebliginde-degisiklik-borc-siniri-50": "/kamu-ihalelerinde-vergi-ve-sgk-borcu-siniri-50-bin-liraya-cikti",
+              "/makine-emniyeti-yonetmeligi-resmi-gazete-de-ne-degisti": "/makine-emniyeti-yonetmeligi-yenilendi-yazilim-ve-siber-guvenlik-sarti-2027",
+              "/taksit-suresini-ticaret-bakanligi-belirleyecek-yonetmelik": "/taksitli-alisveriste-sureleri-ticaret-bakanligi-belirleyecek-tuketici-ne-bilmeli",
+              "/ureme-hucresi-ticareti-sorusturmasinda-8-tutuklama": "/ureme-hucresi-ticareti-operasyonu-8-tutuklama",
+              "/adana-merkezli-kurgu-kaza-operasyonu-77-gozalti": "/adana-kurgu-kaza-sigorta-dolandiriciligi-88-supheli",
+              "/deas-finansmani-sorusturmasi-ankara-14-gozalti": "/deas-finansman-operasyonu-3-il-21-gozalti",
+              "/hakimler-ve-savcilar-kurulundan-bassavci-ve-vekillerine-adli": "/adli-is-yuku-hsk-ilke-karari-bassavci-ve",
+              "/halk-tv-sorusturmasi-4-tutuklama-4-ev-hapsi": "/halk-tv-sorusturmasi-4-tutuklama-surec-nasil-isler",
               "/spk-baskani-gorevden-alindi-karar-ne-anlama-geliyor": "/spk-baskani-gorevden-alindi-ne-anlama-geliyor",
               # yayın ilkesi gereği kamuoyunca tanınmayan kişilerin adları adresten çıkarıldı (22.10.2026)
               "/aylin-kotil-ve-omer-sarigul-gozaltisi-aklama-iddiasi-milletvekili-dosyasi-neden-ankaraya": "/aklama-sorusturmasi-gozaltilar-milletvekili-kismi-neden-ankaraya",
