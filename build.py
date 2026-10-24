@@ -1296,7 +1296,7 @@ write("/arama/", page("Arama", "Hukuki Haberler içinde haber, karar ve mevzuat 
       noindex=True, extra=SEARCH_JS))
 
 # etiketler
-ETIKET_ALT_SINIR = 3   # bundan az haberi olan etiket sayfası dizine girmez, sitemap'e eklenmez
+ETIKET_ALT_SINIR = 8   # bundan az haberi olan etiket sayfası dizine girmez, sitemap'e eklenmez
 _KAT_ADLARI = {v[0].casefold() for v in CATS.values()}
 def etiket_dizinde(s):
     d = tag_posts[s]
