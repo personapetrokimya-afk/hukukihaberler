@@ -1315,7 +1315,7 @@ for s, d in tag_posts.items():
 months = {}
 for p in POSTS: months.setdefault((p["date"].year, p["date"].month), []).append(p)
 for (y, m), items in months.items():
-    listing(f"{AYLAR[m-1]} {y}", f"{AYLAR[m-1]} {y} ayında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi.", f"/{y}/{m:02d}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a> › {y}')
+    listing(f"{AYLAR[m-1]} {y}", f"{AYLAR[m-1]} {y} ayında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi.", f"/{y}/{m:02d}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a> › {y}', noindex=True)   # ay arşivi ince sayfa: dizine girmez, bağlantıları izlenir
 years = sorted({y for y, _ in months})
 # yazısı olmayan aylar → yıl arşivi; yazısı olmayan yıllar → genel arşiv
 for y in range(2010, 2019):
@@ -1327,7 +1327,7 @@ for y in range(2010, 2019):
         REDIRECTS.append((f"/{y}", "/arsiv/")); REDIRECTS.append((f"/{y}/*", "/arsiv/"))
 for y in years:
     items = [p for p in POSTS if p["date"].year == y]
-    listing(f"{y} yılı haberleri", f"{y} yılında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi; aylara göre arşiv.", f"/{y}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a>')
+    listing(f"{y} yılı haberleri", f"{y} yılında Hukuki Haberler'de yayımlanan {len(items)} hukuk, yargı ve mevzuat haberi; aylara göre arşiv.", f"/{y}/", items, crumb=f'<a href="/">Anasayfa</a> › <a href="/arsiv/">Arşiv</a>', noindex=True)   # yıl arşivi ince sayfa
 def _ar_satir(p):
     return (f'<li data-t="{e(_tr_kucuk(p["title"]))}"><time datetime="{p["date"].strftime("%Y-%m-%d")}">{p["date"].day}<small>{AYLAR[p["date"].month-1][:3]}</small></time>'
             f'<a href="{p["url"]}">{e(p["title"])}</a><span class="ar-k">{e(CATS[topcat(p)][0])}</span></li>')
@@ -1642,7 +1642,7 @@ REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/commen
 urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if etiket_dizinde(s)] + \
-       [(f"/{y}/", "yearly", "0.3") for y in years] + [(f"/{y}/{m:02d}/", "yearly", "0.3") for (y, m) in months] + [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), *[(y["url"], "yearly", "0.3") for y in GORUNEN_YAZARLAR.values()], ("/yazarlar/", "monthly", "0.4"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
+       [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), *[(y["url"], "yearly", "0.3") for y in GORUNEN_YAZARLAR.values()], ("/yazarlar/", "monthly", "0.4"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
 def _guncel_iso(p):
     u = p.get("updated")
     if u and "T" in str(u): return str(u)[:16] + ":00+03:00"
