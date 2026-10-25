@@ -684,6 +684,8 @@ def img_alt(p):
     """haber görselinin alt metni: fotoğrafı anlatan açıklama; yoksa (yazılı kapak) başlık"""
     a = ((p.get("credit") or {}).get("alt") or "").strip()
     return a if a else p["title"]
+GORSEL_LISANS = SITE + "/kullanim-kosullari/#gorseller"
+GORSEL_IZIN = SITE + "/iletisim/"
 def _lisans_url(lic):
     lic = str(lic or "")
     m = re.match(r"CC BY(-SA)?(?:\s+(\d\.\d))?", lic, re.I)
@@ -705,13 +707,15 @@ def gorsel_ld(p):
         if c.get("page"): ortak["acquireLicensePage"] = c["page"]
     else:
         ortak.update(creditText=NAME, copyrightNotice=NAME)
+    # Google Görseller lisans alanları her görselde dolu olsun: lisansı bilinmeyen ya da sitenin kendi görseli → sitenin görsel koşulları
+    ortak.setdefault("license", GORSEL_LISANS); ortak.setdefault("acquireLicensePage", GORSEL_IZIN)
     out = [{"@type": "ImageObject", "url": SITE + u, "contentUrl": SITE + u, "width": w, "height": h, **ortak}
            for u, w, h in p.get("img_oran", {}).values()]
     out.append({"@type": "ImageObject", "url": SITE + p["img"], "contentUrl": SITE + p["img"], "width": 1200, "height": 630, **ortak})
     if p.get("kart"):
         out.append({"@type": "ImageObject", "url": SITE + p["kart"], "contentUrl": SITE + p["kart"], "width": 1200, "height": 675,
                     "caption": p["title"], "name": p["title"], "creditText": NAME, "copyrightNotice": NAME,
-                    "creator": {"@type": "Organization", "name": NAME}})
+                    "creator": {"@type": "Organization", "name": NAME}, "license": GORSEL_LISANS, "acquireLicensePage": GORSEL_IZIN})
     return out
 def credit_html(p):
     c = p.get("credit")
@@ -1539,6 +1543,8 @@ KOSUL = """<p class="lead">Hukuki Haberler'i kullanan herkes aşağıdaki koşul
 <p>Sitedeki haber ve analizler genel bilgilendirme amaçlıdır; hukuki görüş, danışmanlık ya da avukat-müvekkil ilişkisi oluşturmaz. Süre, oran ve tutar gibi bilgiler yazının yayın tarihindeki mevzuatı yansıtır ve sonradan değişmiş olabilir. Somut bir uyuşmazlıkta bir avukata başvurulmalı, güncel ve bağlayıcı bilgi için yazının altında bağlantısı verilen resmî kaynaklar esas alınmalıdır.</p>
 <h2>Alıntı ve telif</h2>
 <p>Metinler, kaynak gösterilmek ve ilgili habere bağlantı verilmek şartıyla kısmen alıntılanabilir; bütün hâlinde kopyalanamaz, çoğaltılamaz ve başka bir sitede yayımlanamaz. Görseller kendi lisanslarına tabidir; fotoğrafçı ve lisans bilgisi görselin altında yer alır.</p>
+<h2 id="gorseller">Görsellerin kullanımı</h2>
+<p>Hukuki Haberler'in kendi hazırladığı görseller (haber kartları, başlık görselleri ve imzasız grafikler) Hukuki Haberler'e aittir; haberin bağlantısı verilerek paylaşılabilir, değiştirilerek ya da başka bir yayında kullanılamaz. Başka amaçla kullanım izni için <a href="/iletisim/">iletişim sayfasından</a> yazabilirsiniz. Üçüncü kişilere ait fotoğraflar kendi lisanslarına tabidir; fotoğrafçı, kaynak ve lisans görselin altında belirtilir.</p>
 <h2>Dış bağlantılar</h2>
 <p>Haberlerde verilen dış bağlantıların içeriğinden ilgili siteler sorumludur.</p>
 <h2>Düzeltme ve iletişim</h2>
