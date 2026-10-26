@@ -1,0 +1,557 @@
+[
+ {
+  "slug": "e-tebligat-zorunlulugunda-yeni-donem-vuk-596-sira-no-teblig",
+  "kaynaklar": [
+   [
+    "BD Türkiye",
+    "https://www.bdturkey.com/elektronik-tebligatta-yeni-kurallar-ve-dikkat-edilmesi-gerekenler"
+   ],
+   [
+    "Gelir İdaresi Başkanlığı",
+    "https://www.gib.gov.tr/"
+   ]
+  ],
+  "ornek": [
+   "Vergi dairesinin ceza ihbarnamesi 14 Ekim 2026'da elektronik adresinize ulaştıysa, siz açmasanız bile 19 Ekim 2026 günü sonunda tebliğ edilmiş sayılır. 30 günlük dava açma süresi bu tarihten itibaren işlemeye başlar."
+  ],
+  "date": "2026-10-11",
+  "title": "Elektronik Tebligatta Yeni Dönem: 596 Sıra No.lu VUK Genel Tebliği Yayımlandı",
+  "cats": [
+   "Diğer"
+  ],
+  "tags": [
+   "elektronik tebligat",
+   "Vergi Usul Kanunu",
+   "VUK 107/A",
+   "7587 sayılı Kanun",
+   "Gelir İdaresi Başkanlığı"
+  ],
+  "body": "<p class=\"lead\">Vergi Usul Kanunu Genel Tebliği (Sıra No: 596) bugünkü Resmî Gazete'de yayımlandı. Tebliğ, 7587 sayılı Kanun'la yeniden düzenlenen VUK'un 107/A maddesi kapsamındaki elektronik tebligat sisteminin uygulama esaslarını belirliyor. Henüz sisteme dahil olmayan yükümlüler için son başvuru tarihi 30 Kasım 2026.</p>\n<p>1 Temmuz 2026'da yürürlüğe giren 7587 sayılı Kanun'la, elektronik tebligatın kapsamı ve zorunluluk hâlleri bakanlık tebliğinden çıkarılarak doğrudan kanunda düzenlenmişti. Anayasa Mahkemesi daha önce Bakanlığa tanınan düzenleme yetkisini iptal etmiş, iptal kararının 3 Ocak 2027'de yürürlüğe girmesine hükmetmişti. Yeni tebliğ, 456 Sıra No.lu Tebliğ'in yerini alıyor.</p>\n<h2>Kimler zorunlu?</h2>\n<p>Kurumlar vergisi mükellefleri, ticari, zirai veya mesleki kazancı gerçek usulde vergilendirilen gelir vergisi mükellefleri, kollektif ve adi komandit şirketler, ÖTV (II) sayılı listedeki malların ilk iktisabında kayıt yaptıranlar ile tüzel kişiliği bulunmayan teşekküller elektronik tebligat sistemine dahil olmak zorunda. Basit usuldeki mükellefler, gelir vergisinden muaf esnaf ve gerçek usulde vergilendirilmeyen çiftçiler başka bir sebep yoksa zorunlu değil; ancak isteğe bağlı olarak katılabilecek.</p>\n<h2>Beşinci gün kuralı değişmedi</h2>\n<p>Elektronik ortamda gönderilen belge, muhatabın elektronik adresine ulaştığı tarihi izleyen beşinci günün sonunda tebliğ edilmiş sayılacak; belgenin açılıp açılmaması sonucu değiştirmeyecek. Örneğin 14 Ekim 2026'da elektronik adrese ulaşan bir belge, 19 Ekim 2026 günü sonunda tebliğ edilmiş sayılacak. Bu kural, vergi ziyaı ve dava açma süreleri bakımından kritik önem taşıyor.</p>\n<h2>Süreler ve ceza</h2>\n<p>Yeni işe başlayan zorunlu mükellefler faaliyete başladıkları tarihten itibaren 15 gün içinde, sonradan kapsama girenler ise zorunluluğun doğduğu ayı izleyen ayın sonuna kadar başvuracak. Hâlihazırda sistemde olanların yeniden başvurmasına gerek yok. Başvurular Dijital Vergi Dairesi üzerinden yapılabilecek. Zorunlu olduğu hâlde sisteme dahil olmayanlara VUK'un mükerrer 355. maddesi uyarınca özel usulsüzlük cezası uygulanabilecek.</p>",
+  "_kaynak_dosya": "content5.py",
+  "_birlestirildigi_yazi": "/vuk-596-tebligi-elektronik-tebligat-kimleri-kapsiyor",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "sosyal-medyada-15-yas-siniri-yonetmeligi-resmi-gazetede",
+  "kaynaklar": [
+   [
+    "Hukuki Haber",
+    "https://www.hukukihaber.net/sosyal-medyada-yeni-donem-15-yas-siniri-zorunlu-yas-dogrulamasi-ve-platformlara-getirilen-yukumlulukler"
+   ],
+   [
+    "Resmî Gazete",
+    "https://www.resmigazete.gov.tr/"
+   ]
+  ],
+  "ornek": [
+   "14 yaşındaki bir kullanıcının mevcut hesabı varsa, platform bu hesabı en geç 31 Mart 2027'ye kadar doğrulatmak zorunda; doğrulamada 15 yaş altında olduğu anlaşılırsa hesap bildirimle kapatılır.",
+   "16 yaşındaki bir kullanıcı hesabını kullanmaya devam eder, ancak hesabı varsayılan olarak gizli olur, canlı yayın açamaz ve yalnızca takip ettiği kişilerden mesaj alabilir."
+  ],
+  "anket": {
+   "soru": "Sosyal medyada 15 yaş sınırını doğru buluyor musunuz?",
+   "secenekler": [
+    "Evet, çocukları korur",
+    "Hayır, aile denetimi yeterli",
+    "Sınır doğru ama e-Devlet doğrulaması gereksiz"
+   ]
+  },
+  "date": "2026-10-10",
+  "title": "Sosyal Medyada 15 Yaş Sınırı: Yaş Doğrulama Yönetmeliği Resmî Gazete'de",
+  "cats": [
+   "Teknoloji",
+   "Manşet"
+  ],
+  "tags": [
+   "sosyal medya",
+   "yaş doğrulama",
+   "5651 sayılı Kanun",
+   "e-Devlet",
+   "çocukların korunması",
+   "Resmî Gazete"
+  ],
+  "body": "<p class=\"lead\">Sosyal Ağ Sağlayıcı Tarafından Çocuklara Özgü Ayrıştırılmış Hizmet Sunulmasına ve Yaş Doğrulamaya İlişkin Yönetmelik bugünkü Resmî Gazete'de yayımlandı. 1 Kasım 2026'da yürürlüğe girecek yönetmelikle 15 yaşından küçüklere sosyal ağ hizmeti sunulması yasaklanıyor.</p>\n<p>Yönetmeliğe göre 15 yaşını doldurmamış çocuklar sosyal ağ hizmetlerinden yararlanamayacak. 15 yaşını doldurmuş ancak 18 yaşından küçük kullanıcılar ise hizmetleri kullanabilecek, ancak çocuklara özgü kurallara tabi olacak.</p>\n<h2>e-Devlet üzerinden yaş doğrulama</h2>\n<p>Yaş doğrulaması e-Devlet üzerinden yapılacak. Kullanıcı bir doğrulama anahtarı talep edecek, bunu platforma yükleyecek; platform da anahtarın Başkanlık tarafından üretildiğini teyit edecek. Anahtar kimlik bilgisi değil, yalnızca 15 ve 18 yaş eşiklerine ilişkin bilgi içerecek. Doğrulanmış bir hesabın yaş aralığı dışında kullanıldığına dair makul şüphe olması hâlinde platform yeniden doğrulama yapacak. Türkiye'de geçici olarak bulunan yabancılar pasaporta dayalı bir anahtar alabilecek.</p>\n<h2>Çocuk hesaplarına sıkı kurallar</h2>\n<p>15–18 yaş arasındaki kullanıcıların hesapları varsayılan olarak gizli olacak; takipçi bilgileri başkalarına gösterilmeyecek, mesajlaşma yalnızca çocuğun takip ettiği hesaplarla sınırlı tutulacak. Canlı yayın, rehber senkronizasyonu, sonsuz kaydırma ve otomatik oynatma kapatılacak; profilleme ve kişiselleştirilmiş reklam yapılamayacak. Platformlar; hesap ayarları, satın alma onayı, harcama limiti, kullanım süresi ve konum paylaşımını kapsayan ebeveyn denetim araçları sunmak zorunda olacak.</p>\n<h2>Mevcut hesaplar için son tarih 31 Mart 2027</h2>\n<p>Platformlar mevcut hesapları 31 Mart 2027'ye kadar en az bir kez doğrulayacak; 15 yaş altındaki çocuklara ait hesaplar bildirimle kapatılacak. Kullanıcılar için ücretsiz, Türkçe ve insan denetimli bir itiraz mekanizması kurulacak. Yükümlülüklere uymayan platformlara, makul bir düzeltme süresi tanındıktan sonra 5651 sayılı Kanun'un ek 4. maddesindeki yaptırımlar uygulanacak.</p>",
+  "_kaynak_dosya": "content5.py",
+  "_birlestirildigi_yazi": "/15-yas-siniri-sosyal-medya-yas-dogrulama-ile",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "fon-tasfiyesi-kanun-teklifi-mecliste-yatirimciya-1-milyon-lira",
+  "kaynaklar": [
+   [
+    "Gazete Oksijen",
+    "https://gazeteoksijen.com/ekonomi/tbmmye-sunuldu-iste-9-maddelik-fon-yasasinin-detaylari-292251"
+   ],
+   [
+    "Hürriyet – Fon tasfiyesi teklifi komisyonda kabul edildi",
+    "https://hurriyet.com.tr/gundem/fon-tasfiyesi-teklifi-kabul-edildi-43342072"
+   ],
+   [
+    "Sabah – Fon yasası komisyonda kabul edildi",
+    "https://www.sabah.com.tr/yasam/fon-yasasi-komisyonda-kabul-edildi-7680781"
+   ]
+  ],
+  "ornek": [
+   "Tasfiyedeki bir fona net 1,5 milyon lira yatırmış bir yatırımcı, ara ödemede en fazla 1 milyon lira alabilir; fonda yeterli nakit yoksa bu tutar da oransal olarak düşebilir. Kalan alacak, varlıkların satışına göre sonraki dağıtımlarda ödenir."
+  ],
+  "date": "2026-10-09",
+  "updated": "2026-10-15",
+  "title": "Fon Tasfiyesi Kanun Teklifi Meclis'te: Yatırımcıya 1 Milyon Liraya Kadar Ara Ödeme",
+  "cats": [
+   "Siyaset",
+   "Manşet"
+  ],
+  "tags": [
+   "yatırım fonu",
+   "SPK",
+   "TMSF",
+   "kanun teklifi",
+   "tasfiye"
+  ],
+  "body": "<p class=\"lead\">AK Parti, Sermaye Piyasası Kurulu'nun tasfiyesine karar verdiği yatırım fonlarındaki yatırımcılara ara ödeme yapılmasını ve tasfiye sürecinin yeniden düzenlenmesini öngören dokuz maddelik kanun teklifini TBMM Başkanlığına sundu.</p>\n<p>AK Parti Grup Başkanı Abdullah Güler, teklifin SPK'nın 17 Eylül 2026 tarihli kararıyla tasfiyesine karar verilen ve kanunun yayımı tarihinde tasfiyesi tamamlanmamış fonları kapsayan geçici bir düzenleme olduğunu söyledi. Güler, tasfiye sürecindeki 131 fonun toplam fonların yüzde 4,6'sını oluşturduğunu belirtti.</p>\n<h2>Kamu kaynağı kullanılmayacak</h2>\n<p>Teklife göre her yatırımcıya, net yatırım tutarı esas alınarak 1 milyon liraya kadar ara ödeme yapılabilecek. Güler, bunun koşulsuz bir ödeme ya da nihai tazmin taahhüdü olmadığını; nakdin yetersiz kalması hâlinde mevcut nakdin oransal olarak dağıtılabileceğini vurguladı. Hazine dahil hiçbir kamu kaynağının kullanılmayacağı, tasfiyenin tamamen fonların kendi varlıklarıyla finanse edileceği belirtildi.</p>\n<h2>Tahsilat TMSF'de</h2>\n<p>Tasfiye SPK gözetiminde yürütülecek; saklama ve takas kayıtları mutabakata bağlanarak her fonun gerçek varlıkları ve hak sahipleri belirlenecek. Varlıklar hızlı değil, mümkün olan en yüksek değerle satılacak; hâkim ortağa satış, toptan satış, özel emir ve tezgâh üstü satış seçenekleri kullanılabilecek. Alacakların tahsili Tasarruf Mevduatı Sigorta Fonu'na verilecek; ceza soruşturmalarında el konulan veya müsadere edilen varlıklar ilgili fona iade edilerek TMSF nezdindeki ayrı hesaplarda tutulacak.</p>\n<h2>Manipülasyona karışanlar dışarıda</h2>\n<p>Piyasa dolandırıcılığı veya bilgi suistimaline karışan kişiler ödeme mekanizmalarından yararlanamayacak. Piyasa üzerinde getiri elde eden yatırımcılar ise fazlayı gönüllü olarak iade edebilecek. Güler, teklifin Plan ve Bütçe Komisyonu'nda gelecek hafta görüşülmesinin ardından Genel Kurul'a ineceğini söyledi.</p>\n<h2>Güncelleme (15 Ekim 2026): Teklif komisyondan geçti</h2>\n<p>Teklif, 14 Ekim 2026 akşamı TBMM Plan ve Bütçe Komisyonu'nda kabul edilerek Genel Kurul'a gönderildi. Basına yansıyan bilgilere göre komisyon metninde dağıtım ölçütü olarak net yatırım tutarı esas alındı; bu tutar fona fiilen yatırılan ve fondan çekilen nakde göre hesaplanacak ve tasfiye tarihine kadar TÜFE ile Yİ-ÜFE değişim oranlarının ortalamasıyla güncellenecek. Ana parasını zaten geri almış yatırımcılar ara ödemeden yararlanamayacak; ara ödemeler nihai hesaplaşmada mahsup edilecek. Teklifin sahibi AK Parti Samsun Milletvekili Ersan Aksu, zararın \"manipülatörlere ve sorumlulara\" ödetileceğini söyledi. Komisyonda kabul edilen önergelerle ödemelerin doğru hak sahiplerine yapılması ve gerçek dışı fiyatlardan fondan çıkan yatırımcıların iade edeceği tutarların yeniden hesaplanması öngörüldü. Genel Kurul görüşmelerinin tarihi henüz açıklanmadı.</p>",
+  "_kaynak_dosya": "content5.py",
+  "_birlestirildigi_yazi": "/fon-tasfiyesi-kanun-teklifi-genel-kurul-ara-odeme",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "aym-suresiz-nafaka-kararinin-gerekcesi-resmi-gazetede-yayimlandi",
+  "kaynaklar": [
+   [
+    "Euronews Türkçe",
+    "https://tr.euronews.com/2026/09/30/suresiz-nafaka-duzenlemesi-iptal-edildi-karar-9-ay-sonra-yururluge-girecek"
+   ],
+   [
+    "NTV",
+    "https://www.ntv.com.tr/turkiye/aymden-suresiz-nafaka-karari-resmi-gazetede-yayimlandi-1744100"
+   ]
+  ],
+  "ornek": [
+   "2020'de kesinleşen bir kararla aylık yoksulluk nafakası ödeyen kişi, AYM kararı yürürlüğe girdi diye 30 Haziran 2027'de ödemeyi kendiliğinden kesemez. Nafakanın kaldırılması veya azaltılması için ayrıca dava açılması ve mahkemenin bu yönde karar vermesi gerekir; yeni yasal düzenlemenin geçiş hükümleri de belirleyici olacak."
+  ],
+  "anket": {
+   "soru": "Yoksulluk nafakası için bir süre sınırı getirilmeli mi?",
+   "secenekler": [
+    "Evet, evlilik süresine bağlanmalı",
+    "Evet, ama ihtiyaç sahipleri için istisna olmalı",
+    "Hayır, ihtiyaç devam ettikçe sürmeli"
+   ]
+  },
+  "date": "2026-09-30",
+  "title": "AYM'nin Süresiz Nafaka Kararının Gerekçesi Resmî Gazete'de: İptal 9 Ay Sonra Yürürlükte",
+  "cats": [
+   "Anayasa Mahkemesi",
+   "Manşet"
+  ],
+  "tags": [
+   "süresiz nafaka",
+   "yoksulluk nafakası",
+   "TMK 175",
+   "Anayasa Mahkemesi",
+   "Resmî Gazete"
+  ],
+  "body": "<p class=\"lead\">Anayasa Mahkemesi'nin, Türk Medeni Kanunu'nun 175. maddesinin birinci fıkrasındaki \"süresiz olarak\" ibaresini iptal eden kararı, gerekçesiyle birlikte bugünkü Resmî Gazete'de yayımlandı. İptal hükmü, yayımdan itibaren dokuz ay sonra, 30 Haziran 2027'de yürürlüğe girecek.</p>\n<p>Antalya 12. Aile Mahkemesi'nin başvurusu üzerine incelemeyi yapan Yüksek Mahkeme, 4 Haziran 2026'daki toplantısında ibarenin iptaline oy çokluğuyla karar vermişti. İptal kararının yürürlüğe girmesi için dokuz aylık süre verilmesi ise oy birliğiyle kabul edildi.</p>\n<h2>Gerekçe: Taraflar arasındaki denge</h2>\n<p>Gerekçeli kararda, hiçbir süre sınırı bulunmayan bir nafaka yükümlülüğünün ödeme yapan taraf üzerinde ağır bir mali yük oluşturabileceği ve taraflar arasındaki hak dengesini bozabileceği vurgulandı. Mahkeme, nafakanın tamamen kaldırılmasına değil, süresiz biçimde hükmedilmesine imkân veren ibareye yönelik bir iptal kararı verdi; nafaka için belirli bir süre de öngörmedi.</p>\n<h2>Mevcut nafakalar ne olacak?</h2>\n<p>Anayasa'nın 153. maddesi uyarınca iptal kararları geriye yürümediğinden, kesinleşmiş mahkeme kararlarıyla bağlanan nafakalar bu karar nedeniyle kendiliğinden sona ermeyecek. Dokuz aylık süre boyunca mevcut hüküm uygulanmaya devam edecek. Yeni sistemin nasıl işleyeceği ve mevcut nafakalara ilişkin geçiş hükümleri, TBMM'nin bu süre içinde yapacağı yasal düzenlemeyle belirlenecek. Yeni yasama yılında Meclis'e sunulması beklenen 13. Yargı Paketi'nde nafakanın evlilik süresine bağlanması öngörülüyor.</p>\n<p>Aile hukukçuları, kararın yürürlüğe girmesine kadar açılacak davalarda talep ve savunmaların bu takvim dikkate alınarak hazırlanması gerektiğini belirtiyor. <a href=\"https://yagmurtahtasiz.com/blog/suresiz-nafaka-kaldirildi-mi.html\">Süresiz nafakanın kaldırılıp kaldırılmadığı</a> ve mevcut nafakaların akıbeti, önümüzdeki aylarda aile mahkemelerinin en çok karşılaşacağı sorular arasında yer alacak.</p>",
+  "_kaynak_dosya": "content5.py",
+  "_birlestirildigi_yazi": "/suresiz-nafaka-ne-zaman-yururluge-girecek-aym-iptal",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "danistay-mesafeli-sozlesmeler-yonetmeligindeki-uc-hukmu-iptal-etti",
+  "kaynaklar": [
+   [
+    "Habertürk",
+    "https://yerel-haberler.haberturk.com/kayseri-haberleri/danistay-mesafeli-sozlesmeler-yonetmeligindeki-3-hukmun-iptaline-karar-verdi-119333503"
+   ]
+  ],
+  "ornek": [
+   "İnternetten aldığınız ve kurulumu yetkili servis tarafından yapılan bir bulaşık makinesini, teslimden itibaren 14 gün içinde gerekçe göstermeden iade etmek istediğinizde satıcı artık \"kurulum yapıldı\" gerekçesiyle cayma hakkınızı reddedemez."
+  ],
+  "date": "2026-09-01",
+  "title": "Danıştay, Mesafeli Sözleşmeler Yönetmeliği'nde Cayma Hakkını Kısıtlayan Üç Hükmü İptal Etti",
+  "cats": [
+   "Danıştay",
+   "Manşet"
+  ],
+  "tags": [
+   "Danıştay 10. Daire",
+   "Mesafeli Sözleşmeler Yönetmeliği",
+   "cayma hakkı",
+   "tüketici hakları",
+   "Tüketiciler Birliği"
+  ],
+  "body": "<p class=\"lead\">Danıştay 10. Dairesi, Mesafeli Sözleşmeler Yönetmeliği'nin cayma hakkının kullanılamayacağı hâlleri sayan 15. maddesindeki üç bendi iptal etti. Böylece internetten alınan bazı ürünlerde tüketicilerin cayma hakkı yeniden doğdu.</p>\n<p>Davayı, yönetmelikteki bazı hükümlerin tüketicilerin cayma hakkını ortadan kaldırdığını ileri süren Tüketiciler Birliği Derneği açtı. Daire, daha önce bu hükümler hakkında yürütmenin durdurulmasına karar vermişti; esastan verilen kararla hükümler yönetmelikten tamamen çıkarıldı.</p>\n<h2>İptal edilen bentler</h2>\n<p>İptal edilen ilk hüküm, 2918 sayılı Karayolları Trafik Kanunu uyarınca tescili zorunlu olan araçlar ile kayıt zorunluluğu bulunan insansız hava araçlarına ilişkin sözleşmeleri cayma hakkı dışında tutuyordu. İkinci hüküm, canlı müzayede yoluyla kurulan sözleşmelere; üçüncüsü ise kullanım kılavuzunda kurulumunun satıcı veya yetkili servis tarafından yapılacağı belirtilen ürünlere ilişkindi. Bu üç kategoride tüketiciler, taraflar aksini kararlaştırmadıkça cayma hakkını kullanamıyordu.</p>\n<h2>\"Cayma hakkına halel getiriyordu\"</h2>\n<p>Davayı takip eden avukat Kerim Bahadır Ertaş, iptal edilen hükümlerin kişilerin cayma hakkına halel getiren düzenlemeler olduğunu, kararla birlikte tüketicilerin internet alışverişlerinde elinden alınan hakların geri verildiğini söyledi. Davanın önceki aşamasında kargo masraflarına ilişkin bir hükmün de yönetmelikten çıkarıldığı hatırlatıldı.</p>\n<p>6502 sayılı Tüketicinin Korunması Hakkında Kanun, mesafeli sözleşmelerde tüketiciye 14 gün içinde gerekçe göstermeden ve cezai şart ödemeden sözleşmeden cayma hakkı tanıyor. Uzmanlar, kararın özellikle beyaz eşya ve elektronik gibi kurulum gerektiren ürünlerin internet satışlarında uygulamayı doğrudan etkileyeceğini belirtiyor. Kararın idareye tebliğiyle birlikte satıcıların sözleşme metinlerini güncellemesi gerekecek.</p>",
+  "_kaynak_dosya": "content5.py",
+  "_birlestirildigi_yazi": "/mesafeli-sozlesmeler-yonetmeligi-3-bent-iptal",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "reklam-kurulu-aldatici-reklam-17-2-milyon-ceza-sahte-indirim-tuketici-haklari",
+  "saat": "15:32",
+  "date": "2026-10-16",
+  "tur": "Analiz",
+  "title": "Reklam Kurulu'ndan Aldatıcı Reklamlara 17,2 Milyon Liralık Ceza: Gerçek Olmayan İndirimi Fark Eden Tüketici Ne Yapabilir?",
+  "cats": [
+   "Ekonomi"
+  ],
+  "tags": [
+   "Reklam Kurulu",
+   "Ticaret Bakanlığı",
+   "aldatıcı reklam",
+   "sahte indirim",
+   "6502 sayılı Kanun",
+   "tüketici hakları",
+   "örtülü reklam"
+  ],
+  "ozet": [
+   "Ticaret Bakanlığı'nın 16 Ekim'de duyurduğu kararlarla Reklam Kurulu, aldatıcı reklamlar nedeniyle toplam 17,2 milyon liralık idari para cezası verdi; Kurul'un yılın ilk dokuz ayındaki cezaları 249 milyon lirayı aştı.",
+   "Ticari reklamların kuralları 6502 sayılı Tüketicinin Korunması Hakkında Kanun'un 61. maddesinde: reklam doğru ve dürüst olmalı, tüketiciyi aldatmamalı, örtülü reklam yasak ve iddiayı ispat yükü reklam verende.",
+   "Reklam Kurulu'nun verdiği ceza Hazine'ye gider; reklama güvenerek alışveriş yapan tüketicinin zararını karşılamaz. Tüketici, reklamdaki niteliği taşımayan malda ayıplı mal hükümlerine dayanabilir.",
+   "Ceza alan işletmeler, Kurul kararına karşı idari yargıda dava açabilir; karar kesinleşmeden şirketlerin hukuka aykırı davrandığı kesin olarak söylenemez."
+  ],
+  "body": "<p class=\"lead\">Ticaret Bakanlığı, bünyesindeki Reklam Kurulu'nun tüketiciyi aldattığı sonucuna vardığı reklamlar nedeniyle toplam 17,2 milyon liralık idari para cezası verdiğini 16 Ekim'de duyurdu. Bakanlık, Kurul'un 2026'nın ilk dokuz ayında kestiği cezaların 249 milyon lirayı aştığını da açıkladı. Haberlere yansıyan bilgilere göre incelemelerin bir kısmı, gerçekte uygulanmayan ya da olduğundan büyük gösterilen indirim duyurularıyla ilgili. Peki hangi reklam yasak, ceza nasıl veriliyor ve böyle bir reklama güvenerek alışveriş yapan tüketicinin elinde ne var?</p>\n<h2>Kurul hangi kurala dayanıyor?</h2>\n<p>Ticari reklamların çerçevesi 6502 sayılı Tüketicinin Korunması Hakkında Kanun'un 61. maddesinde çiziliyor. Madde, reklamların Reklam Kurulu'nun belirlediği ilkelere, genel ahlaka, kamu düzenine ve kişilik haklarına uygun, dürüst ve doğru olmasını istiyor. Tüketiciyi aldatan ya da bilgi ve tecrübe eksikliğini istismar eden reklam yasak. Aynı maddeye göre örtülü reklam, yani reklam olduğu gizlenerek yapılan tanıtım da yasak.</p>\n<p>Uygulamada en çok iş gören hüküm ispat yükü: reklam verenler, reklamlarındaki iddiaları ispatla yükümlü. \"Yüzde 50 indirim\", \"piyasanın en ucuzu\" ya da \"klinik olarak kanıtlanmış\" diyen işletme, Kurul sorduğunda bunu belgeyle göstermek zorunda. Kanun'un 62. maddesi ise reklamın ötesine geçen haksız ticari uygulamaları ayrıca yasaklıyor.</p>\n<h2>İndirim duyurusu ne zaman aldatıcı sayılır?</h2>\n<p>Ticari Reklam ve Haksız Ticari Uygulamalar Yönetmeliği, indirimli satış duyurularında indirimden önceki fiyat olarak, indirim başlamadan önceki 30 gün içinde uygulanan en düşük fiyatın gösterilmesini istiyor. Bu kural, kampanyadan birkaç gün önce fiyatı yükseltip ardından \"indirimli\" diye eski fiyata dönme yöntemini hedefliyor. Etikette yazan eski fiyat son bir ayda hiç uygulanmamışsa ya da indirim yalnızca birkaç ürün için geçerliyken tüm mağazada indirim varmış gibi duyuruluyorsa, Kurul'un önüne gelen dosyalar çoğunlukla bu tür durumlar oluyor.</p>\n<h2>Hangi yaptırımlar var?</h2>\n<p>Kanun'un 63. maddesine göre Reklam Kurulu Bakanlık bünyesinde çalışıyor; ticari reklam ve haksız ticari uygulamalara ilişkin ilkeleri belirliyor, şikâyetleri ve kendi tespitlerini inceliyor. 77. maddenin ilgili fıkrası Kurul'a dört tür yaptırım imkânı tanıyor:</p>\n<table class=\"tablo\">\n<tr><th>Yaptırım</th><th>Ne anlama geliyor?</th></tr>\n<tr><td>Durdurma</td><td>Reklamın yayından kaldırılması</td></tr>\n<tr><td>Düzeltme</td><td>Aynı yöntemle düzeltilmiş reklam yayınlanması</td></tr>\n<tr><td>İdari para cezası</td><td>Reklam verene, gerekirse ajans ve mecra kuruluşuna ceza</td></tr>\n<tr><td>Tedbiren durdurma</td><td>İnceleme sürerken reklamın üç aya kadar durdurulması</td></tr>\n</table>\n<p>Ceza tutarları reklamın yayımlandığı mecraya göre farklılaşıyor ve her yıl yeniden değerleme oranıyla güncelleniyor. Kurul kararları birer idari işlem olduğu için ceza alan işletme idare mahkemesinde iptal davası açabiliyor. Bakanlığın açıkladığı rakamlar Kurul kararlarına ait; bu kararların bir kısmı yargıdan dönebilir.</p>\n<h2>Ceza tüketiciye ne kazandırır?</h2>\n<p>Doğrudan bir şey kazandırmaz. Reklam Kurulu'nun kestiği para cezası Hazine'ye gider; reklama güvenip alışveriş yapan kişiye ödeme yapılmaz. Tüketicinin hakkı sözleşmeden doğar. 6502 sayılı Kanun'un 8. maddesi, satıcının bildirdiği ya da reklam ve ilanlarında yer alan özellikleri taşımayan malı ayıplı mal sayıyor. Bu durumda tüketici, 11. madde uyarınca sözleşmeden dönme, ayıp oranında bedelden indirim, ücretsiz onarım ya da ayıpsız misliyle değişim haklarından birini seçebilir.</p>\n<ul class=\"liste\">\n<li>Reklamın ekran görüntüsünü, ürün sayfasını ve fatura ya da sipariş özetini saklayın; fiyat değişimini gösteren eski görüntüler varsa onları da.</li>\n<li>Önce satıcıya yazılı başvurun ve hangi hakkı kullandığınızı açıkça belirtin.</li>\n<li>Sonuç alamazsanız, uyuşmazlığın tutarına göre tüketici hakem heyetine ya da tüketici mahkemesine gidebilirsiniz. Hakem heyeti sınırı her yıl güncellenir.</li>\n<li>Reklamın kendisini şikâyet etmek için il ticaret müdürlüğüne ya da e-Devlet'teki tüketici şikâyeti ekranından Bakanlığa başvurmak mümkün.</li>\n</ul>\n<p>Bakanlığın tüketici alanındaki düzenleme yetkisinin başka bir örneğini, <a href=\"/taksitli-alisveriste-sureleri-ticaret-bakanligi-belirleyecek-tuketici-ne-bilmeli\">taksitli alışverişte sürelerin Bakanlık kararına bırakılmasını</a> anlatırken ele almıştık.</p>\n<h2>Bundan sonra ne olacak?</h2>\n<p>Reklam Kurulu'nun toplantı kararları Bakanlığın internet sitesinde ayrıca yayımlanıyor; hangi sektörlerin ve hangi reklam türlerinin ceza aldığı ayrıntılı olarak orada görülebilecek. Ceza alan şirketlerin dava açıp açmayacağı, açarlarsa idare mahkemelerinin Kurul'un tespitlerini nasıl değerlendireceği de takip edilecek.</p>",
+  "ornek": [
+   "K, bir giyim sitesinde \"yüzde 40 indirim\" ilanıyla 1.200 liraya bir mont aldı. Daha sonra montun iki hafta önce de 1.200 liraya satıldığını gösteren ekran görüntüsünü buldu. K reklamı Bakanlığa şikâyet edebilir; satıcıya karşı ise ürünün reklamda vaat edilen özelliği taşıyıp taşımadığına göre ayıplı mal hükümlerine dayanarak bedel indirimi isteyebilir. Kurul'un vereceği ceza K'ye ödenmez."
+  ],
+  "anket": {
+   "soru": "İndirim duyurularına ne kadar güveniyorsunuz?",
+   "secenekler": [
+    "Güveniyorum",
+    "Fiyatı başka yerden kontrol ederim",
+    "Güvenmiyorum",
+    "Fikrim yok"
+   ]
+  },
+  "kaynaklar": [
+   [
+    "Ticaret Gazetesi – Reklam Kurulu, aldatıcı reklamlara karşı 17,2 milyon TL idari para cezası uyguladı",
+    "https://ticaretgazetesi.com.tr/2026/10/16/reklam-kurulu-aldatici-reklamlara-karsi-172-milyon-tl-idari-para-cezasi-uyguladi/"
+   ],
+   [
+    "Memurlar.net – Reklam Kurulu'ndan 9 ayda 249 milyon liralık ceza",
+    "https://www.memurlar.net/haber/1181164/reklam-kurulu-ndan-9-ayda-249-milyon-liralik-ceza.html"
+   ],
+   [
+    "Karar – Bakanlıktan yanıltıcı reklamlara 249 milyon liralık ceza",
+    "https://www.karar.com/guncel-haberler/bakanliktan-yaniltici-reklamlara-249-milyon-liralik-ceza-2078730"
+   ],
+   [
+    "Yeni Şafak – Ticaret Bakanlığı aldatıcı reklamlar için 9 ayda 249 milyon lirayı aşkın ceza kesti",
+    "https://www.yenisafak.com/ekonomi/ticaret-bakanligi-dugmeye-basti-aldatici-reklamlar-icin-9-ayda-249-milyon-lirayi-askin-ceza-kesti-4864743"
+   ],
+   [
+    "Alomaliye – Aldatıcı reklamlara 17,2 milyon TL ceza",
+    "https://www.alomaliye.com/2026/10/16/aldatici-reklamlara-17-2-milyon-tl-ceza/"
+   ],
+   [
+    "6502 sayılı Tüketicinin Korunması Hakkında Kanun (mevzuat.gov.tr)",
+    "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.6502.pdf"
+   ]
+  ],
+  "_kaynak_dosya": "content6.py",
+  "_birlestirildigi_yazi": "/reklam-kurulu-kararlariyla-136-dosyada-durdurma-17-2",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "alo-adalet-135-hatti-nasil-kullanilir-81-il",
+  "saat": "11:17",
+  "date": "2026-10-21",
+  "tur": "Haber",
+  "title": "Alo Adalet 135 Hattı Nasıl Kullanılır? 81 İlde Başladı",
+  "cats": [
+   "Adalet Bakanlığı",
+   "Yargı"
+  ],
+  "tags": [
+   "Alo Adalet 135",
+   "Adalet Bakanlığı",
+   "UYAP Vatandaş Portalı",
+   "makul süre",
+   "dava süresi",
+   "soruşturma dosyası",
+   "adil yargılanma hakkı",
+   "yapay zekâ"
+  ],
+  "ozet": [
+   "Alo Adalet 135 hattı, 1 Eylül 2026'da üç adliyede pilot olarak başladı ve 16 Ekim 2026 itibarıyla 81 ilde hizmete sunuldu.",
+   "Hat üzerinden 5 yılı aşan ve devam eden davalar ile 3 yılı aşan ve devam eden soruşturma dosyaları için başvuru yapılabiliyor.",
+   "Başvuru, dosyanın sonuçlanacağı anlamına gelmiyor; yargısal karar yetkisi mahkemelerde ve başsavcılıklarda kalıyor."
+  ],
+  "body": "<p class=\"lead\">Adalet Bakanlığı'nın Alo Adalet 135 hattı, 16 Ekim 2026 itibarıyla 81 ilin tamamında hizmete girdi. Gemlik Cumhuriyet Başsavcılığı da 21 Ekim 2026'da yaptığı paylaşımla hattın 81 ilde vatandaşların kullanımına sunulduğunu duyurdu. Hat, uzun süredir sonuçlanmayan dava ve soruşturma dosyalarına ilişkin başvuruları toplamak için kuruldu.</p><h2>Gemlik Başsavcılığı ne açıkladı?</h2><p>Başsavcılığın resmî hesabından yapılan paylaşımda, hattın Adalet Bakanı Akın Gürlek'in talimatıyla 1 Eylül'de Ankara Batı, İzmir ve Kayseri adliyelerinde pilot olarak başlatıldığı belirtildi. Paylaşıma göre uygulama 16 Ekim 2026'dan itibaren 81 ilde kullanılabiliyor. Başsavcılık, hedef sürede sonuçlandırılmayan dosyaların yapay zekâ destekli sistemlerle anlık olarak izlendiğini de yazdı. Paylaşımda, hattın \"yerli ve millî imkânlarla\" geliştirildiği ifade edildi.</p><p>Tarihler, Anadolu Ajansı'nın 16 Ekim 2026'da aktardığı Bakan açıklamasıyla uyumlu. Yapay zekâ destekli takip bilgisi ise Bakanlık açıklamasında ayrıca ayrıntılandırılmış değil. Bu nedenle sistemin nasıl çalıştığına dair daha fazla bilgi resmî kaynaklardan beklenmeli.</p><h2>Hangi dosyalar için başvuru yapılabiliyor?</h2><p>Bakanlık açıklamasına dayanan haberlere göre hat iki dosya türünü kapsıyor. Birincisi, süresi 5 yılı aşan ve halen devam eden dava dosyaları. İkincisi, 3 yılı aşan ve halen devam eden soruşturma dosyaları. Karara bağlanmış ya da kapanmış dosyalar için bu hat üzerinden başvuru yapılamıyor.</p><p>Başvurular telefon hattının yanı sıra UYAP Vatandaş Portalı üzerinden elektronik ortamda ve adliyelerdeki ilgili bürolar aracılığıyla da iletilebiliyor. Başvuru sırasında kimlik doğrulaması yapılıyor, dosya bilgileri alınarak talep sisteme kaydediliyor ve başvurudan sonra SMS ile bilgilendirme gönderiliyor.</p><h2>Hangi talepler kapsam dışında kalıyor?</h2><p>Haberlere yansıyan bilgiye göre üç tür talep hat kapsamında değerlendirilmiyor:</p><ul><li>Mahkeme kararının içeriğine veya hâkimin takdir yetkisine ilişkin talepler,</li><li>Hâkim ve Cumhuriyet savcıları hakkındaki şikâyetler,</li><li>Aynı dosya için daha önce yapılmış ve incelemesi süren bir başvurunun tekrarı.</li></ul><p>Yani hat, bir kararı değiştirmeye ya da yargıçlar hakkında şikâyette bulunmaya yönelik bir kanal olarak tasarlanmamış. Amaç, süresi uzayan dosyanın durumunun ilgili birime bildirilmesi.</p><h2>Hukuki çerçeve: makul süre ve adil yargılanma</h2><p>Anayasa'nın 36. maddesi herkese adil yargılanma hakkı tanıyor. Anayasa Mahkemesi, makul sürede yargılanma hakkını bu hakkın bir öğesi olarak değerlendiriyor. Mahkeme, bireysel başvurularda yargılamanın makul sürede tamamlanmadığı sonucuna vararak ihlal tespit edebiliyor ve tazminata hükmedebiliyor. Mahkemenin internet sitesindeki bir norm denetimi basın duyurusunda ise soruşturma ve yargılamanın tamamlanması için hedef süre öngören bir kuralın Anayasa'ya aykırı olmadığı belirtiliyor. Duyuru metninde karar tarihi açık değil.</p><p>Alo Adalet 135 başvurusu, bu hukuki yolların yerine geçmiyor. Kamuoyuna yansıyan bilgiye göre başvurular, dosyanın bulunduğu adli birime aktarılıyor. Dilekçe verme, kanun yolu başvurusu ve Cumhuriyet başsavcılığı işlemleri ayrı yollar olarak duruyor. Yargısal karar verme yetkisi yine mahkemelerde ve başsavcılıklarda. Makul süre aşımı nedeniyle tazminat ya da bireysel başvuru yoluna gitmek isteyenlerin koşulları ve süreleri ilgili mevzuattan ayrıca kontrol etmesi gerekiyor.</p><h2>Başvuru yapacaklar için pratik noktalar</h2><p>Başvurmadan önce dosyanın hâlâ derdest olduğundan ve süre eşiğini aştığından emin olmak gerekiyor. Dosyanın esas numarası, hangi mahkeme ya da başsavcılıkta bulunduğu ve tarafların bilgileri hazır olursa kayıt işlemi hızlanır. Avukatı olanların, başvuruyu yapmadan önce avukatlarıyla görüşmesi dosya yönetimi açısından yararlı olur. Bazı haberlerde Alo 135 başvurusunun dosyanın hemen sonuçlanacağı ya da belirli bir sürede karara bağlanacağı anlamına gelmediği vurgulanıyor.</p><p>Başvuru yapanlar SMS ile bilgilendirildiği için kayıtlı telefon numarasının güncel olması önem taşıyor. Aynı dosya için incelemesi süren bir başvuru varken yenisini yapmak kapsam dışı sayıldığından, tekrar başvurular işleme alınmayabilir.</p><h2>Süreç bundan sonra nasıl işler?</h2><p>Başvuru kaydedildikten sonra talep ilgili adli birime iletiliyor ve dosyanın durumu değerlendiriliyor. Dosyanın neden uzadığı (bilirkişi raporu, tebligat, delil toplama gibi) dosyaya göre değişiyor. Hattın uygulamada dosya sürelerini ne ölçüde kısaltacağına dair Adalet Bakanlığı'ndan henüz bir veri paylaşılmadı. Başvuru sayısı ve sonuçlarına ilişkin istatistikler açıklandığında hattın etkisi daha net izlenebilecek.</p>",
+  "kaynaklar": [
+   [
+    "X paylaşımı: Gemlik Cumhuriyet Başsavcılığı (@GemlikCBS), 21 Ekim 2026 10.55",
+    "https://x.com/GemlikCBS/status/2112815066483507267"
+   ],
+   [
+    "Anadolu Ajansı, 16 Ekim 2026: \"Alo Adalet 135\" hattı tüm adliyelerde hizmete sunuldu",
+    "https://www.aa.com.tr/tr/gundem/alo-adalet-135-hatti-tum-adliyelerde-hizmete-sunuldu/4090915"
+   ],
+   [
+    "BHA, 16 Ekim 2026: Alo Adalet 135, 81 ilde vatandaşların hizmetinde",
+    "https://www.bha.net.tr/turkiye/alo-adalet-135-81-ilde-vatandaslarin-hizmetinde/467273"
+   ],
+   [
+    "Başka Gazete, 1 Eylül 2026: Alo Adalet 135 hattı hizmete başlıyor",
+    "https://www.baskagazete.com/haber/alo-adalet-135-hatti-hizmete-basliyor-5-yili-asan-dava-dosyalari-sorulabilecek-249451.html"
+   ],
+   [
+    "Hürriyet (AA), Ankara Haberleri: Bakan Gürlek'ten Alo Adalet 135 hattına ilişkin paylaşım",
+    "https://www.hurriyet.com.tr/yerel-haberler/ankara/bakan-gurlekten-alo-adalet-135-hattina-ilis-43329028"
+   ],
+   [
+    "Hakkari Haber TV, 18 Ekim 2026: ALO ADALET 135 hattı 81 ilde hizmete girdi",
+    "https://www.hakkarihabertv.com/alo-adalet-135-hatti-81-ilde-hizmete-girdi-89681h.htm"
+   ],
+   [
+    "Anayasa Mahkemesi, Norm Denetimi Basın Duyuruları: Hedef süre öngören kuralın Anayasa'ya aykırı olmadığı",
+    "https://www.anayasa.gov.tr/tr/haberler/norm-denetimi-basin-duyurulari/kovusturma-veya-yargilamanin-tamamlanmasi-icin-hedef-sure-ongoren-kuralin-anayasa-ya-aykiri-olmadigi/"
+   ],
+   [
+    "Anayasa Mahkemesi Kararlar Bilgi Bankası, Başvuru 2020/1533 (makul sürede yargılanma hakkı)",
+    "https://kararlarbilgibankasi.anayasa.gov.tr/BB/2020/1533"
+   ]
+  ],
+  "sss": [
+   [
+    "Alo Adalet 135 kimler için?",
+    "5 yılı aşan ve devam eden davalar ile 3 yılı aşan ve devam eden soruşturma dosyaları için başvuru yapılabiliyor."
+   ],
+   [
+    "Alo Adalet 135'e nasıl başvurulur?",
+    "Telefon hattı, UYAP Vatandaş Portalı ve adliyelerdeki ilgili bürolar üzerinden başvuru yapılabiliyor. Kimlik doğrulaması yapılıyor ve SMS ile bilgi veriliyor."
+   ],
+   [
+    "Alo 135 başvurusu dosyayı hızlandırır mı?",
+    "Başvuru, dosyanın sonuçlanacağı ya da belirli sürede karara bağlanacağı anlamına gelmiyor. Karar yetkisi mahkeme ve başsavcılıklarda kalıyor."
+   ],
+   [
+    "Hangi talepler kapsam dışı?",
+    "Karar içeriği ve hâkim takdirine ilişkin talepler, hâkim ve savcı şikâyetleri ile incelemesi süren başvurunun tekrarı kapsam dışında."
+   ]
+  ],
+  "_kaynak_dosya": "content6.py",
+  "_birlestirildigi_yazi": "/alo-adalet-135-81-ilde-davaniz-5-yili-astiysa-makul-sure-tazminat-komisyonu-aym",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "sarj-cihazi-ve-usb-type-c-kablolara-cevreye",
+  "date": "2026-10-16",
+  "tur": "Analiz",
+  "title": "Şarj Cihazı ve USB Type-C Kablolara Çevreye Duyarlı Tasarım Şartı Getirildi",
+  "cats": [
+   "Ekonomi"
+  ],
+  "tags": [
+   "çevreye duyarlı tasarım",
+   "USB type-c kablo",
+   "enerji etiketi",
+   "Resmî Gazete",
+   "SGM-2026/7",
+   "USB Type-C",
+   "Sanayi ve Teknoloji Bakanlığı",
+   "çamaşır kurutma makinesi"
+  ],
+  "ozet": [
+   "Sanayi ve Teknoloji Bakanlığı'nın SGM-2026/7 sayılı tebliği, 16 Ekim 2026 tarihli 33402 sayılı Resmî Gazete'de yayımlandı ve harici güç kaynakları, kablosuz şarj cihazları ile USB Tip-C kablolarının çevreye duyarlı tasarım gerekliliklerini belirledi.",
+   "Aynı sayıda bekleme konumundaki enerji tüketimi ile ev tipi çamaşır kurutma makinelerinin tasarımı ve enerji etiketlemesine ilişkin üç tebliğ daha yayımlandı.",
+   "Kurutma makinesi etiketlerine onarılabilirlik endeksi ve A'dan E'ye sınıf ekleniyor; yeni etiketlerin 1 Ocak 2027'den itibaren zorunlu olduğu bildirildi."
+  ],
+  "body": "<p class=\"lead\">Sanayi ve Teknoloji Bakanlığı'nın SGM-2026/7 sayılı tebliği, 16 Ekim 2026 Cuma günü yayımlanan 33402 sayılı Resmî Gazete'de yer aldı. Tebliğ, harici güç kaynakları, kablosuz şarj cihazları ve pedleri, genel kullanım amaçlı taşınabilir batarya şarj cihazları ile USB Tip-C kablolarının piyasaya arzında aranacak çevreye duyarlı tasarım gerekliliklerini düzenliyor. Aynı nüshada bekleme konumu ve çamaşır kurutma makinelerine ilişkin üç tebliğ daha bulunuyor.</p><h2>Resmî Gazete'de neler yayımlandı?</h2><p>Resmî Gazete'nin 16 Ekim 2026 tarihli sayısında dört ayrı tebliğ yer aldı. Kırşehir Çiğdem'in o gün yayımladığı Resmî Gazete özetinde bu düzenlemeler \"yönetmelik\" başlığı altında anılıyordu, ancak metinlerin künyesi tebliğ olarak görünüyor. Özette tebliğ adları, yürürlük tarihleri ve geçiş süreleri de yoktu. Bu haber, bu eksikleri Resmî Gazete sayfası ve AA kaynaklı haberlerle tamamlıyor.</p><p>Yayımlanan tebliğler şöyle:</p><ul><li>SGM-2026/7: harici güç kaynakları, kablosuz şarj cihazları ve pedleri, taşınabilir batarya şarj cihazları ve USB Tip-C kabloları için çevreye duyarlı tasarım tebliği.</li><li>SGM-2026/8: bekleme konumlarının elektrik enerjisi tüketimine ilişkin tebliğ. Daha önceki SGM-2024/5 sayılı tebliği değiştiriyor.</li><li>SGM-2026/9: ev tipi çamaşır kurutma makinelerinin çevreye duyarlı tasarımına ilişkin tebliğ. SGM-2024/3 sayılı tebliği değiştiriyor.</li><li>SGM-2026/10: ev tipi çamaşır kurutma makinelerinin enerji etiketlemesine ilişkin tebliğ. SGM-2024/4 sayılı tebliği değiştiriyor.</li></ul><p>Tebliğ künyelerinde 2025/2052, 2023/826, 2023/2533 ve 2023/2534 gibi Avrupa Birliği düzenleme numaraları geçiyor. Bu da düzenlemelerin AB mevzuatıyla uyumlu hazırlandığına işaret ediyor.</p><h2>Şarj cihazları ve USB Type-C kabloları için ne öngörülüyor?</h2><p>SGM-2026/7, söz konusu ürünlerin piyasaya arz edilebilmesi için karşılaması gereken tasarım gerekliliklerini belirliyor. Tebliğin bazı hükümleri yayımlandığı 16 Ekim 2026'da yürürlüğe girdi. Haber sitelerinin aktardığına göre teknik tasarım zorunlulukları 14 Aralık 2028'de başlıyor. Bu tarih tebliğin resmî metninden ayrıca doğrulanamadı; üreticilerin ve ithalatçıların madde bazlı yürürlük hükümlerini Resmî Gazete'deki tebliğ metninden kontrol etmesi gerekiyor.</p><h2>Bekleme modu ve kurutma makinesi değişiklikleri</h2><p>SGM-2026/8 ile hazırda bekleme konumu, kapalı konum, aktif mod ve ana işlev tanımları yeniden düzenlendi. Bu tanımlar, ev ve büro tipi elektrikli-elektronik cihazların bekleme durumunda ne kadar elektrik tüketebileceğine ilişkin değerlendirmenin dayanağını oluşturuyor.</p><p>SGM-2026/9, çamaşır kurutma makinelerinin enerji performansının hangi yöntemlerle ölçüleceğini güncelledi. SGM-2026/10 ise enerji etiketlerine ve ürün bilgi formlarına yeni bir unsur ekledi: onarılabilirlik endeksi ve A'dan E'ye onarılabilirlik sınıfı. Bu tebliğe ilişkin haberlerde, yeni formatlı etiketlerin 1 Ocak 2027'den itibaren zorunlu olduğu, o tarihe kadar gönüllü geçişin mümkün olduğu belirtiliyor.</p><h2>Hukuki çerçeve: 5187 sayılı Yönetmelik</h2><p>Tebliğlerin dayanağı, 4 Şubat 2022 tarihli ve 5187 sayılı Cumhurbaşkanı Kararı ile yürürlüğe konan Enerji ile İlgili Ürünlerin Çevreye Duyarlı Tasarımına İlişkin Yönetmelik. Yönetmelik 5 Şubat 2022 tarihli ve 31741 sayılı Resmî Gazete'de yayımlandı ve 7223 sayılı Ürün Güvenliği ve Teknik Düzenlemeler Kanunu'nun 4. maddesine dayanıyor.</p><p>Yönetmeliğin 1. maddesi amacı, enerji ile ilgili ürünlerin piyasaya arzında veya hizmete sunulmasında uyulması zorunlu çevreye duyarlı tasarım gerekliliklerini bir çerçeve içinde belirlemek olarak tanımlıyor. 5. maddeye göre piyasa gözetimi ve denetimi yetkili kuruluşlarca yapılıyor. Uygulama tebliğlerini de yetkili kuruluşlar hazırlıyor. 10. maddede uygunluk değerlendirmesi, yönetmeliğin EK-4 (iç tasarım kontrol sistemi) veya EK-5 (yönetim sistemi) ekleriyle belirleniyor; SGM-2026/7 de bu maddeye dayanıyor. Yönetmelik ayrıca imalatçı ya da yetkili temsilcisinin uygunluk beyanı hazırlamasını ve ürüne uygun CE işareti iliştirmesini öngörüyor. Kullanıcıyı yanıltabilecek işaretlerin kullanımı yasak.</p><h2>Üretici, ithalatçı ve tüketici açısından süreç</h2><p>Üreticiler ve ithalatçılar için ilk adım, ürünlerinin tebliğlerin kapsamına girip girmediğini ve istisnalardan yararlanıp yararlanmadığını kontrol etmek. Ardından uygunluk değerlendirmesinin ve teknik dosyanın güncellenmesi, kurutma makineleri için yeni enerji etiketi ve ürün bilgi formlarının 1 Ocak 2027 takvimine göre hazırlanması gerekiyor. Piyasa denetimi yetkili kuruluşça yürütülecek. Yaptırım hükümleri ve bu tebliğler kapsamında verilmiş bir yargı kararı bu haber için yapılan taramada tespit edilemedi; bu nedenle ceza ya da idari yaptırım konusunda bilgi verilmiyor.</p><p>Tüketici açısından en görünür sonuç, kurutma makinesi etiketlerinde ürünün ne kadar kolay onarılabildiğini gösteren sınıfın yer alması olacak. Aynı Resmî Gazete sayısında yayımlanan başka bir düzenleme için <a href=\"/makine-emniyeti-yonetmeligi-resmi-gazete-de-ne-degisti/\">Makine Emniyeti Yönetmeliği haberimize</a> bakılabilir.</p><h2>Bugün itibarıyla durum</h2><p>Bu haber 23 Ekim 2026'da, düzenlemelerin yayımlanmasından yedi gün sonra hazırlandı. Yapılan taramada tebliğlerin değiştirildiğine ya da iptal edildiğine dair bir bilgiye rastlanmadı. Ancak iptal ve değişiklik taraması ayrıca yapılmadığından, güncel metin için Resmî Gazete ve Bakanlık duyuruları esas alınmalı.</p>",
+  "kaynaklar": [
+   [
+    "Kırşehir Çiğdem (Resmî Gazete 33402 sayılı nüsha özeti), 16.10.2026: Resmî Gazete'de çevreye duyarlı tasarım düzenlemeleri: harici güç kaynakları, USB Type-C kabloları, bekleme modu ve çamaşır kurutma makineleri",
+    "https://kirsehircigdem.com/16-ekim-2026-resmi-gazete-kararlari-neler-bugun-resmi-gazetede-neler-var"
+   ],
+   [
+    "Resmî Gazete, 16 Ekim 2026 (33402 sayılı nüsha): günlük içerik sayfası",
+    "https://www.resmigazete.gov.tr/16.10.2026"
+   ],
+   [
+    "Resmî Gazete, 16 Ekim 2026: SGM-2026/7 tebliğ metni (Sanayi ve Teknoloji Bakanlığı)",
+    "https://www.resmigazete.gov.tr/eskiler/2026/10/20261016-14.htm"
+   ],
+   [
+    "Mevzuat.gov.tr: Enerji ile İlgili Ürünlerin Çevreye Duyarlı Tasarımına İlişkin Yönetmelik (5187)",
+    "https://mevzuat.gov.tr/MevzuatMetin/21.5.5187.pdf"
+   ],
+   [
+    "Anadolu Ajansı (Memurlar.Net), 16 Ekim 2026 09:39: Şarj cihazları ve USB Tip-C kablolarına eko-tasarım kuralları geldi",
+    "https://www.memurlar.net/haber/1181167/sarj-cihazlari-ve-usb-tip-c-kablolarina-eko-tasarim-kurallari-geldi.html"
+   ],
+   [
+    "Endeks24, 16 Ekim 2026 09:26: Şarj cihazları ve USB Tip-C kablolarına yeni kurallar",
+    "https://www.endeks24.com/sarj-cihazlari-ve-usb-kablolarina-yeni-kural"
+   ],
+   [
+    "Anadolu Ajansı (Star), 16 Ekim 2026 10:00: Çamaşır kurutma makinelerine Bakanlıktan yeni ayar",
+    "https://www.star.com.tr/ekonomi/1-ocak-2027de-zorunlu-oluyor-camasir-kurutma-makinelerine-bakanliktan-yeni-ayar-haber-2046901/"
+   ]
+  ],
+  "denetleyen": "yagmur-tahtasiz",
+  "incelendi": "2026-10-23",
+  "eklenme": "2026-10-23T02:15",
+  "sss": [
+   [
+    "SGM-2026/7 tebliği neyi düzenliyor?",
+    "Harici güç kaynakları, kablosuz şarj cihazları, taşınabilir batarya şarj cihazları ve USB Tip-C kablolarının çevreye duyarlı tasarım gerekliliklerini belirliyor."
+   ],
+   [
+    "Kurutma makinesi etiketi ne zaman zorunlu?",
+    "Haberlere göre yeni formatlı etiketler 1 Ocak 2027'den itibaren zorunlu; o tarihe kadar gönüllü geçiş mümkün."
+   ],
+   [
+    "Onarılabilirlik sınıfı nedir?",
+    "Kurutma makinesi etiketine eklenen, ürünün onarılabilirliğini gösteren endeks ve A'dan E'ye sınıf bilgisidir."
+   ],
+   [
+    "Bu tebliğlerin denetimini kim yapıyor?",
+    "Yönetmeliğin 5. maddesine göre piyasa gözetimi ve denetimi yetkili kuruluşlarca yürütülüyor."
+   ]
+  ],
+  "_kaynak_dosya": "content6.py",
+  "_birlestirildigi_yazi": "/sarj-adaptoru-ve-usb-c-kablolarina-yeni-kurallar-2028-tuketici-ve-uretici",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "hsk-ilke-kararlariyla-bassavcilara-savci-is-yuku-oranlari",
+  "saat": "11:48",
+  "date": "2026-10-24",
+  "tur": "Analiz",
+  "title": "HSK İlke Kararlarıyla Başsavcılara Savcı İş Yükü Oranları Belirlendi",
+  "cats": [
+   "Yargı"
+  ],
+  "tags": [
+   "HSK",
+   "savcı iş yükü",
+   "ilke kararı",
+   "başsavcı vekili",
+   "başsavcı",
+   "adli iş",
+   "Resmî Gazete",
+   "tevzi puanı"
+  ],
+  "ozet": [
+   "HSK Genel Kurulu, 21 Ekim 2026 tarihli 1157 ve 1158 sayılı ilke kararlarıyla başsavcı vekillerinin ve asliye ceza mahkemeleri nezdindeki başsavcıların adli işlere katılım oranlarını belirledi.",
+   "Kararlar 23 Ekim 2026 tarihli 33409 sayılı Resmî Gazete'de yayımlanarak aynı gün yürürlüğe girdi.",
+   "Mevcut iş bölümleri bir ay içinde yeni esaslara uyarlanacak, dağılım UYAP üzerinden izlenecek."
+  ],
+  "body": "<p class=\"lead\">Hâkimler ve Savcılar Kurulu (HSK) Genel Kurulu, 21 Ekim 2026 tarihli 1157 ve 1158 sayılı ilke kararlarıyla başsavcı vekillerine ve asliye ceza mahkemeleri nezdindeki başsavcılara verilecek adli iş oranlarını belirledi. Kararlar 23 Ekim 2026 tarihli 33409 sayılı Resmî Gazete'de yayımlanarak aynı gün yürürlüğe girdi. Yeni Şafak'ın 24 Ekim 2026'da paylaştığı \"Savcıların yükü başsavcılarla paylaşılacak\" başlıklı haber, bu düzenlemeye ilişkin.</p>\n<h2>HSK'nın 1157 ve 1158 sayılı ilke kararları ne öngörüyor?</h2>\n<p>İki karar, başsavcılık makamında görev yapanların da belirli oranda adli iş üstlenmesini esas alıyor. 1157 sayılı karar başsavcı vekillerini, 1158 sayılı karar ise asliye ceza mahkemeleri nezdindeki başsavcıları kapsıyor. Resmî Gazete'deki yayımı Cumhuriyet, BirGün, Memurlar.Net, Türkgün ve Haber71.Net gibi haber kuruluşlarınca da aktarıldı. Bu haberde kararların kapsamı bu yayınlara ve Yeni Şafak'ın haberine dayanılarak anlatılıyor.</p>\n<p>Adalet Bakanı ve HSK Başkanı, düzenlemenin tecrübeli başsavcılardan daha fazla yararlanmayı, savcılar arasındaki iş yükünü dengelemeyi ve dosyaların makul sürede sonuçlanmasını amaçladığını açıkladı.</p>\n<h2>Başsavcı vekillerine verilecek adli iş oranı nasıl belirleniyor?</h2>\n<p>1157 sayılı karara göre başsavcı vekillerine, bürolarında fiilen görev yapan savcı sayısına bağlı olarak ortalama tevzi puanı üzerinden adli iş verilecek. Fiilen görev yapan savcı sayısı 20'ye kadar olan başsavcılıklarda oran yüzde 25, 21 ile 50 arasında olanlarda yüzde 20, 50'nin üzerinde olanlarda yüzde 15 olarak belirlendi.</p>\n<p>Bu oranlar büro büyüklüğüne göre 5 puan artırılıp azaltılabiliyor. Ancak tevzi oranı hiçbir durumda yüzde 15'in altına düşürülemiyor. Haberlerde artış ve azalış eşiklerine dair sayısal ayrıntılar birbirinden farklı aktarıldığından bu eşikler burada yazılmadı.</p>\n<h2>Asliye ceza mahkemeleri nezdindeki başsavcılara hangi oranlar uygulanacak?</h2>\n<p>1158 sayılı karar, asliye ceza mahkemeleri nezdindeki başsavcılıklarda görev yapan başsavcıları düzenliyor. Başsavcılıkta 5 veya daha az savcı varsa başsavcıya ortalama tevzi puanının yüzde 40'ı kadar adli iş verilecek. Savcı sayısı 6 ile 10 arasındaysa oran yüzde 35, 11 ve üzerindeyse yüzde 30 olacak.</p>\n<p>Küçük başsavcılıklarda başsavcının dosya yükünün daha yüksek tutulmasının nedeni, bu bürolarda savcı sayısının az olması. Karar metnindeki gerekçeyi ayrıca doğrulayamadığımız için bu bir yorum olarak değil, oranların yapısına ilişkin bir gözlem olarak not ediliyor.</p>\n<h2>Hangi durumlarda bu oranların altında iş verilebilecek?</h2>\n<p>Kararlar, belirlenen oranların bazı hâllerde uygulanmayabileceğini öngörüyor. Başsavcılığın yargı çevresinde ceza infaz kurumu bulunması, adli kolluk ve koordinasyon yoğunluğu ya da soruşturmaların niteliği gibi nedenlerle oranın altında iş verilebiliyor. Gerekli görülürse başsavcılar geçici olarak adli işlerden tamamen muaf tutulabiliyor.</p>\n<p>Başsavcı vekilleri bakımından da benzer bir esneklik var. Ağır idari sorumluluk, yoğun koordinasyon görevi ya da geçici görevlendirme durumunda verilecek adli iş miktarı azaltılabiliyor.</p>\n<h2>Düzenleme uygulamada nasıl işleyecek, sonraki adım ne?</h2>\n<p>Sonraki adım, mevcut iş bölümlerinin bir ay içinde yeni esaslara uyarlanması. Bu uyarlama, ilgili başsavcılıkların iş bölümü kararları yoluyla yapılacak. Dağılım UYAP üzerinden izlenecek ve dosya dağıtımında yalnızca dosya sayısı değil, puanlar esas alınacak.</p>\n<p>İlke kararları, HSK'nın Hâkimler ve Savcılar Kanunu çerçevesinde çıkardığı ve Resmî Gazete'de yayımlanan düzenleyici işlemler. Bu kararların mesleğin özellikleri ve teşkilat ihtiyaçları dikkate alınarak her yılın Ocak ayında yeniden incelenmesi ve gerekirse güncellenmesi öngörülüyor. Bu ayrıntı ikincil kaynaklardan aktarıldı, ilgili madde metni mevzuat.gov.tr üzerinden doğrulanamadığı için madde numarası yazılmadı.</p>\n<p>Düzenlemeye karşı bir iptal davası ya da Danıştay başvurusu yapıldığına dair haberlerde bir bilgi bulunmuyor. Konuyla ilgili doğrudan bir emsal yargı kararı da tespit edilemedi.</p>\n<h2>Vatandaşlar ve savcılık büroları için ne anlama geliyor?</h2>\n<p>Düzenleme, soruşturma dosyalarının dağılımına ilişkin idari bir iş bölümü kararı niteliğinde. Başsavcıların ve vekillerin üstleneceği dosyalar arttığında, aynı bürodaki diğer savcılara düşen dosya yükünün dengelenmesi hedefleniyor. Soruşturmanın tarafları açısından doğrudan bir usul hakkı ya da süre değişikliği getirmiyor. Uygulamanın dosya sürelerine etkisi, iş bölümlerinin yeniden düzenlenmesinden sonra ortaya çıkacak.</p>",
+  "kaynaklar": [
+   [
+    "X paylaşımı: Yeni Şafak (@yenisafak), 24 Ekim 2026 11.17",
+    "https://x.com/yenisafak/status/2113907710353641677"
+   ],
+   [
+    "Yeni Şafak, 24 Ekim 2026: Savcıların yükü başsavcılarla paylaşılacak",
+    "https://www.yenisafak.com/gundem/savcilarin-yuku-bassavcilarla-paylasilacak-4866842"
+   ],
+   [
+    "Cumhuriyet, 23 Ekim 2026: HSK'den başsavcı ve vekiller için yeni iş yükü düzenlemesi",
+    "https://www.cumhuriyet.com.tr/turkiye/hsk-den-bassavci-ve-vekiller-icin-yeni-is-yuku-duzenlemesi-2549443"
+   ],
+   [
+    "BirGün, 23 Ekim 2026: Resmi Gazete yayımladı: HSK'den başsavcı ve vekillerin iş yüküne ilişkin yeni düzenleme",
+    "https://www.birgun.net/haber/resmi-gazete-yayimladi-hskden-bassavci-ve-vekillerin-is-yukune-iliskin-yeni-duzenleme-741993"
+   ],
+   [
+    "Memurlar.Net, 23 Ekim 2026 00.09: Başsavcılara Dair Yeni HSK İlke Kararları Resmi Gazete'de",
+    "https://www.memurlar.net/haber/1181840/bassavcilara-dair-yeni-hsk-ilke-kararlari-resmi-gazete-de.html"
+   ],
+   [
+    "Türkgün, 23 Ekim 2026 00.50: 23 Ekim 2026 Resmî Gazete Kararları",
+    "https://www.turkgun.com/gundem/resmi-gazete-kararlari-yayimlandi-23-ekim-2026-resmi-gazetede-neler-var-iste-tum-kararlar/409494"
+   ],
+   [
+    "Haber71.Net, 23 Ekim 2026: HSK'nin başsavcı ve başsavcı vekillerinin adli işlere katılım kararları yürürlüğe girdi",
+    "https://www.haber71.net/hsk-bassavcilik-adli-isler-ilke-karari/"
+   ]
+  ],
+  "denetleyen": "yagmur-tahtasiz",
+  "incelendi": "2026-10-24",
+  "sss": [
+   [
+    "HSK kararları ne zaman yürürlüğe girdi?",
+    "1157 ve 1158 sayılı kararlar 23 Ekim 2026 tarihli 33409 sayılı Resmî Gazete'de yayımlandı ve aynı gün yürürlüğe girdi."
+   ],
+   [
+    "Başsavcı vekilleri hangi oranda iş alacak?",
+    "Fiilen görev yapan savcı sayısına göre yüzde 25, 20 veya 15 oranında ortalama tevzi puanı üzerinden adli iş verilecek. Oran yüzde 15'in altına düşürülemiyor."
+   ],
+   [
+    "Başsavcılara verilecek oran ne kadar?",
+    "Asliye ceza mahkemeleri nezdindeki başsavcılıklarda savcı sayısına göre yüzde 40, 35 veya 30 oranında adli iş verilecek."
+   ],
+   [
+    "İş bölümleri ne zamana kadar uyarlanacak?",
+    "Mevcut iş bölümlerinin bir ay içinde yeni esaslara uyarlanması öngörülüyor. Dağılım UYAP üzerinden izlenecek."
+   ]
+  ],
+  "_kaynak_dosya": "content6.py",
+  "_birlestirildigi_yazi": "/adli-is-yuku-hsk-ilke-karari-bassavci-ve",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ },
+ {
+  "slug": "gazeteci-ismail-ari-halki-yaniltici-bilgiyi-yayma-suclamasiyla",
+  "saat": "14:26",
+  "date": "2026-10-25",
+  "tur": "Haber",
+  "title": "Gazeteci İsmail Arı Halkı Yanıltıcı Bilgiyi Yayma Suçlamasıyla Tutuklandı",
+  "cats": [
+   "Yargı"
+  ],
+  "tags": [
+   "halkı yanıltıcı bilgiyi yayma",
+   "halkı yanıltıcı bilgiyi alenen yayma suçu",
+   "TCK 217/A",
+   "gazeteci tutuklama",
+   "İsmail Arı",
+   "BirGün",
+   "Ankara Sulh Ceza Hakimliği",
+   "basın özgürlüğü"
+  ],
+  "ozet": [
+   "Ankara 6. Sulh Ceza Hakimliği, BirGün muhabiri İsmail Arı'yı 21 Ekim 2026'da kaçma ve delil karartma ihtimallerini gerekçe göstererek tutukladı.",
+   "Arı'ya TCK 217/A kapsamında 'halkı yanıltıcı bilgiyi alenen yayma' suçlaması yöneltiliyor; hakkında mahkûmiyet kararı bulunmuyor.",
+   "Tutuklama kararına kanunda öngörülen süre içinde itiraz edilebilecek, yargılama iddianamenin kabulünden sonra mahkemede görülecek."
+  ],
+  "body": "<p class=\"lead\">Ankara 6. Sulh Ceza Hakimliği, BirGün muhabiri İsmail Arı'yı 21 Ekim 2026'da, 5237 sayılı Türk Ceza Kanunu'nun 217/A maddesi kapsamındaki 'halkı yanıltıcı bilgiyi alenen yayma' suçlaması nedeniyle tutuklanmasına karar verdi. BirGün ve Cumhuriyet'in haberlerine göre kararda kaçma ve delil karartma ihtimalleri gerekçe gösterildi. Arı'nın tutukluluğu 25 Ekim 2026 itibarıyla dördüncü gününde; mahkûmiyet kararı yoktur ve masumiyet karinesi geçerlidir.</p><h2>İsmail Arı gözaltına nasıl alındı ve tutuklandı?</h2><p>Arı, 20 Ekim 2026'da ifade vermek üzere çağrıldığı Ankara Emniyet Müdürlüğü Güvenlik Şube Müdürlüğü'ne gitti ve burada gözaltı kararı tebliğ edilerek gözaltına alındı. Cumhuriyet, NTV, Diken ve Milli Gazete'nin aktardığına göre soruşturma, eski bir RTÜK Başkanı'nın şikâyetine dayanıyor. Arı'ya gözaltı aşamasında 'kamu görevlisine görevinden dolayı hakaret' ve 'halkı yanıltıcı bilgiyi yayma' suçlamaları yöneltildi.</p><p>Arı, 21 Ekim 2026 Çarşamba günü Ankara Adliyesi'ne sevk edildi. Savcılık ifadesinin ardından 'halkı yanıltıcı bilgiyi alenen yayma' suçlamasıyla tutuklama talebiyle sulh ceza hakimliğine çıkarıldı. Hakimlik talebi kabul etti. Konuya ilişkin ayrıntılar savcılık ya da mahkemenin resmî bir açıklamasından değil, haber kuruluşlarının aktarımlarından öğrenildi.</p><h2>Arı ve BirGün tutuklamaya ilişkin ne söyledi?</h2><p>BirGün'ün yayımladığı mesajda Arı, 'Emniyete kendi ayağımla gitmeme rağmen' kaçma şüphesiyle tutuklandığını belirtti. Diken ve Cumhuriyet, avukatının hakimlik sorgusunda söz kesildiği yönünde bir iddia aktardı. Bu iddiaya ilişkin hakimlikten bir yanıt ya da açıklama aktarılmadı. Cumhuriyet ayrıca, eski RTÜK Başkanı tarafına 'cevap hakkı' sorulması üzerine yapılan mesajların delil olarak gösterildiğini yazdı. Bu da henüz mahkemece değerlendirilmemiş bir iddia niteliğinde.</p><p>BirGün'ün 24 Ekim 2026 tarihli haberine göre Arı, Sincan 2 Nolu L Tipi Kapalı Ceza İnfaz Kurumu'nda daha önce de kaldığı A10 koğuşuna yerleştirildi. Gazete, 28 kişilik kapasitesi bulunan koğuşta 60'tan fazla kişinin kaldığını yazdı. Bu bilgi, gazetenin kendi haberine dayanıyor. Cezaevi idaresinden bir açıklama aktarılmadı. DİSK Basın-İş ve BirGün çalışanları Arı'nın serbest bırakılmasını istedi; gazetenin Ankara Temsilcisi'nin 'gazetecilik suç değildir' sözleri de gazetede yer aldı.</p><h2>TCK 217/A kapsamında hangi eylem suç sayılıyor?</h2><p>TCK 217/A, 13 Ekim 2022'de 7418 sayılı Kanun'la Türk Ceza Kanunu'na eklendi. Birinci fıkraya göre, sırf halk arasında endişe, korku veya panik yaratmak saikiyle, ülkenin iç ve dış güvenliği, kamu düzeni ya da genel sağlıkla ilgili gerçeğe aykırı bir bilgiyi kamu barışını bozmaya elverişli biçimde alenen yayan kişi bir yıldan üç yıla kadar hapisle cezalandırılır. Gerçek kimliğin gizlenmesi ya da örgüt faaliyeti çerçevesinde işlenmesi hâlinde ceza yarı oranında artırılır.</p><p>Hukuk yazınında maddenin özel kast, yani belirli bir saik aradığı ve bilginin tek başına paylaşılmasının suçu oluşturmadığı yönünde görüşler yer alıyor. Bu bir yorumdur; somut dosyada bilginin gerçeğe aykırı olup olmadığını ve saikin varlığını yargılamayı yapacak mahkeme değerlendirecek. Anayasa Mahkemesi'nin maddenin iptali istemini reddettiği aktarılıyor, ancak kararın tam metni bu haber için resmî kaynaktan doğrulanamadığı için sayısı ve ayrıntısı verilmiyor.</p><p>Kamu görevlisine görevinden dolayı hakaret suçlaması ise TCK'nın hakaret hükmü olan 125. madde kapsamında değerlendiriliyor. Bu suçlamaya ilişkin tutuklama talebi bildirilmedi; haberlerde tutuklama talebinin 217/A üzerinden yapıldığı yazıyor.</p><h2>Tutuklamanın dayanağı olan CMK 100 ne söylüyor?</h2><p>5271 sayılı Ceza Muhakemesi Kanunu'nun 100. maddesine göre tutuklama için kuvvetli suç şüphesini gösteren somut delillerin ve bir tutuklama nedeninin bulunması gerekir. Kaçma veya kaçacağı şüphesini uyandıran somut olgular ile delilleri yok etme, gizleme ya da değiştirme davranışları tutuklama nedeni sayılıyor. Tutuklama, işin önemi ve beklenen cezayla orantısızsa verilemez.</p><p>Hakimliğin gerekçesi 'kaçma' ve 'delil karartma' ihtimalleri olarak aktarıldı. Arı'nın kendi isteğiyle emniyete gitmesine rağmen kaçma şüphesinin kabul edildiğine dair itirazı, üst mercide incelenecek konular arasında olabilir. Kararın somut gerekçesinin yeterli olup olmadığına itiraz mercii karar verecek.</p><h2>Süreç bundan sonra nasıl işleyecek?</h2><p>Tutuklama kararına karşı itiraz süresi, kararın öğrenilmesinden itibaren iki haftadır (CMK 268/1). İtiraz dilekçesi kararı veren sulh ceza hakimliğine verilir; itirazı yargı çevresindeki asliye ceza mahkemesi hakimi inceler (CMK 268/3-b). Tutukluluğun devamı da yargılama boyunca hakimlikçe ve mahkemece belirli aralıklarla incelenir. Savcılık soruşturmayı tamamlarsa iddianame düzenler; mahkeme iddianameyi kabul ederse yargılama duruşmalarla sürer.</p><p>Arı, 2026'da daha önce de aynı türden bir suçlamayla tutuklanmıştı. Milli Gazete, NTV ve BirGün'ün aktardığına göre 21 Mart 2026'da Tokat'ta gözaltına alınmış, 22 Mart 2026'da 'halkı yanıltıcı bilgiyi alenen yayma' suçlamasıyla tutuklanmış ve 75 gün Sincan Cezaevi'nde kaldıktan sonra 5 Haziran 2026'daki ilk duruşmada adli kontrol şartı konmadan tahliye edilmişti. Bu dosyanın yargılaması ayrı bir süreçtir; yeni tutuklamanın bu dosyayla bağı haberlerde açıklanmadı.</p>",
+  "kaynaklar": [
+   [
+    "X paylaşımı: BirGün Gazetesi (@BirGun_Gazetesi), 25 Ekim 2026 06.50",
+    "https://x.com/BirGun_Gazetesi/status/2114202792122339355"
+   ],
+   [
+    "BirGün, 24 Ekim 2026: BirGün muhabiri İsmail Arı 3 gündür tutuklu!",
+    "https://www.birgun.net/haber/birgun-muhabiri-ismail-ari-3-gundur-tutuklu-741512"
+   ],
+   [
+    "BirGün, 25 Ekim 2026: İsmail Arı'dan mesaj: Emniyet'e kendi ayağımla gitmeme rağmen kaçma şüphesiyle tutuklandım",
+    "https://www.birgun.net/haber/ismail-aridan-mesaj-emniyete-kendi-ayagimla-gitmeme-ragmen-kacma-suphesiyle-tutuklandim-742031"
+   ],
+   [
+    "Cumhuriyet, 21 Ekim 2026: Son dakika... Gazeteci İsmail Arı tutuklandı",
+    "https://www.cumhuriyet.com.tr/siyaset/son-dakika-gazeteci-ismail-ari-tutuklandi-2548964"
+   ]
+  ],
+  "sss": [
+   [
+    "İsmail Arı neden tutuklandı?",
+    "Ankara 6. Sulh Ceza Hakimliği, 'halkı yanıltıcı bilgiyi alenen yayma' suçlamasıyla kaçma ve delil karartma ihtimalini gerekçe göstererek tutuklanmasına karar verdi."
+   ],
+   [
+    "TCK 217/A kaç yıl hapis öngörüyor?",
+    "Birinci fıkra bir yıldan üç yıla kadar hapis öngörüyor. Kimliğin gizlenmesi ya da örgüt çerçevesinde işlenmesi hâlinde ceza yarı oranında artırılıyor."
+   ],
+   [
+    "Tutuklamaya itiraz süresi ne kadar?",
+    "Kararın öğrenilmesinden itibaren iki haftadır. İtiraz, kararı veren sulh ceza hakimliğine verilir; asliye ceza mahkemesi hakimi inceler."
+   ],
+   [
+    "İsmail Arı hakkında karar verildi mi?",
+    "Hayır. Yalnızca tutuklama kararı var; mahkûmiyet kararı bulunmuyor ve masumiyet karinesi geçerli."
+   ]
+  ],
+  "_kaynak_dosya": "content6.py",
+  "_birlestirildigi_yazi": "/gazeteci-tutuklandi-halki-yaniltici-bilgiyi-alenen-yayma-suclamasi",
+  "_tasinma": "2026-10-26 içerik kalitesi denetimi"
+ }
+]

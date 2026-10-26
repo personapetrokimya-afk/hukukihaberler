@@ -46,6 +46,11 @@ TARGET = "https://yagmurtahtasiz.com"   # bağlamsal link hedefi (makale başın
 PER_PAGE = 10
 
 POSTS = P1 + P2 + P3 + P4 + P5 + P6
+# içerik kalitesi: arama motorlarına kapalı tutulan yazılar (kalite.json; panelden yazı düzenleme ekranından değiştirilir)
+try: KALITE = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "kalite.json"), encoding="utf-8"))
+except FileNotFoundError: KALITE = {"noindex": {}}
+for _p in POSTS:
+    if _p["slug"] in KALITE.get("noindex", {}): _p["_noindex"] = True
 
 # ---------------------------------------------------------------- kategoriler (eski yapı)
 CATS = {
@@ -452,7 +457,7 @@ def yazarlar_kutu(baslik="h2", son_goster=True):
     """yazarlar: fotoğraf, ad, uzmanlık alanı ve (varsa) son yazısı"""
     s = []
     for k, y in GORUNEN_YAZARLAR.items():
-        son = next((q for q in POSTS if q.get("yazar") == k or q.get("denetleyen") == k), None) if son_goster else None
+        son = next((q for q in POSTS if q.get("yazar") == k or (q.get("denetleyen") == k and q.get("incelendi"))), None) if son_goster else None   # yalnızca yazdığı ya da kayıtlı olarak incelediği yazı
         alt = (f'<a class="yz-son" href="{son["url"]}">{e(son["title"])}</a>' if son else f'<span class="yz-son">{e(y["alan"])}</span>')
         s.append(f'<li><a class="yz-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a>'
                  f'<div><a class="yz-ad" href="{y["url"]}">{e(y["ad"])}</a><small>{e(y["alan"])}</small>{alt if son else ""}</div></li>')
@@ -864,7 +869,18 @@ INTERNAL = [
 BY_SLUG = {p["slug"]: p for p in POSTS}
 POST_URLS = {p["url"] for p in POSTS}
 # yayından kalkmış ya da adresi değişmiş haberler: eski adres -> yeni adres (yönlendirme ve iç bağlantılar için)
-ESKI_ADRES = {# aynı olayı anlatan ikinci yazılar tek yazıda toplandı (24.10.2026)
+ESKI_ADRES = {# 26.10.2026 içerik kalitesi denetimi: aynı gelişmeyi anlatan ikinci yazılar birleştirildi (kayıtları _silinecek/ klasöründe)
+              "/gazeteci-ismail-ari-halki-yaniltici-bilgiyi-yayma-suclamasiyla": "/gazeteci-tutuklandi-halki-yaniltici-bilgiyi-alenen-yayma-suclamasi",
+              "/hsk-ilke-kararlariyla-bassavcilara-savci-is-yuku-oranlari": "/adli-is-yuku-hsk-ilke-karari-bassavci-ve",
+              "/alo-adalet-135-hatti-nasil-kullanilir-81-il": "/alo-adalet-135-81-ilde-davaniz-5-yili-astiysa-makul-sure-tazminat-komisyonu-aym",
+              "/sarj-cihazi-ve-usb-type-c-kablolara-cevreye": "/sarj-adaptoru-ve-usb-c-kablolarina-yeni-kurallar-2028-tuketici-ve-uretici",
+              "/reklam-kurulu-aldatici-reklam-17-2-milyon-ceza-sahte-indirim-tuketici-haklari": "/reklam-kurulu-kararlariyla-136-dosyada-durdurma-17-2",
+              "/e-tebligat-zorunlulugunda-yeni-donem-vuk-596-sira-no-teblig": "/vuk-596-tebligi-elektronik-tebligat-kimleri-kapsiyor",
+              "/sosyal-medyada-15-yas-siniri-yonetmeligi-resmi-gazetede": "/15-yas-siniri-sosyal-medya-yas-dogrulama-ile",
+              "/fon-tasfiyesi-kanun-teklifi-mecliste-yatirimciya-1-milyon-lira": "/fon-tasfiyesi-kanun-teklifi-genel-kurul-ara-odeme",
+              "/aym-suresiz-nafaka-kararinin-gerekcesi-resmi-gazetede-yayimlandi": "/suresiz-nafaka-ne-zaman-yururluge-girecek-aym-iptal",
+              "/danistay-mesafeli-sozlesmeler-yonetmeligindeki-uc-hukmu-iptal-etti": "/mesafeli-sozlesmeler-yonetmeligi-3-bent-iptal",
+              # aynı olayı anlatan ikinci yazılar tek yazıda toplandı (24.10.2026)
               "/kamu-ihale-kurumu-tebliginde-degisiklik-borc-siniri-50": "/kamu-ihalelerinde-vergi-ve-sgk-borcu-siniri-50-bin-liraya-cikti",
               "/makine-emniyeti-yonetmeligi-resmi-gazete-de-ne-degisti": "/makine-emniyeti-yonetmeligi-yenilendi-yazilim-ve-siber-guvenlik-sarti-2027",
               "/taksit-suresini-ticaret-bakanligi-belirleyecek-yonetmelik": "/taksitli-alisveriste-sureleri-ticaret-bakanligi-belirleyecek-tuketici-ne-bilmeli",
@@ -952,17 +968,19 @@ def baslik_alani(p, tur):
     k = topcat(p)
     d = p["date"].date() if isinstance(p["date"], datetime.datetime) else p["date"]
     saat = p.get("saat")
-    y = YAZARLAR.get(p.get("denetleyen"))   # incelendi işaretliyse "Hukuki inceleme" + onay rozeti; değilse "Alanın hukukçusu"
-    inc_ok = bool(p.get("incelendi"))
+    # yalnızca kayıtlı bir inceleme varsa (editörün işaretlediği tarih) künyede inceleyen avukat ve tarih gösterilir;
+    # inceleme kaydı olmayan yazıda konuya göre otomatik avukat kartı gösterilmez
+    inc_ok = bool(_inceleme_tarihi(p))
+    y = YAZARLAR.get(p.get("denetleyen")) if inc_ok else None
     haz = byline(p)
     inc = ""
     if y:
         kisa_ad = ((y["unvan"] + " ") if y["unvan"] else "") + (y["kisi"].split()[0][0] + ". " + " ".join(y["kisi"].split()[1:]) if len(y["kisi"].split()) > 1 else y["kisi"])
         inc = (f'<div class="ky ky-inc"><a class="ky-f" href="{y["url"]}" tabindex="-1" aria-hidden="true"><img src="{y["foto_k"]}" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer"></a>'
-               f'<div class="ky-m"><span class="kl"><span class="uz">{"Hukuki inceleme" if inc_ok else "Alanın hukukçusu"}</span><span class="ks">{"İnceleyen" if inc_ok else "Hukukçu"}</span></span>'
+               f'<div class="ky-m"><span class="kl"><span class="uz">Hukuki inceleme</span><span class="ks">İnceleyen</span></span>'
                f'<a class="kv" href="{y["url"]}"><span class="uz">{e(y["ad"])}</span><span class="ks">{e(kisa_ad)}</span>'
-               + ('<svg class="ky-ok" width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="İncelendi"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="#17242F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>' if inc_ok else "")
-               + '</a></div></div>')
+               + '<svg class="ky-ok" width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="İncelendi"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="#17242F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+               + f'</a><time class="ky-t" datetime="{_inceleme_tarihi(p).isoformat()}">{trdate(_inceleme_tarihi(p))}</time></div></div>')
     kaydet = (f'<button type="button" class="save ksv" data-u="{p["url"]}" data-t="{e(p["title"])}" data-i="{thumb(p)}" data-k="{e(CATS[k][0])}" data-d="{trdate(p["date"])}" '
               f'aria-pressed="false" aria-label="Bu cihazda kaydet">{ico("bookmark", 14)}<span>Kaydet</span></button>')
     alt_sol = (f'Güncellendi: <time datetime="{e(p["updated"])}">{upd(p["updated"])}</time>' if p.get("updated")
@@ -981,25 +999,23 @@ def baslik_alani(p, tur):
             '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg><span>Paylaş</span></button>'
             '</div></div></header>\n')
 
-def inceleme_karti(p):
-    """haberi yayımlanmadan önce hukuki açıdan inceleyen avukatın kartı (yalnızca kimlik ve alan bilgisi; iletişim, ücret ya da çağrı yok)"""
-    y = YAZARLAR.get(p.get("denetleyen"))
-    if not y: return ""
-    return (f'<aside class="inceleme" aria-label="{"Hukuki inceleme" if p.get("incelendi") else "Alanın hukukçusu"}" data-denetleyen="{p["denetleyen"]}"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
-            f'<img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">{"Hukuki inceleme" if p.get("incelendi") else "Alanın hukukçusu"}</span>'
-            f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])}{(" · " + e(y["baro"])) if y["baro"] else ""}</span>'
-            f'<p>{_inceleme_cumlesi(p, y)}'
-            f'İçerik genel bilgilendirme amaçlıdır; somut bir dosya için hukuki danışmanlık yerine geçmez.</p></div></aside>\n')
+def _inceleme_tarihi(p):
+    """editörün panelden/uygulamadan işaretlediği inceleme tarihi (yoksa None); inceleyen avukat sitede kayıtlı olmalı"""
+    if p.get("denetleyen") not in YAZARLAR: return None
+    try: return datetime.date.fromisoformat(str(p.get("incelendi") or "")[:10])
+    except ValueError: return None
 
-def _inceleme_cumlesi(p, y):
-    """yazının incelendiği ancak editör panelden işaretlediyse söylenir; işaret yoksa yalnızca kişinin sitedeki görevi yazılır"""
-    tur = "analiz" if p.get("tur") == "Analiz" else "haber"
-    if p.get("incelendi"):
-        try: t = datetime.date.fromisoformat(str(p["incelendi"])[:10]); ts = f" {t.day} {AYLAR[t.month - 1]} {t.year} tarihinde"
-        except Exception: ts = ""
-        return f'Bu {tur}{ts} {e(y["ad"])} tarafından hukuki açıdan incelenmiştir. '
-    rol = (y.get("rol") or "yazar").strip()
-    return f'{e(y["ad"])}, Hukuki Haberler\'de {e(rol[0].lower() + rol[1:])} olarak görev yapar. '
+def inceleme_karti(p):
+    """hukuki inceleme kutusu: yalnızca inceleme kaydı VE inceleyen avukatın bu yazıya özgü notu varsa gösterilir.
+    Kutuda inceleme tarihi, avukatın adı (yazar sayfasına bağlantı) ve neyin kontrol edildiğine dair notu yer alır; kalıp cümle yoktur."""
+    t = _inceleme_tarihi(p)
+    not_ = re.sub(r"\s+", " ", str(p.get("inceleme_notu") or "")).strip()
+    if not t or not not_: return ""
+    y = YAZARLAR[p["denetleyen"]]
+    return (f'<aside class="inceleme" aria-label="Hukuki inceleme" data-denetleyen="{p["denetleyen"]}"><a class="in-f" href="{y["url"]}" tabindex="-1" aria-hidden="true">'
+            f'<img src="{y["foto_k"]}" alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer"></a><div class="in-m"><span class="in-e">Hukuki inceleme · <time datetime="{t.isoformat()}">{trdate(t)}</time></span>'
+            f'<a class="in-ad" href="{y["url"]}">{e(y["ad"])}</a><span class="in-a">{e(y["alan"])}{(" · " + e(y["baro"])) if y["baro"] else ""}</span>'
+            f'<p><b>İncelemede kontrol edilenler:</b> {e(not_)}</p></div></aside>\n')
 
 
 def ozet_html(p):
@@ -1149,7 +1165,7 @@ for idx, p in enumerate(POSTS):
           "isAccessibleForFree": True,
           **({"mentions": [{"@type": "Person", "name": x["ad"]} for x in p["isimler"] if isinstance(x, dict) and x.get("ad")]} if p.get("isimler") else {}),
           "about": [{"@type": "Thing", "name": t} for t in p["tags"][:4]],
-          **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if p.get("denetleyen") in YAZARLAR else {}), "image": gorsel_ld(p), "thumbnailUrl": SITE + p["img"],
+          **({"editor": {"@type": "Person", "name": YAZARLAR[p["denetleyen"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["denetleyen"]]["unvan"]} if YAZARLAR[p["denetleyen"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["denetleyen"]]["url"], "@id": SITE + YAZARLAR[p["denetleyen"]]["url"] + "#kisi"}} if _inceleme_tarihi(p) else {}), "image": gorsel_ld(p), "thumbnailUrl": SITE + p["img"],
           "author": ({"@type": "Person", "name": YAZARLAR[p["yazar"]]["kisi"], **({"honorificPrefix": YAZARLAR[p["yazar"]]["unvan"]} if YAZARLAR[p["yazar"]]["unvan"] else {}), "url": SITE + YAZARLAR[p["yazar"]]["url"], "@id": SITE + YAZARLAR[p["yazar"]]["url"] + "#kisi"}
                      if p.get("yazar") in YAZARLAR else {"@type": "Organization", "name": NAME + " Editörlüğü", "url": SITE + "/yayin-ilkeleri/"}),
           "publisher": {"@type": "NewsMediaOrganization", "@id": SITE + "/#kurum", "name": NAME, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/logo.png", "width": 600, "height": 60}}}
@@ -1166,7 +1182,7 @@ for idx, p in enumerate(POSTS):
 {yazar_kutu(p)}{gpref_kutu()}{kaynak_goster(p, full)}
 {gecmis_html(p)}<div class="note">Bu {"analiz" if tur == "Analiz" else "haber"} {trdate(p['date'])} tarihinde yayımlanmıştır. Metindeki süreler, oranlar ve düzenlemeler o tarihteki mevzuatı yansıtır; sonradan değişmiş olabilir. İçerik genel bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Hata bildirimi için <a href="/iletisim/?konu=duzeltme&amp;adres={SITE}{p['url']}#form" rel="nofollow">iletişim</a>.</div>
 {pn}{rel_html}</article>""" + (ANKET_JS if p.get("anket") else "")
-    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], img_alt=img_alt(p), active=f"/haber-kategorisi/{k0}/",
+    write(p["file"], page(p["title"], p["desc"], p["url"], main, ld=[x for x in (ld, sss_ld(p, full)) if x], ogtype="article", crumbs=crumbs, img=p["img"], img_alt=img_alt(p), active=f"/haber-kategorisi/{k0}/", noindex=bool(p.get("_noindex")),
                           ogek=f'\n<meta property="article:published_time" content="{iso(p)}">'
                                + (f'\n<meta property="article:modified_time" content="{e(str(p["updated"]))}">' if p.get("updated") else "")
                                + f'\n<meta property="article:section" content="{e(CATS[k0][0])}">'
@@ -1519,7 +1535,9 @@ _BURO_CUMLE = ((", ".join(_burolar[:-1]) + " ve " + _burolar[-1] if len(_burolar
 DENETIM_PARAGRAF = (("<p>Hukuki içerik denetimini ve alanındaki yazı işlerini şu avukatlar yürütür: "
                      + "; ".join(f'{_yz_bag(y)} ({_mt(_tr_kucuk_bas(y["rol"]))}{"; " + _mt(_tr_kucuk_bas(y["alan"])) if y["alan"] else ""})' for y in _YZ_SIRALI) + ". "
                      + _BURO_CUMLE
-                     + "Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>") if _YZ_SIRALI else
+                     + "Bu bağlantılar haberlerin içeriğini veya yayın kararlarını etkilemez; sitede ücret karşılığı yayımlanmış içerik yoktur.</p>"
+                     + "<p>Bir yazının künyesinde inceleyen avukatın adı ve inceleme tarihi yalnızca o yazı için kayıtlı bir inceleme varsa yer alır. "
+                       "\"Hukuki inceleme\" kutusu ise yalnızca avukatın o yazıda neyi kontrol ettiğini kendi notuyla belirttiği yazılarda gösterilir.</p>") if _YZ_SIRALI else
                     "<p>Sitede ücret karşılığı yayımlanmış içerik yoktur.</p>")
 KUNYE = """<p class="lead">Hukuki Haberler, 2010 yılında yayına başlayan bağımsız bir hukuk haber sitesidir. Ticari bir kuruluşa, hukuk bürosuna ya da baroya bağlı değildir.</p>
 <h2>Yayın ilkeleri</h2>
@@ -1653,7 +1671,7 @@ REDIRECTS.append(("/feed/", "/feed/index.xml")); REDIRECTS.append(("/feed", "/fe
 REDIRECTS.append(("/feed/atom/", "/feed/index.xml")); REDIRECTS.append(("/comments/feed/", "/feed/index.xml"))
 
 # sitemap
-urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS] + \
+urls = [("/", "weekly", "1.0")] + [(p["url"], "yearly", "0.8") for p in POSTS if not p.get("_noindex")] + \
        [(f"/haber-kategorisi/{k}/", "monthly", "0.5") for k in CATS if cat_count[k]] + \
        [(f"/haber-etiketi/{s}/", "weekly", "0.3") for s in tag_posts if etiket_dizinde(s)] + \
        [("/konular/", "weekly", "0.5")] + [(f"/konu/{k}/", "daily", "0.6") for k in KONU_VAR if len(KONU_HABER[k]) >= KONU_DIZIN] + [("/arsiv/", "monthly", "0.4"), ("/hakkinda/", "yearly", "0.3"), ("/kunye/", "yearly", "0.3"), *[(y["url"], "yearly", "0.3") for y in GORUNEN_YAZARLAR.values()], ("/yazarlar/", "monthly", "0.4"), ("/yayin-ilkeleri/", "yearly", "0.3"), ("/gizlilik-politikasi/", "yearly", "0.2"), ("/kullanim-kosullari/", "yearly", "0.2"), ("/analiz/", "daily", "0.6"), ("/mevzuat/", "daily", "0.6"), ("/kesfet/", "weekly", "0.4"), ("/iletisim/", "yearly", "0.2")]
@@ -1681,7 +1699,7 @@ def _yayin_an(p):
     return datetime.datetime.fromisoformat(iso(p)) if p.get("saat") else datetime.datetime.combine(p["date"], datetime.time(9, 0), _tz)
 nsm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "".join(
     f"<url><loc>{SITE}{p['url']}</loc><news:news><news:publication><news:name>{NAME}</news:name><news:language>tr</news:language></news:publication><news:publication_date>{iso(p) if p.get('saat') else p['date'].isoformat()}</news:publication_date><news:title>{e(p['title'])}</news:title></news:news>{_sm_gorsel(p['url'])}</url>\n"
-    for p in POSTS if _yayin_an(p) >= _lim) + "</urlset>\n"
+    for p in POSTS if _yayin_an(p) >= _lim and not p.get("_noindex")) + "</urlset>\n"
 with open(os.path.join(OUT, "news-sitemap.xml"), "w", encoding="utf-8") as f: f.write(nsm)
 with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
     f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /wp-admin/\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/news-sitemap.xml\n")
@@ -1749,6 +1767,8 @@ with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
             "/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n"
             "/gorsel/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n"
             "/canli.json\n  Cache-Control: no-cache\n")
+    # arama motorlarına kapalı yazılar: sayfadaki robots etiketine ek olarak HTTP başlığı (kalite.json)
+    f.write("".join(f"{urllib.parse.quote(p['url'])}\n  X-Robots-Tag: noindex, follow\n" for p in POSTS if p.get("_noindex")))
 
 _images.md5_kaydet()
 # özet
