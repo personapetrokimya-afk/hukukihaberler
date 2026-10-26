@@ -540,6 +540,8 @@ def cikar_notu(govde, p=None):
     kalan = [0]
     def _buro_kural(m):
         u, metin = m.group(1), m.group(2)
+        # 26.10.2026: büro sitelerine bağlantı yalnızca yazar sayfalarında bulunur; haber metnindeki büro bağlantıları düz metne çevrilir
+        return metin
         yol = urllib.parse.urlparse(u).path
         if not re.match(r"/(blog|araclar)/", yol): return metin
         if p is None or _OLAY_HABER(p) or kalan[0] >= 1: return metin
