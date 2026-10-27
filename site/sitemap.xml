@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url><loc>https://hukukihaberler.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://hukukihaberler.com/fon-sorusturmasinda-2-tutuklama-2-adli-kontrol</loc><lastmod>2026-10-28T01:12:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/fon-sorusturmasinda-2-tutuklama-2-adli-kontrol.jpg?v=06f02505</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/fon-sorusturmasinda-2-tutuklama-2-adli-kontrol.jpg?v=200d7e62</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/fon-sorusturmasinda-2-tutuklama-2-adli-kontrol.jpg?v=6688cdd3</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/batman-merkezli-kurgu-trafik-kazasi-operasyonunda-43-gozalti</loc><lastmod>2026-10-28T01:12:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/batman-merkezli-kurgu-trafik-kazasi-operasyonunda-43-gozalti.jpg?v=64533b13</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/batman-merkezli-kurgu-trafik-kazasi-operasyonunda-43-gozalti.jpg?v=b8aa487d</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/batman-merkezli-kurgu-trafik-kazasi-operasyonunda-43-gozalti.jpg?v=a953258f</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/alpagut-atalan-altin-madeni-ced-olumlu-kararinin-yurutmesi</loc><lastmod>2026-10-28T00:39:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/alpagut-atalan-altin-madeni-ced-olumlu-kararinin-yurutmesi.jpg?v=6adda2a8</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/alpagut-atalan-altin-madeni-ced-olumlu-kararinin-yurutmesi.jpg?v=0a7b15be</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/alpagut-atalan-altin-madeni-ced-olumlu-kararinin-yurutmesi.jpg?v=c01811ca</image:loc></image:image></url>
 <url><loc>https://hukukihaberler.com/spk-tasfiyedeki-fonlar-ara-odeme-usul-esaslari</loc><lastmod>2026-10-27T11:44:00+03:00</lastmod><changefreq>yearly</changefreq><priority>0.8</priority><image:image><image:loc>https://hukukihaberler.com/gorsel/spk-tasfiyedeki-fonlar-ara-odeme-usul-esaslari.jpg?v=0bc0c977</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/16x9/spk-tasfiyedeki-fonlar-ara-odeme-usul-esaslari.jpg?v=b1ac3199</image:loc></image:image><image:image><image:loc>https://hukukihaberler.com/gorsel/kart/spk-tasfiyedeki-fonlar-ara-odeme-usul-esaslari.jpg?v=5416315f</image:loc></image:image></url>
@@ -365,6 +366,11 @@
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/dunya/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/ekonomi/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 <url><loc>https://hukukihaberler.com/haber-kategorisi/diger/spor/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/fon-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/adli-kontrol/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/istanbul-cumhuriyet-bassavciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hukukihaberler.com/haber-etiketi/sulh-ceza-hakimligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/nitelikli-dolandiricilik/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/gozalti/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/suc-orgutu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -375,11 +381,8 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/masak/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/belediye-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/masumiyet-karinesi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/sulh-ceza-hakimligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yasa-disi-bahis/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ankara-cumhuriyet-bassavciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/istanbul-cumhuriyet-bassavciligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/tutuklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/ifade-ozgurlugu/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cmk-100/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/icisleri-bakanligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
@@ -387,12 +390,10 @@
 <url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/yonetmelik-degisikligi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tmsf/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/fon-sorusturmasi/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/7258-sayili-kanun/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/siber-suclar/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/tck-282/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/kara-para-aklama/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hukukihaberler.com/haber-etiketi/adli-kontrol/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/istinaf/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/cumhurbaskani-karari/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
 <url><loc>https://hukukihaberler.com/haber-etiketi/iddianame/</loc><changefreq>weekly</changefreq><priority>0.3</priority></url>
